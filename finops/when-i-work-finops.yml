@@ -1,0 +1,100 @@
+name: When I Work FinOps
+description: >
+  FOCUS-aligned FinOps reference for When I Work API consumption costs.
+  When I Work charges on a per-user per-month model. API access requires
+  the Premium plan at $8.00/user/month. Organizations should track active
+  user seat counts carefully as costs scale linearly with headcount.
+specificationVersion: "1.0"
+url: https://wheniwork.com/pricing
+
+focus:
+
+  provider: When I Work
+  providerURL: https://wheniwork.com
+  serviceName: When I Work Workforce Management Platform
+
+  billingModel:
+    type: per-seat
+    description: >
+      Charges are based on the number of active user seats per billing period.
+      Costs scale linearly with the number of employees on the platform.
+    currency: USD
+    billingCycle: monthly
+
+  services:
+
+    - name: Essentials Plan
+      sku: essentials
+      unitPrice: 2.50
+      unit: user/month
+      currency: USD
+      apiIncluded: false
+      description: Core scheduling for single-location teams.
+
+    - name: Pro Plan
+      sku: pro
+      unitPrice: 5.00
+      unit: user/month
+      currency: USD
+      apiIncluded: false
+      description: Advanced scheduling for multi-location businesses.
+
+    - name: Premium Plan
+      sku: premium
+      unitPrice: 8.00
+      unit: user/month
+      currency: USD
+      apiIncluded: true
+      description: >
+        Full-featured plan including API key access, webhooks, and SAML/SSO.
+        Required for any programmatic integration with When I Work.
+
+  costDrivers:
+    - name: Active User Seats
+      description: >
+        The primary cost driver is the number of active employee seats.
+        Adding or removing users adjusts billing proportionally.
+      impact: high
+
+    - name: Plan Tier Selection
+      description: >
+        Upgrading from Essentials ($2.50) to Premium ($8.00) to enable API
+        access represents a 3.2x per-seat cost increase. Organizations should
+        evaluate whether all seats need Premium or only admin/integration seats.
+      impact: high
+
+    - name: Multi-Location Usage
+      description: >
+        Organizations with multiple locations may require the Pro or Premium
+        tier to unlock multi-location scheduling and reporting features.
+      impact: medium
+
+  costOptimization:
+    - strategy: Right-size plan per user role
+      description: >
+        Consider whether all employees need Premium plan access or if only
+        integration and admin accounts require API-enabled Premium seats.
+        Note that When I Work bills per user so mixed-plan configurations
+        may not be available; verify with vendor.
+
+    - strategy: Use webhooks over polling
+      description: >
+        Webhook-driven integrations reduce the number of API calls required,
+        lowering the risk of rate limiting and reducing integration complexity
+        on the Premium plan.
+
+    - strategy: Monitor seat count regularly
+      description: >
+        Remove inactive or terminated employee accounts promptly to avoid
+        paying for unused seats. When I Work allows seat adjustments at any time.
+
+    - strategy: Annual negotiation
+      description: >
+        Contact When I Work sales for volume discounts for large organizations.
+        Publicly listed pricing is the standard monthly rate.
+
+  freeOfferings:
+    - name: 14-Day Free Trial
+      description: All plans include a 14-day free trial with no credit card required.
+      apiAccess: true
+      limitations: Trial period only; full Premium features including API access available.

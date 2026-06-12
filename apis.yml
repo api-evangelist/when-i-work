@@ -1,0 +1,99 @@
+aid: when-i-work
+name: When I Work
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/when-i-work/refs/heads/main/apis.yml
+created: 2026-06-12
+modified: 2026-06-12
+specificationVersion: "0.19"
+description: >
+  When I Work is an employee scheduling and workforce management platform serving
+  over 200,000 workplaces in industries such as restaurants, retail, healthcare,
+  and hospitality. The platform provides a REST API that enables developers and
+  integration partners to manage shifts, schedules, users, time clock records,
+  attendance, and team communication programmatically. API access is restricted
+  to the Premium plan tier, which also includes webhook support and SAML/SSO
+  capabilities. Authentication follows a token-based model where a private
+  developer key and user credentials are exchanged for a bearer token used in
+  subsequent requests. When I Work also publishes webhooks for real-time event
+  notifications, making it suitable for building payroll, HR, and operations
+  integrations.
+tags:
+  - Employee Scheduling
+  - Workforce Management
+  - Time Tracking
+  - Time Clock
+  - Shift Management
+  - Attendance
+  - Team Messaging
+  - Hourly Workers
+  - Labor Forecasting
+  - HR
+
+apis:
+
+  - name: When I Work API
+    description: >
+      REST API for managing employee scheduling, shifts, time clock records,
+      attendance, users, locations, positions, tasks, and team communication
+      within the When I Work platform.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://apidocs.wheniwork.com/external/index.html
+    baseURL: https://api.wheniwork.com/2
+    tags:
+      - Shifts
+      - Schedules
+      - Users
+      - Time Clock
+      - Attendance
+      - Positions
+      - Tasks
+      - Tags
+    properties:
+      - type: Documentation
+        url: https://apidocs.wheniwork.com/external/index.html
+      - type: Plans
+        url: plans/when-i-work-plans-pricing.yml
+      - type: RateLimits
+        url: rate-limits/when-i-work-rate-limits.yml
+      - type: FinOps
+        url: finops/when-i-work-finops.yml
+
+common:
+
+  - type: Website
+    url: https://wheniwork.com
+
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+
+  - type: GitHubOrganization
+    url: https://github.com/wheniwork
+
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/wheniwork
+
+  - type: Blog
+    url: https://wheniwork.com/blog
+
+  - type: Pricing
+    url: https://wheniwork.com/pricing
+
+  - type: StatusPage
+    url: https://status.wheniwork.com
+
+  - type: X
+    url: https://x.com/wheniwork
+
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

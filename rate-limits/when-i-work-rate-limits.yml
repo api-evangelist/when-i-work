@@ -1,0 +1,41 @@
+name: When I Work API Rate Limits
+description: >
+  When I Work does not publish explicit numeric rate limit thresholds in its
+  public API documentation. The documentation notes that "frequent large API
+  requests may run into rate limitations" and recommends using webhook
+  subscriptions for high-frequency data synchronization use cases rather
+  than polling the REST API. Token-based authentication tokens expire 7 days
+  after issuance and should be refreshed at least 2 days before expiration.
+specificationVersion: "0.1"
+url: https://apidocs.wheniwork.com/external/index.html
+
+limits:
+
+  - name: Token Expiration
+    description: >
+      API bearer tokens expire 7 days (604,800 seconds) after creation.
+      Tokens should be refreshed at least 2 days before expiration.
+      The expiration time is encoded in the token's 'iat' (issued at) claim.
+    window: 7 days
+    unit: per token
+    notes:
+      - Tokens must be refreshed using the current login token.
+      - No limit is imposed on the frequency of token refresh requests.
+
+  - name: Request Rate Limiting
+    description: >
+      Specific numeric rate limit thresholds are not publicly documented.
+      When I Work notes that frequent or large volume API requests may
+      encounter rate limiting. The platform recommends webhooks as a
+      preferred alternative to polling for high-frequency data sync scenarios.
+    disclosed: false
+    notes:
+      - Use webhooks (available on Premium plan) for real-time data sync.
+      - Avoid unnecessary repeated polling of the same resource.
+      - Rate limiting responses typically return HTTP 429 Too Many Requests.
+
+recommendations:
+  - Use webhook subscriptions for shift and time entry change notifications.
+  - Implement exponential backoff when receiving HTTP 429 responses.
+  - Cache frequently accessed resources such as users, locations, and positions.
+  - Refresh authentication tokens proactively rather than reactively.

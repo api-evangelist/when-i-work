@@ -1,0 +1,79 @@
+name: When I Work Plans and Pricing
+description: >
+  When I Work offers three subscription plans billed per user per month.
+  API access, webhooks, and SAML/SSO are available exclusively on the Premium plan.
+  All plans include a 14-day free trial with no credit card required and no
+  long-term contracts.
+specificationVersion: "0.1"
+url: https://wheniwork.com/pricing
+
+plans:
+
+  - name: Essentials
+    description: >
+      Core scheduling plan for single-location teams and small businesses.
+      Includes employee scheduling, time and attendance, auto-scheduling,
+      multi-week scheduling, schedule templates, in-app team messaging,
+      shift swapping, and integrations with payroll and POS systems.
+    price: 2.50
+    unit: user/month
+    currency: USD
+    billingCycle: monthly
+    apiAccess: false
+    features:
+      - Unlimited users
+      - Auto scheduling
+      - Multi-week scheduling
+      - Schedule templates
+      - Labor forecasting
+      - In-app team messaging
+      - Shift swapping
+      - OpenShifts
+      - Payroll integrations
+      - POS integrations
+      - Help center and live chat
+
+  - name: Pro
+    description: >
+      Advanced scheduling plan for multi-location or more complex operations.
+      Adds scheduling rules, role permissions, labor sharing, custom unit
+      forecasting, 24-hour callout reporting, custom reporting, overlapping
+      OpenShifts, and timezone toggling.
+    price: 5.00
+    unit: user/month
+    currency: USD
+    billingCycle: monthly
+    apiAccess: false
+    features:
+      - Everything in Essentials
+      - Advanced scheduling rules
+      - Role permissions
+      - Labor sharing
+      - Custom unit forecasting
+      - 24-hour callout reporting
+      - Custom reporting
+      - Overlapping OpenShifts
+      - Timezone toggling
+
+  - name: Premium
+    description: >
+      Enterprise-grade plan that unlocks API key access, webhooks for
+      real-time event notifications, and SAML/SSO for enterprise identity
+      management. Designed for organizations that need programmatic
+      integration with HR, payroll, or operations systems.
+    price: 8.00
+    unit: user/month
+    currency: USD
+    billingCycle: monthly
+    apiAccess: true
+    features:
+      - Everything in Pro
+      - API key access
+      - Webhooks
+      - SAML/SSO
+
+notes:
+  - Plans are billed per active user per month with no long-term contracts.
+  - A 14-day free trial is available on all plans; no credit card required.
+  - Seats can be added or reduced at any time.
+  - Developer key / API key must be requested via the When I Work partner/developer onboarding process.
