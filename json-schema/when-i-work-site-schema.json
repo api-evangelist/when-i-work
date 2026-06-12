@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "readOnly": true,
+      "example": 10000
+    },
+    "account_id": {
+      "type": "integer",
+      "example": 10000
+    },
+    "location_id": {
+      "type": "integer",
+      "example": 145030
+    },
+    "name": {
+      "type": "string",
+      "example": "Main venue."
+    },
+    "color": {
+      "type": "string",
+      "example": "8da6d9"
+    },
+    "description": {
+      "type": "string",
+      "example": "Large meeting room"
+    },
+    "address": {
+      "type": "string",
+      "example": "420 N 5th St #500, Minneapolis, MN 55401, USA"
+    },
+    "coordinates": {
+      "type": "array",
+      "example": [
+        44.983791,
+        -93.2774416
+      ]
+    },
+    "latitude": {
+      "type": "number",
+      "format": "float",
+      "example": 44.983791
+    },
+    "longitude": {
+      "type": "number",
+      "format": "float",
+      "example": -93.2774416
+    },
+    "place": {
+      "$ref": "#/components/schemas/Place"
+    },
+    "place_id": {
+      "type": "string",
+      "example": 2
+    },
+    "is_deleted": {
+      "type": "boolean",
+      "example": false
+    },
+    "deleted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2020-05-16T06:57:28+05:00"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2020-05-26T06:57:28+05:00"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://when-i-work.com/schemas/site",
+  "title": "Site"
+}

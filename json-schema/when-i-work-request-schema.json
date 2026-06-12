@@ -1,0 +1,95 @@
+{
+  "properties": {
+    "id": {
+      "description": "Unique ID of the request.",
+      "type": "integer"
+    },
+    "account_id": {
+      "description": "The ID of the account this request belongs to.",
+      "type": "integer"
+    },
+    "created_at": {
+      "description": "Full datetime the request was created.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "creator_id": {
+      "description": "The ID of the user creating the request.",
+      "type": "integer"
+    },
+    "end_time": {
+      "description": "Full datetime the request ends at.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "hours": {
+      "description": "The number of hours of paid time off to use.",
+      "format": "float",
+      "type": "number"
+    },
+    "status": {
+      "description": "The current status of the request. The field user_status is more\ngranular (it supports the Denied status) and should be used instead of\nstatus..\n  * `0` = Pending\n  * `1` = Canceled\n  * `2` = Accepted\n  * `3` = Expired\n",
+      "enum": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "type": "integer"
+    },
+    "start_time": {
+      "description": "Full datetime the request starts at.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "type": {
+      "type": "integer",
+      "nullable": true,
+      "deprecated": true,
+      "description": "DEPRECATED IN FAVOR OF `type_id`. SEE Request Type.\n\nThe type of timeoff request being made\n * `0` - Unpaid Time Off\n * `1` - Paid Time Off\n * `2` - Sick\n * `3` - Holiday\n"
+    },
+    "type_id": {
+      "description": "The RequestType ID referencing the type of timeoff (Personal, Sick, Holiday).\n\nOnly certain plans can create non-built-in types.\n",
+      "type": "integer"
+    },
+    "type_label": {
+      "description": "The label for the custom timeoff type (Personal, Sick, Holiday)",
+      "type": "string",
+      "readOnly": true
+    },
+    "paid": {
+      "description": "If the timeoff request is for paid timeoff",
+      "type": "boolean"
+    },
+    "updated_at": {
+      "description": "Full datetime the request was last updated.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "user_id": {
+      "description": "The ID of the user requesting time off.",
+      "type": "integer"
+    },
+    "can_edit": {
+      "readOnly": true,
+      "description": "Is the timeoff request editable by the authenticated user.\n* `true`\n* `false`\n",
+      "type": "boolean",
+      "example": false
+    },
+    "user_status": {
+      "description": "The current user status of the request.\n* `0` = Pending\n* `1` = Canceled\n* `2` = Accepted\n* `3` = Expired\n* `4` = Denied\n",
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "type": "integer"
+    }
+  },
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://when-i-work.com/schemas/request",
+  "title": "Request"
+}

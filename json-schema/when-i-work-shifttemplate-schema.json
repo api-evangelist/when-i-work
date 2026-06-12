@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "readOnly": true,
+      "example": 10000
+    },
+    "account_id": {
+      "type": "integer",
+      "example": 10000
+    },
+    "break_time": {
+      "type": "number",
+      "format": "double",
+      "example": 0.5
+    },
+    "breaks": {
+      "description": "An array of breaks for the shift template. When updating a template, any existing breaks for the shift that are not included in the request will be deleted.",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/BlockScheduledBreak"
+      }
+    },
+    "color": {
+      "type": "string",
+      "example": "8da6d9"
+    },
+    "end_time": {
+      "type": "string",
+      "example": "17:00:00"
+    },
+    "start_time": {
+      "type": "string",
+      "example": "09:00:00"
+    },
+    "location_id": {
+      "type": "integer",
+      "example": 10000
+    },
+    "notes": {
+      "type": "string",
+      "example": "Here are some shift notes"
+    },
+    "position_id": {
+      "type": "integer",
+      "example": 10000
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2019-05-16T06:57:28+05:00"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2019-05-16T06:57:28+05:00"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://when-i-work.com/schemas/shifttemplate",
+  "title": "ShiftTemplate"
+}

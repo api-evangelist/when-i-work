@@ -1,0 +1,118 @@
+{
+  "properties": {
+    "account_id": {
+      "description": "ID of the primary account for this user.",
+      "type": "integer"
+    },
+    "activated": {
+      "description": "Whether the manager has activated this user.",
+      "type": "boolean"
+    },
+    "email": {
+      "description": "The email address of this user.",
+      "format": "email",
+      "type": "string"
+    },
+    "employee_code": {
+      "description": "The user's employee code. This code can be used to clock in instead of\nthe user's email address, or it can be used to help map users in When\nI Work to other services.\n",
+      "type": "string"
+    },
+    "first_name": {
+      "description": "The first name of this user.",
+      "type": "string"
+    },
+    "hourly_rate": {
+      "description": "The base hourly rate for this user. The user can have additional wages\nbased on the position they are working at the time. There is no currency\nattached, so customers are expected to input correct values for their\ncurrency or do their own conversion from USD.\n",
+      "format": "float",
+      "type": "number"
+    },
+    "hours_max": {
+      "description": "The max hours that this user prefers to work. A manager may still\nschedule the user beyond this value.\n",
+      "format": "float",
+      "type": "number"
+    },
+    "hours_preferred": {
+      "description": "The preferred number of hours for this user to work.",
+      "format": "float",
+      "type": "number"
+    },
+    "id": {
+      "description": "Unique identifier for the user.",
+      "type": "integer"
+    },
+    "is_deleted": {
+      "description": "Whether the user has been deleted.",
+      "type": "boolean"
+    },
+    "is_hidden": {
+      "description": "Whether the user has been hidden from the scheduler.",
+      "type": "boolean"
+    },
+    "is_payroll": {
+      "description": "Whether the user has access to payroll. (Only available for managers\nand supervisors.)\n",
+      "type": "boolean"
+    },
+    "is_private": {
+      "description": "Whether the user has privacy enabled, which will hide their contact\ndetails from other employees. Supervisors+ can not hide their\nemail/phone from other employees.\n",
+      "type": "boolean"
+    },
+    "is_trusted": {
+      "description": "Whether the user can edit their own timesheet.",
+      "type": "boolean"
+    },
+    "last_login": {
+      "description": "The date and time when this user last logged in.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "last_name": {
+      "description": "The last name of this user.",
+      "type": "string"
+    },
+    "locations": {
+      "description": "An array of location IDs to be applied to this user.",
+      "items": {
+        "type": "integer"
+      },
+      "type": "array"
+    },
+    "login_id": {
+      "description": "Unique identifier for the login belonging to the user.",
+      "type": "integer"
+    },
+    "notes": {
+      "description": "Notes about this user. Visible only to supervisors+.",
+      "type": "string"
+    },
+    "phone_number": {
+      "description": "The phone number of this user.",
+      "type": "string"
+    },
+    "positions": {
+      "description": "An array of position IDs to be assigned to this user.",
+      "items": {
+        "type": "integer"
+      },
+      "type": "array"
+    },
+    "role": {
+      "description": "The user's role.",
+      "enum": [
+        "1 = Admin",
+        "2 = Manager",
+        "3 = Employee (Default)",
+        "4 = Lead (Unused)",
+        "5 = Supervisor"
+      ],
+      "type": "integer"
+    },
+    "type": {
+      "description": "A bitwise flag representing additional wage options:\n1 = hourly employee\n2 = salaried employee\n4 = Exempt from overtime\n",
+      "type": "integer"
+    }
+  },
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://when-i-work.com/schemas/user",
+  "title": "User"
+}

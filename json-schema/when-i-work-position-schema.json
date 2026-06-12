@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "readOnly": true,
+      "example": 10000
+    },
+    "account_id": {
+      "type": "integer",
+      "example": 10000
+    },
+    "name": {
+      "type": "string",
+      "example": "Dishwasher"
+    },
+    "color": {
+      "type": "string",
+      "example": "cc0000"
+    },
+    "sort": {
+      "type": "integer",
+      "example": 2,
+      "description": "Custom sort order applied to this position"
+    },
+    "tips_tracking": {
+      "type": "boolean",
+      "example": true,
+      "description": "Whether this position tracks tips.\n\nNote: the tips feature is needed to use this field.\n"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Thu, 06 Mar 2016 21:12:14 -0600"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Thu, 06 Mar 2016 22:17:14 -0600"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://when-i-work.com/schemas/position",
+  "title": "Position"
+}

@@ -52,6 +52,30 @@ apis:
     properties:
       - type: Documentation
         url: https://apidocs.wheniwork.com/external/index.html
+      - type: OpenAPI
+        url: openapi/when-i-work-openapi.yml
+      - type: JSONSchema
+        url: json-schema/when-i-work-shift-schema.json
+      - type: JSONSchema
+        url: json-schema/when-i-work-user-schema.json
+      - type: JSONSchema
+        url: json-schema/when-i-work-time-schema.json
+      - type: JSONSchema
+        url: json-schema/when-i-work-position-schema.json
+      - type: JSONSchema
+        url: json-schema/when-i-work-schedule-schema.json
+      - type: JSONSchema
+        url: json-schema/when-i-work-site-schema.json
+      - type: JSONSchema
+        url: json-schema/when-i-work-request-schema.json
+      - type: JSONSchema
+        url: json-schema/when-i-work-shifttemplate-schema.json
+      - type: Examples
+        url: examples/when-i-work-examples.json
+      - type: Vocabulary
+        url: vocabulary/when-i-work-vocabulary.yml
+      - type: JSONLDContext
+        url: json-ld/when-i-work-context.jsonld
       - type: Plans
         url: plans/when-i-work-plans-pricing.yml
       - type: RateLimits

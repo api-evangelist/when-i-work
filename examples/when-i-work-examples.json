@@ -1,0 +1,130 @@
+{
+  "examples": [
+    {
+      "summary": "List Shifts",
+      "method": "GET",
+      "path": "/2/shifts",
+      "request": {
+        "headers": {
+          "W-Token": "your-bearer-token",
+          "Content-Type": "application/json"
+        },
+        "queryParams": {
+          "account_id": 12345,
+          "start": "2026-06-12T00:00:00-05:00",
+          "end": "2026-06-19T00:00:00-05:00",
+          "user_id": 67890
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "shifts": [
+            {
+              "id": 1001,
+              "start_time": "2026-06-12T08:00:00-05:00",
+              "end_time": "2026-06-12T16:00:00-05:00",
+              "user_id": 67890,
+              "location_id": 500,
+              "position_id": 200,
+              "published": true,
+              "notes": "Morning shift"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "summary": "Create Shift",
+      "method": "POST",
+      "path": "/2/shifts",
+      "request": {
+        "headers": {
+          "W-Token": "your-bearer-token",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "start_time": "2026-06-13T09:00:00-05:00",
+          "end_time": "2026-06-13T17:00:00-05:00",
+          "user_id": 67890,
+          "location_id": 500,
+          "position_id": 200,
+          "notes": "New shift created via API"
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "shift": {
+            "id": 1002,
+            "start_time": "2026-06-13T09:00:00-05:00",
+            "end_time": "2026-06-13T17:00:00-05:00",
+            "user_id": 67890,
+            "location_id": 500,
+            "position_id": 200,
+            "published": false,
+            "notes": "New shift created via API"
+          }
+        }
+      }
+    },
+    {
+      "summary": "List Users",
+      "method": "GET",
+      "path": "/2/users",
+      "request": {
+        "headers": {
+          "W-Token": "your-bearer-token",
+          "Content-Type": "application/json"
+        },
+        "queryParams": {
+          "location_id": 500
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "users": [
+            {
+              "id": 67890,
+              "first_name": "Jane",
+              "last_name": "Smith",
+              "email": "jane.smith@example.com",
+              "phone_number": "555-0100",
+              "position": "Barista",
+              "role": "employee"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "summary": "Clock In",
+      "method": "POST",
+      "path": "/2/times/clockin",
+      "request": {
+        "headers": {
+          "W-Token": "your-bearer-token",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "user_id": 67890,
+          "shift_id": 1001
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": {
+          "times": {
+            "id": 5001,
+            "user_id": 67890,
+            "shift_id": 1001,
+            "start_time": "2026-06-12T08:02:00-05:00",
+            "end_time": null,
+            "status": 0
+          }
+        }
+      }
+    }
+  ]
+}

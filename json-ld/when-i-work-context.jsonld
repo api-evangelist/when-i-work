@@ -1,0 +1,56 @@
+{
+  "@context": {
+    "@vocab": "https://apidocs.wheniwork.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Shift": "https://apidocs.wheniwork.com/vocab/Shift",
+    "User": "https://apidocs.wheniwork.com/vocab/User",
+    "Time": "https://apidocs.wheniwork.com/vocab/Time",
+    "Position": "https://apidocs.wheniwork.com/vocab/Position",
+    "Schedule": "https://apidocs.wheniwork.com/vocab/Schedule",
+    "Site": "https://apidocs.wheniwork.com/vocab/Site",
+    "Request": "https://apidocs.wheniwork.com/vocab/Request",
+    "ShiftTemplate": "https://apidocs.wheniwork.com/vocab/ShiftTemplate",
+    "Account": "https://apidocs.wheniwork.com/vocab/Account",
+    "Location": "https://apidocs.wheniwork.com/vocab/Location",
+    "id": "@id",
+    "name": "schema:name",
+    "email": "schema:email",
+    "phone": "schema:telephone",
+    "firstName": "schema:givenName",
+    "lastName": "schema:familyName",
+    "startTime": {
+      "@id": "schema:startDate",
+      "@type": "xsd:dateTime"
+    },
+    "endTime": {
+      "@id": "schema:endDate",
+      "@type": "xsd:dateTime"
+    },
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "description": "schema:description",
+    "color": "schema:color",
+    "accountId": "https://apidocs.wheniwork.com/vocab/accountId",
+    "locationId": "https://apidocs.wheniwork.com/vocab/locationId",
+    "positionId": "https://apidocs.wheniwork.com/vocab/positionId",
+    "siteId": "https://apidocs.wheniwork.com/vocab/siteId",
+    "userId": "https://apidocs.wheniwork.com/vocab/userId",
+    "shiftId": "https://apidocs.wheniwork.com/vocab/shiftId",
+    "published": "https://apidocs.wheniwork.com/vocab/published",
+    "acknowledged": "https://apidocs.wheniwork.com/vocab/acknowledged",
+    "notified": "https://apidocs.wheniwork.com/vocab/notified",
+    "breakTime": "https://apidocs.wheniwork.com/vocab/breakTime",
+    "totalTime": "https://apidocs.wheniwork.com/vocab/totalTime",
+    "overtime": "https://apidocs.wheniwork.com/vocab/overtime",
+    "approved": "https://apidocs.wheniwork.com/vocab/approved",
+    "autoClockOut": "https://apidocs.wheniwork.com/vocab/autoClockOut",
+    "notes": "schema:description"
+  }
+}

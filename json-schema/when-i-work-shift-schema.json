@@ -1,0 +1,167 @@
+{
+  "type": "object",
+  "required": [
+    "start_time",
+    "end_time",
+    "location_id"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "readOnly": true,
+      "example": 10000
+    },
+    "account_id": {
+      "type": "integer",
+      "example": 10000
+    },
+    "user_id": {
+      "type": "integer",
+      "example": 101,
+      "description": "The user assigned to the shift. Set to `0` for an Open Shift."
+    },
+    "location_id": {
+      "type": "integer",
+      "example": 1045,
+      "description": "Location the shift belongs to"
+    },
+    "position_id": {
+      "type": "integer",
+      "example": 19483
+    },
+    "site_id": {
+      "type": "integer",
+      "example": 4351
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Mon, 08 May 2023 08:30:00 -0600"
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Mon, 08 May 2023 14:30:00 -0600"
+    },
+    "break_time": {
+      "type": "double",
+      "example": 0.5,
+      "description": "Length of the unpaid breaks for the shift in hours."
+    },
+    "breaks": {
+      "description": "An array of breaks for the shift. When updating a shift, any existing breaks for the shift that are not included in the request will be deleted.",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ShiftScheduledBreak"
+      }
+    },
+    "color": {
+      "type": "string",
+      "example": "cc000",
+      "description": "Assign color to shift"
+    },
+    "notes": {
+      "type": "string",
+      "example": "Shift test",
+      "description": "Text notation for a Shift"
+    },
+    "alerted": {
+      "type": "boolean",
+      "example": false,
+      "description": "Is the shift Alert sent"
+    },
+    "linked_users": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      },
+      "default": null,
+      "description": "Array of user IDs that can take this openshift. Null means all users are eligible."
+    },
+    "shiftchain_key": {
+      "type": "string",
+      "example": "1eizfwp",
+      "description": "The ID to associate shifts in a repeating pattern"
+    },
+    "published": {
+      "type": "boolean",
+      "example": false,
+      "description": "Is the shift published"
+    },
+    "published_date": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Mon, 01 May 2023 08:30:00 -0600"
+    },
+    "notified_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Mon, 01 May 2023 08:32:00 -0600"
+    },
+    "instances": {
+      "type": "integer",
+      "example": 3,
+      "default": null
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Mon, 24 Apr 2023 07:30:00 -0600"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Wed, 26 Apr 2023 11:30:00 -0600"
+    },
+    "acknowledged": {
+      "type": "boolean",
+      "example": 0,
+      "description": "If enabled; When the user confirmed the shift"
+    },
+    "acknowledged_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Fri, 21 Apr 2023 13:30:00 -0600",
+      "description": "If enabled; When the user confirmed the shift"
+    },
+    "creator_id": {
+      "type": "integer",
+      "example": 101,
+      "description": "The user that created the shift"
+    },
+    "is_open": {
+      "type": "boolean",
+      "example": false
+    },
+    "requires_openshift_approval": {
+      "description": "Does this shift require OpenShift Approval",
+      "type": "boolean",
+      "example": true
+    },
+    "openshift_approval_request_id": {
+      "description": "ID of the associated OpenShift Approval request",
+      "type": "integer",
+      "example": 5232,
+      "readOnly": true
+    },
+    "is_approved_without_time": {
+      "description": "Used to indicate that a manager or supervisor has approved a missing time entry for this shift",
+      "type": "boolean",
+      "example": false,
+      "readOnly": true
+    },
+    "is_shared": {
+      "description": "Is the shift a shared OpenShift",
+      "type": "boolean",
+      "example": false
+    },
+    "is_trimmed": {
+      "description": "Is rounding active for shift",
+      "type": "boolean",
+      "example": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://when-i-work.com/schemas/shift",
+  "title": "Shift"
+}

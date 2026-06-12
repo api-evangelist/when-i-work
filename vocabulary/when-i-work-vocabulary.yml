@@ -1,0 +1,748 @@
+vocabulary:
+  name: When I Work API Vocabulary
+  description: Terms and concepts used in the When I Work API for employee scheduling and workforce management
+  version: 1.0.0
+  source: https://apidocs.wheniwork.com/external/index.html
+  tags:
+  - Shifts
+  - Accounts
+  - Users
+  - Positions
+  - Punch
+  - Schedules (Locations)
+  - Sites
+  - Shift Templates (Blocks)
+  - Time Off Requests
+  - Request Type
+  - Shift Requests
+  - Availabilities
+  - Schedule Templates
+  - Annotations
+  - OpenShift Requests
+  - Times
+  - Payrolls
+  - Subscriptions
+  - Shift Breaks
+  - Shift Break - Paid Rest
+  - Forecast Tools
+  - Tasks
+  - Work Tags
+  - Webhooks
+  - Absences
+  - Scheduling Rules
+  - Break Attestation
+  - Import
+  - Export
+  - Reinvite
+  - Timezones
+  operations:
+  - summary: List Shifts
+    method: GET
+    path: /2/shifts
+    tags:
+    - Shifts
+  - summary: Create Shift
+    method: POST
+    path: /2/shifts
+    tags:
+    - Shifts
+  - summary: Bulk Delete Shifts
+    method: DELETE
+    path: /2/shifts
+    tags:
+    - Shifts
+  - summary: Get Shift
+    method: GET
+    path: /2/shifts/{id}
+    tags:
+    - Shifts
+  - summary: Update Shift
+    method: PUT
+    path: /2/shifts/{id}
+    tags:
+    - Shifts
+  - summary: Delete Shift
+    method: DELETE
+    path: /2/shifts/{id}
+    tags:
+    - Shifts
+  - summary: List Times
+    method: GET
+    path: /2/times
+    tags:
+    - Times
+  - summary: Create Time
+    method: POST
+    path: /2/times
+    tags:
+    - Times
+  - summary: Get Time
+    method: GET
+    path: /2/times/{id}
+    tags:
+    - Times
+  - summary: Update Time
+    method: PUT
+    path: /2/times/{id}
+    tags:
+    - Times
+  - summary: Delete Time
+    method: DELETE
+    path: /2/times/{id}
+    tags:
+    - Times
+  - summary: Clock In
+    method: POST
+    path: /2/times/clockin
+    tags:
+    - Punch
+  - summary: Clock Out
+    method: POST
+    path: /2/times/clockout
+    tags:
+    - Punch
+  - summary: Unassign/Release Shifts
+    method: POST
+    path: /2/shifts/unassign
+    tags:
+    - Shifts
+  - summary: Assign multiple users to an OpenShift
+    method: POST
+    path: /2/shifts/{id}/assign
+    tags:
+    - Shifts
+  - summary: List eligible users for OpenShift
+    method: GET
+    path: /2/shifts/eligible
+    tags:
+    - Shifts
+  - summary: Fetch shift history
+    method: GET
+    path: /2/shifts/{id}/history
+    tags:
+    - Shifts
+  - summary: Publish Shifts
+    method: POST
+    path: /2/shifts/publish
+    tags:
+    - Shifts
+  - summary: Unpublish Shifts
+    method: POST
+    path: /2/shifts/unpublish
+    tags:
+    - Shifts
+  - summary: Notify shifts
+    method: POST
+    path: /2/shifts/notify
+    tags:
+    - Shifts
+  - summary: Notify single shift
+    method: POST
+    path: /2/shifts/notify/{id}
+    tags:
+    - Shifts
+  - summary: Bulk Update Shifts
+    method: PUT
+    path: /2/shifts/bulk
+    tags:
+    - Shifts
+  - summary: List swap users
+    method: GET
+    path: /2/shifts/{id}/swapusers
+    tags:
+    - Shifts
+    - Swaps
+  - summary: List Positions
+    method: GET
+    path: /2/positions
+    tags:
+    - Positions
+  - summary: Create Position
+    method: POST
+    path: /2/positions
+    tags:
+    - Positions
+  - summary: Get Position
+    method: GET
+    path: /2/positions/{id}
+    tags:
+    - Positions
+  - summary: Update Position
+    method: PUT
+    path: /2/positions/{id}
+    tags:
+    - Positions
+  - summary: Delete Position
+    method: DELETE
+    path: /2/positions/{id}
+    tags:
+    - Positions
+  - summary: Update Multiple Positions
+    method: PUT
+    path: /2/positions/bulk
+    tags:
+    - Positions
+  - summary: List Schedules (Locations)
+    method: GET
+    path: /2/locations
+    tags:
+    - Schedules (Locations)
+  - summary: Create Schedule (Location)
+    method: POST
+    path: /2/locations
+    tags:
+    - Schedules (Locations)
+  - summary: Get Schedule (Location)
+    method: GET
+    path: /2/locations/{id}
+    tags:
+    - Schedules (Locations)
+  - summary: Update Schedule (Location)
+    method: PUT
+    path: /2/locations/{id}
+    tags:
+    - Schedules (Locations)
+  - summary: Delete Schedule (Location)
+    method: DELETE
+    path: /2/locations/{id}
+    tags:
+    - Schedules (Locations)
+  - summary: List Sites
+    method: GET
+    path: /2/sites
+    tags:
+    - Sites
+  - summary: Create Site
+    method: POST
+    path: /2/sites
+    tags:
+    - Sites
+  - summary: Get Site
+    method: GET
+    path: /2/sites/{id}
+    tags:
+    - Sites
+  - summary: Update Site
+    method: PUT
+    path: /2/sites/{id}
+    tags:
+    - Sites
+  - summary: Delete Site
+    method: DELETE
+    path: /2/sites/{id}
+    tags:
+    - Sites
+  - summary: List Shift Templates (Blocks)
+    method: GET
+    path: /2/blocks
+    tags:
+    - Shift Templates (Blocks)
+  - summary: Create Shift Template (Block)
+    method: POST
+    path: /2/blocks
+    tags:
+    - Shift Templates (Blocks)
+  - summary: Get Shift Template (Block)
+    method: GET
+    path: /2/blocks/{id}
+    tags:
+    - Shift Templates (Blocks)
+  - summary: Update Shift Template (block)
+    method: PUT
+    path: /2/blocks/{id}
+    tags:
+    - Shift Templates (Blocks)
+  - summary: Delete Shift Template (Block)
+    method: DELETE
+    path: /2/blocks/{id}
+    tags:
+    - Shift Templates (Blocks)
+  - summary: List Schedule Templates
+    method: GET
+    path: /2/templates
+    tags:
+    - Schedule Templates
+  - summary: Create Schedule Template
+    method: POST
+    path: /2/templates
+    tags:
+    - Schedule Templates
+  - summary: Get Schedule Template
+    method: GET
+    path: /2/templates/{id}
+    tags:
+    - Schedule Templates
+  - summary: Update Schedule Template
+    method: PUT
+    path: /2/templates/{id}
+    tags:
+    - Schedule Templates
+  - summary: Delete Schedule Template
+    method: DELETE
+    path: /2/templates/{id}
+    tags:
+    - Schedule Templates
+  - summary: List Annotations
+    method: GET
+    path: /2/annotations
+    tags:
+    - Annotations
+  - summary: Create Annotation
+    method: POST
+    path: /2/annotations
+    tags:
+    - Annotations
+  - summary: Get Annotation
+    method: GET
+    path: /2/annotations/{id}
+    tags:
+    - Annotations
+  - summary: Update Annotation
+    method: PUT
+    path: /2/annotations/{id}
+    tags:
+    - Annotations
+  - summary: Delete Annotation
+    method: DELETE
+    path: /2/annotations/{id}
+    tags:
+    - Annotations
+  - summary: List Availability Events
+    method: GET
+    path: /2/availabilityevents
+    tags:
+    - Availabilities
+  - summary: Create Availability Event
+    method: POST
+    path: /2/availabilityevents
+    tags:
+    - Availabilities
+  - summary: Get Availability Event
+    method: GET
+    path: /2/availabilityevents/{id}
+    tags:
+    - Availabilities
+  - summary: Update Availability Event
+    method: PUT
+    path: /2/availabilityevents/{id}
+    tags:
+    - Availabilities
+  - summary: Delete Availability Event
+    method: DELETE
+    path: /2/availabilityevents/{id}
+    tags:
+    - Availabilities
+  - summary: Create Availability Event Exception
+    method: POST
+    path: /2/availabilityevents/{id}/exceptions
+    tags:
+    - Availabilities
+  schemas:
+  - name: BaseScheduledBreak
+    description: ''
+    properties:
+    - name: id
+      description: ID of the break. Provide in the request when updating an existing break.
+    - name: account_id
+      description: ''
+    - name: length
+      description: The length of the break (seconds).
+    - name: paid
+      description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+    - name: sort
+      description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by
+        their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks
+        with a start time are sorted amongst themselves.
+    - name: created_at
+      description: Date and time the break was created at.
+    - name: created_by
+      description: The id of the user who created the break.
+    - name: updated_at
+      description: Date and time the break was last updated.
+    - name: updated_by
+      description: The id of the user who last edited the break.
+  - name: Shift
+    description: ''
+    properties:
+    - name: id
+      description: ''
+    - name: account_id
+      description: ''
+    - name: user_id
+      description: The user assigned to the shift. Set to `0` for an Open Shift.
+    - name: location_id
+      description: Location the shift belongs to
+    - name: position_id
+      description: ''
+    - name: site_id
+      description: ''
+    - name: start_time
+      description: ''
+    - name: end_time
+      description: ''
+    - name: break_time
+      description: Length of the unpaid breaks for the shift in hours.
+    - name: breaks
+      description: An array of breaks for the shift. When updating a shift, any existing breaks for the shift that are not
+        included in the request will be deleted.
+  - name: ShiftChain
+    description: ''
+    properties:
+    - name: key
+      description: ''
+    - name: rrule
+      description: The RFC5545-compliant RRule representing the shift chain.
+    - name: until
+      description: The date when the shift chain ends.
+    - name: week
+      description: Represents the week frequency interval. `1` means weekly, `2` means every two weeks, etc.
+    - name: weekdays
+      description: 'A bitmask of the weekdays which shifts in this chain occur on. In a seven-bit binary number, the most
+
+        significant bit represents Sunday and the least significant bit represents Monday (0b1000001).
+
+
+        Examples:
+
+        | Days                      | Binary      | Decimal |
+
+        |---------------------------|-------------|---------|
+
+        | Monday through Friday     | `0b0011111` | 31      |
+
+        | Monday, Wednesday, Friday | `0b0010101` | 21      |
+
+        | Saturday and Sunday       | `0b1100000` | 96      |
+
+        '
+    - name: timezone_id
+      description: The timezone this chain is built in
+    - name: count
+      description: The number of shifts created by this chain.
+  - name: Chain
+    description: ''
+    properties:
+    - name: until
+      description: 'The date you want the recurrence to end on. It must be in UTC, such that when shifted to the provided
+
+        timezone (see `timezone_id` below) the time will be midnight in a local time.
+
+
+        Example: You''re creating a shift chain in the `America/Chicago` timezone that you want to end on 7/29/24
+
+        locally. You would send `2024-07-29T05:00:00Z`, which when converted to the provided timezone would be
+
+        `2024-07-29T00:00:00-05:00`.
+
+
+        **NOTE**: This is required when _creating_ a repeating shift. It may be omitted when editing one.
+
+        '
+    - name: week
+      description: 'Represents the week frequency interval. `1` means weekly, `2` means every two weeks, etc.
+
+
+        **NOTE**: This is required when _creating_ a repeating shift. It may be omitted when editing one.
+
+        '
+    - name: weekdays
+      description: 'A bitmask of the weekdays which shifts in this chain occur on. In a seven-bit binary number, the most
+
+        significant bit represents Sunday and the least significant bit represents Monday (0b1000001).
+
+
+        Examples:
+
+        | Days                      | Binary      | Decimal |
+
+        |---------------------------|-------------|---------|
+
+        | Monday through Friday     | `0b0011111` | 31      |
+
+        | Monday, Wednesday, Friday | `0b0010101` | 21      |
+
+        | Saturday and Sunday       | `0b1100000` | 96      |
+
+        '
+    - name: timezone_id
+      description: 'The timezone this chain is built in.
+
+
+        This must be either the `timezone_id` or `olson_id` from one of the timezones available through
+
+        [this endpoint](#tag/Timezones).
+
+        '
+  - name: V2Error
+    description: ''
+    properties:
+    - name: error
+      description: A description of the specific error
+    - name: code
+      description: The API error code
+  - name: Time
+    description: ''
+    properties:
+    - name: id
+      description: The time id
+    - name: account_id
+      description: The account id
+    - name: user_id
+      description: The user assigned to the time.
+    - name: creator_id
+      description: The user that created the time.
+    - name: position_id
+      description: Position the time belongs to. 0 if unassigned.
+    - name: location_id
+      description: Location the time belongs to. 0 if unassigned.
+    - name: site_id
+      description: Site the time belongs to. 0 if unassigned.
+    - name: shift_id
+      description: A shift tied to this time. 0 if unassigned.
+    - name: start_time
+      description: The start time
+    - name: end_time
+      description: The end time
+  - name: User
+    description: ''
+    properties:
+    - name: account_id
+      description: ID of the primary account for this user.
+    - name: activated
+      description: Whether the manager has activated this user.
+    - name: email
+      description: The email address of this user.
+    - name: employee_code
+      description: 'The user''s employee code. This code can be used to clock in instead of
+
+        the user''s email address, or it can be used to help map users in When
+
+        I Work to other services.
+
+        '
+    - name: first_name
+      description: The first name of this user.
+    - name: hourly_rate
+      description: 'The base hourly rate for this user. The user can have additional wages
+
+        based on the position they are working at the time. There is no currency
+
+        attached, so customers are expected to input correct values for their
+
+        currency or do their own conversion from USD.
+
+        '
+    - name: hours_max
+      description: 'The max hours that this user prefers to work. A manager may still
+
+        schedule the user beyond this value.
+
+        '
+    - name: hours_preferred
+      description: The preferred number of hours for this user to work.
+    - name: id
+      description: Unique identifier for the user.
+    - name: is_deleted
+      description: Whether the user has been deleted.
+  - name: PunchResponse
+    description: ''
+    properties:
+    - name: time
+      description: The Time object that the punch is associated with
+    - name: overtime_alert
+      description: Was an over-time alert triggered
+    - name: user
+      description: The User that has punched in
+    - name: punches
+      description: 'Array of punches associated with the current Time
+
+        * Punch in/out
+
+        * Punch break start/stop
+
+        '
+  - name: OpenShiftApprovalRequestUser
+    description: ''
+    properties:
+    - name: id
+      description: The ID of the OpenShift Approval Request
+    - name: user_id
+      description: The ID of the user that raised their hand for this request
+    - name: created_at
+      description: ''
+    - name: deleted_at
+      description: ''
+  - name: OpenShiftApprovalRequest
+    description: ''
+    properties:
+    - name: id
+      description: The ID of the OpenShift Approval Request
+    - name: account_id
+      description: The ID of the account that this OpenShift Approval Request belongs to
+    - name: shift_id
+      description: The ID of the shift that this OpenShift Approval Request is for
+    - name: shift
+      description: ''
+    - name: creator_id
+      description: The ID of the user that created this request
+    - name: updater_id
+      description: The ID of the user that last updated this request
+    - name: status
+      description: The current status of the OpenShift Approval Request.
+    - name: user_status
+      description: Copy of the status field to mirror the data model of other request types
+    - name: is_shared
+      description: Is this approval request shared across schedules
+    - name: created_at
+      description: ''
+  - name: ShiftHistory
+    description: ''
+    properties:
+    - name: type
+      description: The type of history event
+    - name: attributes
+      description: ''
+  - name: ShiftBulk
+    description: ''
+    properties:
+    - name: id
+      description: ''
+    - name: account_id
+      description: ''
+    - name: user_id
+      description: The user assigned to the shift. Set to `0` for an Open Shift.
+    - name: location_id
+      description: Location the shift belongs to
+    - name: position_id
+      description: ''
+    - name: site_id
+      description: ''
+    - name: start_time
+      description: ''
+    - name: end_time
+      description: ''
+    - name: break_time
+      description: ''
+    - name: color
+      description: Assign color to shift
+  - name: schemas-Shift
+    description: ''
+    properties:
+    - name: id
+      description: ''
+    - name: accountId
+      description: ''
+    - name: userId
+      description: The user assigned to the shift. Set to `0` for an Open Shift.
+    - name: locationId
+      description: Location the shift belongs to
+    - name: positionId
+      description: ''
+    - name: siteId
+      description: ''
+    - name: startTime
+      description: ''
+    - name: endTime
+      description: ''
+    - name: breakTime
+      description: ''
+    - name: color
+      description: ''
+  - name: Error
+    description: ''
+    properties:
+    - name: error
+      description: ''
+  - name: Position
+    description: ''
+    properties:
+    - name: id
+      description: ''
+    - name: account_id
+      description: ''
+    - name: name
+      description: ''
+    - name: color
+      description: ''
+    - name: sort
+      description: Custom sort order applied to this position
+    - name: tips_tracking
+      description: 'Whether this position tracks tips.
+
+
+        Note: the tips feature is needed to use this field.
+
+        '
+    - name: created_at
+      description: ''
+    - name: updated_at
+      description: ''
+  - name: Place
+    description: ''
+    properties:
+    - name: address
+      description: ''
+    - name: business_name
+      description: ''
+    - name: country
+      description: ''
+    - name: id
+      description: ''
+    - name: latitude
+      description: ''
+    - name: locality
+      description: ''
+    - name: longitude
+      description: ''
+    - name: place_id
+      description: ''
+    - name: place_type
+      description: ''
+    - name: postal_code
+      description: ''
+  - name: Schedule
+    description: ''
+    properties:
+    - name: id
+      description: ''
+    - name: account_id
+      description: ''
+    - name: name
+      description: ''
+    - name: address
+      description: ''
+    - name: coordinates
+      description: ''
+    - name: deleted_at
+      description: ''
+    - name: ip_address
+      description: ''
+    - name: is_default
+      description: ''
+    - name: is_deleted
+      description: ''
+    - name: latitude
+      description: ''
+  - name: Site
+    description: ''
+    properties:
+    - name: id
+      description: ''
+    - name: account_id
+      description: ''
+    - name: location_id
+      description: ''
+    - name: name
+      description: ''
+    - name: color
+      description: ''
+    - name: description
+      description: ''
+    - name: address
+      description: ''
+    - name: coordinates
+      description: ''
+    - name: latitude
+      description: ''
+    - name: longitude
+      description: ''

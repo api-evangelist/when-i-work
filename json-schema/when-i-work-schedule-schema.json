@@ -1,0 +1,92 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "readOnly": true,
+      "example": 10000
+    },
+    "account_id": {
+      "type": "integer",
+      "example": 10000
+    },
+    "name": {
+      "type": "string",
+      "example": "Front of House"
+    },
+    "address": {
+      "type": "string",
+      "example": "420 N 5th St #500, Minneapolis, MN 55401, USA"
+    },
+    "coordinates": {
+      "type": "array",
+      "example": [
+        44.983791,
+        -93.2774416
+      ]
+    },
+    "deleted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ip_address": {
+      "type": "string",
+      "format": "ipv4",
+      "example": "192.168.1.1"
+    },
+    "is_default": {
+      "type": "boolean",
+      "example": false
+    },
+    "is_deleted": {
+      "type": "boolean",
+      "example": false
+    },
+    "latitude": {
+      "type": "number",
+      "format": "float",
+      "example": 44.983791
+    },
+    "longitude": {
+      "type": "number",
+      "format": "float",
+      "example": -93.2774416
+    },
+    "max_hours": {
+      "type": "integer",
+      "example": 0
+    },
+    "place": {
+      "$ref": "#/components/schemas/Place"
+    },
+    "place_confirmed": {
+      "type": "boolean",
+      "example": true
+    },
+    "place_id": {
+      "type": "string",
+      "example": 2
+    },
+    "radius": {
+      "type": "integer",
+      "example": 100
+    },
+    "sort": {
+      "type": "integer",
+      "example": 0
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2019-05-16T06:57:28+05:00"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2019-05-16T06:57:28+05:00"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://when-i-work.com/schemas/schedule",
+  "title": "Schedule"
+}

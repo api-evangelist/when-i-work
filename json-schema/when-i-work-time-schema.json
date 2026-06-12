@@ -1,0 +1,168 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer",
+      "readOnly": true,
+      "example": 10000,
+      "description": "The time id"
+    },
+    "account_id": {
+      "type": "integer",
+      "readOnly": true,
+      "example": 10000,
+      "description": "The account id"
+    },
+    "user_id": {
+      "type": "integer",
+      "example": 101,
+      "description": "The user assigned to the time."
+    },
+    "creator_id": {
+      "type": "integer",
+      "readOnly": true,
+      "example": 100,
+      "description": "The user that created the time."
+    },
+    "position_id": {
+      "type": "integer",
+      "example": 19483,
+      "description": "Position the time belongs to. 0 if unassigned."
+    },
+    "location_id": {
+      "type": "integer",
+      "example": 1045,
+      "description": "Location the time belongs to. 0 if unassigned."
+    },
+    "site_id": {
+      "type": "integer",
+      "example": 4351,
+      "description": "Site the time belongs to. 0 if unassigned."
+    },
+    "shift_id": {
+      "type": "integer",
+      "example": 5451,
+      "description": "A shift tied to this time. 0 if unassigned."
+    },
+    "start_time": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Fri, 07 Mar 2016 08:30:00 -0600",
+      "description": "The start time"
+    },
+    "end_time": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Fri, 07 Mar 2016 14:30:00 -0600",
+      "description": "The end time"
+    },
+    "rounded_start_time": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Fri, 07 Mar 2016 08:30:00 -0600",
+      "description": "The rounded start time. If rounding is not enabled this field will not be present."
+    },
+    "rounded_end_time": {
+      "type": "string",
+      "format": "date-time",
+      "example": "Fri, 07 Mar 2016 14:30:00 -0600",
+      "description": "The rounded end time. If rounding is not enabled this field will not be present."
+    },
+    "notes": {
+      "type": "string",
+      "example": "A time note",
+      "description": "Notes for a time"
+    },
+    "length": {
+      "type": "float",
+      "readOnly": true,
+      "example": 8,
+      "description": "The length of the time in hours."
+    },
+    "rounded_length": {
+      "type": "float",
+      "readOnly": true,
+      "example": 8,
+      "description": "The rounded length calculated from the rounded_start_time and rounded_end_time. If rounding is not enabled this field will not be present."
+    },
+    "hourly_rate": {
+      "type": "float",
+      "readOnly": true,
+      "example": 15,
+      "description": "The base hourly rate for this time."
+    },
+    "cash_tips": {
+      "type": "string",
+      "format": "decimal",
+      "nullable": true,
+      "description": "Any cash tips reported for the shift.\n\nNote: the tips feature is required to see and use this field.\n",
+      "example": "123.45"
+    },
+    "alert_type": {
+      "type": "integer",
+      "readOnly": true,
+      "example": 16,
+      "description": "The type of alert for this time"
+    },
+    "is_approved": {
+      "type": "boolean",
+      "example": false,
+      "description": "If the time is approved"
+    },
+    "modified_by": {
+      "type": "integer",
+      "readOnly": true,
+      "example": 18438,
+      "description": "The user that modified the time"
+    },
+    "sync_id": {
+      "type": "string",
+      "readOnly": true,
+      "example": "",
+      "description": "The quickbooks sync id"
+    },
+    "sync_hash": {
+      "type": "string",
+      "readOnly": true,
+      "example": "",
+      "description": "The quickbooks sync hash"
+    },
+    "updated_at": {
+      "type": "string",
+      "readOnly": true,
+      "format": "date-time",
+      "example": "Tue, 17 Mar 2020 14:48:43 -0700",
+      "description": "When the time was updated"
+    },
+    "created_at": {
+      "type": "string",
+      "readOnly": true,
+      "format": "date-time",
+      "example": "Tue, 17 Mar 2020 14:25:48 -0700",
+      "description": "When the time was created"
+    },
+    "split_time": {
+      "type": "string",
+      "readOnly": true,
+      "format": "date-time",
+      "example": "Fri, 07 Mar 2016 00:00:00 -0600",
+      "description": "If the time crosses payroll periods, when to split it"
+    },
+    "is_alerted": {
+      "type": "boolean",
+      "readOnly": true,
+      "example": false,
+      "description": "If alert_type > 0"
+    },
+    "paid_break_note": {
+      "type": "string",
+      "default": null,
+      "readOnly": true,
+      "example": "I am a note entered for the shift break paid record",
+      "description": "The note associated with the shift break paid record. The include_paid_break_note query param must be set to true for this to be returned."
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://when-i-work.com/schemas/time",
+  "title": "Time"
+}
