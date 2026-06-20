@@ -1,7 +1,7 @@
 aid: when-i-work
 name: When I Work
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/when-i-work/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
@@ -37,7 +37,7 @@ apis:
       REST API for managing employee scheduling, shifts, time clock records,
       attendance, users, locations, positions, tasks, and team communication
       within the When I Work platform.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://apidocs.wheniwork.com/external/index.html
     baseURL: https://api.wheniwork.com/2
     tags:
