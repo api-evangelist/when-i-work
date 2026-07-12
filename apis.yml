@@ -85,6 +85,12 @@ apis:
 
 common:
 
+  - type: TrustCenter
+    url: security/when-i-work-trust-center.yml
+  - type: DomainSecurity
+    url: security/when-i-work-domain-security.yml
+  - type: Authentication
+    url: authentication/when-i-work-authentication.yml
   - type: Website
     url: https://wheniwork.com
 
