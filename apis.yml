@@ -85,6 +85,8 @@ apis:
 
 common:
 
+  - type: AgenticAccess
+    url: agentic-access/when-i-work-agentic-access.yml
   - type: TrustCenter
     url: security/when-i-work-trust-center.yml
   - type: DomainSecurity
