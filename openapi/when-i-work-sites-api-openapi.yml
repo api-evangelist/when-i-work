@@ -1,0 +1,329 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Sites API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Sites
+  description: "Sites communicate additional information about a given shift to the recipient. Typical usage is when you schedule employees for shifts that are at different physical sites (addresses) compared to the Schedule where the shift is assigned. A Job site can include additional detail (address or coordinates) that informs the user where this particular shift is to take place. An additional use case would be if you want to use an additional labor reporting tier and having the Job Site be a project or cost center value.\n\n For more information about using Sites, visit the [Help Center](https://help.wheniwork.com/articles/scheduling-shifts-at-job-sites-computer/).\n"
+paths:
+  /2/sites:
+    get:
+      summary: List Sites
+      description: List all the sites in an account
+      tags:
+      - Sites
+      parameters:
+      - name: include_deleted
+        in: query
+        description: Include deleted sites
+        schema:
+          type: boolean
+          example: false
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sites:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Site'
+    post:
+      summary: Create Site
+      description: Used to create a site within an account
+      tags:
+      - Sites
+      requestBody:
+        $ref: '#/components/requestBodies/SiteRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      readOnly: true
+                      example: 10000
+                    account_id:
+                      type: integer
+                      example: 10000
+                    location_id:
+                      type: integer
+                      example: 145030
+                    name:
+                      type: string
+                      example: Main venue.
+                    color:
+                      type: string
+                      example: 8da6d9
+                    description:
+                      type: string
+                      example: Large meeting room
+                    address:
+                      type: string
+                      example: '420 N 5th St #500, Minneapolis, MN 55401, USA'
+                    coordinates:
+                      type: array
+                      example:
+                      - 44.983791
+                      - -93.2774416
+                    latitude:
+                      type: number
+                      format: float
+                      example: 44.983791
+                    longitude:
+                      type: number
+                      format: float
+                      example: -93.2774416
+                    place:
+                      $ref: '#/components/schemas/Place'
+                    place_id:
+                      type: string
+                      example: 2
+                    is_deleted:
+                      type: boolean
+                      example: false
+                    deleted_at:
+                      type: string
+                      format: date-time
+                    created_at:
+                      type: string
+                      format: date-time
+                      example: '2020-05-16T06:57:28+05:00'
+                    updated_at:
+                      type: string
+                      format: date-time
+                      example: '2020-05-26T06:57:28+05:00'
+  /2/sites/{id}:
+    get:
+      summary: Get Site
+      description: Get a single site by ID
+      tags:
+      - Sites
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the site
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  site:
+                    $ref: '#/components/schemas/Site'
+    put:
+      summary: Update Site
+      description: Updates a single site
+      tags:
+      - Sites
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the site
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        $ref: '#/components/requestBodies/SiteRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  site:
+                    $ref: '#/components/schemas/Site'
+    delete:
+      summary: Delete Site
+      description: "Delete an existing site when no longer needed. This operation cannot be undone. \n"
+      tags:
+      - Sites
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the site
+        schema:
+          type: integer
+        required: false
+      - name: ids
+        in: query
+        description: The IDs of the multiple shift templates
+        schema:
+          type: string
+        required: false
+        example: 1,2,3,4
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        '403':
+          description: 'Forbidden. The current user does not have permission to delete sites.
+
+            '
+        '404':
+          description: 'Not Found.  The site to be deleted was not found.
+
+            '
+components:
+  requestBodies:
+    SiteRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Site'
+      description: The site data
+  schemas:
+    Place:
+      type: object
+      properties:
+        address:
+          type: string
+          example: '420 N 5th St #500, Minneapolis, MN 55401, USA'
+        business_name:
+          type: string
+          example: When I Work
+        country:
+          type: string
+          example: US
+        id:
+          type: integer
+          example: 2
+        latitude:
+          type: number
+          format: float
+          example: 44.983791
+        locality:
+          type: string
+          example: Minneapolis
+        longitude:
+          type: number
+          format: float
+          example: -93.277442
+        place_id:
+          type: string
+          example: ChIJYfRBzjfVslIRQLB018IGX3o
+        place_type:
+          type: array
+          example:
+          - point_of_interest
+          - establishment
+        postal_code:
+          type: string
+          example: '55401'
+        region:
+          type: string
+          example: MN
+        street_name:
+          type: string
+          example: N 5th St
+        street_number:
+          type: string
+          example: '420'
+        sub_locality:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          example: '2019-05-16T09:14:45+05:45'
+    Site:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+        account_id:
+          type: integer
+          example: 10000
+        location_id:
+          type: integer
+          example: 145030
+        name:
+          type: string
+          example: Main venue.
+        color:
+          type: string
+          example: 8da6d9
+        description:
+          type: string
+          example: Large meeting room
+        address:
+          type: string
+          example: '420 N 5th St #500, Minneapolis, MN 55401, USA'
+        coordinates:
+          type: array
+          example:
+          - 44.983791
+          - -93.2774416
+        latitude:
+          type: number
+          format: float
+          example: 44.983791
+        longitude:
+          type: number
+          format: float
+          example: -93.2774416
+        place:
+          $ref: '#/components/schemas/Place'
+        place_id:
+          type: string
+          example: 2
+        is_deleted:
+          type: boolean
+          example: false
+        deleted_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+          example: '2020-05-16T06:57:28+05:00'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2020-05-26T06:57:28+05:00'
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

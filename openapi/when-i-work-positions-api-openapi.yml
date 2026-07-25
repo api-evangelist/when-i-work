@@ -1,0 +1,277 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Positions API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Positions
+  description: 'Positions (aka, job or duty) are used to define labor allocation. Users can be tagged (associated) with one or more Positions. When I Work uses this association for shift eligibility, Alert notifications filtering and labor reporting.
+
+
+    For more information about using Positions, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-positions-computer/).
+
+    '
+paths:
+  /2/positions:
+    get:
+      summary: List Positions
+      description: List all the positions in an account.
+      tags:
+      - Positions
+      parameters:
+      - name: show_deleted
+        in: query
+        description: Whether to show positions that have been deleted
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  positions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Position'
+    post:
+      summary: Create Position
+      description: 'The easiest way to create a position.
+
+        '
+      tags:
+      - Positions
+      requestBody:
+        $ref: '#/components/requestBodies/PositionRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  position:
+                    $ref: '#/components/schemas/Position'
+  /2/positions/{id}:
+    get:
+      summary: Get Position
+      description: Get a single position by ID
+      tags:
+      - Positions
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the position
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  position:
+                    $ref: '#/components/schemas/Position'
+    put:
+      summary: Update Position
+      description: Allows updating a position, with the same format as creating one.
+      tags:
+      - Positions
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the position
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        $ref: '#/components/requestBodies/PositionRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  position:
+                    $ref: '#/components/schemas/Position'
+    delete:
+      summary: Delete Position
+      description: 'Delete an existing position when no longer needed. This operation cannot be undone. Data will remain for historical purposes.
+
+        '
+      tags:
+      - Positions
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the position
+        schema:
+          type: integer
+        required: false
+      - name: ids
+        in: query
+        description: The IDs of the multiple shift templates
+        schema:
+          type: string
+        required: false
+        example: 1,2,3,4
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+  /2/positions/bulk:
+    put:
+      summary: Update Multiple Positions
+      tags:
+      - Positions
+      requestBody:
+        description: The list of positions to update
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Position'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  positions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Position'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+              example:
+                error: Body must be an array of positions
+                code: INVALID_BODY
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+              example:
+                error: You do not have access to do this.
+                code: UNAUTHORIZED
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+              example:
+                error: Could not find position '1234'
+                code: POSITION_NOT_FOUND
+        '500':
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+              example:
+                error: There was a problem saving a position.
+                code: INTERNAL_ERROR
+components:
+  schemas:
+    V2Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
+    Position:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+        account_id:
+          type: integer
+          example: 10000
+        name:
+          type: string
+          example: Dishwasher
+        color:
+          type: string
+          example: cc0000
+        sort:
+          type: integer
+          example: 2
+          description: Custom sort order applied to this position
+        tips_tracking:
+          type: boolean
+          example: true
+          description: 'Whether this position tracks tips.
+
+
+            Note: the tips feature is needed to use this field.
+
+            '
+        created_at:
+          type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 21:12:14 -0600
+        updated_at:
+          type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 22:17:14 -0600
+  requestBodies:
+    PositionRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Position'
+      description: The position data
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

@@ -1,0 +1,393 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Times API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Times
+  description: 'Time records are a listing of the worked hours and can be select by date range. Records are sourced from timeclock terminal, web clock In/Out, mobile clock In/Out, timesheet edits, and API record creation/edits of time values.
+
+
+    For more info about user Times, visit the [Help Center](https://help.wheniwork.com/articles/reviewing-employees-time-sheets-computer/).
+
+    '
+paths:
+  /2/times:
+    get:
+      summary: List Times
+      description: Fetch a list of shifts based on a set of filters
+      tags:
+      - Times
+      parameters:
+      - name: start
+        in: query
+        description: The start of the filter range.
+        schema:
+          type: string
+          format: date-time
+          default: now - 3 days
+      - name: end
+        in: query
+        description: The end of the filter range.
+        schema:
+          type: string
+          format: date-time
+          default: now
+      - name: user_id
+        in: query
+        description: List of user ids to filter on
+        schema:
+          type: string
+          format: csv
+      - name: only_open
+        in: query
+        description: Return only times without an end time
+        schema:
+          type: boolean
+          format: true/false
+          default: false
+      - name: updated_at
+        in: query
+        description: Only return times that have been updated since the provided timestamp.
+        schema:
+          type: string
+          format: date-time
+          default: null
+      - in: query
+        description: Flag to overwrite the start/end/length values with their rounded counterparts (if account setting is enabled)
+        name: overwrite_with_rounded
+        required: false
+        default: false
+        schema:
+          type: integer
+      - in: query
+        description: Returns the note for a Shift Break Paid Record. Deprecated - please refer to the break attestation docs [here](#tag/Break-Attestation)
+        name: include_paid_break_note
+        deprecated: true
+        default: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  times:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Time'
+    post:
+      summary: Create Time
+      description: Create a time. For accounts with Check payroll onboarded, start time must not be past the end of the current pay period
+      tags:
+      - Times
+      requestBody:
+        $ref: '#/components/requestBodies/TimeRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  time:
+                    $ref: '#/components/schemas/Time'
+  /2/times/{id}:
+    get:
+      summary: Get Time
+      description: Get a single time by ID
+      tags:
+      - Times
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the time
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  time:
+                    $ref: '#/components/schemas/Time'
+    put:
+      summary: Update Time
+      description: Update an existing time
+      tags:
+      - Times
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the shift
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        $ref: '#/components/requestBodies/TimeRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  shift:
+                    $ref: '#/components/schemas/Time'
+    delete:
+      summary: Delete Time
+      description: Delete an existing time when no longer needed. This operation cannot be undone.
+      tags:
+      - Times
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the time
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+components:
+  requestBodies:
+    TimeRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+                example: 101
+                description: The user assigned to the times.
+              position_id:
+                type: integer
+                example: 19483
+                description: Position the time belongs to. 0 if unassigned.
+              location_id:
+                type: integer
+                example: 1045
+                description: Location the time belongs to. 0 if unassigned.
+              site_id:
+                type: integer
+                example: 4351
+                description: Site the time belongs to. 0 if unassigned.
+              shift_id:
+                type: integer
+                example: 5451
+                description: A shift tied to this time. 0 if unassigned.
+              start_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 08:30:00 -0600
+                description: The start time. For accounts with Check payroll onboarded, time must not be past the end of the current pay period
+              end_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 14:30:00 -0600
+                description: The end time
+              rounded_start_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 08:30:00 -0600
+                description: The rounded start time. If rounding is not enabled this field will not be present.
+              rounded_end_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 14:30:00 -0600
+                description: The rounded end time. If rounding is not enabled this field will not be present.
+              notes:
+                type: string
+                example: A time note
+                description: Notes for a time
+              is_approved:
+                type: boolean
+                example: false
+                description: If the time is approved
+              cash_tips:
+                description: The amount of cash tips reported for the time entry.
+                type: string
+                format: decimal
+                example: '54.32'
+      description: Time data
+  schemas:
+    Time:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+          description: The time id
+        account_id:
+          type: integer
+          readOnly: true
+          example: 10000
+          description: The account id
+        user_id:
+          type: integer
+          example: 101
+          description: The user assigned to the time.
+        creator_id:
+          type: integer
+          readOnly: true
+          example: 100
+          description: The user that created the time.
+        position_id:
+          type: integer
+          example: 19483
+          description: Position the time belongs to. 0 if unassigned.
+        location_id:
+          type: integer
+          example: 1045
+          description: Location the time belongs to. 0 if unassigned.
+        site_id:
+          type: integer
+          example: 4351
+          description: Site the time belongs to. 0 if unassigned.
+        shift_id:
+          type: integer
+          example: 5451
+          description: A shift tied to this time. 0 if unassigned.
+        start_time:
+          type: string
+          format: date-time
+          example: Fri, 07 Mar 2016 08:30:00 -0600
+          description: The start time
+        end_time:
+          type: string
+          format: date-time
+          example: Fri, 07 Mar 2016 14:30:00 -0600
+          description: The end time
+        rounded_start_time:
+          type: string
+          format: date-time
+          example: Fri, 07 Mar 2016 08:30:00 -0600
+          description: The rounded start time. If rounding is not enabled this field will not be present.
+        rounded_end_time:
+          type: string
+          format: date-time
+          example: Fri, 07 Mar 2016 14:30:00 -0600
+          description: The rounded end time. If rounding is not enabled this field will not be present.
+        notes:
+          type: string
+          example: A time note
+          description: Notes for a time
+        length:
+          type: float
+          readOnly: true
+          example: 8
+          description: The length of the time in hours.
+        rounded_length:
+          type: float
+          readOnly: true
+          example: 8
+          description: The rounded length calculated from the rounded_start_time and rounded_end_time. If rounding is not enabled this field will not be present.
+        hourly_rate:
+          type: float
+          readOnly: true
+          example: 15
+          description: The base hourly rate for this time.
+        cash_tips:
+          type: string
+          format: decimal
+          nullable: true
+          description: 'Any cash tips reported for the shift.
+
+
+            Note: the tips feature is required to see and use this field.
+
+            '
+          example: '123.45'
+        alert_type:
+          type: integer
+          readOnly: true
+          example: 16
+          description: The type of alert for this time
+        is_approved:
+          type: boolean
+          example: false
+          description: If the time is approved
+        modified_by:
+          type: integer
+          readOnly: true
+          example: 18438
+          description: The user that modified the time
+        sync_id:
+          type: string
+          readOnly: true
+          example: ''
+          description: The quickbooks sync id
+        sync_hash:
+          type: string
+          readOnly: true
+          example: ''
+          description: The quickbooks sync hash
+        updated_at:
+          type: string
+          readOnly: true
+          format: date-time
+          example: Tue, 17 Mar 2020 14:48:43 -0700
+          description: When the time was updated
+        created_at:
+          type: string
+          readOnly: true
+          format: date-time
+          example: Tue, 17 Mar 2020 14:25:48 -0700
+          description: When the time was created
+        split_time:
+          type: string
+          readOnly: true
+          format: date-time
+          example: Fri, 07 Mar 2016 00:00:00 -0600
+          description: If the time crosses payroll periods, when to split it
+        is_alerted:
+          type: boolean
+          readOnly: true
+          example: false
+          description: If alert_type > 0
+        paid_break_note:
+          type: string
+          default: null
+          readOnly: true
+          example: I am a note entered for the shift break paid record
+          description: The note associated with the shift break paid record. The include_paid_break_note query param must be set to true for this to be returned.
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

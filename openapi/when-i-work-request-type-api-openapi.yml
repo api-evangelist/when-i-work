@@ -1,0 +1,210 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Request Type API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Request Type
+  description: 'Types of time off that can be selected when submitting a time off request.
+
+
+    For more information about using Time Off Requests, visit the [Help Center](https://help.wheniwork.com/articles/requesting-time-off-computer/).
+
+    '
+paths:
+  /2/requesttypes:
+    get:
+      summary: List Of Time Off Request Types
+      description: 'Get a collection of request type objects. Request types are types available for taking time off.
+
+        '
+      parameters:
+      - name: end
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Collection of Time Off Request Types.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  request-types:
+                    description: Array of request type objects.
+                    items:
+                      $ref: '#/components/schemas/RequestType'
+        '403':
+          description: Forbidden.
+      tags:
+      - Request Type
+    post:
+      summary: Create or update a Collection of request types
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                request-types:
+                  type: array
+                  description: Array of Request Type objects to create or update.
+                  items:
+                    $ref: '#/components/schemas/RequestType'
+      responses:
+        '201':
+          description: Request was successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  request-types:
+                    description: Array of Request Type objects.
+                    items:
+                      $ref: '#/components/schemas/RequestType'
+        '400':
+          description: Bad request.
+        '403':
+          description: Forbidden.
+      tags:
+      - Request Type
+  /2/requesttypes/{id}:
+    parameters:
+    - name: id
+      description: Request Type with ID to return.
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Get Time Off Request Type
+      description: 'Returns a single request object. Requests allow users to request time off.
+
+        '
+      responses:
+        '200':
+          description: Individual Request Type resource.
+          content:
+            application/json:
+              schema:
+                properties:
+                  request-type:
+                    $ref: '#/components/schemas/RequestType'
+        '403':
+          description: 'Forbidden. The current user does not have permission to view the
+
+            request type.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+        '404':
+          description: ID was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+      tags:
+      - Request Type
+    delete:
+      summary: Delete Time Off Request Type
+      responses:
+        '200':
+          description: The Request Type was deleted.
+        '403':
+          description: 'Forbidden. The current user does not have permission to delete the request type.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+        '404':
+          description: The Request Type was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+      tags:
+      - Request Type
+components:
+  schemas:
+    RequestType:
+      properties:
+        id:
+          description: Unique ID of the request type.
+          type: integer
+          example: 123
+        account_id:
+          description: The ID of the account this request type belongs to.
+          type: integer
+          example: 321
+        name:
+          type: string
+          description: Label for the time off request type.
+          example: Holiday
+        built_in:
+          type: boolean
+          description: Is this a default type all accounts have or a custom type. Built in types cannot be deleted.
+          example: true
+        enabled:
+          type: boolean
+          description: Enabled toggles if the type is available for selecting.
+          example: true
+        allow_paid:
+          type: boolean
+          description: Describes if the timeoff type is available for paid time off.
+          example: true
+        allow_unpaid:
+          type: boolean
+          description: Describes if the timeoff type is available for unpaid time off.
+          example: true
+        is_deleted:
+          type: boolean
+          description: Has the timeoff type been deleted.
+          example: false
+        created_at:
+          type: string
+          description: Full datetime for when the type was created in ISO8601.
+        updated_at:
+          type: string
+          description: Full datetime for when the type was last updated in ISO8601.
+        deleted_at:
+          type: string
+          description: Full datetime for when the type was deleted in ISO8601.
+    V2Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

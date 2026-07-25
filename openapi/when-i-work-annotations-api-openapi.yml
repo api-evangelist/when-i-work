@@ -1,0 +1,286 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Annotations API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Annotations
+  description: 'Annotations convey important information to all staff for the given schedules (locations) and date range.
+
+
+    Any or none of the following tags may apply to an Annotation:
+
+
+    * Time Off Not Allowed
+
+    * Business Closed
+
+    * Announcement
+
+
+    The "Time Off Not Allowed" tag is the only tag that affects the behavior of another API. Time Off requests will be considered invalid if the request''s date range overlaps an Annotation of the "Time Off Not Allowed" type for the user''s location(s).
+
+
+    For more on using Annotations, visit the [Help Center](https://help.wheniwork.com/hc/en-us/articles/204348065-Annotations).
+
+    '
+paths:
+  /2/annotations:
+    get:
+      summary: List Annotations
+      description: List all the annotations in the specified date range
+      tags:
+      - Annotations
+      parameters:
+      - name: start_date
+        in: query
+        description: Optional start date to filter by (defaults to the beginning of today)
+        schema:
+          type: string
+          format: date-time
+          example: '2019-05-22T00:00:00+05:00'
+      - name: end_date
+        in: query
+        description: Optional end date to filter by (defaults to the beginning of the day one year from start date)
+        schema:
+          type: string
+          format: date-time
+          example: '2020-05-22T00:00:00+05:00'
+      - name: locations
+        in: query
+        description: Optional list of location IDs to filter by (defaults to all locations)
+        schema:
+          type: array
+          items:
+            type: integer
+          example:
+          - 1
+          - 2
+          - 3
+          - 4
+      - name: no_time_off
+        in: query
+        description: Optional flag to filter to only annotations that don't allow time-off (defaults to false)
+        schema:
+          type: boolean
+          example: false
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  annotations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Annotation'
+    post:
+      summary: Create Annotation
+      description: Used to create an annotation
+      tags:
+      - Annotations
+      requestBody:
+        $ref: '#/components/requestBodies/AnnotationRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  annotation:
+                    $ref: '#/components/schemas/Annotation'
+        '400':
+          description: Failed validation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 2076
+                  error:
+                    type: string
+                    example: You must select the type of annotation.
+        '403':
+          description: Conflicts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 3704
+                  error:
+                    type: string
+                    example: Conflict(s) detected with the location(s) and date range provided.
+  /2/annotations/{id}:
+    get:
+      summary: Get Annotation
+      description: Get a single shift annotation by ID
+      tags:
+      - Annotations
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the annotation
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  annotation:
+                    $ref: '#/components/schemas/Annotation'
+    put:
+      summary: Update Annotation
+      description: Updates a single annotation
+      tags:
+      - Annotations
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the annotation
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        $ref: '#/components/requestBodies/AnnotationRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  annotation:
+                    $ref: '#/components/schemas/Annotation'
+    delete:
+      summary: Delete Annotation
+      description: Delete an existing annotation when no longer needed. This operation cannot be undone.
+      tags:
+      - Annotations
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the annotation
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+components:
+  requestBodies:
+    AnnotationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Annotation'
+      description: The annotation data
+  schemas:
+    Annotation:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+        account_id:
+          type: integer
+          example: 10000
+          readOnly: true
+        all_locations:
+          type: boolean
+          example: false
+        announcement:
+          type: boolean
+          example: false
+        business_closed:
+          type: boolean
+          example: true
+        color:
+          type: string
+          example: cccccc
+        creator_id:
+          type: integer
+          example: 1000
+          readOnly: true
+        end_date:
+          type: string
+          format: date-time
+          example: '2019-05-23T23:59:59+05:00'
+        locations:
+          type: array
+          items:
+            ref: schedules.yaml#/components/schemas/Schedule
+        message:
+          type: string
+          example: asdf
+        no_time_off:
+          type: boolean
+          example: false
+        start_date:
+          type: string
+          format: date-time
+          example: '2019-05-23T00:00:00+05:00'
+        title:
+          type: string
+          example: Example Annotation
+          required: true
+        relevant_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Read only date set to 2 weeks before start date
+          example: '2019-05-09T00:00:00+05:45'
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        updated_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

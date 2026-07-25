@@ -1,0 +1,495 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Shift Breaks API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Shift Breaks
+  description: "Two types of breaks are provided. First; Scheduled Shift Breaks are break records associated with scheduled shifts. Second; Shift Breaks are break records associated with time worked.\nFor Shift Breaks (Attendance)\n   Three types of records are possible from a break action or automated action\n   A record can be created from a user break punch allocation\n   A record can be created from a Manager/Supervisor edit to a timesheet. (With this type of record, no break time is generated and only the length is available to be queried.)\n   A Break record can be created via the system configuration setting for Auto-Deduct of Breaks. (With this type of record, no break time is generated and only the length is available to be queried.)\n\n   Note: This endpoint requires the request header for w-userid.\n   For more information about managing Breaks, visit the [Help Center](https://help.wheniwork.com/articles/attendance-settings/)\n"
+paths:
+  /v3/scheduled-breaks:
+    openapi: 3.0.0
+    get:
+      summary: List Scheduled Shift Breaks
+      parameters:
+      - in: query
+        description: Gets shift breaks with start after (datetime formatted ISO8601)
+        required: false
+        name: startTime
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        description: Gets shifts breaks with end before (datetime formatted ISO8601)
+        required: false
+        name: endTime
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        description: Comma separated list of shift ids to filter results
+        required: false
+        name: shiftId
+        schema:
+          type: string
+      - in: query
+        description: Comma separated list of user ids to filter results
+        required: false
+        name: userId
+        schema:
+          type: string
+      - in: query
+        description: Comma separated list of location ids to filter results
+        required: false
+        name: locationId
+        schema:
+          type: string
+      - in: query
+        description: Limit results
+        required: false
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        description: Start on page
+        required: false
+        name: page
+        schema:
+          type: integer
+      description: Get scheduled shift breaks
+      tags:
+      - Shift Breaks
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduledBreak'
+        '400':
+          description: Bad Request occurs if start/end is in an invalid format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v3/shift-breaks:
+    get:
+      summary: List Shift Breaks
+      description: List actual shift breaks
+      tags:
+      - Shift Breaks
+      parameters:
+      - in: query
+        description: An array of Time query parameters (e.g. ?time[startTime][gte]=2019-01-01T00:00:00Z)
+        name: time
+        schema:
+          type: array
+          items: {}
+      - in: query
+        description: Gets shift breaks with start after (datetime formatted ISO8601)
+        name: startTime
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        description: Gets shift breaks with end before (datetime formatted ISO8601)
+        name: endTime
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        description: Comma separated list of shift ids to filter results
+        name: shiftId
+        required: false
+        schema:
+          type: string
+      - in: query
+        description: Comma separated list of time ids to filter results
+        name: timeId
+        required: false
+        schema:
+          type: string
+      - in: query
+        description: Comma separated list of location ids to filter results
+        name: locationId
+        required: false
+        schema:
+          type: string
+      - in: query
+        description: Comma separated list of user ids to filter results
+        name: userId
+        required: false
+        schema:
+          type: string
+      - in: query
+        description: Only return breaks that are either ended or not ended (0=not ended, 1=ended)
+        name: ended
+        required: false
+        schema:
+          type: integer
+      - in: query
+        description: Limit results
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - in: query
+        description: Start on page
+        name: page
+        required: false
+        schema:
+          type: integer
+      - in: query
+        description: Flag to overwrite the start/end/length values with their rounded counterparts (if account setting is enabled)
+        name: overwriteWithRounded
+        required: false
+        default: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ShiftBreak'
+        '400':
+          description: Bad Request occurs if any required field is missing or dates are formatted incorrectly
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create Shift Break
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - timeId
+              properties:
+                timeId:
+                  description: The id of the time associated with the break
+                  type: integer
+                length:
+                  description: Length of break in minutes. If not sent, start must be sent.
+                  type: integer
+                start:
+                  description: Start of break formated as ISO8601. If not sent, length must be sent.
+                  type: string
+                  format: date-time
+                end:
+                  description: End of break formated as ISO8601. If not sent, start or length must be sent.
+                  type: string
+                  format: date-time
+                scheduledBreakId:
+                  description: The id of the scheduled break associated with the break, used to signal which scheduled break is being clocked in to. Mutually exclusive with `type` field (this field has precedence). When provided, the time must have a shift which has this scheduled break. No other shift breaks must exist with this scheduled break id.
+                  type: integer
+                type:
+                  description: The type of shift break being created (1=paid, 2=unpaid). When not provided, it is set to 2 (unpaid). Mutually exclusive with `scheduledBreakId` field (the former has precedence). When provided, it must be 1 or 2.
+                  type: integer
+                  enum:
+                  - 1
+                  - 2
+              example:
+                timeId: 12
+                length: 15
+                startTime: '2018-01-01T00:00:00Z'
+                endTime: '2018-01-01T00:15:00Z'
+                type: 1
+        description: The Shift Break to create
+      description: Create an actual shift break
+      tags:
+      - Shift Breaks
+      responses:
+        '201':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ShiftBreak'
+        '400':
+          description: Bad Request occurs if any required field is missing or attempting to start multiple breaks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden - if an invalid time id is submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v3/shift-breaks/{id}:
+    openapi: 3.0.0
+    get:
+      summary: Get Shift Break
+      description: Get single shift breaks
+      tags:
+      - Shift Breaks
+      parameters:
+      - in: path
+        description: Shift Break ID
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ShiftBreak'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      summary: Update Shift Break
+      description: Update single shift breaks
+      tags:
+      - Shift Breaks
+      parameters:
+      - in: path
+        description: Shift Break ID
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ShiftBreak'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete Shift Break
+      description: Delete single shift breaks
+      tags:
+      - Shift Breaks
+      parameters:
+      - in: path
+        description: Shift Break ID
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Deleted
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ShiftBreak:
+      type: object
+      required:
+      - id
+      - timeId
+      - creatorId
+      - type
+      - length
+      - isPunched
+      properties:
+        id:
+          description: The shift break id
+          type: integer
+        timeId:
+          description: The time id associated with the break
+          type: integer
+        creatorId:
+          description: The id of the user who created the break
+          type: integer
+        type:
+          description: The type of break (1=paid, 2=unpaid)
+          type: integer
+        length:
+          description: The break time rounded to the nearest minute
+          type: integer
+        isPunched:
+          description: If the break was punched
+          type: boolean
+        editedBy:
+          description: The id of the user who edited the break
+          type: integer
+        start:
+          description: The break start time
+          type: string
+          format: date-time
+        end:
+          description: The break end time
+          type: string
+          format: date-time
+        roundedStartTime:
+          description: The rounded start time. Will only be visible if rounding is enabled.
+          type: string
+          format: date-time
+        roundedEndTime:
+          description: The rounded end time. Will only be visible if rounding is enabled.
+          type: string
+          format: date-time
+        roundedLength:
+          description: The break time rounded based on the roundedStartTime and roundedEndTime if punched. If not punched, rounded to the nearest minute increment when rounding is enabled.
+          type: integer
+        isOrphaned:
+          description: If the break begins after its associated time entry ends.
+          type: boolean
+        scheduledBreakId:
+          description: The scheduled break associated with this shift break, if it is a scheduled break. Otherwise `0`
+          type: integer
+      example:
+        id: 34
+        timeId: 12
+        creatorId: 43
+        type: 2
+        length: 15
+        isPunched: true
+        start: 2018-01-01T00:00:00+00:00:00
+        end: 2018-01-01T00:15:00+00:00:00
+        scheduledBreakId: 0
+    ScheduledBreak:
+      type: object
+      required:
+      - shiftId
+      - type
+      - length
+      properties:
+        shiftId:
+          description: The id of the associated shift
+          type: integer
+        type:
+          description: The type of break (1=paid, 2=unpaid)
+          type: integer
+        length:
+          description: The break time rounded to the nearest minute
+          type: integer
+    Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - title
+          properties:
+            code:
+              description: The API error code
+              type: string
+            title:
+              description: The API error code description
+              type: string
+            errorData:
+              description: Context for the error
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

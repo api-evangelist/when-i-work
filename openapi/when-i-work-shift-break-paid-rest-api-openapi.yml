@@ -1,0 +1,291 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Shift Break - Paid Rest API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Shift Break - Paid Rest
+  description: "When the Attendance setting is enabled to Ask Employees About Paid Rest Breaks the feedback on whether or not breaks were taken is provided here.\n\n  Note: This endpoint requires the request header for w-userid.\n  For more information about managing Breaks, visit the [Help Center](https://help.wheniwork.com/articles/paid-break-reporting/#reporting-paid-breaks)\n\n  (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times) for managing break attestations)\n"
+paths:
+  /v3/shift-break-audits:
+    openapi: 3.0.0
+    get:
+      deprecated: true
+      summary: List Shift Break - Paid Rest records
+      description: List Shift Break - Paid Rest records (Deprecated - please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1break-attestations/get))
+      tags:
+      - Shift Break - Paid Rest
+      parameters:
+      - in: query
+        description: Gets shift breaks with start after (datetime formatted ISO8601)
+        name: startTime
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        description: Gets shift breaks with end before (datetime formatted ISO8601)
+        name: endTime
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        description: Comma separated list of time ids to filter results
+        name: timeId
+        required: false
+        schema:
+          type: string
+      - in: query
+        description: Comma separated list of user ids to filter results
+        name: userId
+        required: false
+        schema:
+          type: string
+      - in: query
+        description: Only return paid rest records for breaks that are either taken or not taken (0=not taken, 1=taken)
+        name: taken
+        required: false
+        schema:
+          type: integer
+      - in: query
+        description: Limit results
+        name: limit
+        required: false
+        schema:
+          type: integer
+      - in: query
+        description: Start on page
+        name: page
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ShiftBreakAudit'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      deprecated: true
+      summary: Create Shift Break Paid Record Entry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - timeId
+              - taken
+              properties:
+                timeId:
+                  description: The id of the time associated with the break paid record
+                  type: integer
+                taken:
+                  description: True if all breaks were taken
+                  type: boolean
+                note:
+                  description: A note that should be populated if taken is false
+                  type: string
+              example:
+                timeId: 12
+                taken: false
+                note: I missed my lunch break
+        description: The Shift Break Paid Rest Entry to create
+      description: Create a Shift Break Paid Rest Entry (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1%7Bid%7D~1break-attestations~1/post))
+      tags:
+      - Shift Break - Paid Rest
+      responses:
+        '201':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ShiftBreakAudit'
+        '400':
+          description: Bad Request occurs if any required field is missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden - if an invalid time id is submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v3/shift-break-audits/{id}:
+    openapi: 3.0.0
+    get:
+      deprecated: true
+      summary: Get Shift Break - Paid Rest Record
+      description: Get single shift breaks (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1break-attestations/get))
+      tags:
+      - Shift Break - Paid Rest
+      parameters:
+      - in: path
+        description: Shift Break Paid Rest Record ID
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ShiftBreakAudit'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      deprecated: true
+      summary: Delete Shift Break Paid Rest
+      description: Delete single shift break paid rest (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1break-attestations~1%7Bid%7D/delete))
+      tags:
+      - Shift Break - Paid Rest
+      parameters:
+      - in: path
+        description: Shift Break Paid Rest ID
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Deleted
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    ShiftBreakAudit:
+      type: object
+      required:
+      - id
+      - timeId
+      - creatorId
+      - taken
+      properties:
+        id:
+          description: The shift break audit id
+          type: integer
+        timeId:
+          description: The time id associated with the break audit
+          type: integer
+        creatorId:
+          description: The id of the user who created the break audit
+          type: integer
+        taken:
+          description: True if all breaks were taken
+          type: boolean
+        note:
+          description: A note that should be populated if taken is false
+          type: string
+      example:
+        id: 23
+        timeId: 12
+        creatorId: 43
+        taken: false
+        note: I missed my lunch break
+    Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - title
+          properties:
+            code:
+              description: The API error code
+              type: string
+            title:
+              description: The API error code description
+              type: string
+            errorData:
+              description: Context for the error
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

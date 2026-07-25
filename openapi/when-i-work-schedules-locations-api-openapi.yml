@@ -1,0 +1,284 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Schedules (Locations) API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Schedules (Locations)
+  description: 'Schedules are logical groupings of users that are working together. Schedules can be physical offices with addresses or logical groups like departments. Users can be tagged (associated) to one or more schedules. Schedules can be departments, facilities, business divisions or any grouping of staff.
+
+
+    For more information about using Scheduled, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-schedules-computer/).
+
+    '
+paths:
+  /2/locations:
+    get:
+      summary: List Schedules (Locations)
+      description: List all the schedules in an account
+      tags:
+      - Schedules (Locations)
+      parameters:
+      - name: only_unconfirmed
+        in: query
+        description: Include only unconfirmed schedules/locations
+        schema:
+          type: boolean
+          example: false
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  locations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Schedule'
+    post:
+      summary: Create Schedule (Location)
+      description: Used to create a schedule (location) within an account
+      tags:
+      - Schedules (Locations)
+      requestBody:
+        $ref: '#/components/requestBodies/ScheduleRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    $ref: '#/components/schemas/Schedule'
+  /2/locations/{id}:
+    get:
+      summary: Get Schedule (Location)
+      description: Get a single schedule/location by ID
+      tags:
+      - Schedules (Locations)
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the schedule
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    $ref: '#/components/schemas/Schedule'
+    put:
+      summary: Update Schedule (Location)
+      description: Updates a single schedule (location)
+      tags:
+      - Schedules (Locations)
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the schedule
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        $ref: '#/components/requestBodies/ScheduleRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    $ref: '#/components/schemas/Schedule'
+    delete:
+      summary: Delete Schedule (Location)
+      description: 'Delete an existing schedule when no longer needed. This operation cannot be undone. Data will remain for historical purposes.
+
+        '
+      tags:
+      - Schedules (Locations)
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the schedule
+        schema:
+          type: integer
+        required: false
+      - name: ids
+        in: query
+        description: The IDs of the multiple shift templates
+        schema:
+          type: string
+        required: false
+        example: 1,2,3,4
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+components:
+  schemas:
+    Place:
+      type: object
+      properties:
+        address:
+          type: string
+          example: '420 N 5th St #500, Minneapolis, MN 55401, USA'
+        business_name:
+          type: string
+          example: When I Work
+        country:
+          type: string
+          example: US
+        id:
+          type: integer
+          example: 2
+        latitude:
+          type: number
+          format: float
+          example: 44.983791
+        locality:
+          type: string
+          example: Minneapolis
+        longitude:
+          type: number
+          format: float
+          example: -93.277442
+        place_id:
+          type: string
+          example: ChIJYfRBzjfVslIRQLB018IGX3o
+        place_type:
+          type: array
+          example:
+          - point_of_interest
+          - establishment
+        postal_code:
+          type: string
+          example: '55401'
+        region:
+          type: string
+          example: MN
+        street_name:
+          type: string
+          example: N 5th St
+        street_number:
+          type: string
+          example: '420'
+        sub_locality:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          example: '2019-05-16T09:14:45+05:45'
+    Schedule:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+        account_id:
+          type: integer
+          example: 10000
+        name:
+          type: string
+          example: Front of House
+        address:
+          type: string
+          example: '420 N 5th St #500, Minneapolis, MN 55401, USA'
+        coordinates:
+          type: array
+          example:
+          - 44.983791
+          - -93.2774416
+        deleted_at:
+          type: string
+          format: date-time
+        ip_address:
+          type: string
+          format: ipv4
+          example: 192.168.1.1
+        is_default:
+          type: boolean
+          example: false
+        is_deleted:
+          type: boolean
+          example: false
+        latitude:
+          type: number
+          format: float
+          example: 44.983791
+        longitude:
+          type: number
+          format: float
+          example: -93.2774416
+        max_hours:
+          type: integer
+          example: 0
+        place:
+          $ref: '#/components/schemas/Place'
+        place_confirmed:
+          type: boolean
+          example: true
+        place_id:
+          type: string
+          example: 2
+        radius:
+          type: integer
+          example: 100
+        sort:
+          type: integer
+          example: 0
+        created_at:
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+  requestBodies:
+    ScheduleRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Schedule'
+      description: The schedule (location) data
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

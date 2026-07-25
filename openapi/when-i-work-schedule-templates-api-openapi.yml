@@ -1,0 +1,460 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Schedule Templates API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Schedule Templates
+  description: 'Schedule templates allow you to create a daily or weekly schedule that is reusable. If your schedules are very similar from day to day or week to week, use a template to save time and avoid creating schedules from scratch.
+
+
+    For more information about using Schedule Templates, visit the [Help Center](https://help.wheniwork.com/articles/using-schedule-templates-computer/).
+
+    '
+paths:
+  /2/templates:
+    get:
+      summary: List Schedule Templates
+      description: List all the shift templates in an account
+      tags:
+      - Schedule Templates
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduleTemplate'
+                  templateshifts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduleTemplateShift'
+    post:
+      summary: Create Schedule Template
+      description: Create a schedule template as a collection of shifts in a daily or weekly pattern which can be loaded to future schedules. The API will collect shifts which fall within the parameters provided; outline below.
+      tags:
+      - Schedule Templates
+      requestBody:
+        $ref: '#/components/requestBodies/ScheduleTemplateRequestCreate'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduleTemplate'
+                  templateshifts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduleTemplateShift'
+  /2/templates/{id}:
+    get:
+      summary: Get Schedule Template
+      description: Get a single schedule template by ID
+      tags:
+      - Schedule Templates
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the shift template
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduleTemplate'
+                  templateshifts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduleTemplateShift'
+    put:
+      summary: Update Schedule Template
+      description: Update a single schedule template
+      tags:
+      - Schedule Templates
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the schedule template
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        $ref: '#/components/requestBodies/ScheduleTemplateRequestUpdate'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templates:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduleTemplate'
+                  templateshifts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ScheduleTemplateShift'
+    delete:
+      summary: Delete Schedule Template
+      description: Delete an existing schedule template when no longer needed. This operation cannot be undone.
+      tags:
+      - Schedule Templates
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the schedule template
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+components:
+  schemas:
+    ShiftScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to.
+            readOnly: true
+          start_time:
+            example: Mon, 08 May 2023 9:30:00 -0600
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: Mon, 08 May 2023 10:00:00 -0600
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
+    BaseScheduledBreak:
+      type: object
+      required:
+      - length
+      - paid
+      properties:
+        id:
+          example: 1234
+          type: integer
+          description: ID of the break. Provide in the request when updating an existing break.
+        account_id:
+          example: 1234
+          type: integer
+          readOnly: true
+        length:
+          example: 1800
+          description: The length of the break (seconds).
+          type: integer
+        paid:
+          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+          type: boolean
+        sort:
+          type: integer
+          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
+          readOnly: true
+        created_at:
+          description: Date and time the break was created at.
+          type: string
+          readOnly: true
+        created_by:
+          description: The id of the user who created the break.
+          type: integer
+          readOnly: true
+        updated_at:
+          description: Date and time the break was last updated.
+          type: string
+          readOnly: true
+        updated_by:
+          description: The id of the user who last edited the break.
+          type: integer
+          readOnly: true
+    ScheduleTemplateShift:
+      allOf:
+      - $ref: '#/components/schemas/Shift'
+      - type: object
+        properties:
+          template_id:
+            type: integer
+            example: 10000
+    Shift:
+      type: object
+      required:
+      - start_time
+      - end_time
+      - location_id
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+        account_id:
+          type: integer
+          example: 10000
+        user_id:
+          type: integer
+          example: 101
+          description: The user assigned to the shift. Set to `0` for an Open Shift.
+        location_id:
+          type: integer
+          example: 1045
+          description: Location the shift belongs to
+        position_id:
+          type: integer
+          example: 19483
+        site_id:
+          type: integer
+          example: 4351
+        start_time:
+          type: string
+          format: date-time
+          example: Mon, 08 May 2023 08:30:00 -0600
+        end_time:
+          type: string
+          format: date-time
+          example: Mon, 08 May 2023 14:30:00 -0600
+        break_time:
+          type: double
+          example: 0.5
+          description: Length of the unpaid breaks for the shift in hours.
+        breaks:
+          description: An array of breaks for the shift. When updating a shift, any existing breaks for the shift that are not included in the request will be deleted.
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftScheduledBreak'
+        color:
+          type: string
+          example: cc000
+          description: Assign color to shift
+        notes:
+          type: string
+          example: Shift test
+          description: Text notation for a Shift
+        alerted:
+          type: boolean
+          example: false
+          description: Is the shift Alert sent
+        linked_users:
+          type: array
+          items:
+            type: integer
+          default: null
+          description: Array of user IDs that can take this openshift. Null means all users are eligible.
+        shiftchain_key:
+          type: string
+          example: 1eizfwp
+          description: The ID to associate shifts in a repeating pattern
+        published:
+          type: boolean
+          example: false
+          description: Is the shift published
+        published_date:
+          type: string
+          format: date-time
+          example: Mon, 01 May 2023 08:30:00 -0600
+        notified_at:
+          type: string
+          format: date-time
+          example: Mon, 01 May 2023 08:32:00 -0600
+        instances:
+          type: integer
+          example: 3
+          default: null
+        created_at:
+          type: string
+          format: date-time
+          example: Mon, 24 Apr 2023 07:30:00 -0600
+        updated_at:
+          type: string
+          format: date-time
+          example: Wed, 26 Apr 2023 11:30:00 -0600
+        acknowledged:
+          type: boolean
+          example: 0
+          description: If enabled; When the user confirmed the shift
+        acknowledged_at:
+          type: string
+          format: date-time
+          example: Fri, 21 Apr 2023 13:30:00 -0600
+          description: If enabled; When the user confirmed the shift
+        creator_id:
+          type: integer
+          example: 101
+          description: The user that created the shift
+        is_open:
+          type: boolean
+          example: false
+        requires_openshift_approval:
+          description: Does this shift require OpenShift Approval
+          type: boolean
+          example: true
+        openshift_approval_request_id:
+          description: ID of the associated OpenShift Approval request
+          type: integer
+          example: 5232
+          readOnly: true
+        is_approved_without_time:
+          description: Used to indicate that a manager or supervisor has approved a missing time entry for this shift
+          type: boolean
+          example: false
+          readOnly: true
+        is_shared:
+          description: Is the shift a shared OpenShift
+          type: boolean
+          example: false
+        is_trimmed:
+          description: Is rounding active for shift
+          type: boolean
+          example: false
+    ScheduleTemplate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+        account_id:
+          readOnly: true
+          type: integer
+          example: 10000
+        name:
+          type: string
+          example: Typical Work Week
+        description:
+          type: string
+          example: Use this template for most work weeks
+        start_date:
+          type: string
+          example: '2019-05-12'
+        end_date:
+          type: string
+          example: '2019-05-18'
+        location_id:
+          type: integer
+          example: 10000
+          deprecated: true
+        user_id:
+          type: integer
+          example: 10000
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        updated_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+  requestBodies:
+    ScheduleTemplateRequestUpdate:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+                exapmle: This is a description of a schedule template
+              name:
+                type: string
+                example: Schedule Template Example
+      description: The schedule template data to update
+    ScheduleTemplateRequestCreate:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+                example: This is a description of a schedule template
+              start:
+                type: string
+                format: date-time
+                example: '2019-05-12T00:00:00+05:45'
+              end:
+                type: string
+                format: date-time
+                example: '2019-05-18T23:59:59+05:45'
+              include_repeating_shifts:
+                type: boolean
+                example: false
+              location_id:
+                type: integer
+                example: 7
+              name:
+                type: string
+                example: Schedule Template Example
+              position_id:
+                type: array
+                items:
+                  type: integer
+                example:
+                - 0
+                - 23
+                - 22
+                - 24
+                - 19
+                - 20
+                - 21
+              site_id:
+                type: array
+                items:
+                  type: integer
+                example:
+                - 0
+      description: The schedule template data
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

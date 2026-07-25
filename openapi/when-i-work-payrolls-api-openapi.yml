@@ -1,0 +1,974 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Payrolls API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Payrolls
+  description: 'Payrolls allows you to select a pay period date range and hours worked within that range. Default range if not supplied is today + 3 days.
+
+
+    > Please note that payrolls cannot be created or deleted via the API
+
+
+    For more info about managing Payroll, visit the [Help Center](https://help.wheniwork.com/articles/close-and-export-payroll/).
+
+    '
+paths:
+  /2/payrolls:
+    get:
+      summary: List Payrolls
+      description: Listing of payroll periods and totals within a specified date range for an account.
+      tags:
+      - Payrolls
+      parameters:
+      - name: start
+        in: query
+        description: Start date of search range (datetime formatted ISO8601)
+        schema:
+          type: date-time
+          default: now
+      - name: end
+        in: query
+        description: End date of search range (datetime formatted ISO8601)
+        schema:
+          type: date-time
+          default: now + 3 days
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X Get https://api.wheniwork.com/2/payrolls
+
+          -H "W-Token: ilovemyboss"
+
+          '
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payrolls:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Payroll'
+  /2/payrolls/{id}:
+    get:
+      summary: Get Payroll
+      description: Get an existing payroll period by ID
+      tags:
+      - Payrolls
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the payroll period requested.
+        schema:
+          type: integer
+        required: true
+      - Payrollhours
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X Get https://api.wheniwork.com/2/payrolls/{Id}
+
+          -H "W-Token: ilovemyboss"
+
+          '
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payroll:
+                    $ref: '#/components/schemas/Payroll'
+                  payrollhours:
+                    type: array
+                    description: 'The final unchanging snapshot of hours for a closed out payroll. Broken out by type, split as needed when crossing pay periods.
+
+
+                      **🔥WARNING🔥**
+
+                      Only for a closed payroll (see is_closed) please use `hourstats` for a payroll that is currently open.
+
+                      '
+                    items:
+                      $ref: '#/components/schemas/PayrollHours'
+    put:
+      summary: Update Payroll
+      description: Update a selected payroll. The PUT body can include fields from the Payroll Object.
+      tags:
+      - Payrolls
+      requestBody:
+        $ref: '#/components/requestBodies/PayrollRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payroll:
+                    $ref: '#/components/schemas/Payroll'
+  /2/payrolls/{id}/stats:
+    get:
+      summary: Get Payroll Statistics for current hours
+      description: Get the aggregate statistics for payroll period by ID
+      tags:
+      - Payrolls
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the payroll period requested.
+        schema:
+          type: integer
+        required: true
+      - name: mapObjects
+        in: query
+        description: Force structured listings to use maps by ID and not arrays
+        required: false
+        schema:
+          type: boolean
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X Get https://api.wheniwork.com/2/payrolls/{Id}/Stats
+
+          -H "W-Token: ilovemyboss"
+
+          '
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payroll:
+                    $ref: '#/components/schemas/Payroll'
+  /2/payrolls/notices:
+    get:
+      summary: List Notices
+      description: 'Get all attendance notices since the last time they were dismissed. Attendance notices can be generated by
+
+        absences, early/late clock ins/outs, no shows, etc.
+
+        '
+      tags:
+      - Payrolls
+      parameters:
+      - name: ignoreDismissedAt
+        in: query
+        schema:
+          type: boolean
+        description: 'Sometimes you may want to view notices that have already been dismissed. Set this parameter to `true` to view
+
+          all notices regardless of when they''ve been dismissed.
+
+          '
+        required: false
+        example: true
+      - name: rangeInDays
+        in: query
+        schema:
+          type: integer
+        description: 'Limit the range of the notices that will be returned. By default, the endpoint will pull in everything since
+
+          the last time the user dismissed notices. This parameter can help restrict the window further.
+
+          '
+        required: false
+        example: -7
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  absences:
+                    type: array
+                    description: Any absences that generated a notice.
+                    items:
+                      $ref: '#/components/schemas/Absence'
+                  notices:
+                    type: array
+                    description: Attendance anomalies that may need to be reviewed.
+                    items:
+                      $ref: '#/components/schemas/Notice'
+                  punches:
+                    type: array
+                    description: All punches associated with times that generate a notice.
+                    items:
+                      $ref: '#/components/schemas/Punch'
+                  shifts:
+                    type: array
+                    description: Any shifts that were associated with absences or times that generated a notice.
+                    items:
+                      $ref: '#/components/schemas/Shift'
+                  times:
+                    type: array
+                    description: Any times that generated a notice.
+                    items:
+                      $ref: '#/components/schemas/Time'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+              example:
+                error: You do not have permission to do this.
+                code: 3005
+components:
+  schemas:
+    ShiftScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to.
+            readOnly: true
+          start_time:
+            example: Mon, 08 May 2023 9:30:00 -0600
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: Mon, 08 May 2023 10:00:00 -0600
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
+    Notice:
+      type: object
+      properties:
+        time_id:
+          type: integer
+          description: The ID of the time that generated the notice.
+        user_id:
+          type: integer
+          description: The ID of the user who the notice is for.
+        shift_id:
+          type: integer
+          description: 'The ID of the shift that generated the notice of is associated with the time or absence which generated the
+
+            notice.
+
+            '
+        title:
+          type: string
+          description: The title of the notice, matches the code.
+          enum:
+          - Wrong Location
+          - Forgot to Clock Out
+          - Not Scheduled
+          - Absent
+          - No Show
+          - Clocked In Early
+          - Clocked In Late
+          - Clocked Out Early
+          - Clocked Out Late
+          - Missed Clock In
+        code:
+          type: integer
+          description: 'The type of notice. Matches the title.
+
+            * `103` - Wrong Location
+
+            * `107` - Forgot to Clock Out
+
+            * `110` - Not Scheduled
+
+            * `121` - Absent
+
+            * `120` - No Show
+
+            * `131` - Clocked In Early
+
+            * `132` - Clocked In Late
+
+            * `133` - Clocked Out Early
+
+            * `134` - Clocked Out Late
+
+            * `135` - Missed Clock In
+
+            '
+        punch_id:
+          type: integer
+          description: The ID of the punch that generated the notice.
+        absence_id:
+          type: integer
+          description: The ID of the absence that generate the notice.
+        created_at:
+          type: string
+          format: date-time
+          description: 'The time the notice was created at. This depends on the kind of entity that generated the notice. For
+
+            example, this could be the `created_at` time of the punch, `start_time` of the time, `start_time` or
+
+            `end_time` of the shift, or the `created_at` time of the absence.
+
+            '
+    Absence:
+      type: object
+      required:
+      - userId
+      - shiftId
+      - shiftStartTime
+      - shiftEndTime
+      - locationId
+      - creatorId
+      properties:
+        id:
+          type: string
+          example: '1'
+          description: ID of the absence
+          readOnly: true
+        accountId:
+          type: string
+          example: '7'
+          description: Account ID of the absence
+          readOnly: true
+        userId:
+          type: string
+          example: '226'
+          description: User ID of the absence
+        shiftId:
+          type: string
+          example: '9'
+          description: Shift ID of the absence
+        shiftStartTime:
+          type: string
+          format: date-time
+          example: '2016-12-19T16:39:57-08:00'
+          description: Start time of the shift
+        shiftEndTime:
+          type: string
+          format: date-time
+          example: '2016-12-19T16:39:57-08:00'
+          description: End time of the shift
+        locationId:
+          type: string
+          example: '13'
+          description: Location ID of the absence
+        siteId:
+          type: string
+          example: '10'
+          description: Site ID of the absence
+        positionId:
+          type: string
+          example: '38'
+          description: Position ID of the absence
+        creatorId:
+          type: string
+          example: '226'
+          description: User ID of the creator of the absence
+        notes:
+          type: string
+          example: Absence note
+          description: Note of the absence
+        actions:
+          type: array
+          description: List of actions taken on a shift.
+          items:
+            $ref: '#/components/schemas/AbsenceActions'
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          example: '2016-12-19T16:39:57-08:00'
+          description: Time the absence was created
+          readOnly: true
+        updatedBy:
+          type: integer
+          example: 226
+          description: User ID of the last updater of the absence
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2016-12-19T16:39:57-08:00'
+          description: Time the absence was last updated
+          readOnly: true
+        isDeleted:
+          type: boolean
+          example: false
+          description: Whether the absence has been deleted
+          readOnly: true
+    Time:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+          description: The time id
+        account_id:
+          type: integer
+          readOnly: true
+          example: 10000
+          description: The account id
+        user_id:
+          type: integer
+          example: 101
+          description: The user assigned to the time.
+        creator_id:
+          type: integer
+          readOnly: true
+          example: 100
+          description: The user that created the time.
+        position_id:
+          type: integer
+          example: 19483
+          description: Position the time belongs to. 0 if unassigned.
+        location_id:
+          type: integer
+          example: 1045
+          description: Location the time belongs to. 0 if unassigned.
+        site_id:
+          type: integer
+          example: 4351
+          description: Site the time belongs to. 0 if unassigned.
+        shift_id:
+          type: integer
+          example: 5451
+          description: A shift tied to this time. 0 if unassigned.
+        start_time:
+          type: string
+          format: date-time
+          example: Fri, 07 Mar 2016 08:30:00 -0600
+          description: The start time
+        end_time:
+          type: string
+          format: date-time
+          example: Fri, 07 Mar 2016 14:30:00 -0600
+          description: The end time
+        rounded_start_time:
+          type: string
+          format: date-time
+          example: Fri, 07 Mar 2016 08:30:00 -0600
+          description: The rounded start time. If rounding is not enabled this field will not be present.
+        rounded_end_time:
+          type: string
+          format: date-time
+          example: Fri, 07 Mar 2016 14:30:00 -0600
+          description: The rounded end time. If rounding is not enabled this field will not be present.
+        notes:
+          type: string
+          example: A time note
+          description: Notes for a time
+        length:
+          type: float
+          readOnly: true
+          example: 8
+          description: The length of the time in hours.
+        rounded_length:
+          type: float
+          readOnly: true
+          example: 8
+          description: The rounded length calculated from the rounded_start_time and rounded_end_time. If rounding is not enabled this field will not be present.
+        hourly_rate:
+          type: float
+          readOnly: true
+          example: 15
+          description: The base hourly rate for this time.
+        cash_tips:
+          type: string
+          format: decimal
+          nullable: true
+          description: 'Any cash tips reported for the shift.
+
+
+            Note: the tips feature is required to see and use this field.
+
+            '
+          example: '123.45'
+        alert_type:
+          type: integer
+          readOnly: true
+          example: 16
+          description: The type of alert for this time
+        is_approved:
+          type: boolean
+          example: false
+          description: If the time is approved
+        modified_by:
+          type: integer
+          readOnly: true
+          example: 18438
+          description: The user that modified the time
+        sync_id:
+          type: string
+          readOnly: true
+          example: ''
+          description: The quickbooks sync id
+        sync_hash:
+          type: string
+          readOnly: true
+          example: ''
+          description: The quickbooks sync hash
+        updated_at:
+          type: string
+          readOnly: true
+          format: date-time
+          example: Tue, 17 Mar 2020 14:48:43 -0700
+          description: When the time was updated
+        created_at:
+          type: string
+          readOnly: true
+          format: date-time
+          example: Tue, 17 Mar 2020 14:25:48 -0700
+          description: When the time was created
+        split_time:
+          type: string
+          readOnly: true
+          format: date-time
+          example: Fri, 07 Mar 2016 00:00:00 -0600
+          description: If the time crosses payroll periods, when to split it
+        is_alerted:
+          type: boolean
+          readOnly: true
+          example: false
+          description: If alert_type > 0
+        paid_break_note:
+          type: string
+          default: null
+          readOnly: true
+          example: I am a note entered for the shift break paid record
+          description: The note associated with the shift break paid record. The include_paid_break_note query param must be set to true for this to be returned.
+    BaseScheduledBreak:
+      type: object
+      required:
+      - length
+      - paid
+      properties:
+        id:
+          example: 1234
+          type: integer
+          description: ID of the break. Provide in the request when updating an existing break.
+        account_id:
+          example: 1234
+          type: integer
+          readOnly: true
+        length:
+          example: 1800
+          description: The length of the break (seconds).
+          type: integer
+        paid:
+          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+          type: boolean
+        sort:
+          type: integer
+          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
+          readOnly: true
+        created_at:
+          description: Date and time the break was created at.
+          type: string
+          readOnly: true
+        created_by:
+          description: The id of the user who created the break.
+          type: integer
+          readOnly: true
+        updated_at:
+          description: Date and time the break was last updated.
+          type: string
+          readOnly: true
+        updated_by:
+          description: The id of the user who last edited the break.
+          type: integer
+          readOnly: true
+    Payroll:
+      type: object
+      description: 'Payroll is a pay period (start and end) and a collection paid hours (worked or paid time off)
+
+        within that pay period.
+
+        '
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 100000
+          description: The payroll ID
+        account_id:
+          type: integer
+          example: 100000
+          description: The ID of the account that the payroll belongs to
+        creator_id:
+          type: integer
+          example: 1000000
+          description: The ID of the user that created the payroll (pay period)
+        start_date:
+          type: string
+          format: date-time
+          example: Sun, 16 May 2021 00:00:00 -0500
+          description: When the pay period for this payroll starts (RFC 2822)
+        end_date:
+          type: string
+          format: date-time
+          example: Sat, 29 May 2021 23:59:59 -0500
+          description: When the pay period for this payroll ends (RFC 2822)
+        offset:
+          type: string
+          format: time
+          example: 00:00:00
+          description: Time offset from midnight for when the pay period should start or end (hours:mins:seconds)
+        notes:
+          type: string
+          example: Holiday payroll run.
+          description: Notes about this pay period
+          deprecated: true
+        is_edited:
+          type: boolean
+          example: false
+          description: Has the payroll been edited after being generated
+          deprecated: true
+        is_closed:
+          type: boolean
+          example: false
+          description: 'If the payroll (pay period) is closed.
+
+            **Note**
+
+            An open pay period will build out live data from `hourstats`.
+
+            A closed pay period will have a snapshot of the data from the time of closing called `payrollhours`
+
+            '
+        closed_at:
+          type: string
+          format: date-time
+          example: Sun, 16 May 2021 00:00:00 -0500
+          description: When the payroll (pay period) was closed (RFC 2822)
+          deprecated: true
+        is_finalized:
+          type: boolean
+          example: false
+          description: A finalized pay period that has been reviewed and fully approved
+          deprecated: true
+        finalized_at:
+          type: string
+          format: date-time
+          example: Sun, 16 May 2021 00:00:00 -0500
+          description: When the payroll (pay period) was finalized (RFC 2822)
+          deprecated: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          example: Mon, 03 May 2021 09:35:38 -0500
+          description: Time when the pay period was created (RFC 2822)
+        updated_at:
+          type: string
+          format: date-time
+          example: Thu, 10 Jun 2021 10:19:47 -0500
+          description: Time when the pay period was last updated (RFC 2822)
+    Punch:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the punch.
+        account_id:
+          type: integer
+          description: The ID of the account the punch is associated with.
+        location_id:
+          type: integer
+          description: The ID of the schedule that the punch is associated with.
+        alert_type:
+          type: integer
+          description: 'A bitmask representing any alerts that might apply to the punch.
+
+            '
+        method:
+          type: integer
+          description: A bitmask representing how the punch was created. See `method_name` for a human readable version.
+        method_name:
+          type: string
+          nullable: true
+          description: How the punch was created.
+          enum:
+          - Third Party App
+          - Mobile
+          - Computer
+          - Terminal
+        site_id:
+          type: integer
+          description: The ID of the site the punch is associated with.
+        type:
+          type: integer
+          description: A code representing whether the punch was an "In" (`1`) or "Out" (`2`) punch.
+        time_id:
+          type: integer
+          description: The ID of the time the punch is associated with.
+        user_id:
+          type: integer
+          description: The ID of the user who is punching in or out.
+        accuracy:
+          type: number
+          format: float
+          description: The radius of uncertainty for the punch coordinates in meters.
+        altitude:
+          type: number
+          format: float
+          description: The altitude of the punch in meters.
+        latitude:
+          type: number
+          format: float
+          description: The latitude coordinate of the punch.
+        longitude:
+          type: number
+          format: float
+          description: The longitude coordinate of the punch.
+        ip_address:
+          type: string
+          description: The IP address of the device used to create the punch.
+        notes:
+          type: string
+          description: Any notes associated with the punch.
+    Shift:
+      type: object
+      required:
+      - start_time
+      - end_time
+      - location_id
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+        account_id:
+          type: integer
+          example: 10000
+        user_id:
+          type: integer
+          example: 101
+          description: The user assigned to the shift. Set to `0` for an Open Shift.
+        location_id:
+          type: integer
+          example: 1045
+          description: Location the shift belongs to
+        position_id:
+          type: integer
+          example: 19483
+        site_id:
+          type: integer
+          example: 4351
+        start_time:
+          type: string
+          format: date-time
+          example: Mon, 08 May 2023 08:30:00 -0600
+        end_time:
+          type: string
+          format: date-time
+          example: Mon, 08 May 2023 14:30:00 -0600
+        break_time:
+          type: double
+          example: 0.5
+          description: Length of the unpaid breaks for the shift in hours.
+        breaks:
+          description: An array of breaks for the shift. When updating a shift, any existing breaks for the shift that are not included in the request will be deleted.
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftScheduledBreak'
+        color:
+          type: string
+          example: cc000
+          description: Assign color to shift
+        notes:
+          type: string
+          example: Shift test
+          description: Text notation for a Shift
+        alerted:
+          type: boolean
+          example: false
+          description: Is the shift Alert sent
+        linked_users:
+          type: array
+          items:
+            type: integer
+          default: null
+          description: Array of user IDs that can take this openshift. Null means all users are eligible.
+        shiftchain_key:
+          type: string
+          example: 1eizfwp
+          description: The ID to associate shifts in a repeating pattern
+        published:
+          type: boolean
+          example: false
+          description: Is the shift published
+        published_date:
+          type: string
+          format: date-time
+          example: Mon, 01 May 2023 08:30:00 -0600
+        notified_at:
+          type: string
+          format: date-time
+          example: Mon, 01 May 2023 08:32:00 -0600
+        instances:
+          type: integer
+          example: 3
+          default: null
+        created_at:
+          type: string
+          format: date-time
+          example: Mon, 24 Apr 2023 07:30:00 -0600
+        updated_at:
+          type: string
+          format: date-time
+          example: Wed, 26 Apr 2023 11:30:00 -0600
+        acknowledged:
+          type: boolean
+          example: 0
+          description: If enabled; When the user confirmed the shift
+        acknowledged_at:
+          type: string
+          format: date-time
+          example: Fri, 21 Apr 2023 13:30:00 -0600
+          description: If enabled; When the user confirmed the shift
+        creator_id:
+          type: integer
+          example: 101
+          description: The user that created the shift
+        is_open:
+          type: boolean
+          example: false
+        requires_openshift_approval:
+          description: Does this shift require OpenShift Approval
+          type: boolean
+          example: true
+        openshift_approval_request_id:
+          description: ID of the associated OpenShift Approval request
+          type: integer
+          example: 5232
+          readOnly: true
+        is_approved_without_time:
+          description: Used to indicate that a manager or supervisor has approved a missing time entry for this shift
+          type: boolean
+          example: false
+          readOnly: true
+        is_shared:
+          description: Is the shift a shared OpenShift
+          type: boolean
+          example: false
+        is_trimmed:
+          description: Is rounding active for shift
+          type: boolean
+          example: false
+    PayrollHours:
+      type: object
+      description: The paid time for users within a given payroll (broken out by type, split as needed when crossing pay periods)
+      properties:
+        id:
+          description: The unique ID of the payroll hours object.
+          type: integer
+        payroll_id:
+          description: The ID of the Payroll this object belongs to.
+          type: integer
+        type:
+          type: integer
+          description: "The type of time associated with the payroll hours\n * `1` - Regular Time\n * `2` - Over Time\n * `3` - Paid Time Off\n * `4` - Holiday\n * `5` - Double Time\n * `6` - Sick\n * `7` - Time Off (custom type, unpaid time-off not included)\n"
+        type_label:
+          description: The label for the type of time off if a timeoff type (Personal, Sick, Holiday)
+          type: string
+          readOnly: true
+        user_id:
+          description: The ID of the user who these hours belong to.
+          type: integer
+        position_id:
+          description: The ID of the position that is associated with these hours. Default 0 for none.
+          type: integer
+        hours:
+          description: The number hours.
+          type: number
+          format: float
+        rate:
+          description: The hourly rate paid for these hours.
+          type: number
+          format: float
+        total:
+          description: The total wages for these hours.
+          type: number
+          format: float
+    AbsenceActions:
+      type: object
+      required:
+      - actionType
+      - createdBy
+      - createdAt
+      properties:
+        actionType:
+          type: string
+          enum:
+          - timeoff
+          - drop
+          - swap
+          - moved-to-open
+          description: Type of action taken on the shift
+        createdBy:
+          type: string
+          description: The user ID of who created the action.
+          example: '221'
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        shiftId:
+          type: string
+          description: Will be present if move to open action was taken.
+          example: '221'
+        requestId:
+          type: string
+          description: Will be present if a time-off action was taken.
+          example: '125'
+        swapId:
+          type: string
+          description: Will be present if a swap or drop action was taken.
+          example: '312'
+    V2Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
+  requestBodies:
+    PayrollRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Payroll'
+      description: The payroll data
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

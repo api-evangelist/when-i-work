@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Shift Templates (Blocks) API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Shift Templates (Blocks)
+  description: 'Shift templates save you time when you need to schedule shifts that have a consistent start and end time. Instead of manually entering in custom shift details one-by-one, shift templates allow you to schedule a shift quickly and easily.
+
+
+    For more information about using Shift Templates, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-shift-templates-computer/).
+
+    '
+paths:
+  /2/blocks:
+    get:
+      summary: List Shift Templates (Blocks)
+      description: List all the shift templates in an account
+      tags:
+      - Shift Templates (Blocks)
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  blocks:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ShiftTemplate'
+    post:
+      summary: Create Shift Template (Block)
+      description: Used to create a shift template within an account
+      tags:
+      - Shift Templates (Blocks)
+      requestBody:
+        $ref: '#/components/requestBodies/ShiftTemplateRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  block:
+                    $ref: '#/components/schemas/ShiftTemplate'
+  /2/blocks/{id}:
+    get:
+      summary: Get Shift Template (Block)
+      description: Get a single shift template by ID
+      tags:
+      - Shift Templates (Blocks)
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the shift template
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  block:
+                    $ref: '#/components/schemas/ShiftTemplate'
+    put:
+      summary: Update Shift Template (block)
+      description: Updates a single shift template
+      tags:
+      - Shift Templates (Blocks)
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the shift template
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        $ref: '#/components/requestBodies/ShiftTemplateRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  block:
+                    $ref: '#/components/schemas/ShiftTemplate'
+    delete:
+      summary: Delete Shift Template (Block)
+      description: Delete an existing shift template when no longer needed. This operation cannot be undone.
+      tags:
+      - Shift Templates (Blocks)
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the shift template
+        schema:
+          type: integer
+        required: false
+      - name: ids
+        in: query
+        description: The IDs of the multiple shift templates
+        schema:
+          type: string
+        required: false
+        example: 1,2,3,4
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+components:
+  schemas:
+    ShiftTemplate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+        account_id:
+          type: integer
+          example: 10000
+        break_time:
+          type: number
+          format: double
+          example: 0.5
+        breaks:
+          description: An array of breaks for the shift template. When updating a template, any existing breaks for the shift that are not included in the request will be deleted.
+          type: array
+          items:
+            $ref: '#/components/schemas/BlockScheduledBreak'
+        color:
+          type: string
+          example: 8da6d9
+        end_time:
+          type: string
+          example: '17:00:00'
+        start_time:
+          type: string
+          example: 09:00:00
+        location_id:
+          type: integer
+          example: 10000
+        notes:
+          type: string
+          example: Here are some shift notes
+        position_id:
+          type: integer
+          example: 10000
+        created_at:
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        updated_at:
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+    BaseScheduledBreak:
+      type: object
+      required:
+      - length
+      - paid
+      properties:
+        id:
+          example: 1234
+          type: integer
+          description: ID of the break. Provide in the request when updating an existing break.
+        account_id:
+          example: 1234
+          type: integer
+          readOnly: true
+        length:
+          example: 1800
+          description: The length of the break (seconds).
+          type: integer
+        paid:
+          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+          type: boolean
+        sort:
+          type: integer
+          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
+          readOnly: true
+        created_at:
+          description: Date and time the break was created at.
+          type: string
+          readOnly: true
+        created_by:
+          description: The id of the user who created the break.
+          type: integer
+          readOnly: true
+        updated_at:
+          description: Date and time the break was last updated.
+          type: string
+          readOnly: true
+        updated_by:
+          description: The id of the user who last edited the break.
+          type: integer
+          readOnly: true
+    BlockScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          block_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift template that the break applies to.
+            readOnly: true
+          start_time:
+            example: '9:30:00'
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: '10:00:00'
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
+  requestBodies:
+    ShiftTemplateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ShiftTemplate'
+      description: The shift template (block) data
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

@@ -1,0 +1,651 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts Time Off Requests API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Time Off Requests
+  description: 'When you need to take time off from work, use When I Work to send the request to your manager for approval. Time off can be submitted as unpaid, paid (PTO), sick, or holiday.
+
+
+    For more information about using Time Off Requests, visit the [Help Center](https://help.wheniwork.com/articles/requesting-time-off-computer/).
+
+    '
+paths:
+  /2/requests:
+    get:
+      summary: List Time Off Requests
+      description: 'Get a collection of request objects. Requests allow users to request time off.
+
+        '
+      parameters:
+      - name: end
+        description: yyyy-mm-dd formatted end date for the request time-frame.
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: include_deleted_users
+        description: 'Return all requests including those made by deleted users.
+
+          '
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: limit
+        description: Number of requests to load per page.
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 5
+      - name: location_id
+        description: Location ID to show requests for.
+        in: query
+        schema:
+          type: integer
+      - name: max_id
+        description: 'Return all requests created before the request with the given ID.
+
+          '
+        in: query
+        schema:
+          type: integer
+      - name: page
+        description: Page of results to load.
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - name: since_id
+        description: 'Return all requests created since the request with given ID.
+
+          '
+        in: query
+        schema:
+          type: integer
+      - name: sortby
+        description: 'Field to sort by. Can either be ''created'' and sort by the created_at
+
+          date in descending order, or anything else and sort by status in
+
+          ascending order, then by the updated_at date in descending order.
+
+          '
+        in: query
+        schema:
+          type: string
+      - name: start
+        description: 'yyyy-mm-dd formatted start date for the request time-frame.
+
+          '
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date
+      - name: status
+        description: Only return requests with the given status.
+        in: query
+        schema:
+          type: integer
+      - name: type
+        description: Type of request to filter by.
+        in: query
+        schema:
+          type: integer
+      - name: user_id
+        description: 'Only return requests for the given user IDs. Multiple values can be
+
+          comma separated.
+
+          '
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Collection of Request resources.
+          content:
+            application/json:
+              schema:
+                properties:
+                  requests:
+                    description: Array of request objects.
+                    items:
+                      $ref: '#/components/schemas/Request'
+                    type: array
+                  more:
+                    type: boolean
+                  page:
+                    description: Current page number.
+                    type: integer
+                  total:
+                    description: Total number of pages in the collection.
+                    type: integer
+                  messages:
+                    description: Array of message objects.
+                    items:
+                      $ref: '#/components/schemas/Message'
+                    type: array
+                  users:
+                    description: Array of user objects.
+                    items:
+                      $ref: '#/components/schemas/User'
+                    type: array
+                type: object
+        '400':
+          description: 'Bad request. The given start and end dates were not valid.
+
+            '
+        '403':
+          description: 'Forbidden. The current user does not have permission to view the
+
+            user''s requests.
+
+            '
+      tags:
+      - Time Off Requests
+    post:
+      summary: Create Time Off Request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Request'
+        description: The request to create.
+      responses:
+        '201':
+          description: Request was successfully created.
+          content:
+            application/json:
+              schema:
+                properties:
+                  request:
+                    $ref: '#/components/schemas/Request'
+                type: object
+        '400':
+          description: Bad request.
+        '403':
+          description: Forbidden.
+      tags:
+      - Time Off Requests
+  /2/requests/{request_id}:
+    parameters:
+    - name: request_id
+      description: Request ID to return.
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Get Time Off Request
+      description: 'Returns a single request object. Requests allow users to request time off.
+
+        '
+      responses:
+        '200':
+          description: Individual Request resource.
+          content:
+            application/json:
+              schema:
+                properties:
+                  messages:
+                    description: Array of message objects.
+                    items:
+                      $ref: '#/components/schemas/Message'
+                    type: array
+                  request:
+                    $ref: '#/components/schemas/Request'
+                  users:
+                    description: Array of user objects.
+                    items:
+                      $ref: '#/components/schemas/User'
+                    type: array
+                type: object
+        '403':
+          description: 'Forbidden. The current user does not have permission to view the
+
+            request.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+        '404':
+          description: ID was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+      tags:
+      - Time Off Requests
+    put:
+      summary: Update Time Off Request
+      description: Replaces properties in the request with the values given.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                end_time:
+                  description: (Optional) Full datetime the request ends at. Required if also supplying start_time.
+                  format: date-time
+                  type: string
+                  example: '2020-02-02T12:34:56'
+                hours:
+                  description: (Optional) The number of hours of paid time off to use.
+                  format: float
+                  type: number
+                  example: 6.25
+                start_time:
+                  description: (Optional) Full datetime the request starts at. Required if also supplying end_time.
+                  format: date-time
+                  type: string
+                  example: '2020-02-02T12:34:56'
+                status:
+                  description: "(Optional) The new status of the request.\n  * `0` = Pending\n  * `1` = Canceled\n  * `2` = Accepted\n  * `3` = Expired\n  * `4` = Denied\n"
+                  enum:
+                  - 0
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  type: integer
+                type:
+                  deprecated: true
+                  description: 'DEPRECATED IN FAVOR OF `type_id`. SEE Request Type.
+
+
+                    (Optional) Type code for the request.
+
+
+                    * `0` = Unpaid
+
+                    * `1` = Paid (PTO)
+
+                    * `2` = Sick
+
+                    * `3` = Holiday
+
+                    '
+                  enum:
+                  - 0
+                  - 1
+                  - 2
+                  - 3
+                  type: integer
+              type: object
+        description: The details to update on the request.
+      responses:
+        '200':
+          description: The request was successfully updated.
+          content:
+            application/json:
+              schema:
+                properties:
+                  request:
+                    $ref: '#/components/schemas/Request'
+                type: object
+        '400':
+          description: 'Bad request. There was an error in one or more of the values sent.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+        '403':
+          description: Forbidden. The current user does not have permission.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+        '404':
+          description: Request ID was not found or the user does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+      tags:
+      - Time Off Requests
+    delete:
+      summary: Delete Time Off Request
+      responses:
+        '200':
+          description: The request was deleted.
+        '403':
+          description: 'Forbidden. The current user does not have permission to delete the request.
+
+            '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+        '404':
+          description: The request was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+        '500':
+          description: The request must be canceled before it can be deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2Error'
+      tags:
+      - Time Off Requests
+components:
+  schemas:
+    Request:
+      properties:
+        id:
+          description: Unique ID of the request.
+          type: integer
+        account_id:
+          description: The ID of the account this request belongs to.
+          type: integer
+        created_at:
+          description: Full datetime the request was created.
+          format: date-time
+          type: string
+        creator_id:
+          description: The ID of the user creating the request.
+          type: integer
+        end_time:
+          description: Full datetime the request ends at.
+          format: date-time
+          type: string
+        hours:
+          description: The number of hours of paid time off to use.
+          format: float
+          type: number
+        status:
+          description: "The current status of the request. The field user_status is more\ngranular (it supports the Denied status) and should be used instead of\nstatus..\n  * `0` = Pending\n  * `1` = Canceled\n  * `2` = Accepted\n  * `3` = Expired\n"
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          type: integer
+        start_time:
+          description: Full datetime the request starts at.
+          format: date-time
+          type: string
+        type:
+          type: integer
+          nullable: true
+          deprecated: true
+          description: "DEPRECATED IN FAVOR OF `type_id`. SEE Request Type.\n\nThe type of timeoff request being made\n * `0` - Unpaid Time Off\n * `1` - Paid Time Off\n * `2` - Sick\n * `3` - Holiday\n"
+        type_id:
+          description: 'The RequestType ID referencing the type of timeoff (Personal, Sick, Holiday).
+
+
+            Only certain plans can create non-built-in types.
+
+            '
+          type: integer
+        type_label:
+          description: The label for the custom timeoff type (Personal, Sick, Holiday)
+          type: string
+          readOnly: true
+        paid:
+          description: If the timeoff request is for paid timeoff
+          type: boolean
+        updated_at:
+          description: Full datetime the request was last updated.
+          format: date-time
+          type: string
+        user_id:
+          description: The ID of the user requesting time off.
+          type: integer
+        can_edit:
+          readOnly: true
+          description: 'Is the timeoff request editable by the authenticated user.
+
+            * `true`
+
+            * `false`
+
+            '
+          type: boolean
+          example: false
+        user_status:
+          description: 'The current user status of the request.
+
+            * `0` = Pending
+
+            * `1` = Canceled
+
+            * `2` = Accepted
+
+            * `3` = Expired
+
+            * `4` = Denied
+
+            '
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          type: integer
+      type: object
+    V2Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
+    User:
+      properties:
+        account_id:
+          description: ID of the primary account for this user.
+          type: integer
+        activated:
+          description: Whether the manager has activated this user.
+          type: boolean
+        email:
+          description: The email address of this user.
+          format: email
+          type: string
+        employee_code:
+          description: 'The user''s employee code. This code can be used to clock in instead of
+
+            the user''s email address, or it can be used to help map users in When
+
+            I Work to other services.
+
+            '
+          type: string
+        first_name:
+          description: The first name of this user.
+          type: string
+        hourly_rate:
+          description: 'The base hourly rate for this user. The user can have additional wages
+
+            based on the position they are working at the time. There is no currency
+
+            attached, so customers are expected to input correct values for their
+
+            currency or do their own conversion from USD.
+
+            '
+          format: float
+          type: number
+        hours_max:
+          description: 'The max hours that this user prefers to work. A manager may still
+
+            schedule the user beyond this value.
+
+            '
+          format: float
+          type: number
+        hours_preferred:
+          description: The preferred number of hours for this user to work.
+          format: float
+          type: number
+        id:
+          description: Unique identifier for the user.
+          type: integer
+        is_deleted:
+          description: Whether the user has been deleted.
+          type: boolean
+        is_hidden:
+          description: Whether the user has been hidden from the scheduler.
+          type: boolean
+        is_payroll:
+          description: 'Whether the user has access to payroll. (Only available for managers
+
+            and supervisors.)
+
+            '
+          type: boolean
+        is_private:
+          description: 'Whether the user has privacy enabled, which will hide their contact
+
+            details from other employees. Supervisors+ can not hide their
+
+            email/phone from other employees.
+
+            '
+          type: boolean
+        is_trusted:
+          description: Whether the user can edit their own timesheet.
+          type: boolean
+        last_login:
+          description: The date and time when this user last logged in.
+          format: date-time
+          type: string
+        last_name:
+          description: The last name of this user.
+          type: string
+        locations:
+          description: An array of location IDs to be applied to this user.
+          items:
+            type: integer
+          type: array
+        login_id:
+          description: Unique identifier for the login belonging to the user.
+          type: integer
+        notes:
+          description: Notes about this user. Visible only to supervisors+.
+          type: string
+        phone_number:
+          description: The phone number of this user.
+          type: string
+        positions:
+          description: An array of position IDs to be assigned to this user.
+          items:
+            type: integer
+          type: array
+        role:
+          description: The user's role.
+          enum:
+          - 1 = Admin
+          - 2 = Manager
+          - 3 = Employee (Default)
+          - 4 = Lead (Unused)
+          - 5 = Supervisor
+          type: integer
+        type:
+          description: 'A bitwise flag representing additional wage options:
+
+            1 = hourly employee
+
+            2 = salaried employee
+
+            4 = Exempt from overtime
+
+            '
+          type: integer
+      type: object
+    Message:
+      properties:
+        account_id:
+          description: The account ID that the message is associated with.
+          type: integer
+        actor:
+          description: "Who or what generated the message.\n* `0` - user generated (message was generated directly by a user's\n  actions; their userid is recorded on the message object)\n* `1` - automatically (system took action automatically; usually\n  auto-approved or expired a request)\n* `2` - shift modification (a shift change triggered the message)\n* `3` - all recipients (all recipients declined the request)\n"
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          type: integer
+        content:
+          description: The content of the message.
+          type: string
+        conversation_id:
+          description: 'Deprecated. The ID of the conversation the message is a part of,
+
+            replaced by either request_id or swap_id.
+
+            '
+          type: integer
+        created_at:
+          description: Date at which the message was created.
+          format: date-time
+          type: string
+        id:
+          description: The unique ID of the message.
+          type: integer
+        request_id:
+          description: 'The ID of the request the message is for. Either request_id OR swap_id
+
+            are required.
+
+            '
+          type: integer
+        swap_id:
+          description: 'The ID of the swap the message is for. Either request_id OR swap_id are
+
+            required.
+
+            '
+          type: integer
+        title:
+          description: The title of the message.
+          type: string
+        updated_at:
+          description: Date the message was most recently updated.
+          format: date-time
+          type: string
+        user_id:
+          description: The ID of the user.
+          type: integer
+      type: object
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"

@@ -1,0 +1,445 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: When I Work API Documentation Accounts API
+  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
+
+
+    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
+
+    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
+
+
+    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
+
+    '
+servers:
+- url: https://api.wheniwork.com
+  description: Production
+security:
+- W-Token: []
+tags:
+- name: Accounts
+  description: 'Accounts (aka Workplaces) are objects that define a business account with When I Work. Each user is associated with an account enabling them to access Shifts or other data.
+
+
+    For more information about Accounts, visit the [Help Center](https://help.wheniwork.com/article-categories/account-settings/).
+
+    '
+paths:
+  /2/account:
+    get:
+      summary: Get Account
+      description: "This endpoint returns the first account associated with the current login token. To get information about a different account, set the W-UserId header to the user id associated with the other account. (See the Authentication section for details.)\n > If the account being queried for is a parent account, the response provides an object with two members: an `account` object, which specifies the parent account for a given user, and an array, `accounts`, containing all child accounts of the parent account.\n"
+      tags:
+      - Accounts
+      x-code-samples:
+      - lang: shell
+        source: "curl https://api.wheniwork.com/2/account \\\n -H \"W-Token: ilovemyboss\"\n"
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account:
+                    $ref: '#/components/schemas/schemas-Account'
+    post:
+      summary: Create Account
+      description: Used to create an account
+      tags:
+      - Accounts
+      requestBody:
+        $ref: '#/components/requestBodies/AccountRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  account:
+                    $ref: '#/components/schemas/schemas-Account'
+  /2/account/{id}:
+    put:
+      summary: Update Account
+      description: Updates an account
+      tags:
+      - Accounts
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the account
+        schema:
+          type: integer
+        required: true
+      requestBody:
+        $ref: '#/components/requestBodies/AccountRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account:
+                    $ref: '#/components/schemas/schemas-Account'
+  /2/account/settings:
+    post:
+      summary: Update Account Settings
+      description: Admins and Managers can update certain account settings using this endpoint.
+      tags:
+      - Accounts
+      requestBody:
+        $ref: '#/components/requestBodies/AccountSettingsRequest'
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/schemas-Account'
+  /2/account/{id}/admins:
+    get:
+      summary: List Admins
+      description: List all the admins for the given account
+      tags:
+      - Accounts
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the account
+        schema:
+          type: integer
+        required: true
+      responses:
+        '200':
+          description: Valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  admins:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/components-schemas-User'
+components:
+  schemas:
+    schemas-Place:
+      type: object
+      properties:
+        business_name:
+          type: string
+          example: When I Work
+          description: (Optional) Business Name
+        address:
+          type: string
+          example: 420 N 5th St, Minneapolis, MN 55401, USA
+          description: Place Address
+        place_id:
+          type: string
+          example: ChIJc9x2LYwys1IReiu9JB3DLGY
+          description: Place id returned by google
+        place_type:
+          type: string
+          example: premise
+          description: Types returned by google
+        latitude:
+          type: number
+          format: double
+          example: 44.98364
+          description: Latitude of place location
+        longitude:
+          type: number
+          format: double
+          example: -93.277486
+          description: Longitude of place location
+    schemas-Account:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+          description: Unique identifier for the account.
+        master_id:
+          type: integer
+          example: 0
+          readOnly: true
+          description: "This ID indicates the status of a parent/child relationship\n * `0` - Indicates that this account does NOT have a parent/child relationship.\n * `An ID that does NOT match the account's ID` - Indicates that this account is a child and `master_id` is the parent.\n * `An ID that DOES match the account's ID` - Indicates that this account is the parent and has children.\n"
+        type:
+          readOnly: true
+          type: integer
+          enum:
+          - 1
+          - 2
+          - 3
+          description: "The account's type, must be one of:\n * `1` - Scheduling\n * `2` - Attendance\n * `3` - Both\n"
+        logo:
+          type: string
+          example: https://s3.amazonaws.com/path/to/logo.jpg
+          description: Path to the image file for the company's logo.
+        company:
+          readOnly: true
+          type: string
+          example: When I Work
+          description: Name of the company for which this account is in use.
+        subdomain:
+          type: string
+          example: wheniwork
+          deprecated: true
+          description: Subdomain of wheniwork.com to access company-specific When I Work web application. No longer used.
+        enabled:
+          type: boolean
+          example: true
+          readOnly: true
+          description: Whether the account is enabled (i.e. not on an expired plan or failed credit card payment)
+        bad_credit_card:
+          type: boolean
+          example: false
+          readOnly: true
+          description: Whether this account has an invalid credit card in use
+        plan_expires:
+          type: string
+          format: date-time
+          example: '2021-01-06T10:55:58-06:00'
+          readOnly: true
+          description: Date and time when this account's plan expires
+        features:
+          readOnly: true
+          type: array
+          items:
+            type: string
+          example:
+          - attendance
+          - openshifts
+          - annotations
+          description: List of all the enabled features on the account
+        timezone_id:
+          readOnly: true
+          type: integer
+          example: 11
+          description: Identifier for the account's timezone
+        timezone_name:
+          readOnly: true
+          type: string
+          example: America/Chicago
+          description: Name for the timezone specified in the timezone_id
+        settings:
+          type: string
+          format: json
+          description: A list of settings for this account
+        place:
+          $ref: '#/components/schemas/schemas-Place'
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        updated_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+    components-schemas-User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+          description: Unique identifier for the user
+        login_id:
+          type: integer
+          example: 10000
+          readOnly: true
+          description: Unique identifier for the person/login belonging to the user.
+        account_id:
+          type: integer
+          example: 10000
+          readOnly: true
+          description: ID of the account for this user.
+        role:
+          type: integer
+          enum:
+          - 1
+          - 2
+          - 3
+          - 5
+          description: "The user's role:\n * `1` - Admin\n * `2` - Manager\n * `3` - Employee (Default)\n * `5` - Supervisor\n"
+        email:
+          type: string
+          example: jdoe@wheniwork.com
+          description: The email address of the user.
+        first_name:
+          type: string
+          example: John
+          description: The first name of the user.
+        middle_name:
+          type: string
+          example: Alan
+          description: The middle name of the user.
+        last_name:
+          type: string
+          example: Doe
+          description: The last name of the user.
+        phone_number:
+          type: string
+          example: 16511234567
+          description: The phone number of the user
+        employee_code:
+          type: string
+          example: 1234
+          description: 'The user''s employee code. This code can be used to clock in instead of the user''s email address, or it can be used to help map users in When I Work to other services.
+
+            '
+        activated:
+          type: boolean
+          example: true
+          readOnly: true
+          description: Indicates of a manager has activated (accepted a pending user) this user.
+        notes:
+          type: string
+          example: Excellent employee
+          description: Notes about this user. (Only viewable by supervisors and managers).
+        hours_max:
+          type: number
+          format: float
+          example: 40
+          description: The max hours that this user can work.
+        hourly_rate:
+          type: number
+          format: float
+          example: 15
+          description: The hourly rate for this user. (Only viewable by managers and supervisors that can do payroll).
+        position_rates:
+          type: object
+          example:
+            '1001': 2
+            '1002': 3.5
+          description: "A mapping of position IDs to the user's hourly rate for that position. The rates here are applied on\ntop of the user's base hourly rate (see hourly_rate). A user with an hourly rate of 15 and a position rate \nof 1 for position 1001 would result in an hourly rate of 16 for position 1001. (Only viewable by managers \nand supervisors that can do payroll).\n"
+        type:
+          type: integer
+          example: 5
+          description: "Use the `employment_type` property instead.\nA bitwise flag representing additional wage options:\n * `1` - Hourly employee\n * `2` - Salaried employee\n * `5` - Exempt from overtime.\n"
+          deprecated: true
+        employment_type:
+          type: string
+          enum:
+          - hourly
+          - hourly_exempt
+          - salaried *
+          - salaried_exempt *
+          - shareholder *
+          description: Employment type of the user. *These options are only available to payroll customers
+        last_login:
+          type: string
+          format: date-time
+          example: '2019-05-23T23:59:59+05:00'
+          readOnly: true
+          description: The date and time when this user last logged in.
+        positions:
+          type: array
+          items:
+            type: integer
+          example:
+          - 1
+          - 2
+          - 3
+          description: An array of positions assigned to this user.
+        locations:
+          type: array
+          items:
+            type: integer
+          example:
+          - 1
+          - 2
+          - 3
+          description: An array of locations (schedules) assigned to this user.
+        is_deleted:
+          type: boolean
+          example: false
+          readOnly: true
+          description: Whether the user has been deleted.
+        is_hidden:
+          type: boolean
+          example: false
+          description: Whether the user has been hidden from the scheduler.
+        is_payroll:
+          type: boolean
+          example: false
+          description: Whether the user has access to payroll. (Only available for managers and supervisors).
+        is_private:
+          type: boolean
+          example: false
+          description: Whether the user has privacy enabled, which will hide their contact details from other employees (excluding supervisors and managers).
+        is_trusted:
+          type: boolean
+          example: false
+          description: Whether the user can edit their own timesheet.
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        updated_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        start_date:
+          type: string
+          format: date
+          example: '2019-05-16'
+          description: yyyy-mm-dd formatted date for when the user started their employment
+  requestBodies:
+    AccountSettingsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              company:
+                type: string
+                example: When I Work
+                description: Company name
+              timezone_id:
+                type: integer
+                example: 11
+                description: Identifier for the account's timezone
+              industry_id:
+                type: integer
+                example: 2
+                description: ID of the industry relevant to this account.
+              ref_employees:
+                type: integer
+                example: 20
+                description: Number of employees for this account
+    AccountRequest:
+      description: The account data
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/schemas-Account'
+            - type: object
+              properties:
+                referral_reason:
+                  type: string
+                  example: goog
+                  description: (Optional) referral reason, which will persist as the referral_code.
+  securitySchemes:
+    W-Token:
+      type: http
+      scheme: bearer
+      bearerFormat: JSON Web Token
+      description: "Authentication with When I Work is based on a token model using [JSON Web Tokens](https://jwt.io/). First, you authenticate using a private developer key and the username and password of a When I Work user. Your developer key can be used like the following in the headers.\n```\ncurl -X POST \\\n  https://api.login.wheniwork.com/login \\\n  -H 'W-Key: <INSERT_DEVELOPER_KEY_HERE>' \\\n  -H 'content-type: application/json' \\\n  -d '{\"email\":\"<INSERT_USERNAME_HERE>\",\"password\":\"<INSERT_PASSWORD_HERE>\"}'\n```\n\nAuthenticating returns back a person object containing a token that is used to authenticate all future requests. You can now use this token to fetch all the users tied to your person. The token may be included in the headers, as a cookie, or in the query string using the key ‘W-Token’ or ‘Authorization’. If the authenticated user belongs to more than one Workplace you will need to get the User listing to obtain the user-id value\n```\ncurl -X GET \\\n  'https://api.wheniwork.com/2/login?show_pending=true' \\\n  -H 'Host: api.wheniwork.com' \\\n  -H 'Authorization: Bearer <INSERT_TOKEN_HERE>'\n```\n\nThe response will also include a listing of the user objects related to the person for each associated When I Work account. You can use the user ID to set the context for which account you will be acting upon by providing a When I Work user ID through the ‘W-UserID’ header.\n```\ncurl -X GET \\\n  https://api.wheniwork.com/2/users \\\n  -H 'Authorization: Bearer <INSERT TOKEN HERE>' \\\n  -H 'W-UserId: <INSERT_USER_ID_HERE>'\n```\nWhen I Work protects our application and API with rate limiting thresholds. Rate limiting utilizes thresholds based on rolling windows of time. Typical responses will be 403 level client side errors when encountering these limits. If you suspect you are encountering one of our thresholds please connect with our Customer Care team at support@wheniwork.com.\n\nYou can find additional authentication related API documentation in our [Login Service API docs](https://apidocs.wheniwork.com/external/index.html?repo=login).\n"
