@@ -1,7 +1,20 @@
 aid: when-i-work
 name: When I Work
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: open
+  trial: true
+  try_now: true
+  public: true
+  label: Paid (free trial) · Open access
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/when-i-work.png
 url: https://raw.githubusercontent.com/api-evangelist/when-i-work/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
@@ -31,58 +44,1153 @@ tags:
   - HR
 
 apis:
+- aid: when-i-work:when-i-work-accounts-api
+  name: When I Work Accounts API
+  description: >-
+    Accounts (aka Workplaces) are objects that define a business account with When I Work. Each user is
+    associated with an account enabling them to access Shifts or other data.
 
-  - name: When I Work API
-    description: >
-      REST API for managing employee scheduling, shifts, time clock records,
-      attendance, users, locations, positions, tasks, and team communication
-      within the When I Work platform.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://apidocs.wheniwork.com/external/index.html
-    baseURL: https://api.wheniwork.com/2
-    tags:
-      - Shifts
-      - Schedules
-      - Users
-      - Time Clock
-      - Attendance
-      - Positions
-      - Tasks
-      - Tags
-    properties:
-      - type: Documentation
-        url: https://apidocs.wheniwork.com/external/index.html
-      - type: OpenAPI
-        url: openapi/when-i-work-openapi.yml
-      - type: JSONSchema
-        url: json-schema/when-i-work-shift-schema.json
-      - type: JSONSchema
-        url: json-schema/when-i-work-user-schema.json
-      - type: JSONSchema
-        url: json-schema/when-i-work-time-schema.json
-      - type: JSONSchema
-        url: json-schema/when-i-work-position-schema.json
-      - type: JSONSchema
-        url: json-schema/when-i-work-schedule-schema.json
-      - type: JSONSchema
-        url: json-schema/when-i-work-site-schema.json
-      - type: JSONSchema
-        url: json-schema/when-i-work-request-schema.json
-      - type: JSONSchema
-        url: json-schema/when-i-work-shifttemplate-schema.json
-      - type: Examples
-        url: examples/when-i-work-examples.json
-      - type: Vocabulary
-        url: vocabulary/when-i-work-vocabulary.yml
-      - type: JSONLDContext
-        url: json-ld/when-i-work-context.jsonld
-      - type: Plans
-        url: plans/when-i-work-plans-pricing.yml
-      - type: RateLimits
-        url: rate-limits/when-i-work-rate-limits.yml
-      - type: FinOps
-        url: finops/when-i-work-finops.yml
 
+    For more information about Accounts, visit the [Help Center](https://help.wheniwork.com/article-categories/account-settings/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-annotations-api
+  name: When I Work Annotations API
+  description: >-
+    Annotations convey important information to all staff for the given schedules (locations) and date
+    range.
+
+
+    Any or none of the following tags may apply to an Annotation:
+
+
+    * Time Off Not Allowed
+
+    * Business Closed
+
+    * Announcement
+
+
+    The "Time Off Not Allowed" tag is the only tag that affects the behavior of another API. Time Off
+    requests will be considered invalid if the request's date range overlaps an Annotation of the "Time
+    Off Not Allowed" type for the user's location(s).
+
+
+    For more on using Annotations, visit the [Help Center](https://help.wheniwork.com/hc/en-us/articles/204348065-Annotations).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Annotations
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-annotations-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-availabilities-api
+  name: When I Work Availabilities API
+  description: >-
+    Set your availability preferences to let your employer know when you prefer to work and when you prefer
+    not to work.
+
+
+    For more information about using Availabilities, visit the [Help Center](https://help.wheniwork.com/articles/setting-your-availability-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Availabilities
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-availabilities-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-import-api
+  name: When I Work Import API
+  description: >-
+    The import API is used to import a variety of When I Work resources from user-provided CSV or Excel
+    files.
+
+
+    ### Import Types
+
+
+    All available import types and their columns are listed here. Where possible, the column names will
+    align with names used elsewhere in the API, but this is not always possible.
+
+
+    <table>
+       <thead>
+         <tr>
+           <th>type</th>
+           <th>columns</th>
+           <th>required?</th>
+           <th>notes</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td rowspan="5" class="nowrap"><code>SHIFT_TEMPLATE</code></td>
+           <td>start_time</td>
+           <td>✅</td>
+           <td></td>
+         </tr>
+         <tr>
+           <td>end_time</td>
+           <td>✅</td>
+           <td></td>
+         </tr>
+         <tr>
+           <td>schedule</td>
+           <td></td>
+           <td>
+             <p>A schedule name to associate with the shift template. If no schedule with that name exists,
+    a new schedule will be created.</p>
+             <p>If omitted, the shift template will be assigned to all schedules (or the value "All Schedules"
+    can be provided to do the same).</p>
+           </td>
+         </tr>
+         <tr>
+           <td>position</td>
+           <td></td>
+           <td>
+             <p>A position name to associate with the shift template. If no position with that name exists,
+    a new position will be created.</p>
+           </td>
+         </tr>
+         <tr>
+           <td>unpaid_break</td>
+           <td></td>
+           <td>The length of the unpaid break in minutes.</td>
+         </tr>
+         <tr>
+           <td rowspan="12" class="nowrap"><code>EMPLOYEE</code></td>
+           <td>first_name</td>
+           <td>✅</td>
+           <td>First name of the employee</td>
+         </tr>
+         <tr>
+           <td>last_name</td>
+           <td>✅</td>
+           <td>Last name of the employee</td>
+         </tr>
+         <tr>
+           <td>email</td>
+           <td></td>
+           <td>The email address of the employee</td>
+         </tr>
+         <tr>
+           <td>employee_code</td>
+           <td></td>
+           <td>The employee code to associate with the employee</td>
+         </tr>
+         <tr>
+           <td>file_number</td>
+           <td></td>
+           <td>The file number corresponding to the employee in ADP</td>
+         </tr>
+         <tr>
+           <td>id</td>
+           <td></td>
+           <td>The user id corresponding to the employee in When I Work</td>
+         </tr>
+         <tr>
+           <td>location</td>
+           <td></td>
+           <td>
+             <p>A schedule (location) name to associate with the employee. If no schedule with that name
+    exists, a new schedule will be created.</p>
+           </td>
+         </tr>
+         <tr>
+           <td>max</td>
+           <td></td>
+           <td>The maximum hours per week of the employee</td>
+         </tr>
+         <tr>
+           <td>phone</td>
+           <td></td>
+           <td>The phone number of the employee</td>
+         </tr>
+         <tr>
+           <td>position</td>
+           <td></td>
+           <td>
+             <p>A position name to associate with the employee. If no position with that name exists,
+    a new position will be created.</p>
+           </td>
+         </tr>
+         <tr>
+           <td>tags</td>
+           <td></td>
+           <td>
+             <p>A comma separated list of tags to associate to the employee. If the tag does not exist,
+    it will be created.</p>
+           </td>
+         </tr>
+         <tr>
+           <td>wage</td>
+           <td></td>
+           <td>
+             <p>The hourly rate of the employee expressed as a floating point number (e.g. 14.50)</p>
+           </td>
+         </tr>
+       </tbody>
+     </table>
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Import
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-import-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-openshift-requests-api
+  name: When I Work OpenShift Requests API
+  description: >-
+    Shift Bidding, also called “OpenShift Requests”, is an option within an OpenShift that allows employees
+    to express interest in the shift. Management can then view who has requested to pick up the OpenShift
+    and select and approve an employee to work the shift.
+
+
+    For more info about using OpenShift Requests, visit the [Help Center](https://help.wheniwork.com/articles/shift-bidding/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - OpenShift Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-openshift-requests-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-payrolls-api
+  name: When I Work Payrolls API
+  description: >-
+    Payrolls allows you to select a pay period date range and hours worked within that range. Default
+    range if not supplied is today + 3 days.
+
+
+    > Please note that payrolls cannot be created or deleted via the API
+
+
+    For more info about managing Payroll, visit the [Help Center](https://help.wheniwork.com/articles/close-and-export-payroll/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Payrolls
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-payrolls-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-positions-api
+  name: When I Work Positions API
+  description: >-
+    Positions (aka, job or duty) are used to define labor allocation. Users can be tagged (associated)
+    with one or more Positions. When I Work uses this association for shift eligibility, Alert notifications
+    filtering and labor reporting.
+
+
+    For more information about using Positions, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-positions-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Positions
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-positions-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-punch-api
+  name: When I Work Punch API
+  description: >-
+    A punch is an event where a user clocks in or clocks out. Punches can be managed to restrict where
+    an employee can clock in/out and from what devices.
+
+
+    If a user forgets to clock out, they will be allowed to clock in after 9 hours from the end of their
+    scheduled shift. If there is no scheduled shift, the user can clock in again after 18 hours from when
+    they originally clocked in.
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Punch
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-punch-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-request-type-api
+  name: When I Work Request Type API
+  description: >-
+    Types of time off that can be selected when submitting a time off request.
+
+
+    For more information about using Time Off Requests, visit the [Help Center](https://help.wheniwork.com/articles/requesting-time-off-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Request Type
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-request-type-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-schedule-templates-api
+  name: When I Work Schedule Templates API
+  description: >-
+    Schedule templates allow you to create a daily or weekly schedule that is reusable. If your schedules
+    are very similar from day to day or week to week, use a template to save time and avoid creating schedules
+    from scratch.
+
+
+    For more information about using Schedule Templates, visit the [Help Center](https://help.wheniwork.com/articles/using-schedule-templates-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Schedule Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-schedule-templates-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-schedules-locations-api
+  name: When I Work Schedules (Locations) API
+  description: >-
+    Schedules are logical groupings of users that are working together. Schedules can be physical offices
+    with addresses or logical groups like departments. Users can be tagged (associated) to one or more
+    schedules. Schedules can be departments, facilities, business divisions or any grouping of staff.
+
+
+    For more information about using Scheduled, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-schedules-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Schedules (Locations)
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-schedules-locations-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-shift-break-paid-rest-api
+  name: When I Work Shift Break - Paid Rest API
+  description: >-
+    When the Attendance setting is enabled to Ask Employees About Paid Rest Breaks the feedback on whether
+    or not breaks were taken is provided here.
+
+      Note: This endpoint requires the request header for w-userid.
+      For more information about managing Breaks, visit the [Help Center](https://help.wheniwork.com/articles/paid-break-reporting/#reporting-paid-breaks)
+
+      (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times)
+    for managing break attestations)
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Shift Break - Paid Rest
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-shift-break-paid-rest-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-shift-breaks-api
+  name: When I Work Shift Breaks API
+  description: >-
+    Two types of breaks are provided. First; Scheduled Shift Breaks are break records associated with
+    scheduled shifts. Second; Shift Breaks are break records associated with time worked.
+
+    For Shift Breaks (Attendance)
+       Three types of records are possible from a break action or automated action
+       A record can be created from a user break punch allocation
+       A record can be created from a Manager/Supervisor edit to a timesheet. (With this type of record,
+    no break time is generated and only the length is available to be queried.)
+       A Break record can be created via the system configuration setting for Auto-Deduct of Breaks. (With
+    this type of record, no break time is generated and only the length is available to be queried.)
+
+       Note: This endpoint requires the request header for w-userid.
+       For more information about managing Breaks, visit the [Help Center](https://help.wheniwork.com/articles/attendance-settings/)
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Shift Breaks
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-shift-breaks-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-shift-requests-api
+  name: When I Work Shift Requests API
+  description: >-
+    If you’re unable to work one of your shifts, you can give it to one of your coworkers (drop the shift)
+    or trade shifts with one of your coworkers (swap shifts).
+
+
+    For more information about using Shift Requests, visit the [Help Center](https://help.wheniwork.com/articles/swapping-and-dropping-shifts-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Shift Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-shift-requests-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-shift-templates-blocks-api
+  name: When I Work Shift Templates (Blocks) API
+  description: >-
+    Shift templates save you time when you need to schedule shifts that have a consistent start and end
+    time. Instead of manually entering in custom shift details one-by-one, shift templates allow you to
+    schedule a shift quickly and easily.
+
+
+    For more information about using Shift Templates, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-shift-templates-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Shift Templates (Blocks)
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-shift-templates-blocks-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-shifts-api
+  name: When I Work Shifts API
+  description: >-
+    Shifts provide the basis for scheduling. Many other objects, including Schedules (aka Locations),
+    Positions, Sites, Users, Tasks, and Tags all link through Shifts.
+
+
+    For more information about how to use Shifts, visit the [Help Center](https://help.wheniwork.com/article-categories/scheduling-your-team/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Shifts
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-shifts-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-sites-api
+  name: When I Work Sites API
+  description: >-
+    Sites communicate additional information about a given shift to the recipient. Typical usage is when
+    you schedule employees for shifts that are at different physical sites (addresses) compared to the
+    Schedule where the shift is assigned. A Job site can include additional detail (address or coordinates)
+    that informs the user where this particular shift is to take place. An additional use case would be
+    if you want to use an additional labor reporting tier and having the Job Site be a project or cost
+    center value.
+
+     For more information about using Sites, visit the [Help Center](https://help.wheniwork.com/articles/scheduling-shifts-at-job-sites-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Sites
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-sites-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-swaps-api
+  name: When I Work Swaps API
+  description: The Swaps API from When I Work — 1 operation(s) for swaps.
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Swaps
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-swaps-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-time-off-requests-api
+  name: When I Work Time Off Requests API
+  description: >-
+    When you need to take time off from work, use When I Work to send the request to your manager for
+    approval. Time off can be submitted as unpaid, paid (PTO), sick, or holiday.
+
+
+    For more information about using Time Off Requests, visit the [Help Center](https://help.wheniwork.com/articles/requesting-time-off-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Time Off Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-time-off-requests-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-times-api
+  name: When I Work Times API
+  description: >-
+    Time records are a listing of the worked hours and can be select by date range. Records are sourced
+    from timeclock terminal, web clock In/Out, mobile clock In/Out, timesheet edits, and API record creation/edits
+    of time values.
+
+
+    For more info about user Times, visit the [Help Center](https://help.wheniwork.com/articles/reviewing-employees-time-sheets-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Times
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-times-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-timezones-api
+  name: When I Work Timezones API
+  description: Timezones for When I work workplaces including Olson ID
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Timezones
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-timezones-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
+- aid: when-i-work:when-i-work-users-api
+  name: When I Work Users API
+  description: >-
+    A person on the When I Work platform is associated with a two tier record.   The persons email/password
+    is associated to a person_id.
+
+    For each Workplace the person belongs to a user_id record exists. This record links back to the person_id
+    so only a single instance of the email/password exists. If a user updates their email or password
+    this applies to all related instances of the user.
+
+
+    For more information about Users, visit the [Help Center](https://help.wheniwork.com/articles/user-access-privileges-computer/).
+  humanURL: https://apidocs.wheniwork.com/external/index.html
+  baseURL: https://api.wheniwork.com/2
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/when-i-work-users-api-openapi.yml
+  - type: Documentation
+    url: https://apidocs.wheniwork.com/external/index.html
+  - type: JSONSchema
+    url: json-schema/when-i-work-shift-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-user-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-time-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-position-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-schedule-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-site-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-request-schema.json
+  - type: JSONSchema
+    url: json-schema/when-i-work-shifttemplate-schema.json
+  - type: Examples
+    url: examples/when-i-work-examples.json
+  - type: Vocabulary
+    url: vocabulary/when-i-work-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/when-i-work-context.jsonld
+  - type: Plans
+    url: plans/when-i-work-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/when-i-work-rate-limits.yml
+  - type: FinOps
+    url: finops/when-i-work-finops.yml
 common:
 
   - type: AgenticAccess
