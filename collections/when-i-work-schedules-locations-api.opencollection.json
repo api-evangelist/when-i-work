@@ -1,0 +1,125 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Schedules (Locations) API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Schedules (Locations)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Schedules (Locations)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/locations",
+            "params": [
+              {
+                "name": "only_unconfirmed",
+                "value": "",
+                "type": "query",
+                "description": "Include only unconfirmed schedules/locations"
+              }
+            ]
+          },
+          "docs": "List all the schedules in an account"
+        },
+        {
+          "info": {
+            "name": "Create Schedule (Location)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/locations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to create a schedule (location) within an account"
+        },
+        {
+          "info": {
+            "name": "Get Schedule (Location)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/locations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the schedule"
+              }
+            ]
+          },
+          "docs": "Get a single schedule/location by ID"
+        },
+        {
+          "info": {
+            "name": "Update Schedule (Location)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/locations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the schedule"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a single schedule (location)"
+        },
+        {
+          "info": {
+            "name": "Delete Schedule (Location)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/locations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the schedule"
+              },
+              {
+                "name": "ids",
+                "value": "1,2,3,4",
+                "type": "query",
+                "description": "The IDs of the multiple shift templates"
+              }
+            ]
+          },
+          "docs": "Delete an existing schedule when no longer needed. This operation cannot be undone. Data will remain for historical purposes.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

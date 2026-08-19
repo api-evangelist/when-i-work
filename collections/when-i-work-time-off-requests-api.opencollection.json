@@ -1,0 +1,185 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Time Off Requests API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Time Off Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Time Off Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/requests",
+            "params": [
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "yyyy-mm-dd formatted end date for the request time-frame."
+              },
+              {
+                "name": "include_deleted_users",
+                "value": "",
+                "type": "query",
+                "description": "Return all requests including those made by deleted users.\n"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of requests to load per page."
+              },
+              {
+                "name": "location_id",
+                "value": "",
+                "type": "query",
+                "description": "Location ID to show requests for."
+              },
+              {
+                "name": "max_id",
+                "value": "",
+                "type": "query",
+                "description": "Return all requests created before the request with the given ID.\n"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page of results to load."
+              },
+              {
+                "name": "since_id",
+                "value": "",
+                "type": "query",
+                "description": "Return all requests created since the request with given ID.\n"
+              },
+              {
+                "name": "sortby",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by. Can either be 'created' and sort by the created_at\ndate in descending order, or anything else and sort by status in\nascending order, then by the updated_at date in descending order.\n"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "yyyy-mm-dd formatted start date for the request time-frame.\n"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Only return requests with the given status."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of request to filter by."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "Only return requests for the given user IDs. Multiple values can be\ncomma separated.\n"
+              }
+            ]
+          },
+          "docs": "Get a collection of request objects. Requests allow users to request time off.\n"
+        },
+        {
+          "info": {
+            "name": "Create Time Off Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/requests",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create Time Off Request"
+        },
+        {
+          "info": {
+            "name": "Get Time Off Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/requests/:request_id",
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path",
+                "description": "Request ID to return."
+              }
+            ]
+          },
+          "docs": "Returns a single request object. Requests allow users to request time off.\n"
+        },
+        {
+          "info": {
+            "name": "Update Time Off Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/requests/:request_id",
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path",
+                "description": "Request ID to return."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces properties in the request with the values given."
+        },
+        {
+          "info": {
+            "name": "Delete Time Off Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/requests/:request_id",
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path",
+                "description": "Request ID to return."
+              }
+            ]
+          },
+          "docs": "Delete Time Off Request"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

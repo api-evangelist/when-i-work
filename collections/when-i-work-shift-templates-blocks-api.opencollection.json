@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Shift Templates (Blocks) API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shift Templates (Blocks)",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Shift Templates (Blocks)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/blocks"
+          },
+          "docs": "List all the shift templates in an account"
+        },
+        {
+          "info": {
+            "name": "Create Shift Template (Block)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/blocks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to create a shift template within an account"
+        },
+        {
+          "info": {
+            "name": "Get Shift Template (Block)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/blocks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift template"
+              }
+            ]
+          },
+          "docs": "Get a single shift template by ID"
+        },
+        {
+          "info": {
+            "name": "Update Shift Template (block)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/blocks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift template"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a single shift template"
+        },
+        {
+          "info": {
+            "name": "Delete Shift Template (Block)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/blocks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift template"
+              },
+              {
+                "name": "ids",
+                "value": "1,2,3,4",
+                "type": "query",
+                "description": "The IDs of the multiple shift templates"
+              }
+            ]
+          },
+          "docs": "Delete an existing shift template when no longer needed. This operation cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

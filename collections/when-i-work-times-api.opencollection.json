@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Times API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Times",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/times",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The start of the filter range."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The end of the filter range."
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "List of user ids to filter on"
+              },
+              {
+                "name": "only_open",
+                "value": "",
+                "type": "query",
+                "description": "Return only times without an end time"
+              },
+              {
+                "name": "updated_at",
+                "value": "",
+                "type": "query",
+                "description": "Only return times that have been updated since the provided timestamp."
+              },
+              {
+                "name": "overwrite_with_rounded",
+                "value": "",
+                "type": "query",
+                "description": "Flag to overwrite the start/end/length values with their rounded counterparts (if account setting is enabled)"
+              },
+              {
+                "name": "include_paid_break_note",
+                "value": "",
+                "type": "query",
+                "description": "Returns the note for a Shift Break Paid Record. Deprecated - please refer to the break attestation docs [here](#tag/Break-Attestation)"
+              }
+            ]
+          },
+          "docs": "Fetch a list of shifts based on a set of filters"
+        },
+        {
+          "info": {
+            "name": "Create Time",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/times",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a time. For accounts with Check payroll onboarded, start time must not be past the end of the current pay period"
+        },
+        {
+          "info": {
+            "name": "Get Time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/times/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the time"
+              }
+            ]
+          },
+          "docs": "Get a single time by ID"
+        },
+        {
+          "info": {
+            "name": "Update Time",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/times/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing time"
+        },
+        {
+          "info": {
+            "name": "Delete Time",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/times/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the time"
+              }
+            ]
+          },
+          "docs": "Delete an existing time when no longer needed. This operation cannot be undone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

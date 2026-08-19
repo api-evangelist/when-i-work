@@ -1,0 +1,809 @@
+{
+  "item": [
+    {
+      "id": "9ad79bec-303e-4ef0-bd01-4b04c751cb8b",
+      "name": "Punch",
+      "description": {
+        "content": "A punch is an event where a user clocks in or clocks out. Punches can be managed to restrict where an employee can clock in/out and from what devices.\n\nIf a user forgets to clock out, they will be allowed to clock in after 9 hours from the end of their scheduled shift. If there is no scheduled shift, the user can clock in again after 18 hours from when they originally clocked in.\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3340c8cb-68b4-4304-a4ab-8742864694ab",
+          "name": "Clock In",
+          "request": {
+            "name": "Clock In",
+            "description": {
+              "content": "Punch the current user or another user in. The punch creator's ID will also be recorded.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "times",
+                "clockin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"site_id\": \"<integer>\",\n  \"position_id\": \"<integer>\",\n  \"shift_id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"notes\": \"<string>\",\n  \"coordinates\": \"<array>\",\n  \"altitude\": \"<number>\",\n  \"accuracy\": \"<number>\",\n  \"terminal\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7e0d0218-31dc-44b5-9488-ecdd62d02086",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times",
+                    "clockin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"time\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"user_id\": 101,\n    \"creator_id\": 100,\n    \"position_id\": 19483,\n    \"location_id\": 1045,\n    \"site_id\": 4351,\n    \"shift_id\": 5451,\n    \"start_time\": \"1967-08-27T09:01:35.117Z\",\n    \"end_time\": \"1988-01-26T12:44:26.262Z\",\n    \"rounded_start_time\": \"1999-01-06T00:30:00.995Z\",\n    \"rounded_end_time\": \"1986-04-11T11:40:59.116Z\",\n    \"notes\": \"A time note\",\n    \"length\": 8,\n    \"rounded_length\": 8,\n    \"hourly_rate\": 15,\n    \"cash_tips\": \"123.45\",\n    \"alert_type\": 16,\n    \"is_approved\": false,\n    \"modified_by\": 18438,\n    \"sync_id\": \"\",\n    \"sync_hash\": \"\",\n    \"updated_at\": \"2018-01-22T22:41:08.346Z\",\n    \"created_at\": \"1956-05-28T01:01:13.103Z\",\n    \"split_time\": \"1983-05-19T21:21:30.215Z\",\n    \"is_alerted\": false,\n    \"paid_break_note\": \"I am a note entered for the shift break paid record\"\n  },\n  \"overtime_alert\": false,\n  \"user\": {\n    \"account_id\": 1796,\n    \"activated\": true,\n    \"email\": \"yyURg@wSGgovTUwd.ftau\",\n    \"employee_code\": \"string\",\n    \"first_name\": \"string\",\n    \"hourly_rate\": 5020.641283901807,\n    \"hours_max\": 8126.160503113135,\n    \"hours_preferred\": 9345.656010398156,\n    \"id\": 8132,\n    \"is_deleted\": false,\n    \"is_hidden\": true,\n    \"is_payroll\": true,\n    \"is_private\": false,\n    \"is_trusted\": false,\n    \"last_login\": \"1998-11-02T04:44:59.937Z\",\n    \"last_name\": \"string\",\n    \"locations\": [\n      6324,\n      7034\n    ],\n    \"login_id\": 9934,\n    \"notes\": \"string\",\n    \"phone_number\": \"string\",\n    \"positions\": [\n      4159,\n      3575\n    ],\n    \"role\": null,\n    \"type\": 4905\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4015db31-1bcb-40af-96e9-98d4b6b187ec",
+              "name": "Bad request contains missing or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times",
+                    "clockin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 2214\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfc54331-a44c-45fa-98b8-0d1e8d64b86f",
+              "name": "Forbidden access, account setting or permissions do not allow this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times",
+                    "clockin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 2214\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f15060db-e880-4893-8045-c2699d51cc08",
+          "name": "Clock Out",
+          "request": {
+            "name": "Clock Out",
+            "description": {
+              "content": "Punch the current user or another user out. The punch creator's ID will also be recorded.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "times",
+                "clockout"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"notes\": \"<string>\",\n  \"coordinates\": \"<array>\",\n  \"altitude\": \"<number>\",\n  \"accuracy\": \"<number>\",\n  \"terminal\": false,\n  \"cashTips\": \"<decimal>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "27e70b2d-7142-4962-8980-6dedb2696b4c",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times",
+                    "clockout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"time\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"user_id\": 101,\n    \"creator_id\": 100,\n    \"position_id\": 19483,\n    \"location_id\": 1045,\n    \"site_id\": 4351,\n    \"shift_id\": 5451,\n    \"start_time\": \"1967-05-18T08:55:17.799Z\",\n    \"end_time\": \"2018-04-27T20:55:28.826Z\",\n    \"rounded_start_time\": \"1955-01-25T10:03:29.469Z\",\n    \"rounded_end_time\": \"1958-03-14T15:47:13.253Z\",\n    \"notes\": \"A time note\",\n    \"length\": 8,\n    \"rounded_length\": 8,\n    \"hourly_rate\": 15,\n    \"cash_tips\": \"123.45\",\n    \"alert_type\": 16,\n    \"is_approved\": false,\n    \"modified_by\": 18438,\n    \"sync_id\": \"\",\n    \"sync_hash\": \"\",\n    \"updated_at\": \"1965-06-28T13:56:12.571Z\",\n    \"created_at\": \"1995-08-18T09:09:54.959Z\",\n    \"split_time\": \"1953-02-10T04:53:04.122Z\",\n    \"is_alerted\": false,\n    \"paid_break_note\": \"I am a note entered for the shift break paid record\"\n  },\n  \"overtime_alert\": false,\n  \"user\": {\n    \"account_id\": 3160,\n    \"activated\": false,\n    \"email\": \"ykcHsM@QOKUIuQXbMjJpKXizrI.sv\",\n    \"employee_code\": \"string\",\n    \"first_name\": \"string\",\n    \"hourly_rate\": 5527.594213058914,\n    \"hours_max\": 5714.425428520806,\n    \"hours_preferred\": 3246.540696037231,\n    \"id\": 8543,\n    \"is_deleted\": true,\n    \"is_hidden\": false,\n    \"is_payroll\": true,\n    \"is_private\": false,\n    \"is_trusted\": false,\n    \"last_login\": \"1972-01-17T11:39:12.319Z\",\n    \"last_name\": \"string\",\n    \"locations\": [\n      9452,\n      7607\n    ],\n    \"login_id\": 1495,\n    \"notes\": \"string\",\n    \"phone_number\": \"string\",\n    \"positions\": [\n      9784,\n      5776\n    ],\n    \"role\": null,\n    \"type\": 1327\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f8dd0a6b-db82-42a6-bca9-934fe1c2b2ef",
+              "name": "Bad request contains missing or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times",
+                    "clockout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 2214\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d1250a9-3902-4ed0-9e05-041ed81a5464",
+              "name": "Forbidden access, account setting or permissions do not allow this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times",
+                    "clockout"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 2214\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9576fae9-7a74-45b5-adc3-db8123b1dd02",
+          "name": "Punch State",
+          "request": {
+            "name": "Punch State",
+            "description": {
+              "content": "Gets a users punch state and allowed actions",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "punch",
+                "state"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "userId",
+                  "value": "<integer>",
+                  "description": "User ID if looking up the punch state for another user, may allow additional actions"
+                },
+                {
+                  "disabled": false,
+                  "key": "locationId",
+                  "value": "<integer>",
+                  "description": "Location ID (schedule) used to verify if the user can punch in at this location"
+                },
+                {
+                  "disabled": false,
+                  "key": "siteId",
+                  "value": "<integer>",
+                  "description": "Job site used to verify if the user can punch in at this site"
+                },
+                {
+                  "disabled": false,
+                  "key": "shiftId",
+                  "value": "<integer>",
+                  "description": "Shift ID used to verify if the user can punch into this shift"
+                },
+                {
+                  "disabled": false,
+                  "key": "deviceType",
+                  "value": "<string>",
+                  "description": "Type of device used to perform the punch"
+                },
+                {
+                  "disabled": false,
+                  "key": "latitude",
+                  "value": "<number>",
+                  "description": "Current latitude used to verify punch restrictions for strict location validation"
+                },
+                {
+                  "disabled": false,
+                  "key": "longitude",
+                  "value": "<number>",
+                  "description": "Current longitude used to verify punch restrictions for strict location validation"
+                },
+                {
+                  "disabled": false,
+                  "key": "confidence",
+                  "value": "<number>",
+                  "description": "Expand the location search area by a given confidence to the provided location"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee7adfec-f17f-49cb-bd29-495e29b06955",
+              "name": "The current punch state and allowed actions for the user",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "punch",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "siteId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "shiftId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "deviceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "confidence",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"canClockIn\": false,\n  \"canClockOut\": false,\n  \"canStartBreak\": false,\n  \"canEndBreak\": true,\n  \"needsBreakConfirmation\": false,\n  \"needsUnpaidBreakConfirmation\": false,\n  \"punchStartTime\": \"2017-09-27T18:28:52\",\n  \"punchTimeId\": 1,\n  \"errorCode\": 101,\n  \"schedules\": 4158,\n  \"jobSites\": 301,\n  \"positions\": 4542,\n  \"shift\": 1,\n  \"break\": {\n    \"id\": 2,\n    \"account_id\": 3,\n    \"time_id\": 1,\n    \"type\": 2,\n    \"creator_id\": 238,\n    \"auto_deducted\": 0,\n    \"edited_by\": 238,\n    \"skipped\": 0,\n    \"created_at\": \"2025-05-19T11:25:04-0400\",\n    \"updated_at\": \"2025-05-19T11:25:04-0400\",\n    \"scheduledbreaks_id\": 0,\n    \"start\": \"2025-05-19T10:45:00-0400\",\n    \"end\": \"1980-09-11T00:33:45.724Z\",\n    \"length\": 0\n  },\n  \"availableShifts\": [\n    4,\n    6,\n    7\n  ],\n  \"recordingUnpaidBreaksAllowed\": true,\n  \"recordingPaidBreaksAllowed\": true,\n  \"scheduledBreaks\": [\n    {\n      \"id\": 1,\n      \"account_id\": 3,\n      \"start_time\": \"2025-05-19T14:30:00+00:00\",\n      \"end_time\": \"2025-05-19T14:45:00+00:00\",\n      \"length\": 900,\n      \"paid\": true,\n      \"created_by\": 201,\n      \"created_at\": \"2025-05-10T14:45:00+00:00\",\n      \"updated_by\": \"202\",\n      \"updated_at\": \"2025-05-10T15:45:00+00:00\",\n      \"sort\": 9204,\n      \"shift_id\": 1234,\n      \"shift_break\": {\n        \"id\": 2,\n        \"account_id\": 3,\n        \"time_id\": 1,\n        \"type\": 2,\n        \"creator_id\": 238,\n        \"auto_deducted\": 0,\n        \"edited_by\": 238,\n        \"skipped\": 0,\n        \"created_at\": \"2025-05-19T11:25:04-0400\",\n        \"updated_at\": \"2025-05-19T11:25:04-0400\",\n        \"scheduledbreaks_id\": 0,\n        \"start\": \"2025-05-19T10:00:00-0400\",\n        \"end\": \"2025-05-19T10:08:00-0400\",\n        \"length\": 6\n      }\n    },\n    {\n      \"id\": 1,\n      \"account_id\": 3,\n      \"start_time\": \"2025-05-19T14:30:00+00:00\",\n      \"end_time\": \"2025-05-19T14:45:00+00:00\",\n      \"length\": 900,\n      \"paid\": true,\n      \"created_by\": 201,\n      \"created_at\": \"2025-05-10T14:45:00+00:00\",\n      \"updated_by\": \"202\",\n      \"updated_at\": \"2025-05-10T15:45:00+00:00\",\n      \"sort\": 6874,\n      \"shift_id\": 1234,\n      \"shift_break\": {\n        \"id\": 2,\n        \"account_id\": 3,\n        \"time_id\": 1,\n        \"type\": 2,\n        \"creator_id\": 238,\n        \"auto_deducted\": 0,\n        \"edited_by\": 238,\n        \"skipped\": 0,\n        \"created_at\": \"2025-05-19T11:25:04-0400\",\n        \"updated_at\": \"2025-05-19T11:25:04-0400\",\n        \"scheduledbreaks_id\": 0,\n        \"start\": \"2025-05-19T10:00:00-0400\",\n        \"end\": \"2025-05-19T10:08:00-0400\",\n        \"length\": 6\n      }\n    }\n  ],\n  \"unscheduledBreaks\": [\n    {\n      \"id\": 2,\n      \"account_id\": 3,\n      \"time_id\": 1,\n      \"type\": 2,\n      \"creator_id\": 238,\n      \"auto_deducted\": 0,\n      \"edited_by\": 238,\n      \"skipped\": 0,\n      \"created_at\": \"2025-05-19T11:25:04-0400\",\n      \"updated_at\": \"2025-05-19T11:25:04-0400\",\n      \"scheduledbreaks_id\": 0,\n      \"start\": \"2025-05-19T10:00:00-0400\",\n      \"end\": \"2025-05-19T10:08:00-0400\",\n      \"length\": 6\n    },\n    {\n      \"id\": 2,\n      \"account_id\": 3,\n      \"time_id\": 1,\n      \"type\": 2,\n      \"creator_id\": 238,\n      \"auto_deducted\": 0,\n      \"edited_by\": 238,\n      \"skipped\": 0,\n      \"created_at\": \"2025-05-19T11:25:04-0400\",\n      \"updated_at\": \"2025-05-19T11:25:04-0400\",\n      \"scheduledbreaks_id\": 0,\n      \"start\": \"2025-05-19T10:00:00-0400\",\n      \"end\": \"2025-05-19T10:08:00-0400\",\n      \"length\": 6\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad01a8c5-ffd4-4487-a1fc-1924e1712ae5",
+              "name": "Bad request contains missing or invalid parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "punch",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "siteId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "shiftId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "deviceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "confidence",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"Invalid value for userID\",\n    \"Missing required parameter deviceType\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "267c3290-9259-40b8-9286-a3ca7e68458e",
+              "name": "Forbidden access, account setting or permissions do not allow this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "punch",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "siteId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "shiftId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "deviceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "confidence",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"Web punch state not active on account\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e74c575-2083-4c4d-912e-062b99721030",
+              "name": "Not found, requested resource could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "punch",
+                    "state"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "userId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "locationId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "siteId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "shiftId",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "deviceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "latitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "longitude",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "confidence",
+                      "value": "<number>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    \"User not found\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "35863465-120b-447b-ba1c-476c91dc505c",
+    "name": "When I Work API Documentation Accounts Punch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

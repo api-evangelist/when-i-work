@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Positions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Positions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/positions",
+            "params": [
+              {
+                "name": "show_deleted",
+                "value": "",
+                "type": "query",
+                "description": "Whether to show positions that have been deleted"
+              }
+            ]
+          },
+          "docs": "List all the positions in an account."
+        },
+        {
+          "info": {
+            "name": "Create Position",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/positions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The easiest way to create a position.\n"
+        },
+        {
+          "info": {
+            "name": "Get Position",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/positions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the position"
+              }
+            ]
+          },
+          "docs": "Get a single position by ID"
+        },
+        {
+          "info": {
+            "name": "Update Position",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/positions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the position"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Allows updating a position, with the same format as creating one."
+        },
+        {
+          "info": {
+            "name": "Delete Position",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/positions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the position"
+              },
+              {
+                "name": "ids",
+                "value": "1,2,3,4",
+                "type": "query",
+                "description": "The IDs of the multiple shift templates"
+              }
+            ]
+          },
+          "docs": "Delete an existing position when no longer needed. This operation cannot be undone. Data will remain for historical purposes.\n"
+        },
+        {
+          "info": {
+            "name": "Update Multiple Positions",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/positions/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update Multiple Positions"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

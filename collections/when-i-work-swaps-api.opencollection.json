@@ -1,0 +1,61 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Swaps API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Swaps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List swap users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/shifts/:id/swapusers",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift being dropped"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the shift being dropped"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Flag to indicate if only a count of eligible takers should be returned"
+              },
+              {
+                "name": "ids_only",
+                "value": "",
+                "type": "query",
+                "description": "Flag to indicate if only the IDs of the eligible takers should be returned"
+              }
+            ]
+          },
+          "docs": "Fetch a list of elgible users that can take this dropped shift. The ID of the shift can be\nspecified in the path or query string.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

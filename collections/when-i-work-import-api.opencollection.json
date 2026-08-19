@@ -1,0 +1,99 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Import API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Import",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Import",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/import",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "type",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a user file, parses it, and returns information to help guide the import process.\n\nNote that unlike most API endpoints, this endpoint does not use JSON for the request body.\n"
+        },
+        {
+          "info": {
+            "name": "Get Import",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/import/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the import to get"
+              }
+            ]
+          },
+          "docs": "Gets an import in progress. Returns exactly the same content as the result of Create Import.\n"
+        },
+        {
+          "info": {
+            "name": "Preview Import",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/import/:id/preview",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Given a set of column mappings, previews the result of the import.\n"
+        },
+        {
+          "info": {
+            "name": "Finalize Import",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/import/:id/finalize",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Given a set of column mappings, finalizes the import.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

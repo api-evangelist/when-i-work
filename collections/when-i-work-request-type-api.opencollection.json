@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Request Type API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Request Type",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Of Time Off Request Types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/requesttypes"
+          },
+          "docs": "Get a collection of request type objects. Request types are types available for taking time off.\n"
+        },
+        {
+          "info": {
+            "name": "Create or update a Collection of request types",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/requesttypes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or update a Collection of request types"
+        },
+        {
+          "info": {
+            "name": "Get Time Off Request Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/requesttypes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Request Type with ID to return."
+              }
+            ]
+          },
+          "docs": "Returns a single request object. Requests allow users to request time off.\n"
+        },
+        {
+          "info": {
+            "name": "Delete Time Off Request Type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/requesttypes/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Request Type with ID to return."
+              }
+            ]
+          },
+          "docs": "Delete Time Off Request Type"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,230 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Shift Breaks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shift Breaks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Scheduled Shift Breaks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/v3/scheduled-breaks",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Gets shift breaks with start after (datetime formatted ISO8601)"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Gets shifts breaks with end before (datetime formatted ISO8601)"
+              },
+              {
+                "name": "shiftId",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of shift ids to filter results"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of user ids to filter results"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of location ids to filter results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit results"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Start on page"
+              }
+            ]
+          },
+          "docs": "Get scheduled shift breaks"
+        },
+        {
+          "info": {
+            "name": "List Shift Breaks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/v3/shift-breaks",
+            "params": [
+              {
+                "name": "time",
+                "value": "",
+                "type": "query",
+                "description": "An array of Time query parameters (e.g. ?time[startTime][gte]=2019-01-01T00:00:00Z)"
+              },
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Gets shift breaks with start after (datetime formatted ISO8601)"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Gets shift breaks with end before (datetime formatted ISO8601)"
+              },
+              {
+                "name": "shiftId",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of shift ids to filter results"
+              },
+              {
+                "name": "timeId",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of time ids to filter results"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of location ids to filter results"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of user ids to filter results"
+              },
+              {
+                "name": "ended",
+                "value": "",
+                "type": "query",
+                "description": "Only return breaks that are either ended or not ended (0=not ended, 1=ended)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit results"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Start on page"
+              },
+              {
+                "name": "overwriteWithRounded",
+                "value": "",
+                "type": "query",
+                "description": "Flag to overwrite the start/end/length values with their rounded counterparts (if account setting is enabled)"
+              }
+            ]
+          },
+          "docs": "List actual shift breaks"
+        },
+        {
+          "info": {
+            "name": "Create Shift Break",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/v3/shift-breaks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an actual shift break"
+        },
+        {
+          "info": {
+            "name": "Get Shift Break",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/v3/shift-breaks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Shift Break ID"
+              }
+            ]
+          },
+          "docs": "Get single shift breaks"
+        },
+        {
+          "info": {
+            "name": "Update Shift Break",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.wheniwork.com/v3/shift-breaks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Shift Break ID"
+              }
+            ]
+          },
+          "docs": "Update single shift breaks"
+        },
+        {
+          "info": {
+            "name": "Delete Shift Break",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/v3/shift-breaks/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Shift Break ID"
+              }
+            ]
+          },
+          "docs": "Delete single shift breaks"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

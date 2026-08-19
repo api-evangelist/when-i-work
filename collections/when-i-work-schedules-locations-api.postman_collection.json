@@ -1,0 +1,545 @@
+{
+  "item": [
+    {
+      "id": "60d41659-dcde-4d3a-8c4d-9023663827ed",
+      "name": "Schedules (Locations)",
+      "description": {
+        "content": "Schedules are logical groupings of users that are working together. Schedules can be physical offices with addresses or logical groups like departments. Users can be tagged (associated) to one or more schedules. Schedules can be departments, facilities, business divisions or any grouping of staff.\n\nFor more information about using Scheduled, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-schedules-computer/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0945f5b2-d1fc-4bba-afb7-542c41d1d192",
+          "name": "List Schedules (Locations)",
+          "request": {
+            "name": "List Schedules (Locations)",
+            "description": {
+              "content": "List all the schedules in an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "only_unconfirmed",
+                  "value": "<boolean>",
+                  "description": "Include only unconfirmed schedules/locations"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8fd8199-5647-43d1-996a-d32409d54333",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "only_unconfirmed",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"locations\": [\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"name\": \"Front of House\",\n      \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n      \"coordinates\": [\n        44.983791,\n        -93.2774416\n      ],\n      \"deleted_at\": \"1996-02-07T02:06:22.859Z\",\n      \"ip_address\": \"192.168.1.1\",\n      \"is_default\": false,\n      \"is_deleted\": false,\n      \"latitude\": 44.983791,\n      \"longitude\": -93.2774416,\n      \"max_hours\": 0,\n      \"place\": {\n        \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n        \"business_name\": \"When I Work\",\n        \"country\": \"US\",\n        \"id\": 2,\n        \"latitude\": 44.983791,\n        \"locality\": \"Minneapolis\",\n        \"longitude\": -93.277442,\n        \"place_id\": \"ChIJYfRBzjfVslIRQLB018IGX3o\",\n        \"place_type\": [\n          \"point_of_interest\",\n          \"establishment\"\n        ],\n        \"postal_code\": \"55401\",\n        \"region\": \"MN\",\n        \"street_name\": \"N 5th St\",\n        \"street_number\": \"420\",\n        \"sub_locality\": \"string\",\n        \"updated_at\": \"2019-05-16T09:14:45+05:45\"\n      },\n      \"place_confirmed\": true,\n      \"place_id\": \"string\",\n      \"radius\": 100,\n      \"sort\": 0,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    },\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"name\": \"Front of House\",\n      \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n      \"coordinates\": [\n        44.983791,\n        -93.2774416\n      ],\n      \"deleted_at\": \"1976-03-28T15:24:09.946Z\",\n      \"ip_address\": \"192.168.1.1\",\n      \"is_default\": false,\n      \"is_deleted\": false,\n      \"latitude\": 44.983791,\n      \"longitude\": -93.2774416,\n      \"max_hours\": 0,\n      \"place\": {\n        \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n        \"business_name\": \"When I Work\",\n        \"country\": \"US\",\n        \"id\": 2,\n        \"latitude\": 44.983791,\n        \"locality\": \"Minneapolis\",\n        \"longitude\": -93.277442,\n        \"place_id\": \"ChIJYfRBzjfVslIRQLB018IGX3o\",\n        \"place_type\": [\n          \"point_of_interest\",\n          \"establishment\"\n        ],\n        \"postal_code\": \"55401\",\n        \"region\": \"MN\",\n        \"street_name\": \"N 5th St\",\n        \"street_number\": \"420\",\n        \"sub_locality\": \"string\",\n        \"updated_at\": \"2019-05-16T09:14:45+05:45\"\n      },\n      \"place_confirmed\": true,\n      \"place_id\": \"string\",\n      \"radius\": 100,\n      \"sort\": 0,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c59a9f5-c9f9-4c4e-82b7-c0d3f1b6edb5",
+          "name": "Create Schedule (Location)",
+          "request": {
+            "name": "Create Schedule (Location)",
+            "description": {
+              "content": "Used to create a schedule (location) within an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "locations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"coordinates\": \"<array>\",\n  \"deleted_at\": \"<dateTime>\",\n  \"ip_address\": \"<ipv4>\",\n  \"is_default\": \"<boolean>\",\n  \"is_deleted\": \"<boolean>\",\n  \"latitude\": \"<float>\",\n  \"longitude\": \"<float>\",\n  \"max_hours\": \"<integer>\",\n  \"place\": {\n    \"address\": \"<string>\",\n    \"business_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"latitude\": \"<float>\",\n    \"locality\": \"<string>\",\n    \"longitude\": \"<float>\",\n    \"place_id\": \"<string>\",\n    \"place_type\": \"<array>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"street_name\": \"<string>\",\n    \"street_number\": \"<string>\",\n    \"sub_locality\": \"<string>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  \"place_confirmed\": \"<boolean>\",\n  \"place_id\": \"<string>\",\n  \"radius\": \"<integer>\",\n  \"sort\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af523020-12cf-4f83-a648-d5280ec7be3b",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "locations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"location\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"name\": \"Front of House\",\n    \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n    \"coordinates\": [\n      44.983791,\n      -93.2774416\n    ],\n    \"deleted_at\": \"<dateTime>\",\n    \"ip_address\": \"192.168.1.1\",\n    \"is_default\": false,\n    \"is_deleted\": false,\n    \"latitude\": 44.983791,\n    \"longitude\": -93.2774416,\n    \"max_hours\": 0,\n    \"place\": {\n      \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n      \"business_name\": \"When I Work\",\n      \"country\": \"US\",\n      \"id\": 2,\n      \"latitude\": 44.983791,\n      \"locality\": \"Minneapolis\",\n      \"longitude\": -93.277442,\n      \"place_id\": \"ChIJYfRBzjfVslIRQLB018IGX3o\",\n      \"place_type\": [\n        \"point_of_interest\",\n        \"establishment\"\n      ],\n      \"postal_code\": \"55401\",\n      \"region\": \"MN\",\n      \"street_name\": \"N 5th St\",\n      \"street_number\": \"420\",\n      \"sub_locality\": \"<string>\",\n      \"updated_at\": \"2019-05-16T09:14:45+05:45\"\n    },\n    \"place_confirmed\": true,\n    \"place_id\": \"<string>\",\n    \"radius\": 100,\n    \"sort\": 0,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d70d5ec-de76-496e-86c2-00cf54fee1e4",
+          "name": "Get Schedule (Location)",
+          "request": {
+            "name": "Get Schedule (Location)",
+            "description": {
+              "content": "Get a single schedule/location by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "locations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the schedule"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bf98b893-ecaf-4366-9949-5d0190ae85bf",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "locations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the schedule"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"location\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"name\": \"Front of House\",\n    \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n    \"coordinates\": [\n      44.983791,\n      -93.2774416\n    ],\n    \"deleted_at\": \"<dateTime>\",\n    \"ip_address\": \"192.168.1.1\",\n    \"is_default\": false,\n    \"is_deleted\": false,\n    \"latitude\": 44.983791,\n    \"longitude\": -93.2774416,\n    \"max_hours\": 0,\n    \"place\": {\n      \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n      \"business_name\": \"When I Work\",\n      \"country\": \"US\",\n      \"id\": 2,\n      \"latitude\": 44.983791,\n      \"locality\": \"Minneapolis\",\n      \"longitude\": -93.277442,\n      \"place_id\": \"ChIJYfRBzjfVslIRQLB018IGX3o\",\n      \"place_type\": [\n        \"point_of_interest\",\n        \"establishment\"\n      ],\n      \"postal_code\": \"55401\",\n      \"region\": \"MN\",\n      \"street_name\": \"N 5th St\",\n      \"street_number\": \"420\",\n      \"sub_locality\": \"<string>\",\n      \"updated_at\": \"2019-05-16T09:14:45+05:45\"\n    },\n    \"place_confirmed\": true,\n    \"place_id\": \"<string>\",\n    \"radius\": 100,\n    \"sort\": 0,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1e30cd81-04b8-4b0f-8809-9fc108967834",
+          "name": "Update Schedule (Location)",
+          "request": {
+            "name": "Update Schedule (Location)",
+            "description": {
+              "content": "Updates a single schedule (location)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "locations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the schedule"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"address\": \"<string>\",\n  \"coordinates\": \"<array>\",\n  \"deleted_at\": \"<dateTime>\",\n  \"ip_address\": \"<ipv4>\",\n  \"is_default\": \"<boolean>\",\n  \"is_deleted\": \"<boolean>\",\n  \"latitude\": \"<float>\",\n  \"longitude\": \"<float>\",\n  \"max_hours\": \"<integer>\",\n  \"place\": {\n    \"address\": \"<string>\",\n    \"business_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"latitude\": \"<float>\",\n    \"locality\": \"<string>\",\n    \"longitude\": \"<float>\",\n    \"place_id\": \"<string>\",\n    \"place_type\": \"<array>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"street_name\": \"<string>\",\n    \"street_number\": \"<string>\",\n    \"sub_locality\": \"<string>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  \"place_confirmed\": \"<boolean>\",\n  \"place_id\": \"<string>\",\n  \"radius\": \"<integer>\",\n  \"sort\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1d9c2638-f6e1-4386-bab5-1ef7e267447c",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "locations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the schedule"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"location\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"name\": \"Front of House\",\n    \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n    \"coordinates\": [\n      44.983791,\n      -93.2774416\n    ],\n    \"deleted_at\": \"<dateTime>\",\n    \"ip_address\": \"192.168.1.1\",\n    \"is_default\": false,\n    \"is_deleted\": false,\n    \"latitude\": 44.983791,\n    \"longitude\": -93.2774416,\n    \"max_hours\": 0,\n    \"place\": {\n      \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n      \"business_name\": \"When I Work\",\n      \"country\": \"US\",\n      \"id\": 2,\n      \"latitude\": 44.983791,\n      \"locality\": \"Minneapolis\",\n      \"longitude\": -93.277442,\n      \"place_id\": \"ChIJYfRBzjfVslIRQLB018IGX3o\",\n      \"place_type\": [\n        \"point_of_interest\",\n        \"establishment\"\n      ],\n      \"postal_code\": \"55401\",\n      \"region\": \"MN\",\n      \"street_name\": \"N 5th St\",\n      \"street_number\": \"420\",\n      \"sub_locality\": \"<string>\",\n      \"updated_at\": \"2019-05-16T09:14:45+05:45\"\n    },\n    \"place_confirmed\": true,\n    \"place_id\": \"<string>\",\n    \"radius\": 100,\n    \"sort\": 0,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08956560-72eb-47b4-9c75-96878a5e48a4",
+          "name": "Delete Schedule (Location)",
+          "request": {
+            "name": "Delete Schedule (Location)",
+            "description": {
+              "content": "Delete an existing schedule when no longer needed. This operation cannot be undone. Data will remain for historical purposes.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "locations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "The IDs of the multiple shift templates"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "The ID of the schedule"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "362d7e8b-753c-4c42-b811-cc9f1b2f2734",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "locations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "1,2,3,4"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "The ID of the schedule"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a9dfaf4e-a00d-4bb2-bc44-b00ac584ac8d",
+    "name": "When I Work API Documentation Accounts Schedules (Locations) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

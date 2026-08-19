@@ -1,0 +1,606 @@
+{
+  "item": [
+    {
+      "id": "df1ee736-de01-4b15-bfd3-920668298480",
+      "name": "Payrolls",
+      "description": {
+        "content": "Payrolls allows you to select a pay period date range and hours worked within that range. Default range if not supplied is today + 3 days.\n\n> Please note that payrolls cannot be created or deleted via the API\n\nFor more info about managing Payroll, visit the [Help Center](https://help.wheniwork.com/articles/close-and-export-payroll/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6659b168-6d12-4b4f-bd1b-93922db2cc9b",
+          "name": "List Payrolls",
+          "request": {
+            "name": "List Payrolls",
+            "description": {
+              "content": "Listing of payroll periods and totals within a specified date range for an account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "payrolls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "now",
+                  "description": "Start date of search range (datetime formatted ISO8601)"
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "now + 3 days",
+                  "description": "End date of search range (datetime formatted ISO8601)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "315234f6-9c01-4fd6-8b7e-5bdb2e3019d8",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "payrolls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "now"
+                    },
+                    {
+                      "key": "end",
+                      "value": "now + 3 days"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payrolls\": [\n    {\n      \"id\": 100000,\n      \"account_id\": 100000,\n      \"creator_id\": 1000000,\n      \"start_date\": \"1960-02-07T00:19:05.551Z\",\n      \"end_date\": \"2011-08-26T10:15:57.322Z\",\n      \"offset\": \"00:00:00\",\n      \"notes\": \"Holiday payroll run.\",\n      \"is_edited\": false,\n      \"is_closed\": false,\n      \"closed_at\": \"2020-05-07T23:04:38.415Z\",\n      \"is_finalized\": false,\n      \"finalized_at\": \"2009-10-28T23:34:07.027Z\",\n      \"created_at\": \"1974-11-26T12:16:02.405Z\",\n      \"updated_at\": \"2017-10-06T07:23:36.273Z\"\n    },\n    {\n      \"id\": 100000,\n      \"account_id\": 100000,\n      \"creator_id\": 1000000,\n      \"start_date\": \"1949-09-24T13:08:33.449Z\",\n      \"end_date\": \"1983-03-07T21:55:57.249Z\",\n      \"offset\": \"00:00:00\",\n      \"notes\": \"Holiday payroll run.\",\n      \"is_edited\": false,\n      \"is_closed\": false,\n      \"closed_at\": \"1953-05-04T10:06:25.694Z\",\n      \"is_finalized\": false,\n      \"finalized_at\": \"2024-01-17T04:54:59.717Z\",\n      \"created_at\": \"1976-02-15T22:57:04.895Z\",\n      \"updated_at\": \"2019-04-25T15:14:53.047Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e7a73f1-a1ad-4da6-846d-2a8a56a94feb",
+          "name": "Get Payroll",
+          "request": {
+            "name": "Get Payroll",
+            "description": {
+              "content": "Get an existing payroll period by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "payrolls",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the payroll period requested."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f83dfe9-a767-4fb0-8001-672a5de10ae0",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "payrolls",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the payroll period requested."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payroll\": {\n    \"id\": 100000,\n    \"account_id\": 100000,\n    \"creator_id\": 1000000,\n    \"start_date\": \"2022-05-30T06:41:59.198Z\",\n    \"end_date\": \"2024-05-22T17:25:47.198Z\",\n    \"offset\": \"00:00:00\",\n    \"notes\": \"Holiday payroll run.\",\n    \"is_edited\": false,\n    \"is_closed\": false,\n    \"closed_at\": \"1994-05-24T17:02:53.670Z\",\n    \"is_finalized\": false,\n    \"finalized_at\": \"2011-11-16T00:28:05.009Z\",\n    \"created_at\": \"1991-01-26T21:55:14.402Z\",\n    \"updated_at\": \"1960-05-19T19:08:59.618Z\"\n  },\n  \"payrollhours\": [\n    {\n      \"id\": 988,\n      \"payroll_id\": 4284,\n      \"type\": 1160,\n      \"type_label\": \"string\",\n      \"user_id\": 8428,\n      \"position_id\": 7097,\n      \"hours\": 2471.184584311551,\n      \"rate\": 9977.309342065751,\n      \"total\": 8250.832566397958\n    },\n    {\n      \"id\": 5482,\n      \"payroll_id\": 7700,\n      \"type\": 823,\n      \"type_label\": \"string\",\n      \"user_id\": 5628,\n      \"position_id\": 1335,\n      \"hours\": 6660.749126255955,\n      \"rate\": 971.1033458649276,\n      \"total\": 2740.8128821820287\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc29f116-6346-4b1b-8ce4-8ffd5d3a7de1",
+          "name": "Update Payroll",
+          "request": {
+            "name": "Update Payroll",
+            "description": {
+              "content": "Update a selected payroll. The PUT body can include fields from the Payroll Object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "payrolls",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<integer>\",\n  \"creator_id\": \"<integer>\",\n  \"start_date\": \"<dateTime>\",\n  \"end_date\": \"<dateTime>\",\n  \"offset\": \"<time>\",\n  \"notes\": \"<string>\",\n  \"is_edited\": \"<boolean>\",\n  \"is_closed\": \"<boolean>\",\n  \"closed_at\": \"<dateTime>\",\n  \"is_finalized\": \"<boolean>\",\n  \"finalized_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4973941e-606f-4aa1-8990-f0d936bc2f95",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "payrolls",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payroll\": {\n    \"id\": 100000,\n    \"account_id\": 100000,\n    \"creator_id\": 1000000,\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\",\n    \"offset\": \"00:00:00\",\n    \"notes\": \"Holiday payroll run.\",\n    \"is_edited\": false,\n    \"is_closed\": false,\n    \"closed_at\": \"<dateTime>\",\n    \"is_finalized\": false,\n    \"finalized_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "621f0fe0-04db-45a0-88ce-2e47a318556c",
+          "name": "Get Payroll Statistics for current hours",
+          "request": {
+            "name": "Get Payroll Statistics for current hours",
+            "description": {
+              "content": "Get the aggregate statistics for payroll period by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "payrolls",
+                ":id",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "mapObjects",
+                  "value": "<boolean>",
+                  "description": "Force structured listings to use maps by ID and not arrays"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the payroll period requested."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "141ae210-c0b3-4532-8754-6871ec7cd1c5",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "payrolls",
+                    ":id",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "mapObjects",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the payroll period requested."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payroll\": {\n    \"id\": 100000,\n    \"account_id\": 100000,\n    \"creator_id\": 1000000,\n    \"start_date\": \"<dateTime>\",\n    \"end_date\": \"<dateTime>\",\n    \"offset\": \"00:00:00\",\n    \"notes\": \"Holiday payroll run.\",\n    \"is_edited\": false,\n    \"is_closed\": false,\n    \"closed_at\": \"<dateTime>\",\n    \"is_finalized\": false,\n    \"finalized_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3c21ea2-1970-4540-9fd5-d3771b7deba0",
+          "name": "List Notices",
+          "request": {
+            "name": "List Notices",
+            "description": {
+              "content": "Get all attendance notices since the last time they were dismissed. Attendance notices can be generated by\nabsences, early/late clock ins/outs, no shows, etc.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "payrolls",
+                "notices"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ignoreDismissedAt",
+                  "value": "<boolean>",
+                  "description": "Sometimes you may want to view notices that have already been dismissed. Set this parameter to `true` to view\nall notices regardless of when they've been dismissed.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "rangeInDays",
+                  "value": "<integer>",
+                  "description": "Limit the range of the notices that will be returned. By default, the endpoint will pull in everything since\nthe last time the user dismissed notices. This parameter can help restrict the window further.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d3db428f-9c1e-47a1-a153-76a67ee5f243",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "payrolls",
+                    "notices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ignoreDismissedAt",
+                      "value": "true"
+                    },
+                    {
+                      "key": "rangeInDays",
+                      "value": "-7"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"absences\": [\n    {\n      \"userId\": \"226\",\n      \"shiftId\": \"9\",\n      \"shiftStartTime\": \"2016-12-19T16:39:57-08:00\",\n      \"shiftEndTime\": \"2016-12-19T16:39:57-08:00\",\n      \"locationId\": \"13\",\n      \"creatorId\": \"226\",\n      \"id\": \"1\",\n      \"accountId\": \"7\",\n      \"siteId\": \"10\",\n      \"positionId\": \"38\",\n      \"notes\": \"Absence note\",\n      \"actions\": [\n        {\n          \"actionType\": \"moved-to-open\",\n          \"createdBy\": \"221\",\n          \"createdAt\": \"1962-08-26T02:27:05.799Z\",\n          \"shiftId\": \"221\",\n          \"requestId\": \"125\",\n          \"swapId\": \"312\"\n        },\n        {\n          \"actionType\": \"swap\",\n          \"createdBy\": \"221\",\n          \"createdAt\": \"1949-11-25T00:07:34.394Z\",\n          \"shiftId\": \"221\",\n          \"requestId\": \"125\",\n          \"swapId\": \"312\"\n        }\n      ],\n      \"createdAt\": \"2016-12-19T16:39:57-08:00\",\n      \"updatedBy\": 226,\n      \"updatedAt\": \"2016-12-19T16:39:57-08:00\",\n      \"isDeleted\": false\n    },\n    {\n      \"userId\": \"226\",\n      \"shiftId\": \"9\",\n      \"shiftStartTime\": \"2016-12-19T16:39:57-08:00\",\n      \"shiftEndTime\": \"2016-12-19T16:39:57-08:00\",\n      \"locationId\": \"13\",\n      \"creatorId\": \"226\",\n      \"id\": \"1\",\n      \"accountId\": \"7\",\n      \"siteId\": \"10\",\n      \"positionId\": \"38\",\n      \"notes\": \"Absence note\",\n      \"actions\": [\n        {\n          \"actionType\": \"moved-to-open\",\n          \"createdBy\": \"221\",\n          \"createdAt\": \"2012-02-13T03:06:49.648Z\",\n          \"shiftId\": \"221\",\n          \"requestId\": \"125\",\n          \"swapId\": \"312\"\n        },\n        {\n          \"actionType\": \"moved-to-open\",\n          \"createdBy\": \"221\",\n          \"createdAt\": \"1985-04-03T02:44:59.231Z\",\n          \"shiftId\": \"221\",\n          \"requestId\": \"125\",\n          \"swapId\": \"312\"\n        }\n      ],\n      \"createdAt\": \"2016-12-19T16:39:57-08:00\",\n      \"updatedBy\": 226,\n      \"updatedAt\": \"2016-12-19T16:39:57-08:00\",\n      \"isDeleted\": false\n    }\n  ],\n  \"notices\": [\n    {\n      \"time_id\": 9086,\n      \"user_id\": 5176,\n      \"shift_id\": 450,\n      \"title\": \"Wrong Location\",\n      \"code\": 4879,\n      \"punch_id\": 4474,\n      \"absence_id\": 194,\n      \"created_at\": \"1993-10-31T12:46:59.202Z\"\n    },\n    {\n      \"time_id\": 7394,\n      \"user_id\": 1140,\n      \"shift_id\": 1981,\n      \"title\": \"Clocked Out Early\",\n      \"code\": 5595,\n      \"punch_id\": 7008,\n      \"absence_id\": 2792,\n      \"created_at\": \"2015-05-23T12:19:56.040Z\"\n    }\n  ],\n  \"punches\": [\n    {\n      \"id\": 7857,\n      \"account_id\": 5977,\n      \"location_id\": 175,\n      \"alert_type\": 5037,\n      \"method\": 7575,\n      \"method_name\": \"Third Party App\",\n      \"site_id\": 3874,\n      \"type\": 1342,\n      \"time_id\": 3356,\n      \"user_id\": 4811,\n      \"accuracy\": 5902.143229967815,\n      \"altitude\": 5102.569810478328,\n      \"latitude\": 9695.854196264487,\n      \"longitude\": 7256.384923252815,\n      \"ip_address\": \"string\",\n      \"notes\": \"string\"\n    },\n    {\n      \"id\": 4309,\n      \"account_id\": 8053,\n      \"location_id\": 489,\n      \"alert_type\": 1124,\n      \"method\": 6033,\n      \"method_name\": \"Terminal\",\n      \"site_id\": 9297,\n      \"type\": 1510,\n      \"time_id\": 6191,\n      \"user_id\": 4073,\n      \"accuracy\": 8440.57125379885,\n      \"altitude\": 3029.161639950596,\n      \"latitude\": 4552.455111718532,\n      \"longitude\": 6679.3744116533635,\n      \"ip_address\": \"string\",\n      \"notes\": \"string\"\n    }\n  ],\n  \"shifts\": [\n    {\n      \"start_time\": \"1961-11-07T00:29:13.179Z\",\n      \"end_time\": \"1970-11-27T06:08:59.723Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"length\": 1800,\n          \"paid\": false,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 8611,\n          \"created_at\": \"string\",\n          \"created_by\": 4756,\n          \"updated_at\": \"string\",\n          \"updated_by\": 7253,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        },\n        {\n          \"length\": 1800,\n          \"paid\": false,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 579,\n          \"created_at\": \"string\",\n          \"created_by\": 3899,\n          \"updated_at\": \"string\",\n          \"updated_by\": 927,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"1982-10-31T15:28:20.982Z\",\n      \"notified_at\": \"1970-04-15T15:44:32.070Z\",\n      \"instances\": 3,\n      \"created_at\": \"1982-05-12T15:29:32.910Z\",\n      \"updated_at\": \"1999-03-25T05:15:05.659Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"2023-02-04T09:09:01.118Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false\n    },\n    {\n      \"start_time\": \"2009-02-25T05:44:48.589Z\",\n      \"end_time\": \"1954-07-09T08:41:04.833Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"length\": 1800,\n          \"paid\": true,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 7662,\n          \"created_at\": \"string\",\n          \"created_by\": 2391,\n          \"updated_at\": \"string\",\n          \"updated_by\": 1032,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        },\n        {\n          \"length\": 1800,\n          \"paid\": true,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 1293,\n          \"created_at\": \"string\",\n          \"created_by\": 3165,\n          \"updated_at\": \"string\",\n          \"updated_by\": 5081,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"1990-08-29T03:59:03.117Z\",\n      \"notified_at\": \"1998-04-07T15:25:13.872Z\",\n      \"instances\": 3,\n      \"created_at\": \"1960-04-08T11:09:56.478Z\",\n      \"updated_at\": \"2013-06-27T04:02:55.191Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"2010-01-01T10:33:34.241Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false\n    }\n  ],\n  \"times\": [\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"creator_id\": 100,\n      \"position_id\": 19483,\n      \"location_id\": 1045,\n      \"site_id\": 4351,\n      \"shift_id\": 5451,\n      \"start_time\": \"2004-05-28T12:22:35.040Z\",\n      \"end_time\": \"1992-08-18T00:15:30.856Z\",\n      \"rounded_start_time\": \"1992-11-16T03:53:13.202Z\",\n      \"rounded_end_time\": \"1948-08-27T07:41:16.031Z\",\n      \"notes\": \"A time note\",\n      \"length\": 8,\n      \"rounded_length\": 8,\n      \"hourly_rate\": 15,\n      \"cash_tips\": \"123.45\",\n      \"alert_type\": 16,\n      \"is_approved\": false,\n      \"modified_by\": 18438,\n      \"sync_id\": \"\",\n      \"sync_hash\": \"\",\n      \"updated_at\": \"1976-08-31T04:38:02.021Z\",\n      \"created_at\": \"1997-06-18T05:29:36.450Z\",\n      \"split_time\": \"1973-11-30T10:08:38.623Z\",\n      \"is_alerted\": false,\n      \"paid_break_note\": \"I am a note entered for the shift break paid record\"\n    },\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"creator_id\": 100,\n      \"position_id\": 19483,\n      \"location_id\": 1045,\n      \"site_id\": 4351,\n      \"shift_id\": 5451,\n      \"start_time\": \"1961-11-19T09:28:23.785Z\",\n      \"end_time\": \"1994-05-03T21:23:39.191Z\",\n      \"rounded_start_time\": \"1950-09-24T09:56:42.337Z\",\n      \"rounded_end_time\": \"1953-12-10T16:21:18.665Z\",\n      \"notes\": \"A time note\",\n      \"length\": 8,\n      \"rounded_length\": 8,\n      \"hourly_rate\": 15,\n      \"cash_tips\": \"123.45\",\n      \"alert_type\": 16,\n      \"is_approved\": false,\n      \"modified_by\": 18438,\n      \"sync_id\": \"\",\n      \"sync_hash\": \"\",\n      \"updated_at\": \"2000-11-11T00:25:07.537Z\",\n      \"created_at\": \"1946-10-31T05:06:18.336Z\",\n      \"split_time\": \"2023-09-17T16:32:12.993Z\",\n      \"is_alerted\": false,\n      \"paid_break_note\": \"I am a note entered for the shift break paid record\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79245044-d6c7-4edc-8bad-43a3df55f4fd",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "payrolls",
+                    "notices"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ignoreDismissedAt",
+                      "value": "true"
+                    },
+                    {
+                      "key": "rangeInDays",
+                      "value": "-7"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"You do not have permission to do this.\",\n  \"code\": 3005\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f320eae1-bae0-407e-99a6-1aad8f9f7c50",
+    "name": "When I Work API Documentation Accounts Payrolls API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

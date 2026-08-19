@@ -1,0 +1,634 @@
+{
+  "item": [
+    {
+      "id": "e5bcc17a-cea0-4d5f-95c9-11a3d147332b",
+      "name": "Shift Requests",
+      "description": {
+        "content": "If you’re unable to work one of your shifts, you can give it to one of your coworkers (drop the shift) or trade shifts with one of your coworkers (swap shifts).\n\nFor more information about using Shift Requests, visit the [Help Center](https://help.wheniwork.com/articles/swapping-and-dropping-shifts-computer/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fa605d2b-2de9-4452-8db7-1ca14e87fc19",
+          "name": "Gets a collection of all shift requests.",
+          "request": {
+            "name": "Gets a collection of all shift requests.",
+            "description": {
+              "content": "Get a collection of shift request objects. Swaps let users swap shifts with each\nother or drop shifts for other users to pick up.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "swaps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "End time for the shift search window. Must be included if start is defined.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10",
+                  "description": "The number of shift requests to include per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "open_only",
+                  "value": "false",
+                  "description": "Whether only open swaps should be included in the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "The page of results to fetch."
+                },
+                {
+                  "disabled": false,
+                  "key": "shift_id",
+                  "value": "<integer>",
+                  "description": "The ID of the shift to get swaps for. For multiple shifts, enter a list of shift IDs separated by commas.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "shift_id",
+                  "value": "<integer>",
+                  "description": "The ID of the shift to get swaps for. For multiple shifts, enter a list of shift IDs separated by commas.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "Start time for the shift search window. Must be included if end is defined.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<integer>",
+                  "description": "The status or statuses of shift request that should be included in the\nresults. For multiple statuses, enter a list separated by commas.\n\nStatuses available are:\n* `0` - Pending\n* `1` - Approved\n* `2` - Declined\n* `3` - Completed\n* `4` - Canceled\n* `5` - Expired\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<integer>",
+                  "description": "The status or statuses of shift request that should be included in the\nresults. For multiple statuses, enter a list separated by commas.\n\nStatuses available are:\n* `0` - Pending\n* `1` - Approved\n* `2` - Declined\n* `3` - Completed\n* `4` - Canceled\n* `5` - Expired\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<integer>",
+                  "description": "The type or types of shift requests that should be included in the results.\nFor multiple types, enter a list separated by commas.\n\nTypes available are:\n* `1` - Swap\n* `2` - Drop\n* `3` - Alert\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<integer>",
+                  "description": "The type or types of shift requests that should be included in the results.\nFor multiple types, enter a list separated by commas.\n\nTypes available are:\n* `1` - Swap\n* `2` - Drop\n* `3` - Alert\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<integer>",
+                  "description": "The ID of the user to get shift requests for. For multiple users, enter a list of user IDs separated by commas.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<integer>",
+                  "description": "The ID of the user to get shift requests for. For multiple users, enter a list of user IDs separated by commas.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "721b6853-d4a1-496e-8bab-258f9858e7f3",
+              "name": "Collection of shift request objects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "end",
+                      "value": "2017-07-21T17:32:28Z"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "open_only",
+                      "value": "false"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "shift_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "shift_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "2017-07-21T17:32:28Z"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"account_id\": 2946,\n      \"actor\": 0,\n      \"content\": \"string\",\n      \"conversation_id\": 8784,\n      \"created_at\": \"2016-03-12T15:59:09.078Z\",\n      \"id\": 1022,\n      \"request_id\": 8383,\n      \"swap_id\": 9752,\n      \"title\": \"string\",\n      \"updated_at\": \"1990-11-27T05:53:45.609Z\",\n      \"user_id\": 4678\n    },\n    {\n      \"account_id\": 7045,\n      \"actor\": 1,\n      \"content\": \"string\",\n      \"conversation_id\": 173,\n      \"created_at\": \"2007-09-24T22:08:27.007Z\",\n      \"id\": 5117,\n      \"request_id\": 2385,\n      \"swap_id\": 6702,\n      \"title\": \"string\",\n      \"updated_at\": \"1979-07-31T10:01:24.481Z\",\n      \"user_id\": 2033\n    }\n  ],\n  \"more\": true,\n  \"page\": 3929,\n  \"shifts\": [\n    {\n      \"start_time\": \"1975-01-10T14:35:36.073Z\",\n      \"end_time\": \"2017-12-03T19:57:06.343Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"length\": 1800,\n          \"paid\": true,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 9209,\n          \"created_at\": \"string\",\n          \"created_by\": 7038,\n          \"updated_at\": \"string\",\n          \"updated_by\": 2493,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        },\n        {\n          \"length\": 1800,\n          \"paid\": false,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 3053,\n          \"created_at\": \"string\",\n          \"created_by\": 3049,\n          \"updated_at\": \"string\",\n          \"updated_by\": 2373,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"2021-11-10T17:32:29.636Z\",\n      \"notified_at\": \"1970-01-02T09:24:49.323Z\",\n      \"instances\": 3,\n      \"created_at\": \"1947-08-27T21:12:28.621Z\",\n      \"updated_at\": \"1962-12-08T19:52:22.919Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"2016-12-01T01:17:00.692Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false\n    },\n    {\n      \"start_time\": \"1989-01-20T09:40:32.819Z\",\n      \"end_time\": \"1961-09-10T09:02:09.986Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"length\": 1800,\n          \"paid\": false,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 9429,\n          \"created_at\": \"string\",\n          \"created_by\": 4171,\n          \"updated_at\": \"string\",\n          \"updated_by\": 2005,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        },\n        {\n          \"length\": 1800,\n          \"paid\": false,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 20,\n          \"created_at\": \"string\",\n          \"created_by\": 2220,\n          \"updated_at\": \"string\",\n          \"updated_by\": 6659,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"1960-11-04T00:35:19.158Z\",\n      \"notified_at\": \"2024-10-28T22:34:56.403Z\",\n      \"instances\": 3,\n      \"created_at\": \"1972-05-24T06:24:45.404Z\",\n      \"updated_at\": \"1962-03-11T14:47:38.920Z\",\n      \"acknowledged\": true,\n      \"acknowledged_at\": \"1986-03-21T02:56:31.295Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false\n    }\n  ],\n  \"swaps\": [\n    {\n      \"accepted_id\": 8707,\n      \"account_id\": 1739,\n      \"actionable\": true,\n      \"allowed_statuses\": [\n        8472,\n        6135\n      ],\n      \"canceled_id\": 7267,\n      \"completed_at\": \"string\",\n      \"created_at\": \"string\",\n      \"creator_id\": 2398,\n      \"id\": 994,\n      \"location_id\": 6947,\n      \"shift_id\": 5552,\n      \"status\": 3,\n      \"statuses\": [\n        {\n          \"shift_id\": 8676,\n          \"status\": 1706,\n          \"user_id\": 1674,\n          \"user_status\": 9014\n        },\n        {\n          \"shift_id\": 7994,\n          \"status\": 1504,\n          \"user_id\": 2155,\n          \"user_status\": 3224\n        }\n      ],\n      \"type\": 1,\n      \"updated_at\": \"string\",\n      \"updater_id\": 920,\n      \"user_id\": 2278,\n      \"user_status\": 7908\n    },\n    {\n      \"accepted_id\": 7113,\n      \"account_id\": 4394,\n      \"actionable\": false,\n      \"allowed_statuses\": [\n        3288,\n        6997\n      ],\n      \"canceled_id\": 8463,\n      \"completed_at\": \"string\",\n      \"created_at\": \"string\",\n      \"creator_id\": 1666,\n      \"id\": 7895,\n      \"location_id\": 1198,\n      \"shift_id\": 1874,\n      \"status\": 3,\n      \"statuses\": [\n        {\n          \"shift_id\": 9629,\n          \"status\": 8924,\n          \"user_id\": 268,\n          \"user_status\": 5129\n        },\n        {\n          \"shift_id\": 6319,\n          \"status\": 6935,\n          \"user_id\": 8374,\n          \"user_status\": 7297\n        }\n      ],\n      \"type\": 1,\n      \"updated_at\": \"string\",\n      \"updater_id\": 2893,\n      \"user_id\": 8744,\n      \"user_status\": 7955\n    }\n  ],\n  \"total\": 8431,\n  \"users\": [\n    {\n      \"account_id\": 4125,\n      \"activated\": false,\n      \"email\": \"9v3CuP-Z4Lpy@VbDFEwXRRXSMkEVIkKgiHOGhzpc.ry\",\n      \"employee_code\": \"string\",\n      \"first_name\": \"string\",\n      \"hourly_rate\": 985.8174784129525,\n      \"hours_max\": 218.6710367210498,\n      \"hours_preferred\": 7234.4060125139285,\n      \"id\": 4841,\n      \"is_deleted\": false,\n      \"is_hidden\": false,\n      \"is_payroll\": false,\n      \"is_private\": false,\n      \"is_trusted\": true,\n      \"last_login\": \"1963-09-30T14:24:07.057Z\",\n      \"last_name\": \"string\",\n      \"locations\": [\n        2954,\n        2751\n      ],\n      \"login_id\": 562,\n      \"notes\": \"string\",\n      \"phone_number\": \"string\",\n      \"positions\": [\n        4169,\n        3599\n      ],\n      \"role\": null,\n      \"type\": 5972\n    },\n    {\n      \"account_id\": 2254,\n      \"activated\": false,\n      \"email\": \"1v23w3TgsXYU@lrgbCyxsHyzQEfIWgZ.dtjz\",\n      \"employee_code\": \"string\",\n      \"first_name\": \"string\",\n      \"hourly_rate\": 7238.562490334803,\n      \"hours_max\": 2498.6399416082327,\n      \"hours_preferred\": 5645.97229768503,\n      \"id\": 9581,\n      \"is_deleted\": false,\n      \"is_hidden\": true,\n      \"is_payroll\": false,\n      \"is_private\": true,\n      \"is_trusted\": true,\n      \"last_login\": \"2021-05-25T01:55:12.022Z\",\n      \"last_name\": \"string\",\n      \"locations\": [\n        414,\n        4440\n      ],\n      \"login_id\": 7920,\n      \"notes\": \"string\",\n      \"phone_number\": \"string\",\n      \"positions\": [\n        8765,\n        7357\n      ],\n      \"role\": null,\n      \"type\": 2651\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c29afeb7-cb58-4620-b010-b518070ffa2f",
+          "name": "Create a new shift request.",
+          "request": {
+            "name": "Create a new shift request.",
+            "description": {},
+            "url": {
+              "path": [
+                "2",
+                "swaps"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shift_id\": \"<integer>\",\n  \"shifts\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"type\": \"<integer>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "86e0c9c7-5de1-41b5-831e-30725fa1381a",
+              "name": "The swap was created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "swaps"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shift_id\": \"<integer>\",\n  \"shifts\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"type\": \"<integer>\",\n  \"users\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2bd3c0b-28cf-44d7-9abe-8b14776631bc",
+          "name": "Delete the given shift request.",
+          "request": {
+            "name": "Delete the given shift request.",
+            "description": {},
+            "url": {
+              "path": [
+                "2",
+                "swaps",
+                ":swap_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "swap_id",
+                  "description": "(Required) ID of the swap being requests."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "66d8369c-7d1a-4800-9bf1-260883e91a2f",
+              "name": "The swap was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "swaps",
+                    ":swap_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "swap_id",
+                      "description": "(Required) ID of the swap being requests."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e412b65-1764-4459-9129-d7054c882e23",
+          "name": "Get the details of a specific shift request.",
+          "request": {
+            "name": "Get the details of a specific shift request.",
+            "description": {
+              "content": "Get a single shift request object. Shift requests let users swap shifts with each other or\ndrop shifts for other users to pick up.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "swaps",
+                ":swap_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "swap_id",
+                  "description": "(Required) ID of the swap being requests."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c2148b6a-995d-4981-969e-ec254d9ea566",
+              "name": "Collection of shift request objects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "swaps",
+                    ":swap_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "swap_id",
+                      "description": "(Required) ID of the swap being requests."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"account_id\": 8447,\n      \"actor\": 1,\n      \"content\": \"string\",\n      \"conversation_id\": 6121,\n      \"created_at\": \"1964-01-06T06:23:30.713Z\",\n      \"id\": 6535,\n      \"request_id\": 147,\n      \"swap_id\": 6115,\n      \"title\": \"string\",\n      \"updated_at\": \"1946-08-20T15:34:07.062Z\",\n      \"user_id\": 9669\n    },\n    {\n      \"account_id\": 3544,\n      \"actor\": 1,\n      \"content\": \"string\",\n      \"conversation_id\": 8832,\n      \"created_at\": \"1983-03-07T14:59:53.732Z\",\n      \"id\": 6377,\n      \"request_id\": 1797,\n      \"swap_id\": 5183,\n      \"title\": \"string\",\n      \"updated_at\": \"1984-09-06T15:28:29.506Z\",\n      \"user_id\": 5293\n    }\n  ],\n  \"shifts\": [\n    {\n      \"start_time\": \"1967-03-30T14:00:30.405Z\",\n      \"end_time\": \"1984-10-02T18:17:37.624Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"length\": 1800,\n          \"paid\": false,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 3056,\n          \"created_at\": \"string\",\n          \"created_by\": 8101,\n          \"updated_at\": \"string\",\n          \"updated_by\": 1917,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        },\n        {\n          \"length\": 1800,\n          \"paid\": true,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 4891,\n          \"created_at\": \"string\",\n          \"created_by\": 6622,\n          \"updated_at\": \"string\",\n          \"updated_by\": 5778,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"1969-03-08T21:47:59.176Z\",\n      \"notified_at\": \"1959-04-01T22:46:11.641Z\",\n      \"instances\": 3,\n      \"created_at\": \"1953-01-31T18:18:11.029Z\",\n      \"updated_at\": \"2006-01-09T22:41:03.484Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"1951-04-03T01:19:38.882Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false\n    },\n    {\n      \"start_time\": \"1969-10-08T17:35:56.703Z\",\n      \"end_time\": \"1980-01-24T20:49:13.442Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"length\": 1800,\n          \"paid\": true,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 6849,\n          \"created_at\": \"string\",\n          \"created_by\": 74,\n          \"updated_at\": \"string\",\n          \"updated_by\": 6820,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        },\n        {\n          \"length\": 1800,\n          \"paid\": false,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 6063,\n          \"created_at\": \"string\",\n          \"created_by\": 8295,\n          \"updated_at\": \"string\",\n          \"updated_by\": 3049,\n          \"shift_id\": 1234,\n          \"start_time\": \"Mon, 08 May 2023 9:30:00 -0600\",\n          \"end_time\": \"Mon, 08 May 2023 10:00:00 -0600\"\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"2014-09-25T08:00:05.207Z\",\n      \"notified_at\": \"2012-08-23T04:12:12.141Z\",\n      \"instances\": 3,\n      \"created_at\": \"2014-11-30T14:58:18.096Z\",\n      \"updated_at\": \"1950-09-12T18:16:23.873Z\",\n      \"acknowledged\": true,\n      \"acknowledged_at\": \"1987-11-19T07:32:25.531Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false\n    }\n  ],\n  \"swap\": {\n    \"accepted_id\": 1157,\n    \"account_id\": 2722,\n    \"actionable\": false,\n    \"allowed_statuses\": [\n      4754,\n      2219\n    ],\n    \"canceled_id\": 4159,\n    \"completed_at\": \"string\",\n    \"created_at\": \"string\",\n    \"creator_id\": 354,\n    \"id\": 2108,\n    \"location_id\": 8064,\n    \"shift_id\": 3526,\n    \"status\": 5,\n    \"statuses\": [\n      {\n        \"shift_id\": 9758,\n        \"status\": 5282,\n        \"user_id\": 2968,\n        \"user_status\": 21\n      },\n      {\n        \"shift_id\": 2855,\n        \"status\": 3741,\n        \"user_id\": 891,\n        \"user_status\": 2186\n      }\n    ],\n    \"type\": 1,\n    \"updated_at\": \"string\",\n    \"updater_id\": 6923,\n    \"user_id\": 9793,\n    \"user_status\": 7588\n  },\n  \"users\": [\n    {\n      \"account_id\": 5427,\n      \"activated\": false,\n      \"email\": \"4t9oFWN3y@OAKTKqiE.ngrd\",\n      \"employee_code\": \"string\",\n      \"first_name\": \"string\",\n      \"hourly_rate\": 8278.573304574817,\n      \"hours_max\": 9267.46928819531,\n      \"hours_preferred\": 5654.20090742624,\n      \"id\": 1903,\n      \"is_deleted\": true,\n      \"is_hidden\": false,\n      \"is_payroll\": true,\n      \"is_private\": true,\n      \"is_trusted\": false,\n      \"last_login\": \"1994-11-13T01:45:45.257Z\",\n      \"last_name\": \"string\",\n      \"locations\": [\n        2725,\n        5680\n      ],\n      \"login_id\": 4562,\n      \"notes\": \"string\",\n      \"phone_number\": \"string\",\n      \"positions\": [\n        6030,\n        673\n      ],\n      \"role\": null,\n      \"type\": 2031\n    },\n    {\n      \"account_id\": 8075,\n      \"activated\": true,\n      \"email\": \"3ImaPOOX5qJ8Tep@oYPhJkcUFipzQMXoVZLFsFGywqeRkKnjL.ljdf\",\n      \"employee_code\": \"string\",\n      \"first_name\": \"string\",\n      \"hourly_rate\": 642.7814298806278,\n      \"hours_max\": 1770.9232544364083,\n      \"hours_preferred\": 530.4446983086186,\n      \"id\": 2890,\n      \"is_deleted\": false,\n      \"is_hidden\": false,\n      \"is_payroll\": true,\n      \"is_private\": false,\n      \"is_trusted\": true,\n      \"last_login\": \"1961-11-28T22:31:29.104Z\",\n      \"last_name\": \"string\",\n      \"locations\": [\n        4407,\n        8570\n      ],\n      \"login_id\": 7878,\n      \"notes\": \"string\",\n      \"phone_number\": \"string\",\n      \"positions\": [\n        9465,\n        9198\n      ],\n      \"role\": null,\n      \"type\": 2563\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0dba8af5-6e85-45fc-bde0-48f7e10b8aee",
+          "name": "Update a shift request.",
+          "request": {
+            "name": "Update a shift request.",
+            "description": {},
+            "url": {
+              "path": [
+                "2",
+                "swaps",
+                ":swap_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "swap_id",
+                  "description": "(Required) ID of the swap being requests."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accepted_id\": \"<integer>\",\n  \"account_id\": \"<integer>\",\n  \"actionable\": \"<boolean>\",\n  \"allowed_statuses\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"canceled_id\": \"<integer>\",\n  \"completed_at\": \"<string>\",\n  \"created_at\": \"<string>\",\n  \"creator_id\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"shift_id\": \"<integer>\",\n  \"status\": \"<integer>\",\n  \"statuses\": [\n    {\n      \"shift_id\": \"<integer>\",\n      \"status\": \"<integer>\",\n      \"user_id\": \"<integer>\",\n      \"user_status\": \"<integer>\"\n    },\n    {\n      \"shift_id\": \"<integer>\",\n      \"status\": \"<integer>\",\n      \"user_id\": \"<integer>\",\n      \"user_status\": \"<integer>\"\n    }\n  ],\n  \"type\": \"<integer>\",\n  \"updated_at\": \"<string>\",\n  \"updater_id\": \"<integer>\",\n  \"user_id\": \"<integer>\",\n  \"user_status\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9d99a62f-ecd1-4f23-9fa0-f7953480f70f",
+              "name": "Update was successful.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "swaps",
+                    ":swap_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "swap_id",
+                      "description": "(Required) ID of the swap being requests."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accepted_id\": \"<integer>\",\n  \"account_id\": \"<integer>\",\n  \"actionable\": \"<boolean>\",\n  \"allowed_statuses\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"canceled_id\": \"<integer>\",\n  \"completed_at\": \"<string>\",\n  \"created_at\": \"<string>\",\n  \"creator_id\": \"<integer>\",\n  \"id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"shift_id\": \"<integer>\",\n  \"status\": \"<integer>\",\n  \"statuses\": [\n    {\n      \"shift_id\": \"<integer>\",\n      \"status\": \"<integer>\",\n      \"user_id\": \"<integer>\",\n      \"user_status\": \"<integer>\"\n    },\n    {\n      \"shift_id\": \"<integer>\",\n      \"status\": \"<integer>\",\n      \"user_id\": \"<integer>\",\n      \"user_status\": \"<integer>\"\n    }\n  ],\n  \"type\": \"<integer>\",\n  \"updated_at\": \"<string>\",\n  \"updater_id\": \"<integer>\",\n  \"user_id\": \"<integer>\",\n  \"user_status\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "165551e2-ded5-4042-8614-4bec12d5cd0d",
+    "name": "When I Work API Documentation Accounts Shift Requests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

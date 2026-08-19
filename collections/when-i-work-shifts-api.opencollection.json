@@ -1,0 +1,607 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Shifts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shifts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/shifts",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The user id to filter by"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The start of the filter range."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The end of the filter range."
+              },
+              {
+                "name": "unpublished",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to include unpublished shifts. Requires supervisor rights."
+              },
+              {
+                "name": "include_open",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to include open shifts from the user's assigned Schedules."
+              },
+              {
+                "name": "include_onlyopen",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to include only open shifts from the user's assigned Schedules."
+              },
+              {
+                "name": "include_allopen",
+                "value": "",
+                "type": "query",
+                "description": "Whether or to include open shifts across All Schedules. Requires \"Manager or Admin access\" level.\nCommon practice is to combine allopen with one of the other inclusion options.\n"
+              },
+              {
+                "name": "deleted",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include a list of shift IDs (\"deleted_ids\") that were deleted during the passed time window."
+              },
+              {
+                "name": "include_swaps",
+                "value": "",
+                "type": "query",
+                "description": "Whether or not to include swap requests."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "all_locations",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include data from all locations. Shifts are marked as \"readonly\" if not a manager user.\n\nIf this option is included in addition to the `location_id` option, all shifts linked to other\nlocations, through users in other locations, will also be included.\n"
+              },
+              {
+                "name": "location_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more location IDs by which to limit results\n\n_Also see `all_locations` above_\n"
+              },
+              {
+                "name": "shift_sort",
+                "value": "",
+                "type": "query",
+                "description": "True to sort results by user_id, false to sort by shift time. Missing for default sort"
+              },
+              {
+                "name": "include_repeating_shifts_to",
+                "value": "",
+                "type": "query",
+                "description": "End date to include repeating shifts in series, if applicable"
+              },
+              {
+                "name": "trim_openshifts",
+                "value": "",
+                "type": "query",
+                "description": "Setting to true will work w/ the Allow Partial Openshifts feature to display trimmed start/end times for users that can take a conflicting openshift based on the account settings."
+              },
+              {
+                "name": "limit_by_rules",
+                "value": "",
+                "type": "query",
+                "description": "Setting to true will work w/ the Scheduling Rules feature to only return OpenShifts that the requester is eligible for according to the scheduling rules settings for the account."
+              }
+            ]
+          },
+          "docs": "Fetch a list of shifts based on a set of filters"
+        },
+        {
+          "info": {
+            "name": "Create Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/shifts",
+            "params": [
+              {
+                "name": "include_repeating_shifts_to",
+                "value": "",
+                "type": "query",
+                "description": "End date to include repeating shifts in series, if applicable"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create one or many shifts for scheduling.\n\n**NOTE:** The response is slightly different if you create many shifts instead of one.\n"
+        },
+        {
+          "info": {
+            "name": "Bulk Delete Shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/shifts",
+            "params": [
+              {
+                "name": "ids",
+                "value": "101%2C102",
+                "type": "query",
+                "description": "A comma-separated list of shift IDs to delete. Takes precedence over IDs provided in the body and provided filter properties."
+              },
+              {
+                "name": "message",
+                "value": "We%27ll%20be%20closed%20that%20day",
+                "type": "query",
+                "description": "Used to notify the shift's assignee that their shift has been deleted. Your message will be added to the notification email. If you want to send the notification email without a message, simple send a single space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If IDs are provided, those will take precedence. Otherwise it will use the provided filters to delete shifts.\nIf filters are used, the `start`, `end`, and `location_id` properties are required.\n"
+        },
+        {
+          "info": {
+            "name": "Get Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/shifts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift"
+              },
+              {
+                "name": "include_repeating_shifts_to",
+                "value": "",
+                "type": "query",
+                "description": "End date to include repeating shifts in series, if applicable"
+              }
+            ]
+          },
+          "docs": "Get a single shift by ID"
+        },
+        {
+          "info": {
+            "name": "Update Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/shifts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift"
+              },
+              {
+                "name": "include_repeating_shifts_to",
+                "value": "",
+                "type": "query",
+                "description": "End date to include repeating shifts in series, if applicable"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing shift for scheduling"
+        },
+        {
+          "info": {
+            "name": "Delete Shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/shifts/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "0",
+                "type": "path",
+                "description": "The ID of the shift"
+              },
+              {
+                "name": "message",
+                "value": "We%27ll%20be%20closed%20that%20day",
+                "type": "query",
+                "description": "Used to notify the shift's assignee that their shift has been deleted. Your message will be added to the notification email. If you want to send the notification email without a message, simple send a single space. Must be URL encoded."
+              },
+              {
+                "name": "chain",
+                "value": "",
+                "type": "query",
+                "description": "Only applies to repeating shifts. Any value will delete the shift and all shifts that come after it on the chain."
+              }
+            ]
+          },
+          "docs": "Delete an existing shift when no longer needed. This operation cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Unassign/Release Shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/shifts/unassign",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Move a set of shifts from users to an OpenShift.\n\nThis can also be used by employees when the Shift Release setting is enabled.\n"
+        },
+        {
+          "info": {
+            "name": "Assign multiple users to an OpenShift",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/shifts/:id/assign",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Assign mutiple users to an OpenShift with multiple instances\n\nThis can also be used to approve multiple users for an OpenShift that requires approval.\n"
+        },
+        {
+          "info": {
+            "name": "List eligible users for OpenShift",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/shifts/eligible",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the shift"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Start time of the potential shift (required if Shift ID not present)"
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "End time of the potential shift (required if Shift ID not present)"
+              },
+              {
+                "name": "position_id",
+                "value": "",
+                "type": "query",
+                "description": "Position ID of the potential shift (required if Shift ID not present)"
+              },
+              {
+                "name": "location_id",
+                "value": "",
+                "type": "query",
+                "description": "Location ID of the potenential shift (required if Shift ID not present)"
+              },
+              {
+                "name": "is_shared",
+                "value": "",
+                "type": "query",
+                "description": "Is the shift a shared OpenShift"
+              },
+              {
+                "name": "include_objects",
+                "value": "",
+                "type": "query",
+                "description": "Include user locations and positions in output"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query",
+                "description": "A set of tag IDs to compare the eligible users against"
+              }
+            ]
+          },
+          "docs": "Get a list of eligible users to offer an OpenShift based on existing shift, or shift parameters"
+        },
+        {
+          "info": {
+            "name": "Fetch shift history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/shifts/:id/history",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift"
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query",
+                "description": "Flag to indicate if you want to search for a deleted shift's history (off by default)"
+              }
+            ]
+          },
+          "docs": "Provides a detailed list of history events that are recorded every time the given shift was changed indicating how it changed (Reason Code), and by which user (updated by ID). This history is a rolling 90 day period based on the shift start date/time. Also, history is not retained for OpenShifts following deletion of the shift.\n"
+        },
+        {
+          "info": {
+            "name": "Publish Shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/shifts/publish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "These methods allow you to publish or unpublish a group of shifts.\n (Note: multi-threading is supported for large lists of shift)\n See Notify Shifts for informing users of Publication\n"
+        },
+        {
+          "info": {
+            "name": "Unpublish Shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/shifts/unpublish",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "These methods allow you to publish or unpublish a group of shifts.\n (Note: multi-threading is supported for large lists of shift)\n"
+        },
+        {
+          "info": {
+            "name": "Notify shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/shifts/notify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send Notifications for a published schedule\n"
+        },
+        {
+          "info": {
+            "name": "Notify single shift",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/shifts/notify/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift to send notifications"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send Notifications for a single shift"
+        },
+        {
+          "info": {
+            "name": "Bulk Update Shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/shifts/bulk",
+            "params": [
+              {
+                "name": "assign_openshift_instances",
+                "value": "",
+                "type": "query",
+                "description": "When set to true, any multiple instance openshifts that are being assigned will assign only one openshift off the stack rather than the entire stack.\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Make updates to multiple shifts in a single API request by submitting an array of the shifts and data to be changed."
+        },
+        {
+          "info": {
+            "name": "List swap users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/shifts/:id/swapusers",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift being dropped"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the shift being dropped"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Flag to indicate if only a count of eligible takers should be returned"
+              },
+              {
+                "name": "ids_only",
+                "value": "",
+                "type": "query",
+                "description": "Flag to indicate if only the IDs of the eligible takers should be returned"
+              }
+            ]
+          },
+          "docs": "Fetch a list of elgible users that can take this dropped shift. The ID of the shift can be\nspecified in the path or query string.\n"
+        },
+        {
+          "info": {
+            "name": "List Auto Scheduled shifts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/v3/auto-assign",
+            "params": [
+              {
+                "name": "start",
+                "value": "Sun Nov 17 2019 00:00:00 GMT-0600",
+                "type": "query",
+                "description": "The start range of the auto-schedule window"
+              },
+              {
+                "name": "end",
+                "value": "Sun Nov 17 2019 00:00:00 GMT-0600",
+                "type": "query",
+                "description": "The end range of the auto-schedule window"
+              },
+              {
+                "name": "ids",
+                "value": "1,2",
+                "type": "query",
+                "description": "Comma separated list of openshift ids to include in auto schedule algorithm"
+              },
+              {
+                "name": "location",
+                "value": "2",
+                "type": "query",
+                "description": "The schedule (location) to include in auto schedule algorithm"
+              },
+              {
+                "name": "autoScheduleMaxHours",
+                "value": "40",
+                "type": "query",
+                "description": "The maximum hours any individual can be assigned per week, defaults to 40"
+              },
+              {
+                "name": "autoScheduleUnavailability",
+                "value": "true",
+                "type": "query",
+                "description": "Instruct algorithm to avoid unavailable preferences, defaults to true"
+              },
+              {
+                "name": "autoSchedulePreferredTimes",
+                "value": "false",
+                "type": "query",
+                "description": "Instruct algorithm to respect preferences, defaults to false"
+              },
+              {
+                "name": "autoScheduleMultiShifts",
+                "value": "false",
+                "type": "query",
+                "description": "Instruct algorithm to allow multiple shifts per day, defaults to false"
+              },
+              {
+                "name": "autoScheduleMaxDailyHours",
+                "value": "9",
+                "type": "query",
+                "description": "The maximum hours any individual can be assigned per day"
+              },
+              {
+                "name": "seed",
+                "value": "1",
+                "type": "query",
+                "description": "A randomization seed to get predictable assignment results"
+              },
+              {
+                "name": "autoScheduleWeekendShifts",
+                "value": "true",
+                "type": "query",
+                "description": "Instruct algorithm to prioritize weekend shifts (5pm Fri to 11:59pm Sun) during assignment, defaults to false"
+              },
+              {
+                "name": "excludedUserIds",
+                "value": "1,2",
+                "type": "query",
+                "description": "Comma separated list of user ids to exclude in auto schedule algorithm"
+              }
+            ]
+          },
+          "docs": "Autoschedule a list of OpenShifts"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

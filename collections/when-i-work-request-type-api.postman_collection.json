@@ -1,0 +1,756 @@
+{
+  "item": [
+    {
+      "id": "f4d8899c-5e46-4f48-a5b6-c3ad4889ed43",
+      "name": "Request Type",
+      "description": {
+        "content": "Types of time off that can be selected when submitting a time off request.\n\nFor more information about using Time Off Requests, visit the [Help Center](https://help.wheniwork.com/articles/requesting-time-off-computer/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d6da19e5-4701-4839-b562-9f71d73b0a51",
+          "name": "List Of Time Off Request Types",
+          "request": {
+            "name": "List Of Time Off Request Types",
+            "description": {
+              "content": "Get a collection of request type objects. Request types are types available for taking time off.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "requesttypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6fe4b836-5f50-43a4-b3ae-24e774f79b41",
+              "name": "Collection of Time Off Request Types.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request-types\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9c600b8-0d4b-415a-911d-bc7e2b104235",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "150c9bf9-6347-41d7-8ad9-d955057d69be",
+          "name": "Create or update a Collection of request types",
+          "request": {
+            "name": "Create or update a Collection of request types",
+            "description": {},
+            "url": {
+              "path": [
+                "2",
+                "requesttypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request-types\": [\n    {\n      \"id\": \"<integer>\",\n      \"account_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"built_in\": \"<boolean>\",\n      \"enabled\": \"<boolean>\",\n      \"allow_paid\": \"<boolean>\",\n      \"allow_unpaid\": \"<boolean>\",\n      \"is_deleted\": \"<boolean>\",\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"deleted_at\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"account_id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"built_in\": \"<boolean>\",\n      \"enabled\": \"<boolean>\",\n      \"allow_paid\": \"<boolean>\",\n      \"allow_unpaid\": \"<boolean>\",\n      \"is_deleted\": \"<boolean>\",\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"deleted_at\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d796edc8-f7c9-42f0-b345-0ff447a4eac3",
+              "name": "Request was successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request-types\": [\n    {\n      \"id\": 123,\n      \"account_id\": 321,\n      \"name\": \"Holiday\",\n      \"built_in\": true,\n      \"enabled\": true,\n      \"allow_paid\": true,\n      \"allow_unpaid\": true,\n      \"is_deleted\": false,\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"deleted_at\": \"<string>\"\n    },\n    {\n      \"id\": 123,\n      \"account_id\": 321,\n      \"name\": \"Holiday\",\n      \"built_in\": true,\n      \"enabled\": true,\n      \"allow_paid\": true,\n      \"allow_unpaid\": true,\n      \"is_deleted\": false,\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"deleted_at\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request-types\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "feaad6d0-3adb-466e-875f-8e995474e27d",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request-types\": [\n    {\n      \"id\": 123,\n      \"account_id\": 321,\n      \"name\": \"Holiday\",\n      \"built_in\": true,\n      \"enabled\": true,\n      \"allow_paid\": true,\n      \"allow_unpaid\": true,\n      \"is_deleted\": false,\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"deleted_at\": \"<string>\"\n    },\n    {\n      \"id\": 123,\n      \"account_id\": 321,\n      \"name\": \"Holiday\",\n      \"built_in\": true,\n      \"enabled\": true,\n      \"allow_paid\": true,\n      \"allow_unpaid\": true,\n      \"is_deleted\": false,\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"deleted_at\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9250484d-41af-4265-a2c8-9255a89fdb3d",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request-types\": [\n    {\n      \"id\": 123,\n      \"account_id\": 321,\n      \"name\": \"Holiday\",\n      \"built_in\": true,\n      \"enabled\": true,\n      \"allow_paid\": true,\n      \"allow_unpaid\": true,\n      \"is_deleted\": false,\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"deleted_at\": \"<string>\"\n    },\n    {\n      \"id\": 123,\n      \"account_id\": 321,\n      \"name\": \"Holiday\",\n      \"built_in\": true,\n      \"enabled\": true,\n      \"allow_paid\": true,\n      \"allow_unpaid\": true,\n      \"is_deleted\": false,\n      \"created_at\": \"<string>\",\n      \"updated_at\": \"<string>\",\n      \"deleted_at\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f45e64c-0058-46d0-ab56-1cb7985c5743",
+          "name": "Get Time Off Request Type",
+          "request": {
+            "name": "Get Time Off Request Type",
+            "description": {
+              "content": "Returns a single request object. Requests allow users to request time off.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "requesttypes",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Request Type with ID to return."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3091611e-8eae-4483-9037-757617df3f3c",
+              "name": "Individual Request Type resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Request Type with ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request-type\": {\n    \"id\": 123,\n    \"account_id\": 321,\n    \"name\": \"Holiday\",\n    \"built_in\": true,\n    \"enabled\": true,\n    \"allow_paid\": true,\n    \"allow_unpaid\": true,\n    \"is_deleted\": false,\n    \"created_at\": \"<string>\",\n    \"updated_at\": \"<string>\",\n    \"deleted_at\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ace11b5-46b7-4f0d-b9bf-546f65ef0140",
+              "name": "Forbidden. The current user does not have permission to view the\nrequest type.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Request Type with ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 5929\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f620fb79-7772-4e94-90c9-a93d8ee0feee",
+              "name": "ID was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Request Type with ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 5929\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8802cc96-c704-4bdb-8a6a-1ee417239bc2",
+          "name": "Delete Time Off Request Type",
+          "request": {
+            "name": "Delete Time Off Request Type",
+            "description": {},
+            "url": {
+              "path": [
+                "2",
+                "requesttypes",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Request Type with ID to return."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4c1f003c-1fb8-4605-b8b4-9b711c9ea31c",
+              "name": "The Request Type was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Request Type with ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "86579c7c-1aa5-49d0-9dd3-b39007e401be",
+              "name": "Forbidden. The current user does not have permission to delete the request type.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Request Type with ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 5929\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a7d998b-bc43-49a1-a526-51e610715890",
+              "name": "The Request Type was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requesttypes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Request Type with ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 5929\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "46520db0-db99-49a1-bd3d-d34b0d3eb9dc",
+    "name": "When I Work API Documentation Accounts Request Type API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

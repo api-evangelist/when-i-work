@@ -1,0 +1,520 @@
+{
+  "item": [
+    {
+      "id": "3fcb39c7-0b77-4646-823a-b27d0ea9b93d",
+      "name": "Accounts",
+      "description": {
+        "content": "Accounts (aka Workplaces) are objects that define a business account with When I Work. Each user is associated with an account enabling them to access Shifts or other data.\n\nFor more information about Accounts, visit the [Help Center](https://help.wheniwork.com/article-categories/account-settings/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3c2f39b6-2ce7-4d24-9234-31feff7c3fd5",
+          "name": "Get Account",
+          "request": {
+            "name": "Get Account",
+            "description": {
+              "content": "This endpoint returns the first account associated with the current login token. To get information about a different account, set the W-UserId header to the user id associated with the other account. (See the Authentication section for details.)\n > If the account being queried for is a parent account, the response provides an object with two members: an `account` object, which specifies the parent account for a given user, and an array, `accounts`, containing all child accounts of the parent account.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21b8f8ed-290f-400b-81cf-1ed32fb485e8",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account\": {\n    \"id\": 10000,\n    \"master_id\": 0,\n    \"type\": 3,\n    \"logo\": \"https://s3.amazonaws.com/path/to/logo.jpg\",\n    \"company\": \"When I Work\",\n    \"subdomain\": \"wheniwork\",\n    \"enabled\": true,\n    \"bad_credit_card\": false,\n    \"plan_expires\": \"2021-01-06T10:55:58-06:00\",\n    \"features\": [\n      \"attendance\",\n      \"openshifts\",\n      \"annotations\"\n    ],\n    \"timezone_id\": 11,\n    \"timezone_name\": \"America/Chicago\",\n    \"settings\": \"string\",\n    \"place\": {\n      \"business_name\": \"When I Work\",\n      \"address\": \"420 N 5th St, Minneapolis, MN 55401, USA\",\n      \"place_id\": \"ChIJc9x2LYwys1IReiu9JB3DLGY\",\n      \"place_type\": \"premise\",\n      \"latitude\": 44.98364,\n      \"longitude\": -93.277486\n    },\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7591d06f-352d-4aac-b467-8fe6fa743650",
+          "name": "Create Account",
+          "request": {
+            "name": "Create Account",
+            "description": {
+              "content": "Used to create an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "account"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"logo\": \"<string>\",\n  \"subdomain\": \"<string>\",\n  \"settings\": \"<json>\",\n  \"place\": {\n    \"business_name\": \"<string>\",\n    \"address\": \"<string>\",\n    \"place_id\": \"<string>\",\n    \"place_type\": \"<string>\",\n    \"latitude\": \"<double>\",\n    \"longitude\": \"<double>\"\n  },\n  \"referral_reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a1117122-3ce8-4ddc-a101-e2658b47a0e9",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "account"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"account\": {\n    \"id\": 10000,\n    \"master_id\": 0,\n    \"type\": 2,\n    \"logo\": \"https://s3.amazonaws.com/path/to/logo.jpg\",\n    \"company\": \"When I Work\",\n    \"subdomain\": \"wheniwork\",\n    \"enabled\": true,\n    \"bad_credit_card\": false,\n    \"plan_expires\": \"2021-01-06T10:55:58-06:00\",\n    \"features\": [\n      \"attendance\",\n      \"openshifts\",\n      \"annotations\"\n    ],\n    \"timezone_id\": 11,\n    \"timezone_name\": \"America/Chicago\",\n    \"settings\": \"<json>\",\n    \"place\": {\n      \"business_name\": \"When I Work\",\n      \"address\": \"420 N 5th St, Minneapolis, MN 55401, USA\",\n      \"place_id\": \"ChIJc9x2LYwys1IReiu9JB3DLGY\",\n      \"place_type\": \"premise\",\n      \"latitude\": 44.98364,\n      \"longitude\": -93.277486\n    },\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "738da0da-0ff2-4687-911b-5d039e284eb6",
+          "name": "Update Account",
+          "request": {
+            "name": "Update Account",
+            "description": {
+              "content": "Updates an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "account",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"logo\": \"<string>\",\n  \"subdomain\": \"<string>\",\n  \"settings\": \"<json>\",\n  \"place\": {\n    \"business_name\": \"<string>\",\n    \"address\": \"<string>\",\n    \"place_id\": \"<string>\",\n    \"place_type\": \"<string>\",\n    \"latitude\": \"<double>\",\n    \"longitude\": \"<double>\"\n  },\n  \"referral_reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f729bb44-9b6e-4f6e-b04f-22d8742be331",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "account",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account\": {\n    \"id\": 10000,\n    \"master_id\": 0,\n    \"type\": 2,\n    \"logo\": \"https://s3.amazonaws.com/path/to/logo.jpg\",\n    \"company\": \"When I Work\",\n    \"subdomain\": \"wheniwork\",\n    \"enabled\": true,\n    \"bad_credit_card\": false,\n    \"plan_expires\": \"2021-01-06T10:55:58-06:00\",\n    \"features\": [\n      \"attendance\",\n      \"openshifts\",\n      \"annotations\"\n    ],\n    \"timezone_id\": 11,\n    \"timezone_name\": \"America/Chicago\",\n    \"settings\": \"<json>\",\n    \"place\": {\n      \"business_name\": \"When I Work\",\n      \"address\": \"420 N 5th St, Minneapolis, MN 55401, USA\",\n      \"place_id\": \"ChIJc9x2LYwys1IReiu9JB3DLGY\",\n      \"place_type\": \"premise\",\n      \"latitude\": 44.98364,\n      \"longitude\": -93.277486\n    },\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f296a01-9404-4078-a9da-a572d92f081b",
+          "name": "Update Account Settings",
+          "request": {
+            "name": "Update Account Settings",
+            "description": {
+              "content": "Admins and Managers can update certain account settings using this endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "account",
+                "settings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"company\": \"<string>\",\n  \"timezone_id\": \"<integer>\",\n  \"industry_id\": \"<integer>\",\n  \"ref_employees\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fd96552d-9290-4a2d-8b78-b75f220fc61a",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "account",
+                    "settings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 10000,\n  \"master_id\": 0,\n  \"type\": 2,\n  \"logo\": \"https://s3.amazonaws.com/path/to/logo.jpg\",\n  \"company\": \"When I Work\",\n  \"subdomain\": \"wheniwork\",\n  \"enabled\": true,\n  \"bad_credit_card\": false,\n  \"plan_expires\": \"2021-01-06T10:55:58-06:00\",\n  \"features\": [\n    \"attendance\",\n    \"openshifts\",\n    \"annotations\"\n  ],\n  \"timezone_id\": 11,\n  \"timezone_name\": \"America/Chicago\",\n  \"settings\": \"<json>\",\n  \"place\": {\n    \"business_name\": \"When I Work\",\n    \"address\": \"420 N 5th St, Minneapolis, MN 55401, USA\",\n    \"place_id\": \"ChIJc9x2LYwys1IReiu9JB3DLGY\",\n    \"place_type\": \"premise\",\n    \"latitude\": 44.98364,\n    \"longitude\": -93.277486\n  },\n  \"created_at\": \"2019-05-16T06:57:28+05:00\",\n  \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6176678d-35ac-4049-9cca-8728fd4d7095",
+          "name": "List Admins",
+          "request": {
+            "name": "List Admins",
+            "description": {
+              "content": "List all the admins for the given account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "account",
+                ":id",
+                "admins"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the account"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "01ffb025-5ff3-49cc-8db8-0bfb84096c42",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "account",
+                    ":id",
+                    "admins"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the account"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"admins\": [\n    {\n      \"id\": 10000,\n      \"login_id\": 10000,\n      \"account_id\": 10000,\n      \"role\": 5,\n      \"email\": \"jdoe@wheniwork.com\",\n      \"first_name\": \"John\",\n      \"middle_name\": \"Alan\",\n      \"last_name\": \"Doe\",\n      \"phone_number\": \"string\",\n      \"employee_code\": \"string\",\n      \"activated\": true,\n      \"notes\": \"Excellent employee\",\n      \"hours_max\": 40,\n      \"hourly_rate\": 15,\n      \"position_rates\": {\n        \"1001\": 2,\n        \"1002\": 3.5\n      },\n      \"type\": 5,\n      \"employment_type\": \"salaried *\",\n      \"last_login\": \"2019-05-23T23:59:59+05:00\",\n      \"positions\": [\n        1,\n        2,\n        3\n      ],\n      \"locations\": [\n        1,\n        2,\n        3\n      ],\n      \"is_deleted\": false,\n      \"is_hidden\": false,\n      \"is_payroll\": false,\n      \"is_private\": false,\n      \"is_trusted\": false,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\",\n      \"start_date\": \"2019-05-16\"\n    },\n    {\n      \"id\": 10000,\n      \"login_id\": 10000,\n      \"account_id\": 10000,\n      \"role\": 2,\n      \"email\": \"jdoe@wheniwork.com\",\n      \"first_name\": \"John\",\n      \"middle_name\": \"Alan\",\n      \"last_name\": \"Doe\",\n      \"phone_number\": \"string\",\n      \"employee_code\": \"string\",\n      \"activated\": true,\n      \"notes\": \"Excellent employee\",\n      \"hours_max\": 40,\n      \"hourly_rate\": 15,\n      \"position_rates\": {\n        \"1001\": 2,\n        \"1002\": 3.5\n      },\n      \"type\": 5,\n      \"employment_type\": \"salaried *\",\n      \"last_login\": \"2019-05-23T23:59:59+05:00\",\n      \"positions\": [\n        1,\n        2,\n        3\n      ],\n      \"locations\": [\n        1,\n        2,\n        3\n      ],\n      \"is_deleted\": false,\n      \"is_hidden\": false,\n      \"is_payroll\": false,\n      \"is_private\": false,\n      \"is_trusted\": false,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\",\n      \"start_date\": \"2019-05-16\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "17658f10-e321-42b2-9efc-1bb547b2a9cf",
+    "name": "When I Work API Documentation Accounts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

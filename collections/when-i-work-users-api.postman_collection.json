@@ -1,0 +1,1306 @@
+{
+  "item": [
+    {
+      "id": "0cd90792-fc4f-4af9-bcba-43f502a17e48",
+      "name": "Users",
+      "description": {
+        "content": "A person on the When I Work platform is associated with a two tier record.   The persons email/password is associated to a person_id.\nFor each Workplace the person belongs to a user_id record exists. This record links back to the person_id so only a single instance of the email/password exists. If a user updates their email or password this applies to all related instances of the user.\n\nFor more information about Users, visit the [Help Center](https://help.wheniwork.com/articles/user-access-privileges-computer/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "63e3aeca-cef7-42f0-b2e3-73ad4fa54f74",
+          "name": "List Users",
+          "request": {
+            "name": "List Users",
+            "description": {
+              "content": "List all the users in your account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "location_id",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "show_pending",
+                  "value": "<boolean>",
+                  "description": "Include pending users in results. Defaults to true."
+                },
+                {
+                  "disabled": false,
+                  "key": "only_pending",
+                  "value": "<boolean>",
+                  "description": "Include ONLY pending users in results. Defaults to false."
+                },
+                {
+                  "disabled": false,
+                  "key": "show_deleted",
+                  "value": "<boolean>",
+                  "description": "Include deleted users in results. Defaults to false. Requires administrator, manager, or supervisor access (enforced via can_supervise()); otherwise the request returns 403.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "only_deleted",
+                  "value": "<boolean>",
+                  "description": "Only include deleted/archived users in results. Defaults to false. Requires administrator, manager, or supervisor access (enforced via can_supervise()); otherwise the request returns 403.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Optional string to search by in users first name, last name, or email."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f0dfdc73-3c6c-4364-8d12-a297bde81b12",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "location_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "show_pending",
+                      "value": "true"
+                    },
+                    {
+                      "key": "only_pending",
+                      "value": "false"
+                    },
+                    {
+                      "key": "show_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "only_deleted",
+                      "value": "false"
+                    },
+                    {
+                      "key": "search",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"users\": [\n    {\n      \"id\": 10000,\n      \"login_id\": 10000,\n      \"account_id\": 10000,\n      \"role\": 5,\n      \"email\": \"jdoe@wheniwork.com\",\n      \"first_name\": \"John\",\n      \"middle_name\": \"Alan\",\n      \"last_name\": \"Doe\",\n      \"phone_number\": \"string\",\n      \"employee_code\": \"string\",\n      \"activated\": true,\n      \"notes\": \"Excellent employee\",\n      \"hours_max\": 40,\n      \"hourly_rate\": 15,\n      \"position_rates\": {\n        \"1001\": 2,\n        \"1002\": 3.5\n      },\n      \"type\": 5,\n      \"employment_type\": \"salaried *\",\n      \"last_login\": \"2019-05-23T23:59:59+05:00\",\n      \"positions\": [\n        1,\n        2,\n        3\n      ],\n      \"locations\": [\n        1,\n        2,\n        3\n      ],\n      \"is_deleted\": false,\n      \"is_hidden\": false,\n      \"is_payroll\": false,\n      \"is_private\": false,\n      \"is_trusted\": false,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\",\n      \"start_date\": \"2019-05-16\"\n    },\n    {\n      \"id\": 10000,\n      \"login_id\": 10000,\n      \"account_id\": 10000,\n      \"role\": 2,\n      \"email\": \"jdoe@wheniwork.com\",\n      \"first_name\": \"John\",\n      \"middle_name\": \"Alan\",\n      \"last_name\": \"Doe\",\n      \"phone_number\": \"string\",\n      \"employee_code\": \"string\",\n      \"activated\": true,\n      \"notes\": \"Excellent employee\",\n      \"hours_max\": 40,\n      \"hourly_rate\": 15,\n      \"position_rates\": {\n        \"1001\": 2,\n        \"1002\": 3.5\n      },\n      \"type\": 5,\n      \"employment_type\": \"hourly_exempt\",\n      \"last_login\": \"2019-05-23T23:59:59+05:00\",\n      \"positions\": [\n        1,\n        2,\n        3\n      ],\n      \"locations\": [\n        1,\n        2,\n        3\n      ],\n      \"is_deleted\": false,\n      \"is_hidden\": false,\n      \"is_payroll\": false,\n      \"is_private\": false,\n      \"is_trusted\": false,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\",\n      \"start_date\": \"2019-05-16\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d4f4d0f6-69e7-4b08-8186-d3f30ae60a57",
+          "name": "Create User",
+          "request": {
+            "name": "Create User",
+            "description": {
+              "content": "Used to create a user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"middle_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"employee_code\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"hours_max\": \"<float>\",\n  \"hourly_rate\": \"<float>\",\n  \"position_rates\": \"<object>\",\n  \"type\": \"<integer>\",\n  \"employment_type\": \"<string>\",\n  \"positions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"locations\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"is_hidden\": \"<boolean>\",\n  \"is_payroll\": \"<boolean>\",\n  \"is_private\": \"<boolean>\",\n  \"is_trusted\": \"<boolean>\",\n  \"start_date\": \"<date>\",\n  \"invite\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4fc99401-9209-420d-a8a6-9e78feea4a7c",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"id\": 10000,\n    \"login_id\": 10000,\n    \"account_id\": 10000,\n    \"role\": \"<integer>\",\n    \"email\": \"jdoe@wheniwork.com\",\n    \"first_name\": \"John\",\n    \"middle_name\": \"Alan\",\n    \"last_name\": \"Doe\",\n    \"phone_number\": \"<string>\",\n    \"employee_code\": \"<string>\",\n    \"activated\": true,\n    \"notes\": \"Excellent employee\",\n    \"hours_max\": 40,\n    \"hourly_rate\": 15,\n    \"position_rates\": {\n      \"1001\": 2,\n      \"1002\": 3.5\n    },\n    \"type\": 5,\n    \"employment_type\": \"<string>\",\n    \"last_login\": \"2019-05-23T23:59:59+05:00\",\n    \"positions\": [\n      1,\n      2,\n      3\n    ],\n    \"locations\": [\n      1,\n      2,\n      3\n    ],\n    \"is_deleted\": false,\n    \"is_hidden\": false,\n    \"is_payroll\": false,\n    \"is_private\": false,\n    \"is_trusted\": false,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\",\n    \"start_date\": \"2019-05-16\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de66eb8d-d5e9-4197-80f5-aa993b1e1495",
+          "name": "Get User",
+          "request": {
+            "name": "Get User",
+            "description": {
+              "content": "Get a single user by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d84c8599-6555-437b-8f9f-f826ed454379",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"id\": 10000,\n    \"login_id\": 10000,\n    \"account_id\": 10000,\n    \"role\": \"<integer>\",\n    \"email\": \"jdoe@wheniwork.com\",\n    \"first_name\": \"John\",\n    \"middle_name\": \"Alan\",\n    \"last_name\": \"Doe\",\n    \"phone_number\": \"<string>\",\n    \"employee_code\": \"<string>\",\n    \"activated\": true,\n    \"notes\": \"Excellent employee\",\n    \"hours_max\": 40,\n    \"hourly_rate\": 15,\n    \"position_rates\": {\n      \"1001\": 2,\n      \"1002\": 3.5\n    },\n    \"type\": 5,\n    \"employment_type\": \"<string>\",\n    \"last_login\": \"2019-05-23T23:59:59+05:00\",\n    \"positions\": [\n      1,\n      2,\n      3\n    ],\n    \"locations\": [\n      1,\n      2,\n      3\n    ],\n    \"is_deleted\": false,\n    \"is_hidden\": false,\n    \"is_payroll\": false,\n    \"is_private\": false,\n    \"is_trusted\": false,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\",\n    \"start_date\": \"2019-05-16\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d991e6b-9247-44fc-b344-dced89016149",
+          "name": "Update User",
+          "request": {
+            "name": "Update User",
+            "description": {
+              "content": "Updates a single user",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"middle_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"employee_code\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"hours_max\": \"<float>\",\n  \"hourly_rate\": \"<float>\",\n  \"position_rates\": \"<object>\",\n  \"type\": \"<integer>\",\n  \"employment_type\": \"<string>\",\n  \"positions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"locations\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"is_hidden\": \"<boolean>\",\n  \"is_payroll\": \"<boolean>\",\n  \"is_private\": \"<boolean>\",\n  \"is_trusted\": \"<boolean>\",\n  \"start_date\": \"<date>\",\n  \"reactivate\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "245ccf92-49aa-479a-b9b4-09b0f95469a4",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"id\": 10000,\n    \"login_id\": 10000,\n    \"account_id\": 10000,\n    \"role\": \"<integer>\",\n    \"email\": \"jdoe@wheniwork.com\",\n    \"first_name\": \"John\",\n    \"middle_name\": \"Alan\",\n    \"last_name\": \"Doe\",\n    \"phone_number\": \"<string>\",\n    \"employee_code\": \"<string>\",\n    \"activated\": true,\n    \"notes\": \"Excellent employee\",\n    \"hours_max\": 40,\n    \"hourly_rate\": 15,\n    \"position_rates\": {\n      \"1001\": 2,\n      \"1002\": 3.5\n    },\n    \"type\": 5,\n    \"employment_type\": \"<string>\",\n    \"last_login\": \"2019-05-23T23:59:59+05:00\",\n    \"positions\": [\n      1,\n      2,\n      3\n    ],\n    \"locations\": [\n      1,\n      2,\n      3\n    ],\n    \"is_deleted\": false,\n    \"is_hidden\": false,\n    \"is_payroll\": false,\n    \"is_private\": false,\n    \"is_trusted\": false,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\",\n    \"start_date\": \"2019-05-16\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b1719d5-5f36-412d-bb49-02ff8b0c22fb",
+          "name": "Delete User",
+          "request": {
+            "name": "Delete User",
+            "description": {
+              "content": "Delete an existing user. This action can be reversed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "deleted_shifts",
+                  "value": "<boolean>",
+                  "description": "Indicates whether or not to delete this user's future shifts. If not deleted, those shifts will be moved to Open Shifts."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f5e64aec-4dea-47ed-84a1-e0677c7ac7db",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "deleted_shifts",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fa711416-f5cb-4fcf-a788-30a8d35af87a",
+          "name": "Create/Update user avatar",
+          "request": {
+            "name": "Create/Update user avatar",
+            "description": {
+              "content": "Used to create and update a user's avatar",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users",
+                "avatar",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the user whose avatar is being uploaded"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "image/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "file"
+            }
+          },
+          "response": [
+            {
+              "id": "980d4698-a0be-4770-bc45-065a1593b912",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users",
+                    "avatar",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the user whose avatar is being uploaded"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The type of content being uploaded",
+                    "key": "content-type",
+                    "value": ""
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"hash\": \"df8ace3aeae0f582d05628708a0e555c81bf57af\",\n    \"type\": \"jpg\",\n    \"sizes\": [\n      \"small\",\n      \"medium\",\n      \"large\"\n    ],\n    \"createdAt\": \"2019-12-17T15:58:45.562887004Z\",\n    \"updatedAt\": \"2019-12-17T15:58:45.562887004Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "abeafdec-1247-430f-8c10-b011745c7d54",
+          "name": "Create A Batch of Users",
+          "request": {
+            "name": "Create A Batch of Users",
+            "description": {
+              "content": "Used to create a user, limit of 50 users at a time to prevent long requests",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users",
+                "bulkupdate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"<integer>\",\n  \"email\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"middle_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"employee_code\": \"<string>\",\n  \"notes\": \"<string>\",\n  \"hours_max\": \"<float>\",\n  \"hourly_rate\": \"<float>\",\n  \"position_rates\": \"<object>\",\n  \"type\": \"<integer>\",\n  \"employment_type\": \"<string>\",\n  \"positions\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"locations\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"is_hidden\": \"<boolean>\",\n  \"is_payroll\": \"<boolean>\",\n  \"is_private\": \"<boolean>\",\n  \"is_trusted\": \"<boolean>\",\n  \"start_date\": \"<date>\",\n  \"invite\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b4b0246a-88cb-48cf-ba36-534cc53b3e86",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users",
+                    "bulkupdate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb2cb774-8778-4d6d-93f0-112193aa9d95",
+          "name": "Get User Profile",
+          "request": {
+            "name": "Get User Profile",
+            "description": {
+              "content": "Get the logged in user's profile",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users",
+                "profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "74700e5c-bfcc-4124-920c-0c9f4194982c",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users",
+                    "profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"id\": 10000,\n    \"login_id\": 10000,\n    \"account_id\": 10000,\n    \"role\": \"<integer>\",\n    \"email\": \"jdoe@wheniwork.com\",\n    \"first_name\": \"John\",\n    \"middle_name\": \"Alan\",\n    \"last_name\": \"Doe\",\n    \"phone_number\": \"<string>\",\n    \"employee_code\": \"<string>\",\n    \"activated\": true,\n    \"notes\": \"Excellent employee\",\n    \"hours_max\": 40,\n    \"hourly_rate\": 15,\n    \"position_rates\": {\n      \"1001\": 2,\n      \"1002\": 3.5\n    },\n    \"type\": 5,\n    \"employment_type\": \"<string>\",\n    \"last_login\": \"2019-05-23T23:59:59+05:00\",\n    \"positions\": [\n      1,\n      2,\n      3\n    ],\n    \"locations\": [\n      1,\n      2,\n      3\n    ],\n    \"is_deleted\": false,\n    \"is_hidden\": false,\n    \"is_payroll\": false,\n    \"is_private\": false,\n    \"is_trusted\": false,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\",\n    \"start_date\": \"2019-05-16\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90d79b09-3666-4221-b113-bab7afa10fc6",
+          "name": "Update User Profile",
+          "request": {
+            "name": "Update User Profile",
+            "description": {
+              "content": "Update the logged in user's profile.\n> Although managers and supervisors are able to change most profile information through the Update Existing User endpoint, this is the only way for an employee to change their own information using the API.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users",
+                "profile"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"email\": \"<string>\",\n  \"is_private\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c148288e-7699-4e1b-89cb-1636f1e2c0b0",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users",
+                    "profile"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"phone_number\": \"<string>\",\n  \"email\": \"jdoe@wheniwork.com\",\n  \"is_private\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"user\": {\n    \"id\": 10000,\n    \"login_id\": 10000,\n    \"account_id\": 10000,\n    \"role\": \"<integer>\",\n    \"email\": \"jdoe@wheniwork.com\",\n    \"first_name\": \"John\",\n    \"middle_name\": \"Alan\",\n    \"last_name\": \"Doe\",\n    \"phone_number\": \"<string>\",\n    \"employee_code\": \"<string>\",\n    \"activated\": true,\n    \"notes\": \"Excellent employee\",\n    \"hours_max\": 40,\n    \"hourly_rate\": 15,\n    \"position_rates\": {\n      \"1001\": 2,\n      \"1002\": 3.5\n    },\n    \"type\": 5,\n    \"employment_type\": \"<string>\",\n    \"last_login\": \"2019-05-23T23:59:59+05:00\",\n    \"positions\": [\n      1,\n      2,\n      3\n    ],\n    \"locations\": [\n      1,\n      2,\n      3\n    ],\n    \"is_deleted\": false,\n    \"is_hidden\": false,\n    \"is_payroll\": false,\n    \"is_private\": false,\n    \"is_trusted\": false,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\",\n    \"start_date\": \"2019-05-16\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b5148bff-18ee-4dca-81da-6d18a0dbdbdc",
+          "name": "Update User Alert Settings",
+          "request": {
+            "name": "Update User Alert Settings",
+            "description": {
+              "content": "Update the logged in user's alert settings",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users",
+                "alerts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"timeoff\": {\n    \"sms\": \"<boolean>\",\n    \"email\": \"<boolean>\",\n    \"alerts\": \"<boolean>\",\n    \"in_app\": \"<boolean>\",\n    \"badge_icon\": \"<boolean>\"\n  },\n  \"swaps\": {\n    \"sms\": \"<boolean>\",\n    \"email\": \"<boolean>\",\n    \"alerts\": \"<boolean>\",\n    \"in_app\": \"<boolean>\",\n    \"badge_icon\": \"<boolean>\"\n  },\n  \"schedule\": {\n    \"sms\": \"<boolean>\",\n    \"email\": \"<boolean>\",\n    \"alerts\": \"<boolean>\",\n    \"in_app\": \"<boolean>\",\n    \"badge_icon\": \"<boolean>\"\n  },\n  \"reminders\": {\n    \"sms\": \"<boolean>\",\n    \"email\": \"<boolean>\",\n    \"alerts\": \"<boolean>\",\n    \"in_app\": \"<boolean>\",\n    \"badge_icon\": \"<boolean>\"\n  },\n  \"availability\": {\n    \"sms\": \"<boolean>\",\n    \"email\": \"<boolean>\",\n    \"alerts\": \"<boolean>\",\n    \"in_app\": \"<boolean>\",\n    \"badge_icon\": \"<boolean>\"\n  },\n  \"new_employee\": {\n    \"sms\": \"<boolean>\",\n    \"email\": \"<boolean>\",\n    \"alerts\": \"<boolean>\",\n    \"in_app\": \"<boolean>\",\n    \"badge_icon\": \"<boolean>\"\n  },\n  \"attendance\": {\n    \"sms\": \"<boolean>\",\n    \"email\": \"<boolean>\",\n    \"alerts\": \"<boolean>\",\n    \"in_app\": \"<boolean>\",\n    \"badge_icon\": \"<boolean>\"\n  },\n  \"workchat\": {\n    \"sms\": \"<boolean>\",\n    \"email\": \"<boolean>\",\n    \"alerts\": \"<boolean>\",\n    \"in_app\": \"<boolean>\",\n    \"badge_icon\": \"<boolean>\"\n  },\n  \"reminder_time\": \"<float>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b964eb32-963d-4fa3-84a4-5b4dc1ecdc17",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users",
+                    "alerts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3133a27-67b7-449f-b2dc-e6609185bdf2",
+          "name": "Invite users",
+          "request": {
+            "name": "Invite users",
+            "description": {
+              "content": "Users can be invited by managers, or by supervisors. This will send them an email or text message inviting them to register.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users",
+                "invite"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ids\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"send_all\": \"<boolean>\",\n  \"message\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "36a96514-628e-4101-87c4-a0a462a8dc5f",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users",
+                    "invite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ids\": [\n    1,\n    2,\n    3\n  ],\n  \"send_all\": false,\n  \"message\": \"Welcome to the company!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 3,\n  \"email\": 3,\n  \"sms\": 1,\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1cbe0628-714d-40cb-95f2-9c8349de1721",
+          "name": "Invite single user",
+          "request": {
+            "name": "Invite single user",
+            "description": {
+              "content": "A user can be invited by managers, or by supervisors. This will send them an email or text message inviting them to register.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "users",
+                "invite",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the user to invite"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e2f4a229-6aaa-41bb-a802-a9521f71128f",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "users",
+                    "invite",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the user to invite"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message\": \"Welcome to the company!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 3,\n  \"email\": 3,\n  \"sms\": 1,\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d93afb81-eaf5-4d15-bf1a-9ba436832b5c",
+    "name": "When I Work API Documentation Accounts Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

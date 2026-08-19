@@ -1,0 +1,668 @@
+{
+  "item": [
+    {
+      "id": "7f6d83ea-2894-4e7f-9790-0a2540cfb71a",
+      "name": "Availabilities",
+      "description": {
+        "content": "Set your availability preferences to let your employer know when you prefer to work and when you prefer not to work.\n\nFor more information about using Availabilities, visit the [Help Center](https://help.wheniwork.com/articles/setting-your-availability-computer/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e3d4d7cb-9b33-4624-970f-b3aeb88a13a0",
+          "name": "List Availability Events",
+          "request": {
+            "name": "List Availability Events",
+            "description": {
+              "content": "Get a list of availability events based on a set of filters. Requests date ranges will include events with recurrence patterns within the date range. Requests will be submitted with the supplied date range and the response will be in the requesting users timezone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "availabilityevents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<dateTime>",
+                  "description": "The start of the filter range. Defaults to \"now\""
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<dateTime>",
+                  "description": "The end of the filter range. Defaults to \"two weeks from now\""
+                },
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<integer>",
+                  "description": "The optional User ID who's events you wish to fetch. If omitted, uses the calling user's ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_all",
+                  "value": "<boolean>",
+                  "description": "Whether to include all availability data instead of just the requestor's. Only valid for managers"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e756b052-7c16-46a3-aa67-7e829fed33b8",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "availabilityevents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "end",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include_all",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"availabilityevents\": [\n    {\n      \"start_time\": \"1959-02-12T15:15:51.192Z\",\n      \"type\": 1,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 10000,\n      \"login_id\": \"10000\",\n      \"end_time\": \"1958-03-16T21:22:44.262Z\",\n      \"all_day\": false,\n      \"notes\": \"No evenings in March\",\n      \"recurrence\": \"FREQ=YEARLY;INTERVAL=2;COUNT=5;BYMONTH=1,2,3\",\n      \"recurrence_end\": \"1986-04-29T20:52:22.486Z\",\n      \"created_at\": \"1971-04-08T19:00:24.800Z\",\n      \"updated_at\": \"2017-08-09T06:37:14.134Z\"\n    },\n    {\n      \"start_time\": \"2010-11-28T10:13:50.223Z\",\n      \"type\": 1,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 10000,\n      \"login_id\": \"10000\",\n      \"end_time\": \"1974-03-02T10:01:25.166Z\",\n      \"all_day\": false,\n      \"notes\": \"No evenings in March\",\n      \"recurrence\": \"FREQ=YEARLY;INTERVAL=2;COUNT=5;BYMONTH=1,2,3\",\n      \"recurrence_end\": \"1965-04-18T13:53:44.914Z\",\n      \"created_at\": \"2024-11-24T11:55:36.796Z\",\n      \"updated_at\": \"1987-08-15T07:49:12.379Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "046fadac-2518-465c-9067-6d83d6815f41",
+          "name": "Create Availability Event",
+          "request": {
+            "name": "Create Availability Event",
+            "description": {
+              "content": "Create an availability preference",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "availabilityevents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_time\": \"<dateTime>\",\n  \"type\": \"<integer>\",\n  \"account_id\": \"<integer>\",\n  \"user_id\": \"<integer>\",\n  \"login_id\": \"<string>\",\n  \"end_time\": \"<dateTime>\",\n  \"all_day\": \"<boolean>\",\n  \"notes\": \"<string>\",\n  \"recurrence\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "601ff5e8-3aa5-4539-9bf1-af572e0a4c67",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "availabilityevents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"availabilityevent\": {\n    \"start_time\": \"<dateTime>\",\n    \"type\": 1,\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"user_id\": 10000,\n    \"login_id\": \"10000\",\n    \"end_time\": \"<dateTime>\",\n    \"all_day\": false,\n    \"notes\": \"No evenings in March\",\n    \"recurrence\": \"FREQ=YEARLY;INTERVAL=2;COUNT=5;BYMONTH=1,2,3\",\n    \"recurrence_end\": \"1974-06-09T23:13:34.623Z\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "710401f0-9004-4be7-9c03-9db1b623205f",
+          "name": "Get Availability Event",
+          "request": {
+            "name": "Get Availability Event",
+            "description": {
+              "content": "Get a single availability event by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "availabilityevents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the event"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "238df6d9-7bad-4dab-864b-d8013eae4308",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "availabilityevents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"availabilityevent\": {\n    \"start_time\": \"<dateTime>\",\n    \"type\": 1,\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"user_id\": 10000,\n    \"login_id\": \"10000\",\n    \"end_time\": \"<dateTime>\",\n    \"all_day\": false,\n    \"notes\": \"No evenings in March\",\n    \"recurrence\": \"FREQ=YEARLY;INTERVAL=2;COUNT=5;BYMONTH=1,2,3\",\n    \"recurrence_end\": \"1974-06-09T23:13:34.623Z\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "641e71f0-fe57-4169-a3a9-a8b780159837",
+          "name": "Update Availability Event",
+          "request": {
+            "name": "Update Availability Event",
+            "description": {
+              "content": "Update an existing availability preference",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "availabilityevents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the shift"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_time\": \"<dateTime>\",\n  \"type\": \"<integer>\",\n  \"account_id\": \"<integer>\",\n  \"user_id\": \"<integer>\",\n  \"login_id\": \"<string>\",\n  \"end_time\": \"<dateTime>\",\n  \"all_day\": \"<boolean>\",\n  \"notes\": \"<string>\",\n  \"recurrence\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0dd541f0-ae67-4da9-88a4-5e2ad387b0b0",
+              "name": "Valid. The new preference and (potentially) the edited original preference",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "availabilityevents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the shift"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"availabilityevents\": [\n    {\n      \"start_time\": \"<dateTime>\",\n      \"type\": 1,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 10000,\n      \"login_id\": \"10000\",\n      \"end_time\": \"<dateTime>\",\n      \"all_day\": false,\n      \"notes\": \"No evenings in March\",\n      \"recurrence\": \"FREQ=YEARLY;INTERVAL=2;COUNT=5;BYMONTH=1,2,3\",\n      \"recurrence_end\": \"1959-11-14T17:55:51.490Z\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"start_time\": \"<dateTime>\",\n      \"type\": 1,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 10000,\n      \"login_id\": \"10000\",\n      \"end_time\": \"<dateTime>\",\n      \"all_day\": false,\n      \"notes\": \"No evenings in March\",\n      \"recurrence\": \"FREQ=YEARLY;INTERVAL=2;COUNT=5;BYMONTH=1,2,3\",\n      \"recurrence_end\": \"1961-02-24T20:17:31.118Z\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f425c8b-ad71-4ced-afd5-a2051cf71a8c",
+          "name": "Delete Availability Event",
+          "request": {
+            "name": "Delete Availability Event",
+            "description": {
+              "content": "Delete an existing event when no longer needed. This operation cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "availabilityevents",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the event"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d1084d0d-9a54-44fe-943f-24c0041d37a2",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "availabilityevents",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4841f31-827b-4f86-8268-fab98dda9455",
+          "name": "Create Availability Event Exception",
+          "request": {
+            "name": "Create Availability Event Exception",
+            "description": {
+              "content": "Create a standalone availability preference in the middle of a recurring series",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "availabilityevents",
+                ":id",
+                "exceptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_time\": \"<dateTime>\",\n  \"type\": \"<integer>\",\n  \"account_id\": \"<integer>\",\n  \"user_id\": \"<integer>\",\n  \"login_id\": \"<string>\",\n  \"end_time\": \"<dateTime>\",\n  \"all_day\": \"<boolean>\",\n  \"notes\": \"<string>\",\n  \"recurrence\": \"<string>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "12eec17a-8cd2-4c0a-9eaf-ff407f93b953",
+              "name": "Valid. The new preference and the edited original preference",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "availabilityevents",
+                    ":id",
+                    "exceptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"start_time\": \"<dateTime>\",\n  \"type\": 1,\n  \"account_id\": 10000,\n  \"user_id\": 10000,\n  \"login_id\": \"10000\",\n  \"end_time\": \"<dateTime>\",\n  \"all_day\": false,\n  \"notes\": \"No evenings in March\",\n  \"recurrence\": \"FREQ=YEARLY;INTERVAL=2;COUNT=5;BYMONTH=1,2,3\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"availabilityevents\": [\n    {\n      \"start_time\": \"<dateTime>\",\n      \"type\": 1,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 10000,\n      \"login_id\": \"10000\",\n      \"end_time\": \"<dateTime>\",\n      \"all_day\": false,\n      \"notes\": \"No evenings in March\",\n      \"recurrence\": \"FREQ=YEARLY;INTERVAL=2;COUNT=5;BYMONTH=1,2,3\",\n      \"recurrence_end\": \"1959-11-14T17:55:51.490Z\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"start_time\": \"<dateTime>\",\n      \"type\": 1,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 10000,\n      \"login_id\": \"10000\",\n      \"end_time\": \"<dateTime>\",\n      \"all_day\": false,\n      \"notes\": \"No evenings in March\",\n      \"recurrence\": \"FREQ=YEARLY;INTERVAL=2;COUNT=5;BYMONTH=1,2,3\",\n      \"recurrence_end\": \"1961-02-24T20:17:31.118Z\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4caacc27-3a76-4196-bfa0-776b894c21dd",
+    "name": "When I Work API Documentation Accounts Availabilities API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

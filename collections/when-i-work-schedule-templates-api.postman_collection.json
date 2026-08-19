@@ -1,0 +1,521 @@
+{
+  "item": [
+    {
+      "id": "3f925ba5-bbfd-4720-bd04-5cc15b492a3f",
+      "name": "Schedule Templates",
+      "description": {
+        "content": "Schedule templates allow you to create a daily or weekly schedule that is reusable. If your schedules are very similar from day to day or week to week, use a template to save time and avoid creating schedules from scratch.\n\nFor more information about using Schedule Templates, visit the [Help Center](https://help.wheniwork.com/articles/using-schedule-templates-computer/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "98af298c-76a0-4e19-84bd-4570cfba214d",
+          "name": "List Schedule Templates",
+          "request": {
+            "name": "List Schedule Templates",
+            "description": {
+              "content": "List all the shift templates in an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "abf2954f-a937-4378-894a-2ddd785424d4",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"templates\": [\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"name\": \"Typical Work Week\",\n      \"description\": \"Use this template for most work weeks\",\n      \"start_date\": \"2019-05-12\",\n      \"end_date\": \"2019-05-18\",\n      \"location_id\": 10000,\n      \"user_id\": 10000,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    },\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"name\": \"Typical Work Week\",\n      \"description\": \"Use this template for most work weeks\",\n      \"start_date\": \"2019-05-12\",\n      \"end_date\": \"2019-05-18\",\n      \"location_id\": 10000,\n      \"user_id\": 10000,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    }\n  ],\n  \"templateshifts\": [\n    {\n      \"start_time\": \"2026-03-02T08:25:00.825Z\",\n      \"end_time\": \"2004-11-05T19:47:49.320Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"1948-05-10T20:54:27.958Z\",\n      \"notified_at\": \"1973-05-05T09:45:10.228Z\",\n      \"instances\": 3,\n      \"created_at\": \"2013-10-10T12:56:28.352Z\",\n      \"updated_at\": \"2002-03-12T08:28:13.226Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"1981-08-09T22:43:14.985Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false,\n      \"template_id\": 10000\n    },\n    {\n      \"start_time\": \"2000-10-08T04:26:28.228Z\",\n      \"end_time\": \"2018-12-24T02:52:10.489Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"1993-07-02T00:49:33.948Z\",\n      \"notified_at\": \"2004-03-06T05:36:01.033Z\",\n      \"instances\": 3,\n      \"created_at\": \"2000-05-17T03:27:25.365Z\",\n      \"updated_at\": \"1973-05-02T18:41:13.741Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"2001-06-02T17:56:41.250Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false,\n      \"template_id\": 10000\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee6cb9fb-9204-4533-8659-f8410f9f0854",
+          "name": "Create Schedule Template",
+          "request": {
+            "name": "Create Schedule Template",
+            "description": {
+              "content": "Create a schedule template as a collection of shifts in a daily or weekly pattern which can be loaded to future schedules. The API will collect shifts which fall within the parameters provided; outline below.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"start\": \"<dateTime>\",\n  \"end\": \"<dateTime>\",\n  \"include_repeating_shifts\": \"<boolean>\",\n  \"location_id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"position_id\": [\n    \"<integer>\",\n    \"<integer>\"\n  ],\n  \"site_id\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "96db17ad-b096-49dd-b70c-a106830c5a5b",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"templates\": [\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"name\": \"Typical Work Week\",\n      \"description\": \"Use this template for most work weeks\",\n      \"start_date\": \"2019-05-12\",\n      \"end_date\": \"2019-05-18\",\n      \"location_id\": 10000,\n      \"user_id\": 10000,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    },\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"name\": \"Typical Work Week\",\n      \"description\": \"Use this template for most work weeks\",\n      \"start_date\": \"2019-05-12\",\n      \"end_date\": \"2019-05-18\",\n      \"location_id\": 10000,\n      \"user_id\": 10000,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    }\n  ],\n  \"templateshifts\": [\n    {\n      \"start_time\": \"2021-09-18T03:30:30.409Z\",\n      \"end_time\": \"1953-05-11T12:15:11.626Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"1960-07-21T08:42:26.341Z\",\n      \"notified_at\": \"1963-07-17T06:13:02.941Z\",\n      \"instances\": 3,\n      \"created_at\": \"2003-05-02T07:10:00.768Z\",\n      \"updated_at\": \"1974-04-23T06:52:46.399Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"1981-12-25T21:21:25.761Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false,\n      \"template_id\": 10000\n    },\n    {\n      \"start_time\": \"2020-06-24T06:16:18.965Z\",\n      \"end_time\": \"1981-11-03T17:36:10.179Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"2024-09-25T16:26:09.423Z\",\n      \"notified_at\": \"1981-07-15T13:03:50.572Z\",\n      \"instances\": 3,\n      \"created_at\": \"2010-05-26T03:41:00.078Z\",\n      \"updated_at\": \"1959-10-21T21:09:45.393Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"1982-07-06T06:39:45.306Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false,\n      \"template_id\": 10000\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d1ca39ab-5a16-471b-a4e8-579b4c0e2ffa",
+          "name": "Get Schedule Template",
+          "request": {
+            "name": "Get Schedule Template",
+            "description": {
+              "content": "Get a single schedule template by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "templates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the shift template"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dfc2ea3a-a573-4b55-ba28-a024675ea028",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "templates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the shift template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"templates\": [\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"name\": \"Typical Work Week\",\n      \"description\": \"Use this template for most work weeks\",\n      \"start_date\": \"2019-05-12\",\n      \"end_date\": \"2019-05-18\",\n      \"location_id\": 10000,\n      \"user_id\": 10000,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    },\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"name\": \"Typical Work Week\",\n      \"description\": \"Use this template for most work weeks\",\n      \"start_date\": \"2019-05-12\",\n      \"end_date\": \"2019-05-18\",\n      \"location_id\": 10000,\n      \"user_id\": 10000,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    }\n  ],\n  \"templateshifts\": [\n    {\n      \"start_time\": \"2021-09-18T03:30:30.409Z\",\n      \"end_time\": \"1953-05-11T12:15:11.626Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"1960-07-21T08:42:26.341Z\",\n      \"notified_at\": \"1963-07-17T06:13:02.941Z\",\n      \"instances\": 3,\n      \"created_at\": \"2003-05-02T07:10:00.768Z\",\n      \"updated_at\": \"1974-04-23T06:52:46.399Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"1981-12-25T21:21:25.761Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false,\n      \"template_id\": 10000\n    },\n    {\n      \"start_time\": \"2020-06-24T06:16:18.965Z\",\n      \"end_time\": \"1981-11-03T17:36:10.179Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"2024-09-25T16:26:09.423Z\",\n      \"notified_at\": \"1981-07-15T13:03:50.572Z\",\n      \"instances\": 3,\n      \"created_at\": \"2010-05-26T03:41:00.078Z\",\n      \"updated_at\": \"1959-10-21T21:09:45.393Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"1982-07-06T06:39:45.306Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false,\n      \"template_id\": 10000\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7c9854c5-69e6-4703-aaf2-167784475aa7",
+          "name": "Update Schedule Template",
+          "request": {
+            "name": "Update Schedule Template",
+            "description": {
+              "content": "Update a single schedule template",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "templates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the schedule template"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "77c8a771-aac7-49f0-b0e5-78dacdfd9d34",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "templates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the schedule template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"templates\": [\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"name\": \"Typical Work Week\",\n      \"description\": \"Use this template for most work weeks\",\n      \"start_date\": \"2019-05-12\",\n      \"end_date\": \"2019-05-18\",\n      \"location_id\": 10000,\n      \"user_id\": 10000,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    },\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"name\": \"Typical Work Week\",\n      \"description\": \"Use this template for most work weeks\",\n      \"start_date\": \"2019-05-12\",\n      \"end_date\": \"2019-05-18\",\n      \"location_id\": 10000,\n      \"user_id\": 10000,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    }\n  ],\n  \"templateshifts\": [\n    {\n      \"start_time\": \"2021-09-18T03:30:30.409Z\",\n      \"end_time\": \"1953-05-11T12:15:11.626Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"1960-07-21T08:42:26.341Z\",\n      \"notified_at\": \"1963-07-17T06:13:02.941Z\",\n      \"instances\": 3,\n      \"created_at\": \"2003-05-02T07:10:00.768Z\",\n      \"updated_at\": \"1974-04-23T06:52:46.399Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"1981-12-25T21:21:25.761Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false,\n      \"template_id\": 10000\n    },\n    {\n      \"start_time\": \"2020-06-24T06:16:18.965Z\",\n      \"end_time\": \"1981-11-03T17:36:10.179Z\",\n      \"location_id\": 1045,\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"position_id\": 19483,\n      \"site_id\": 4351,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"shift_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"start_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"end_time\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"color\": \"cc000\",\n      \"notes\": \"Shift test\",\n      \"alerted\": false,\n      \"linked_users\": null,\n      \"shiftchain_key\": \"1eizfwp\",\n      \"published\": false,\n      \"published_date\": \"2024-09-25T16:26:09.423Z\",\n      \"notified_at\": \"1981-07-15T13:03:50.572Z\",\n      \"instances\": 3,\n      \"created_at\": \"2010-05-26T03:41:00.078Z\",\n      \"updated_at\": \"1959-10-21T21:09:45.393Z\",\n      \"acknowledged\": false,\n      \"acknowledged_at\": \"1982-07-06T06:39:45.306Z\",\n      \"creator_id\": 101,\n      \"is_open\": false,\n      \"requires_openshift_approval\": true,\n      \"openshift_approval_request_id\": 5232,\n      \"is_approved_without_time\": false,\n      \"is_shared\": false,\n      \"is_trimmed\": false,\n      \"template_id\": 10000\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b13245f1-5100-44a8-90da-72f57f1eea7b",
+          "name": "Delete Schedule Template",
+          "request": {
+            "name": "Delete Schedule Template",
+            "description": {
+              "content": "Delete an existing schedule template when no longer needed. This operation cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "templates",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the schedule template"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7a1a6db2-9f37-459f-a1ba-dc7e1a3a2450",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "templates",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the schedule template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "19519619-d799-4863-886e-29d97af3f4f3",
+    "name": "When I Work API Documentation Accounts Schedule Templates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

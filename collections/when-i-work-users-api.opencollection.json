@@ -1,0 +1,273 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Users API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/users",
+            "params": [
+              {
+                "name": "location_id",
+                "value": "4",
+                "type": "query"
+              },
+              {
+                "name": "show_pending",
+                "value": "",
+                "type": "query",
+                "description": "Include pending users in results. Defaults to true."
+              },
+              {
+                "name": "only_pending",
+                "value": "",
+                "type": "query",
+                "description": "Include ONLY pending users in results. Defaults to false."
+              },
+              {
+                "name": "show_deleted",
+                "value": "",
+                "type": "query",
+                "description": "Include deleted users in results. Defaults to false. Requires administrator, manager, or supervisor access (enforced via can_supervise()); otherwise the request returns 403.\n"
+              },
+              {
+                "name": "only_deleted",
+                "value": "",
+                "type": "query",
+                "description": "Only include deleted/archived users in results. Defaults to false. Requires administrator, manager, or supervisor access (enforced via can_supervise()); otherwise the request returns 403.\n"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Optional string to search by in users first name, last name, or email."
+              }
+            ]
+          },
+          "docs": "List all the users in your account"
+        },
+        {
+          "info": {
+            "name": "Create User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to create a user"
+        },
+        {
+          "info": {
+            "name": "Get User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user"
+              }
+            ]
+          },
+          "docs": "Get a single user by ID"
+        },
+        {
+          "info": {
+            "name": "Update User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a single user"
+        },
+        {
+          "info": {
+            "name": "Delete User",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/users/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user"
+              },
+              {
+                "name": "deleted_shifts",
+                "value": "",
+                "type": "query",
+                "description": "Indicates whether or not to delete this user's future shifts. If not deleted, those shifts will be moved to Open Shifts."
+              }
+            ]
+          },
+          "docs": "Delete an existing user. This action can be reversed."
+        },
+        {
+          "info": {
+            "name": "Create/Update user avatar",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/users/avatar/:id",
+            "headers": [
+              {
+                "name": "content-type",
+                "value": "image/jpeg"
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user whose avatar is being uploaded"
+              }
+            ]
+          },
+          "docs": "Used to create and update a user's avatar"
+        },
+        {
+          "info": {
+            "name": "Create A Batch of Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/users/bulkupdate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Used to create a user, limit of 50 users at a time to prevent long requests"
+        },
+        {
+          "info": {
+            "name": "Get User Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/users/profile"
+          },
+          "docs": "Get the logged in user's profile"
+        },
+        {
+          "info": {
+            "name": "Update User Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/users/profile",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the logged in user's profile.\n> Although managers and supervisors are able to change most profile information through the Update Existing User endpoint, this is the only way for an employee to change their own information using the API.\n"
+        },
+        {
+          "info": {
+            "name": "Update User Alert Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/users/alerts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the logged in user's alert settings"
+        },
+        {
+          "info": {
+            "name": "Invite users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/users/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Users can be invited by managers, or by supervisors. This will send them an email or text message inviting them to register."
+        },
+        {
+          "info": {
+            "name": "Invite single user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/users/invite/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the user to invite"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A user can be invited by managers, or by supervisors. This will send them an email or text message inviting them to register."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

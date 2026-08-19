@@ -1,0 +1,469 @@
+{
+  "item": [
+    {
+      "id": "e053c2b3-feee-4e58-8c9d-a974e36eb9bc",
+      "name": "Import",
+      "description": {
+        "content": "The import API is used to import a variety of When I Work resources from user-provided CSV or Excel files.\n\n### Import Types\n\nAll available import types and their columns are listed here. Where possible, the column names will align with names used elsewhere in the API, but this is not always possible.\n\n<table>\n   <thead>\n     <tr>\n       <th>type</th>\n       <th>columns</th>\n       <th>required?</th>\n       <th>notes</th>\n     </tr>\n   </thead>\n   <tbody>\n     <tr>\n       <td rowspan=\"5\" class=\"nowrap\"><code>SHIFT_TEMPLATE</code></td>\n       <td>start_time</td>\n       <td>✅</td>\n       <td></td>\n     </tr>\n     <tr>\n       <td>end_time</td>\n       <td>✅</td>\n       <td></td>\n     </tr>\n     <tr>\n       <td>schedule</td>\n       <td></td>\n       <td>\n         <p>A schedule name to associate with the shift template. If no schedule with that name exists, a new schedule will be created.</p>\n         <p>If omitted, the shift template will be assigned to all schedules (or the value \"All Schedules\" can be provided to do the same).</p>\n       </td>\n     </tr>\n     <tr>\n       <td>position</td>\n       <td></td>\n       <td>\n         <p>A position name to associate with the shift template. If no position with that name exists, a new position will be created.</p>\n       </td>\n     </tr>\n     <tr>\n       <td>unpaid_break</td>\n       <td></td>\n       <td>The length of the unpaid break in minutes.</td>\n     </tr>\n     <tr>\n       <td rowspan=\"12\" class=\"nowrap\"><code>EMPLOYEE</code></td>\n       <td>first_name</td>\n       <td>✅</td>\n       <td>First name of the employee</td>\n     </tr>\n     <tr>\n       <td>last_name</td>\n       <td>✅</td>\n       <td>Last name of the employee</td>\n     </tr>\n     <tr>\n       <td>email</td>\n       <td></td>\n       <td>The email address of the employee</td>\n     </tr>\n     <tr>\n       <td>employee_code</td>\n       <td></td>\n       <td>The employee code to associate with the employee</td>\n     </tr>\n     <tr>\n       <td>file_number</td>\n       <td></td>\n       <td>The file number corresponding to the employee in ADP</td>\n     </tr>\n     <tr>\n       <td>id</td>\n       <td></td>\n       <td>The user id corresponding to the employee in When I Work</td>\n     </tr>\n     <tr>\n       <td>location</td>\n       <td></td>\n       <td>\n         <p>A schedule (location) name to associate with the employee. If no schedule with that name exists, a new schedule will be created.</p>\n       </td>\n     </tr>\n     <tr>\n       <td>max</td>\n       <td></td>\n       <td>The maximum hours per week of the employee</td>\n     </tr>\n     <tr>\n       <td>phone</td>\n       <td></td>\n       <td>The phone number of the employee</td>\n     </tr>\n     <tr>\n       <td>position</td>\n       <td></td>\n       <td>\n         <p>A position name to associate with the employee. If no position with that name exists, a new position will be created.</p>\n       </td>\n     </tr>\n     <tr>\n       <td>tags</td>\n       <td></td>\n       <td>\n         <p>A comma separated list of tags to associate to the employee. If the tag does not exist, it will be created.</p>\n       </td>\n     </tr>\n     <tr>\n       <td>wage</td>\n       <td></td>\n       <td>\n         <p>The hourly rate of the employee expressed as a floating point number (e.g. 14.50)</p>\n       </td>\n     </tr>\n   </tbody>\n </table>\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "99da8937-f6c8-4fef-8263-9f4c142e7642",
+          "name": "Create Import",
+          "request": {
+            "name": "Create Import",
+            "description": {
+              "content": "Uploads a user file, parses it, and returns information to help guide the import process.\n\nNote that unlike most API endpoints, this endpoint does not use JSON for the request body.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "import"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "type",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) "
+                },
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "(Required) The user-provided file, in one of the following formats: XLS, XLSX, or CSV.\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d42c01dc-5395-4e1f-bd65-d101841749b0",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "import"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) ",
+                        "type": "text/plain"
+                      },
+                      "key": "type",
+                      "value": "SHIFT_TEMPLATE",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "(Required) The user-provided file, in one of the following formats: XLS, XLSX, or CSV.\n",
+                        "type": "text/plain"
+                      },
+                      "key": "file",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"type\": \"SHIFT_TEMPLATE\",\n  \"user_columns\": [\n    \"Start\",\n    \"End\",\n    \"Schedule\",\n    \"Break\"\n  ],\n  \"suggested_matches\": {\n    \"start_time\": \"Start\",\n    \"end_time\": \"End\",\n    \"schedule\": \"Schedule\",\n    \"position\": null,\n    \"unpaid_break\": \"Break\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c18f6eab-9cdc-4cb7-93c6-95976ee9f421",
+          "name": "Get Import",
+          "request": {
+            "name": "Get Import",
+            "description": {
+              "content": "Gets an import in progress. Returns exactly the same content as the result of Create Import.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "import",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The ID of the import to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d65c6072-36c9-4c27-9e53-0202af8aea04",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "import",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The ID of the import to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"abc123\",\n  \"type\": \"SHIFT_TEMPLATE\",\n  \"user_columns\": [\n    \"Start\",\n    \"End\",\n    \"Schedule\",\n    \"Break\"\n  ],\n  \"suggested_matches\": {\n    \"start_time\": \"Start\",\n    \"end_time\": \"End\",\n    \"schedule\": \"Schedule\",\n    \"position\": null,\n    \"unpaid_break\": \"Break\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f1e0d64-d1f5-46b9-a01a-bb656a6a5702",
+          "name": "Preview Import",
+          "request": {
+            "name": "Preview Import",
+            "description": {
+              "content": "Given a set of column mappings, previews the result of the import.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "import",
+                ":id",
+                "preview"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"columns\": {\n    \"key_0\": \"<string,>\",\n    \"key_1\": \"<string,>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2b8021d5-100b-46b6-bfb3-a80f4fc07794",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "import",
+                    ":id",
+                    "preview"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"columns\": {\n    \"start_time\": \"Start\",\n    \"end_time\": \"End\",\n    \"position\": null\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"validRows\": [\n    {\n      \"row\": 2,\n      \"message\": \"9a-5p at Downtown as Sales\"\n    },\n    {\n      \"row\": 8,\n      \"message\": \"10a-6p at All Schedules as Cashier\"\n    },\n    {\n      \"row\": 3,\n      \"message\": \"End Time missing.\"\n    }\n  ],\n  \"invalidRows\": {\n    \"row\": 8057,\n    \"message\": \"string\"\n  },\n  \"newObjects\": [\n    {\n      \"message\": \"Schedule: Downtown\"\n    },\n    {\n      \"message\": \"Position: Cashier\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2afc2a5e-d1a6-4a6b-81f0-e3d6b84a8de0",
+          "name": "Finalize Import",
+          "request": {
+            "name": "Finalize Import",
+            "description": {
+              "content": "Given a set of column mappings, finalizes the import.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "import",
+                ":id",
+                "finalize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"columns\": {\n    \"key_0\": \"<string,>\"\n  },\n  \"extra\": {\n    \"invite\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1d538951-1d14-403c-8b11-ab7b84672c74",
+              "name": "Import Finalized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "import",
+                    ":id",
+                    "finalize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"columns\": {\n    \"start_time\": \"Start\",\n    \"end_time\": \"End\",\n    \"position\": null\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created\": {\n    \"positions\": [\n      1,\n      2,\n      3\n    ],\n    \"schedules\": [\n      1,\n      2,\n      3\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1c3e776a-22e0-4921-9272-eb690e7f5995",
+    "name": "When I Work API Documentation Accounts Import API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

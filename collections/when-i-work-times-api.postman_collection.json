@@ -1,0 +1,593 @@
+{
+  "item": [
+    {
+      "id": "a75ade65-83c8-4bf2-879d-fd76e0f14e98",
+      "name": "Times",
+      "description": {
+        "content": "Time records are a listing of the worked hours and can be select by date range. Records are sourced from timeclock terminal, web clock In/Out, mobile clock In/Out, timesheet edits, and API record creation/edits of time values.\n\nFor more info about user Times, visit the [Help Center](https://help.wheniwork.com/articles/reviewing-employees-time-sheets-computer/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "58d23469-13d7-4469-9bc0-5147057b87b9",
+          "name": "List Times",
+          "request": {
+            "name": "List Times",
+            "description": {
+              "content": "Fetch a list of shifts based on a set of filters",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "times"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "now - 3 days",
+                  "description": "The start of the filter range."
+                },
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "now",
+                  "description": "The end of the filter range."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<csv>",
+                  "description": "List of user ids to filter on"
+                },
+                {
+                  "disabled": false,
+                  "key": "only_open",
+                  "value": "false",
+                  "description": "Return only times without an end time"
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_at",
+                  "value": "",
+                  "description": "Only return times that have been updated since the provided timestamp."
+                },
+                {
+                  "disabled": false,
+                  "key": "overwrite_with_rounded",
+                  "value": "<integer>",
+                  "description": "Flag to overwrite the start/end/length values with their rounded counterparts (if account setting is enabled)"
+                },
+                {
+                  "disabled": false,
+                  "key": "include_paid_break_note",
+                  "value": "<boolean>",
+                  "description": "Returns the note for a Shift Break Paid Record. Deprecated - please refer to the break attestation docs [here](#tag/Break-Attestation)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5c8d41f5-b712-4bf8-bc8d-bd5d7b1de985",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "now - 3 days"
+                    },
+                    {
+                      "key": "end",
+                      "value": "now"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<csv>"
+                    },
+                    {
+                      "key": "only_open",
+                      "value": "false"
+                    },
+                    {
+                      "key": "updated_at",
+                      "value": ""
+                    },
+                    {
+                      "key": "overwrite_with_rounded",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "include_paid_break_note",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"times\": [\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"creator_id\": 100,\n      \"position_id\": 19483,\n      \"location_id\": 1045,\n      \"site_id\": 4351,\n      \"shift_id\": 5451,\n      \"start_time\": \"1990-07-05T05:36:49.150Z\",\n      \"end_time\": \"1991-09-20T21:51:57.782Z\",\n      \"rounded_start_time\": \"2013-01-18T23:29:22.361Z\",\n      \"rounded_end_time\": \"1966-07-19T21:42:06.204Z\",\n      \"notes\": \"A time note\",\n      \"length\": 8,\n      \"rounded_length\": 8,\n      \"hourly_rate\": 15,\n      \"cash_tips\": \"123.45\",\n      \"alert_type\": 16,\n      \"is_approved\": false,\n      \"modified_by\": 18438,\n      \"sync_id\": \"\",\n      \"sync_hash\": \"\",\n      \"updated_at\": \"2011-12-25T05:21:16.594Z\",\n      \"created_at\": \"1952-10-26T10:19:56.052Z\",\n      \"split_time\": \"2004-01-05T17:12:42.175Z\",\n      \"is_alerted\": false,\n      \"paid_break_note\": \"I am a note entered for the shift break paid record\"\n    },\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"user_id\": 101,\n      \"creator_id\": 100,\n      \"position_id\": 19483,\n      \"location_id\": 1045,\n      \"site_id\": 4351,\n      \"shift_id\": 5451,\n      \"start_time\": \"1978-11-03T15:59:32.201Z\",\n      \"end_time\": \"1985-01-27T02:03:12.402Z\",\n      \"rounded_start_time\": \"1966-02-28T13:39:37.736Z\",\n      \"rounded_end_time\": \"2019-04-12T11:03:28.137Z\",\n      \"notes\": \"A time note\",\n      \"length\": 8,\n      \"rounded_length\": 8,\n      \"hourly_rate\": 15,\n      \"cash_tips\": \"123.45\",\n      \"alert_type\": 16,\n      \"is_approved\": false,\n      \"modified_by\": 18438,\n      \"sync_id\": \"\",\n      \"sync_hash\": \"\",\n      \"updated_at\": \"1959-06-02T08:47:36.607Z\",\n      \"created_at\": \"1982-08-10T13:47:48.090Z\",\n      \"split_time\": \"1979-04-11T05:09:35.605Z\",\n      \"is_alerted\": false,\n      \"paid_break_note\": \"I am a note entered for the shift break paid record\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "898dae47-c27e-45b9-b70c-c2d88e356f39",
+          "name": "Create Time",
+          "request": {
+            "name": "Create Time",
+            "description": {
+              "content": "Create a time. For accounts with Check payroll onboarded, start time must not be past the end of the current pay period",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "times"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"<integer>\",\n  \"position_id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"site_id\": \"<integer>\",\n  \"shift_id\": \"<integer>\",\n  \"start_time\": \"<dateTime>\",\n  \"end_time\": \"<dateTime>\",\n  \"rounded_start_time\": \"<dateTime>\",\n  \"rounded_end_time\": \"<dateTime>\",\n  \"notes\": \"<string>\",\n  \"is_approved\": \"<boolean>\",\n  \"cash_tips\": \"<decimal>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dc0a366f-9632-4121-837b-9c3b13e869c9",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"time\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"user_id\": 101,\n    \"creator_id\": 100,\n    \"position_id\": 19483,\n    \"location_id\": 1045,\n    \"site_id\": 4351,\n    \"shift_id\": 5451,\n    \"start_time\": \"1969-11-26T15:54:04.392Z\",\n    \"end_time\": \"1948-12-11T08:27:25.775Z\",\n    \"rounded_start_time\": \"1973-07-16T14:56:10.949Z\",\n    \"rounded_end_time\": \"2002-03-16T00:35:58.399Z\",\n    \"notes\": \"A time note\",\n    \"length\": 8,\n    \"rounded_length\": 8,\n    \"hourly_rate\": 15,\n    \"cash_tips\": \"123.45\",\n    \"alert_type\": 16,\n    \"is_approved\": false,\n    \"modified_by\": 18438,\n    \"sync_id\": \"\",\n    \"sync_hash\": \"\",\n    \"updated_at\": \"1985-03-28T18:36:22.562Z\",\n    \"created_at\": \"1978-09-24T13:48:53.744Z\",\n    \"split_time\": \"2003-09-02T02:03:19.091Z\",\n    \"is_alerted\": false,\n    \"paid_break_note\": \"I am a note entered for the shift break paid record\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd8fbc33-7fda-4217-8d8d-1c5e31df7faa",
+          "name": "Get Time",
+          "request": {
+            "name": "Get Time",
+            "description": {
+              "content": "Get a single time by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "times",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the time"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d922f1c4-1c80-4bfa-a8c5-aa3366523888",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the time"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"time\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"user_id\": 101,\n    \"creator_id\": 100,\n    \"position_id\": 19483,\n    \"location_id\": 1045,\n    \"site_id\": 4351,\n    \"shift_id\": 5451,\n    \"start_time\": \"1969-11-26T15:54:04.392Z\",\n    \"end_time\": \"1948-12-11T08:27:25.775Z\",\n    \"rounded_start_time\": \"1973-07-16T14:56:10.949Z\",\n    \"rounded_end_time\": \"2002-03-16T00:35:58.399Z\",\n    \"notes\": \"A time note\",\n    \"length\": 8,\n    \"rounded_length\": 8,\n    \"hourly_rate\": 15,\n    \"cash_tips\": \"123.45\",\n    \"alert_type\": 16,\n    \"is_approved\": false,\n    \"modified_by\": 18438,\n    \"sync_id\": \"\",\n    \"sync_hash\": \"\",\n    \"updated_at\": \"1985-03-28T18:36:22.562Z\",\n    \"created_at\": \"1978-09-24T13:48:53.744Z\",\n    \"split_time\": \"2003-09-02T02:03:19.091Z\",\n    \"is_alerted\": false,\n    \"paid_break_note\": \"I am a note entered for the shift break paid record\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d4a1fdd-70ab-495c-af86-ec11bf944441",
+          "name": "Update Time",
+          "request": {
+            "name": "Update Time",
+            "description": {
+              "content": "Update an existing time",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "times",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the shift"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"<integer>\",\n  \"position_id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"site_id\": \"<integer>\",\n  \"shift_id\": \"<integer>\",\n  \"start_time\": \"<dateTime>\",\n  \"end_time\": \"<dateTime>\",\n  \"rounded_start_time\": \"<dateTime>\",\n  \"rounded_end_time\": \"<dateTime>\",\n  \"notes\": \"<string>\",\n  \"is_approved\": \"<boolean>\",\n  \"cash_tips\": \"<decimal>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d85bc67c-93d0-41d5-bec7-9e1a0c73e373",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the shift"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shift\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"user_id\": 101,\n    \"creator_id\": 100,\n    \"position_id\": 19483,\n    \"location_id\": 1045,\n    \"site_id\": 4351,\n    \"shift_id\": 5451,\n    \"start_time\": \"1972-05-16T16:03:16.726Z\",\n    \"end_time\": \"1992-12-24T02:41:12.109Z\",\n    \"rounded_start_time\": \"1960-07-25T08:12:44.703Z\",\n    \"rounded_end_time\": \"2016-08-26T11:23:27.920Z\",\n    \"notes\": \"A time note\",\n    \"length\": 8,\n    \"rounded_length\": 8,\n    \"hourly_rate\": 15,\n    \"cash_tips\": \"123.45\",\n    \"alert_type\": 16,\n    \"is_approved\": false,\n    \"modified_by\": 18438,\n    \"sync_id\": \"\",\n    \"sync_hash\": \"\",\n    \"updated_at\": \"2021-03-13T17:55:40.282Z\",\n    \"created_at\": \"1950-10-25T19:01:59.847Z\",\n    \"split_time\": \"1951-08-12T22:44:49.339Z\",\n    \"is_alerted\": false,\n    \"paid_break_note\": \"I am a note entered for the shift break paid record\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "530adffb-a2ec-4f94-a5ba-1f234332c1a1",
+          "name": "Delete Time",
+          "request": {
+            "name": "Delete Time",
+            "description": {
+              "content": "Delete an existing time when no longer needed. This operation cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "times",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the time"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0587f6a1-e99a-4cab-94b7-db9af2224288",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "times",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the time"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "53b3bc9b-ff4f-4c5e-a42f-681cc4d28b6e",
+    "name": "When I Work API Documentation Accounts Times API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1371 @@
+{
+  "item": [
+    {
+      "id": "d2c93058-ec8b-41a0-aaf7-5864f4cdd215",
+      "name": "Time Off Requests",
+      "description": {
+        "content": "When you need to take time off from work, use When I Work to send the request to your manager for approval. Time off can be submitted as unpaid, paid (PTO), sick, or holiday.\n\nFor more information about using Time Off Requests, visit the [Help Center](https://help.wheniwork.com/articles/requesting-time-off-computer/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4ec390d1-edff-4eba-855e-287411ef3349",
+          "name": "List Time Off Requests",
+          "request": {
+            "name": "List Time Off Requests",
+            "description": {
+              "content": "Get a collection of request objects. Requests allow users to request time off.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "end",
+                  "value": "<date>",
+                  "description": "(Required) yyyy-mm-dd formatted end date for the request time-frame."
+                },
+                {
+                  "disabled": false,
+                  "key": "include_deleted_users",
+                  "value": "false",
+                  "description": "Return all requests including those made by deleted users.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "5",
+                  "description": "Number of requests to load per page."
+                },
+                {
+                  "disabled": false,
+                  "key": "location_id",
+                  "value": "<integer>",
+                  "description": "Location ID to show requests for."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_id",
+                  "value": "<integer>",
+                  "description": "Return all requests created before the request with the given ID.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "0",
+                  "description": "Page of results to load."
+                },
+                {
+                  "disabled": false,
+                  "key": "since_id",
+                  "value": "<integer>",
+                  "description": "Return all requests created since the request with given ID.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortby",
+                  "value": "<string>",
+                  "description": "Field to sort by. Can either be 'created' and sort by the created_at\ndate in descending order, or anything else and sort by status in\nascending order, then by the updated_at date in descending order.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<date>",
+                  "description": "(Required) yyyy-mm-dd formatted start date for the request time-frame.\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<integer>",
+                  "description": "Only return requests with the given status."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<integer>",
+                  "description": "Type of request to filter by."
+                },
+                {
+                  "disabled": false,
+                  "key": "user_id",
+                  "value": "<integer>",
+                  "description": "Only return requests for the given user IDs. Multiple values can be\ncomma separated.\n"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b45ba96e-7c99-48b4-9e71-48084e0b2e9a",
+              "name": "Collection of Request resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "end",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "include_deleted_users",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "location_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "since_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"requests\": [\n    {\n      \"id\": 2211,\n      \"account_id\": 9205,\n      \"created_at\": \"1995-12-11T10:07:40.433Z\",\n      \"creator_id\": 4753,\n      \"end_time\": \"2023-12-31T01:07:40.492Z\",\n      \"hours\": 8821.17011809761,\n      \"status\": 2,\n      \"start_time\": \"1996-05-07T07:52:28.159Z\",\n      \"type\": 1200,\n      \"type_id\": 8705,\n      \"type_label\": \"string\",\n      \"paid\": true,\n      \"updated_at\": \"1973-01-15T22:25:29.891Z\",\n      \"user_id\": 3486,\n      \"can_edit\": false,\n      \"user_status\": 4\n    },\n    {\n      \"id\": 6409,\n      \"account_id\": 1359,\n      \"created_at\": \"1969-08-13T20:18:12.235Z\",\n      \"creator_id\": 8440,\n      \"end_time\": \"1957-05-11T15:55:30.507Z\",\n      \"hours\": 7981.342453495287,\n      \"status\": 2,\n      \"start_time\": \"2012-07-11T11:21:00.100Z\",\n      \"type\": 1065,\n      \"type_id\": 9519,\n      \"type_label\": \"string\",\n      \"paid\": false,\n      \"updated_at\": \"2004-10-12T18:52:41.996Z\",\n      \"user_id\": 4479,\n      \"can_edit\": false,\n      \"user_status\": 3\n    }\n  ],\n  \"more\": false,\n  \"page\": 4140,\n  \"total\": 5415,\n  \"messages\": [\n    {\n      \"account_id\": 8607,\n      \"actor\": 0,\n      \"content\": \"string\",\n      \"conversation_id\": 7771,\n      \"created_at\": \"1950-03-12T21:35:40.092Z\",\n      \"id\": 5649,\n      \"request_id\": 7920,\n      \"swap_id\": 500,\n      \"title\": \"string\",\n      \"updated_at\": \"1949-08-08T05:48:02.454Z\",\n      \"user_id\": 1915\n    },\n    {\n      \"account_id\": 7426,\n      \"actor\": 3,\n      \"content\": \"string\",\n      \"conversation_id\": 4374,\n      \"created_at\": \"2017-05-03T09:17:28.978Z\",\n      \"id\": 362,\n      \"request_id\": 7038,\n      \"swap_id\": 1647,\n      \"title\": \"string\",\n      \"updated_at\": \"1960-02-24T07:51:14.777Z\",\n      \"user_id\": 460\n    }\n  ],\n  \"users\": [\n    {\n      \"account_id\": 886,\n      \"activated\": true,\n      \"email\": \"jh8FRoDquTnAhM@GiOkopZMbcTICoiBrFgDRstroZ.ixf\",\n      \"employee_code\": \"string\",\n      \"first_name\": \"string\",\n      \"hourly_rate\": 8428.80760479397,\n      \"hours_max\": 7984.541249953104,\n      \"hours_preferred\": 5559.199451889042,\n      \"id\": 8773,\n      \"is_deleted\": true,\n      \"is_hidden\": true,\n      \"is_payroll\": false,\n      \"is_private\": true,\n      \"is_trusted\": true,\n      \"last_login\": \"2009-07-24T03:07:28.254Z\",\n      \"last_name\": \"string\",\n      \"locations\": [\n        3539,\n        6158\n      ],\n      \"login_id\": 6103,\n      \"notes\": \"string\",\n      \"phone_number\": \"string\",\n      \"positions\": [\n        8369,\n        2200\n      ],\n      \"role\": null,\n      \"type\": 1899\n    },\n    {\n      \"account_id\": 3816,\n      \"activated\": true,\n      \"email\": \"JuoMLQzn5nxrXk@PLWk.ffic\",\n      \"employee_code\": \"string\",\n      \"first_name\": \"string\",\n      \"hourly_rate\": 2447.9183139155534,\n      \"hours_max\": 9392.289826279106,\n      \"hours_preferred\": 7318.201988476308,\n      \"id\": 6252,\n      \"is_deleted\": true,\n      \"is_hidden\": true,\n      \"is_payroll\": false,\n      \"is_private\": false,\n      \"is_trusted\": true,\n      \"last_login\": \"1978-11-19T09:44:07.829Z\",\n      \"last_name\": \"string\",\n      \"locations\": [\n        5924,\n        1944\n      ],\n      \"login_id\": 4963,\n      \"notes\": \"string\",\n      \"phone_number\": \"string\",\n      \"positions\": [\n        1605,\n        177\n      ],\n      \"role\": null,\n      \"type\": 6963\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dbf9b38-6eac-4525-8002-b36f5057f815",
+              "name": "Bad request. The given start and end dates were not valid.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "end",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "include_deleted_users",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "location_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "since_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f53d8bd7-b004-47f8-b191-d4eda76adf80",
+              "name": "Forbidden. The current user does not have permission to view the\nuser's requests.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "end",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "include_deleted_users",
+                      "value": "false"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5"
+                    },
+                    {
+                      "key": "location_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "max_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "0"
+                    },
+                    {
+                      "key": "since_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sortby",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "user_id",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5137fe75-f7d8-494c-acc3-89d07980cfad",
+          "name": "Create Time Off Request",
+          "request": {
+            "name": "Create Time Off Request",
+            "description": {},
+            "url": {
+              "path": [
+                "2",
+                "requests"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<integer>\",\n  \"account_id\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"creator_id\": \"<integer>\",\n  \"end_time\": \"<dateTime>\",\n  \"hours\": \"<float>\",\n  \"status\": \"<integer>\",\n  \"start_time\": \"<dateTime>\",\n  \"type\": \"<integer>\",\n  \"type_id\": \"<integer>\",\n  \"paid\": \"<boolean>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<integer>\",\n  \"user_status\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "47fc63e8-1294-49ea-9374-d3034ce4d90e",
+              "name": "Request was successfully created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"account_id\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"creator_id\": \"<integer>\",\n  \"end_time\": \"<dateTime>\",\n  \"hours\": \"<float>\",\n  \"status\": \"<integer>\",\n  \"start_time\": \"<dateTime>\",\n  \"type\": \"<integer>\",\n  \"type_id\": \"<integer>\",\n  \"paid\": \"<boolean>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<integer>\",\n  \"user_status\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request\": {\n    \"id\": \"<integer>\",\n    \"account_id\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"creator_id\": \"<integer>\",\n    \"end_time\": \"<dateTime>\",\n    \"hours\": \"<float>\",\n    \"status\": \"<integer>\",\n    \"start_time\": \"<dateTime>\",\n    \"type\": \"<integer>\",\n    \"type_id\": \"<integer>\",\n    \"type_label\": \"string\",\n    \"paid\": \"<boolean>\",\n    \"updated_at\": \"<dateTime>\",\n    \"user_id\": \"<integer>\",\n    \"can_edit\": false,\n    \"user_status\": \"<integer>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04ae3231-dcd3-4c2d-b154-4b69a088253c",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"account_id\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"creator_id\": \"<integer>\",\n  \"end_time\": \"<dateTime>\",\n  \"hours\": \"<float>\",\n  \"status\": \"<integer>\",\n  \"start_time\": \"<dateTime>\",\n  \"type\": \"<integer>\",\n  \"type_id\": \"<integer>\",\n  \"paid\": \"<boolean>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<integer>\",\n  \"user_status\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a6430eb4-bcf0-4ee4-86ac-9c919c4201fc",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<integer>\",\n  \"account_id\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"creator_id\": \"<integer>\",\n  \"end_time\": \"<dateTime>\",\n  \"hours\": \"<float>\",\n  \"status\": \"<integer>\",\n  \"start_time\": \"<dateTime>\",\n  \"type\": \"<integer>\",\n  \"type_id\": \"<integer>\",\n  \"paid\": \"<boolean>\",\n  \"updated_at\": \"<dateTime>\",\n  \"user_id\": \"<integer>\",\n  \"user_status\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b41c1808-9931-4f40-abb8-1e0efd3d851b",
+          "name": "Get Time Off Request",
+          "request": {
+            "name": "Get Time Off Request",
+            "description": {
+              "content": "Returns a single request object. Requests allow users to request time off.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "requests",
+                ":request_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "request_id",
+                  "description": "(Required) Request ID to return."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1188769d-612c-47f7-919a-2e33300d8d92",
+              "name": "Individual Request resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"messages\": [\n    {\n      \"account_id\": 1615,\n      \"actor\": 2,\n      \"content\": \"string\",\n      \"conversation_id\": 101,\n      \"created_at\": \"1992-02-04T05:56:09.322Z\",\n      \"id\": 1980,\n      \"request_id\": 9363,\n      \"swap_id\": 5646,\n      \"title\": \"string\",\n      \"updated_at\": \"2000-10-05T02:56:47.568Z\",\n      \"user_id\": 5503\n    },\n    {\n      \"account_id\": 2006,\n      \"actor\": 2,\n      \"content\": \"string\",\n      \"conversation_id\": 4015,\n      \"created_at\": \"2007-05-29T03:24:54.440Z\",\n      \"id\": 1116,\n      \"request_id\": 3961,\n      \"swap_id\": 9610,\n      \"title\": \"string\",\n      \"updated_at\": \"2011-08-24T08:35:41.662Z\",\n      \"user_id\": 3432\n    }\n  ],\n  \"request\": {\n    \"id\": \"<integer>\",\n    \"account_id\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"creator_id\": \"<integer>\",\n    \"end_time\": \"<dateTime>\",\n    \"hours\": \"<float>\",\n    \"status\": \"<integer>\",\n    \"start_time\": \"<dateTime>\",\n    \"type\": \"<integer>\",\n    \"type_id\": \"<integer>\",\n    \"type_label\": \"string\",\n    \"paid\": \"<boolean>\",\n    \"updated_at\": \"<dateTime>\",\n    \"user_id\": \"<integer>\",\n    \"can_edit\": false,\n    \"user_status\": \"<integer>\"\n  },\n  \"users\": [\n    {\n      \"account_id\": 7290,\n      \"activated\": false,\n      \"email\": \"KeGFT-58NJ90@T.mx\",\n      \"employee_code\": \"string\",\n      \"first_name\": \"string\",\n      \"hourly_rate\": 9917.011000970533,\n      \"hours_max\": 4139.391986970249,\n      \"hours_preferred\": 2464.9108885850214,\n      \"id\": 4230,\n      \"is_deleted\": true,\n      \"is_hidden\": true,\n      \"is_payroll\": false,\n      \"is_private\": false,\n      \"is_trusted\": true,\n      \"last_login\": \"1998-11-24T03:46:22.149Z\",\n      \"last_name\": \"string\",\n      \"locations\": [\n        504,\n        5373\n      ],\n      \"login_id\": 6008,\n      \"notes\": \"string\",\n      \"phone_number\": \"string\",\n      \"positions\": [\n        7852,\n        3325\n      ],\n      \"role\": null,\n      \"type\": 9261\n    },\n    {\n      \"account_id\": 9491,\n      \"activated\": false,\n      \"email\": \"FK5QNJ6Y@QRfiGQuCmaeRWsahlgkfaWWdrLljzoL.wmo\",\n      \"employee_code\": \"string\",\n      \"first_name\": \"string\",\n      \"hourly_rate\": 7860.526172299653,\n      \"hours_max\": 1302.952579845149,\n      \"hours_preferred\": 5611.419687129185,\n      \"id\": 7684,\n      \"is_deleted\": true,\n      \"is_hidden\": false,\n      \"is_payroll\": false,\n      \"is_private\": false,\n      \"is_trusted\": false,\n      \"last_login\": \"1950-01-27T06:24:11.162Z\",\n      \"last_name\": \"string\",\n      \"locations\": [\n        5798,\n        4511\n      ],\n      \"login_id\": 6667,\n      \"notes\": \"string\",\n      \"phone_number\": \"string\",\n      \"positions\": [\n        201,\n        3628\n      ],\n      \"role\": null,\n      \"type\": 5410\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5737b938-f4c4-4ad3-9341-de935d4fb9e8",
+              "name": "Forbidden. The current user does not have permission to view the\nrequest.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4021\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4adb885a-7ba6-43d2-98cf-84a2f9520148",
+              "name": "ID was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4021\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47e49508-385d-4f01-9cf9-0d2d0c47dab8",
+          "name": "Update Time Off Request",
+          "request": {
+            "name": "Update Time Off Request",
+            "description": {
+              "content": "Replaces properties in the request with the values given.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "requests",
+                ":request_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "request_id",
+                  "description": "(Required) Request ID to return."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"end_time\": \"<dateTime>\",\n  \"hours\": \"<float>\",\n  \"start_time\": \"<dateTime>\",\n  \"status\": \"<integer>\",\n  \"type\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0af8fad4-b6e4-40a1-96a8-db9e2d17639e",
+              "name": "The request was successfully updated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end_time\": \"2020-02-02T12:34:56\",\n  \"hours\": 6.25,\n  \"start_time\": \"2020-02-02T12:34:56\",\n  \"status\": \"<integer>\",\n  \"type\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request\": {\n    \"id\": \"<integer>\",\n    \"account_id\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"creator_id\": \"<integer>\",\n    \"end_time\": \"<dateTime>\",\n    \"hours\": \"<float>\",\n    \"status\": \"<integer>\",\n    \"start_time\": \"<dateTime>\",\n    \"type\": \"<integer>\",\n    \"type_id\": \"<integer>\",\n    \"type_label\": \"string\",\n    \"paid\": \"<boolean>\",\n    \"updated_at\": \"<dateTime>\",\n    \"user_id\": \"<integer>\",\n    \"can_edit\": false,\n    \"user_status\": \"<integer>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "040cd452-919f-4495-a17a-4852e3cd86d3",
+              "name": "Bad request. There was an error in one or more of the values sent.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end_time\": \"2020-02-02T12:34:56\",\n  \"hours\": 6.25,\n  \"start_time\": \"2020-02-02T12:34:56\",\n  \"status\": \"<integer>\",\n  \"type\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4021\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2881cea5-70c7-441b-ac22-9e704d003a0a",
+              "name": "Forbidden. The current user does not have permission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end_time\": \"2020-02-02T12:34:56\",\n  \"hours\": 6.25,\n  \"start_time\": \"2020-02-02T12:34:56\",\n  \"status\": \"<integer>\",\n  \"type\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4021\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d966df36-c894-4c9d-baa6-db5ab0f396a0",
+              "name": "Request ID was not found or the user does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"end_time\": \"2020-02-02T12:34:56\",\n  \"hours\": 6.25,\n  \"start_time\": \"2020-02-02T12:34:56\",\n  \"status\": \"<integer>\",\n  \"type\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4021\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "387afbaa-cf2a-4758-ab1e-5aefa820764a",
+          "name": "Delete Time Off Request",
+          "request": {
+            "name": "Delete Time Off Request",
+            "description": {},
+            "url": {
+              "path": [
+                "2",
+                "requests",
+                ":request_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "request_id",
+                  "description": "(Required) Request ID to return."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "15ba8c5d-50b0-43bb-952b-bd3d81b31254",
+              "name": "The request was deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c46ce2d5-992b-498f-8168-7400fe696a5c",
+              "name": "Forbidden. The current user does not have permission to delete the request.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4021\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f66f9b92-29a6-4524-935c-a58cdd74509b",
+              "name": "The request was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4021\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6f40287-1013-49ed-a115-0be4e2a1d2ec",
+              "name": "The request must be canceled before it can be deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "requests",
+                    ":request_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "request_id",
+                      "description": "(Required) Request ID to return."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"code\": 4021\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f0c01c98-5ad5-4cb4-8957-719621a091f5",
+    "name": "When I Work API Documentation Accounts Time Off Requests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

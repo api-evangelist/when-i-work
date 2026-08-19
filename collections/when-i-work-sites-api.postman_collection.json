@@ -1,0 +1,653 @@
+{
+  "item": [
+    {
+      "id": "953868a4-f646-4b76-be09-1901cc6744de",
+      "name": "Sites",
+      "description": {
+        "content": "Sites communicate additional information about a given shift to the recipient. Typical usage is when you schedule employees for shifts that are at different physical sites (addresses) compared to the Schedule where the shift is assigned. A Job site can include additional detail (address or coordinates) that informs the user where this particular shift is to take place. An additional use case would be if you want to use an additional labor reporting tier and having the Job Site be a project or cost center value.\n\n For more information about using Sites, visit the [Help Center](https://help.wheniwork.com/articles/scheduling-shifts-at-job-sites-computer/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5cc5aea7-bb21-43fb-9334-d0034ee5635e",
+          "name": "List Sites",
+          "request": {
+            "name": "List Sites",
+            "description": {
+              "content": "List all the sites in an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "sites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_deleted",
+                  "value": "<boolean>",
+                  "description": "Include deleted sites"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a9b2b5b6-63b8-491b-9bfe-6b730bb96982",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "sites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_deleted",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"sites\": [\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"location_id\": 145030,\n      \"name\": \"Main venue.\",\n      \"color\": \"8da6d9\",\n      \"description\": \"Large meeting room\",\n      \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n      \"coordinates\": [\n        44.983791,\n        -93.2774416\n      ],\n      \"latitude\": 44.983791,\n      \"longitude\": -93.2774416,\n      \"place\": {\n        \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n        \"business_name\": \"When I Work\",\n        \"country\": \"US\",\n        \"id\": 2,\n        \"latitude\": 44.983791,\n        \"locality\": \"Minneapolis\",\n        \"longitude\": -93.277442,\n        \"place_id\": \"ChIJYfRBzjfVslIRQLB018IGX3o\",\n        \"place_type\": [\n          \"point_of_interest\",\n          \"establishment\"\n        ],\n        \"postal_code\": \"55401\",\n        \"region\": \"MN\",\n        \"street_name\": \"N 5th St\",\n        \"street_number\": \"420\",\n        \"sub_locality\": \"string\",\n        \"updated_at\": \"2019-05-16T09:14:45+05:45\"\n      },\n      \"place_id\": \"string\",\n      \"is_deleted\": false,\n      \"deleted_at\": \"1985-08-01T10:20:53.991Z\",\n      \"created_at\": \"2020-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2020-05-26T06:57:28+05:00\"\n    },\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"location_id\": 145030,\n      \"name\": \"Main venue.\",\n      \"color\": \"8da6d9\",\n      \"description\": \"Large meeting room\",\n      \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n      \"coordinates\": [\n        44.983791,\n        -93.2774416\n      ],\n      \"latitude\": 44.983791,\n      \"longitude\": -93.2774416,\n      \"place\": {\n        \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n        \"business_name\": \"When I Work\",\n        \"country\": \"US\",\n        \"id\": 2,\n        \"latitude\": 44.983791,\n        \"locality\": \"Minneapolis\",\n        \"longitude\": -93.277442,\n        \"place_id\": \"ChIJYfRBzjfVslIRQLB018IGX3o\",\n        \"place_type\": [\n          \"point_of_interest\",\n          \"establishment\"\n        ],\n        \"postal_code\": \"55401\",\n        \"region\": \"MN\",\n        \"street_name\": \"N 5th St\",\n        \"street_number\": \"420\",\n        \"sub_locality\": \"string\",\n        \"updated_at\": \"2019-05-16T09:14:45+05:45\"\n      },\n      \"place_id\": \"string\",\n      \"is_deleted\": false,\n      \"deleted_at\": \"1957-07-29T05:00:21.816Z\",\n      \"created_at\": \"2020-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2020-05-26T06:57:28+05:00\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1146ea66-4da2-4bbe-9bec-03096e9a2b74",
+          "name": "Create Site",
+          "request": {
+            "name": "Create Site",
+            "description": {
+              "content": "Used to create a site within an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "sites"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"description\": \"<string>\",\n  \"address\": \"<string>\",\n  \"coordinates\": \"<array>\",\n  \"latitude\": \"<float>\",\n  \"longitude\": \"<float>\",\n  \"place\": {\n    \"address\": \"<string>\",\n    \"business_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"latitude\": \"<float>\",\n    \"locality\": \"<string>\",\n    \"longitude\": \"<float>\",\n    \"place_id\": \"<string>\",\n    \"place_type\": \"<array>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"street_name\": \"<string>\",\n    \"street_number\": \"<string>\",\n    \"sub_locality\": \"<string>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  \"place_id\": \"<string>\",\n  \"is_deleted\": \"<boolean>\",\n  \"deleted_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3b7a98df-a9fb-441a-9151-3f4d176787b6",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "sites"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": {},\n  \"properties\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "54dd3652-5e75-4ec7-b39f-a82194d4aeed",
+          "name": "Get Site",
+          "request": {
+            "name": "Get Site",
+            "description": {
+              "content": "Get a single site by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "sites",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c0264395-2751-4cd2-920e-3720db75b731",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "sites",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"site\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"location_id\": 145030,\n    \"name\": \"Main venue.\",\n    \"color\": \"8da6d9\",\n    \"description\": \"Large meeting room\",\n    \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n    \"coordinates\": [\n      44.983791,\n      -93.2774416\n    ],\n    \"latitude\": 44.983791,\n    \"longitude\": -93.2774416,\n    \"place\": {\n      \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n      \"business_name\": \"When I Work\",\n      \"country\": \"US\",\n      \"id\": 2,\n      \"latitude\": 44.983791,\n      \"locality\": \"Minneapolis\",\n      \"longitude\": -93.277442,\n      \"place_id\": \"ChIJYfRBzjfVslIRQLB018IGX3o\",\n      \"place_type\": [\n        \"point_of_interest\",\n        \"establishment\"\n      ],\n      \"postal_code\": \"55401\",\n      \"region\": \"MN\",\n      \"street_name\": \"N 5th St\",\n      \"street_number\": \"420\",\n      \"sub_locality\": \"<string>\",\n      \"updated_at\": \"2019-05-16T09:14:45+05:45\"\n    },\n    \"place_id\": \"<string>\",\n    \"is_deleted\": false,\n    \"deleted_at\": \"<dateTime>\",\n    \"created_at\": \"2020-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2020-05-26T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2b96d46-c72c-413b-9f0c-d0ac335ffff9",
+          "name": "Update Site",
+          "request": {
+            "name": "Update Site",
+            "description": {
+              "content": "Updates a single site",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "sites",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<integer>\",\n  \"location_id\": \"<integer>\",\n  \"name\": \"<string>\",\n  \"color\": \"<string>\",\n  \"description\": \"<string>\",\n  \"address\": \"<string>\",\n  \"coordinates\": \"<array>\",\n  \"latitude\": \"<float>\",\n  \"longitude\": \"<float>\",\n  \"place\": {\n    \"address\": \"<string>\",\n    \"business_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"id\": \"<integer>\",\n    \"latitude\": \"<float>\",\n    \"locality\": \"<string>\",\n    \"longitude\": \"<float>\",\n    \"place_id\": \"<string>\",\n    \"place_type\": \"<array>\",\n    \"postal_code\": \"<string>\",\n    \"region\": \"<string>\",\n    \"street_name\": \"<string>\",\n    \"street_number\": \"<string>\",\n    \"sub_locality\": \"<string>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  \"place_id\": \"<string>\",\n  \"is_deleted\": \"<boolean>\",\n  \"deleted_at\": \"<dateTime>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "27456f44-cc5a-4229-ae41-742ed6092a3e",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "sites",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"site\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"location_id\": 145030,\n    \"name\": \"Main venue.\",\n    \"color\": \"8da6d9\",\n    \"description\": \"Large meeting room\",\n    \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n    \"coordinates\": [\n      44.983791,\n      -93.2774416\n    ],\n    \"latitude\": 44.983791,\n    \"longitude\": -93.2774416,\n    \"place\": {\n      \"address\": \"420 N 5th St #500, Minneapolis, MN 55401, USA\",\n      \"business_name\": \"When I Work\",\n      \"country\": \"US\",\n      \"id\": 2,\n      \"latitude\": 44.983791,\n      \"locality\": \"Minneapolis\",\n      \"longitude\": -93.277442,\n      \"place_id\": \"ChIJYfRBzjfVslIRQLB018IGX3o\",\n      \"place_type\": [\n        \"point_of_interest\",\n        \"establishment\"\n      ],\n      \"postal_code\": \"55401\",\n      \"region\": \"MN\",\n      \"street_name\": \"N 5th St\",\n      \"street_number\": \"420\",\n      \"sub_locality\": \"<string>\",\n      \"updated_at\": \"2019-05-16T09:14:45+05:45\"\n    },\n    \"place_id\": \"<string>\",\n    \"is_deleted\": false,\n    \"deleted_at\": \"<dateTime>\",\n    \"created_at\": \"2020-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2020-05-26T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d82d1828-e4da-4882-a86e-b9123a6dea12",
+          "name": "Delete Site",
+          "request": {
+            "name": "Delete Site",
+            "description": {
+              "content": "Delete an existing site when no longer needed. This operation cannot be undone. \n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "sites",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "The IDs of the multiple shift templates"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "The ID of the site"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b14267b3-1659-4480-b73d-bbbe44b6fb82",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "sites",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "1,2,3,4"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "The ID of the site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ff4829e-cb67-4442-8a0d-464a8a05a1e9",
+              "name": "Forbidden. The current user does not have permission to delete sites.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "sites",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "1,2,3,4"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "The ID of the site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d8639548-33e8-4573-9ea6-90c357e9d5dc",
+              "name": "Not Found.  The site to be deleted was not found.\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "sites",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "1,2,3,4"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "The ID of the site"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e18c4088-a358-4561-ba60-ca9059e76522",
+    "name": "When I Work API Documentation Accounts Sites API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

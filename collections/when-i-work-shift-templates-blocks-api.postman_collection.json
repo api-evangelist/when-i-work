@@ -1,0 +1,533 @@
+{
+  "item": [
+    {
+      "id": "38619d1d-0744-4231-ae78-a2ab43d32768",
+      "name": "Shift Templates (Blocks)",
+      "description": {
+        "content": "Shift templates save you time when you need to schedule shifts that have a consistent start and end time. Instead of manually entering in custom shift details one-by-one, shift templates allow you to schedule a shift quickly and easily.\n\nFor more information about using Shift Templates, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-shift-templates-computer/).\n",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2fd80f75-add1-4e02-984b-1b4eb1c66b5e",
+          "name": "List Shift Templates (Blocks)",
+          "request": {
+            "name": "List Shift Templates (Blocks)",
+            "description": {
+              "content": "List all the shift templates in an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "blocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "173239e2-de09-4b1c-98b0-581ec22a37bb",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"blocks\": [\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"length\": 1800,\n          \"paid\": false,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 7303,\n          \"created_at\": \"string\",\n          \"created_by\": 3194,\n          \"updated_at\": \"string\",\n          \"updated_by\": 7214,\n          \"block_id\": 1234,\n          \"start_time\": \"9:30:00\",\n          \"end_time\": \"10:00:00\"\n        },\n        {\n          \"length\": 1800,\n          \"paid\": true,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 2879,\n          \"created_at\": \"string\",\n          \"created_by\": 9888,\n          \"updated_at\": \"string\",\n          \"updated_by\": 7106,\n          \"block_id\": 1234,\n          \"start_time\": \"9:30:00\",\n          \"end_time\": \"10:00:00\"\n        }\n      ],\n      \"color\": \"8da6d9\",\n      \"end_time\": \"17:00:00\",\n      \"start_time\": \"09:00:00\",\n      \"location_id\": 10000,\n      \"notes\": \"Here are some shift notes\",\n      \"position_id\": 10000,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    },\n    {\n      \"id\": 10000,\n      \"account_id\": 10000,\n      \"break_time\": 0.5,\n      \"breaks\": [\n        {\n          \"length\": 1800,\n          \"paid\": false,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 3674,\n          \"created_at\": \"string\",\n          \"created_by\": 6206,\n          \"updated_at\": \"string\",\n          \"updated_by\": 6045,\n          \"block_id\": 1234,\n          \"start_time\": \"9:30:00\",\n          \"end_time\": \"10:00:00\"\n        },\n        {\n          \"length\": 1800,\n          \"paid\": true,\n          \"id\": 1234,\n          \"account_id\": 1234,\n          \"sort\": 4067,\n          \"created_at\": \"string\",\n          \"created_by\": 4799,\n          \"updated_at\": \"string\",\n          \"updated_by\": 8499,\n          \"block_id\": 1234,\n          \"start_time\": \"9:30:00\",\n          \"end_time\": \"10:00:00\"\n        }\n      ],\n      \"color\": \"8da6d9\",\n      \"end_time\": \"17:00:00\",\n      \"start_time\": \"09:00:00\",\n      \"location_id\": 10000,\n      \"notes\": \"Here are some shift notes\",\n      \"position_id\": 10000,\n      \"created_at\": \"2019-05-16T06:57:28+05:00\",\n      \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c565a2ad-3942-499d-a64f-2dcb08445a5a",
+          "name": "Create Shift Template (Block)",
+          "request": {
+            "name": "Create Shift Template (Block)",
+            "description": {
+              "content": "Used to create a shift template within an account",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "blocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<integer>\",\n  \"break_time\": \"<double>\",\n  \"breaks\": [\n    {\n      \"length\": \"<integer>\",\n      \"paid\": \"<boolean>\",\n      \"id\": \"<integer>\",\n      \"start_time\": \"<string>\"\n    },\n    {\n      \"length\": \"<integer>\",\n      \"paid\": \"<boolean>\",\n      \"id\": \"<integer>\",\n      \"start_time\": \"<string>\"\n    }\n  ],\n  \"color\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"location_id\": \"<integer>\",\n  \"notes\": \"<string>\",\n  \"position_id\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d04b4609-5661-4ec8-bab3-9a240363a77d",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"block\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"break_time\": 0.5,\n    \"breaks\": [\n      {\n        \"length\": 1800,\n        \"paid\": \"<boolean>\",\n        \"id\": 1234,\n        \"account_id\": 1234,\n        \"sort\": 8850,\n        \"created_at\": \"string\",\n        \"created_by\": 1510,\n        \"updated_at\": \"string\",\n        \"updated_by\": 3864,\n        \"block_id\": 1234,\n        \"start_time\": \"9:30:00\",\n        \"end_time\": \"10:00:00\"\n      },\n      {\n        \"length\": 1800,\n        \"paid\": \"<boolean>\",\n        \"id\": 1234,\n        \"account_id\": 1234,\n        \"sort\": 9373,\n        \"created_at\": \"string\",\n        \"created_by\": 2350,\n        \"updated_at\": \"string\",\n        \"updated_by\": 4472,\n        \"block_id\": 1234,\n        \"start_time\": \"9:30:00\",\n        \"end_time\": \"10:00:00\"\n      }\n    ],\n    \"color\": \"8da6d9\",\n    \"end_time\": \"17:00:00\",\n    \"start_time\": \"09:00:00\",\n    \"location_id\": 10000,\n    \"notes\": \"Here are some shift notes\",\n    \"position_id\": 10000,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b38946c-d22c-4988-8dcb-85e228cf3bb0",
+          "name": "Get Shift Template (Block)",
+          "request": {
+            "name": "Get Shift Template (Block)",
+            "description": {
+              "content": "Get a single shift template by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "blocks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the shift template"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "954ad850-44f2-4470-a271-0fc182909c35",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "blocks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the shift template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"block\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"break_time\": 0.5,\n    \"breaks\": [\n      {\n        \"length\": 1800,\n        \"paid\": \"<boolean>\",\n        \"id\": 1234,\n        \"account_id\": 1234,\n        \"sort\": 8850,\n        \"created_at\": \"string\",\n        \"created_by\": 1510,\n        \"updated_at\": \"string\",\n        \"updated_by\": 3864,\n        \"block_id\": 1234,\n        \"start_time\": \"9:30:00\",\n        \"end_time\": \"10:00:00\"\n      },\n      {\n        \"length\": 1800,\n        \"paid\": \"<boolean>\",\n        \"id\": 1234,\n        \"account_id\": 1234,\n        \"sort\": 9373,\n        \"created_at\": \"string\",\n        \"created_by\": 2350,\n        \"updated_at\": \"string\",\n        \"updated_by\": 4472,\n        \"block_id\": 1234,\n        \"start_time\": \"9:30:00\",\n        \"end_time\": \"10:00:00\"\n      }\n    ],\n    \"color\": \"8da6d9\",\n    \"end_time\": \"17:00:00\",\n    \"start_time\": \"09:00:00\",\n    \"location_id\": 10000,\n    \"notes\": \"Here are some shift notes\",\n    \"position_id\": 10000,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ec71175-5a55-4de5-a648-e32fe68ad7dc",
+          "name": "Update Shift Template (block)",
+          "request": {
+            "name": "Update Shift Template (block)",
+            "description": {
+              "content": "Updates a single shift template",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "blocks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The ID of the shift template"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"account_id\": \"<integer>\",\n  \"break_time\": \"<double>\",\n  \"breaks\": [\n    {\n      \"length\": \"<integer>\",\n      \"paid\": \"<boolean>\",\n      \"id\": \"<integer>\",\n      \"start_time\": \"<string>\"\n    },\n    {\n      \"length\": \"<integer>\",\n      \"paid\": \"<boolean>\",\n      \"id\": \"<integer>\",\n      \"start_time\": \"<string>\"\n    }\n  ],\n  \"color\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"location_id\": \"<integer>\",\n  \"notes\": \"<string>\",\n  \"position_id\": \"<integer>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d631bcee-5615-4cbd-9b35-e1fa0f997dd8",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "blocks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The ID of the shift template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"block\": {\n    \"id\": 10000,\n    \"account_id\": 10000,\n    \"break_time\": 0.5,\n    \"breaks\": [\n      {\n        \"length\": 1800,\n        \"paid\": \"<boolean>\",\n        \"id\": 1234,\n        \"account_id\": 1234,\n        \"sort\": 8850,\n        \"created_at\": \"string\",\n        \"created_by\": 1510,\n        \"updated_at\": \"string\",\n        \"updated_by\": 3864,\n        \"block_id\": 1234,\n        \"start_time\": \"9:30:00\",\n        \"end_time\": \"10:00:00\"\n      },\n      {\n        \"length\": 1800,\n        \"paid\": \"<boolean>\",\n        \"id\": 1234,\n        \"account_id\": 1234,\n        \"sort\": 9373,\n        \"created_at\": \"string\",\n        \"created_by\": 2350,\n        \"updated_at\": \"string\",\n        \"updated_by\": 4472,\n        \"block_id\": 1234,\n        \"start_time\": \"9:30:00\",\n        \"end_time\": \"10:00:00\"\n      }\n    ],\n    \"color\": \"8da6d9\",\n    \"end_time\": \"17:00:00\",\n    \"start_time\": \"09:00:00\",\n    \"location_id\": 10000,\n    \"notes\": \"Here are some shift notes\",\n    \"position_id\": 10000,\n    \"created_at\": \"2019-05-16T06:57:28+05:00\",\n    \"updated_at\": \"2019-05-16T06:57:28+05:00\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a03020d-7ddd-4764-b094-aa29fbd5fd4b",
+          "name": "Delete Shift Template (Block)",
+          "request": {
+            "name": "Delete Shift Template (Block)",
+            "description": {
+              "content": "Delete an existing shift template when no longer needed. This operation cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "2",
+                "blocks",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "The IDs of the multiple shift templates"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "The ID of the shift template"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40b71e29-b872-4045-84a4-8b7f35d1da39",
+              "name": "Valid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "2",
+                    "blocks",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "1,2,3,4"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "The ID of the shift template"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.wheniwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a2943ec8-248d-4aac-8bff-5d0b0f006c08",
+    "name": "When I Work API Documentation Accounts Shift Templates (Blocks) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.\n\nWhen designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.\nFind out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.\n\nFor more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).\n",
+      "type": "text/plain"
+    }
+  }
+}

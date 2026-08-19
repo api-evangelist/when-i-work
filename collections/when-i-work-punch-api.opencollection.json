@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Punch API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Punch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Clock In",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/times/clockin",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Punch the current user or another user in. The punch creator's ID will also be recorded."
+        },
+        {
+          "info": {
+            "name": "Clock Out",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/times/clockout",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Punch the current user or another user out. The punch creator's ID will also be recorded."
+        },
+        {
+          "info": {
+            "name": "Punch State",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/punch/state",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "User ID if looking up the punch state for another user, may allow additional actions"
+              },
+              {
+                "name": "locationId",
+                "value": "",
+                "type": "query",
+                "description": "Location ID (schedule) used to verify if the user can punch in at this location"
+              },
+              {
+                "name": "siteId",
+                "value": "",
+                "type": "query",
+                "description": "Job site used to verify if the user can punch in at this site"
+              },
+              {
+                "name": "shiftId",
+                "value": "",
+                "type": "query",
+                "description": "Shift ID used to verify if the user can punch into this shift"
+              },
+              {
+                "name": "deviceType",
+                "value": "",
+                "type": "query",
+                "description": "Type of device used to perform the punch"
+              },
+              {
+                "name": "latitude",
+                "value": "",
+                "type": "query",
+                "description": "Current latitude used to verify punch restrictions for strict location validation"
+              },
+              {
+                "name": "longitude",
+                "value": "",
+                "type": "query",
+                "description": "Current longitude used to verify punch restrictions for strict location validation"
+              },
+              {
+                "name": "confidence",
+                "value": "",
+                "type": "query",
+                "description": "Expand the location search area by a given confidence to the provided location"
+              }
+            ]
+          },
+          "docs": "Gets a users punch state and allowed actions"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

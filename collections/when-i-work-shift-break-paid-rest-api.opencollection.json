@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Shift Break - Paid Rest API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Shift Break - Paid Rest",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Shift Break - Paid Rest records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/v3/shift-break-audits",
+            "params": [
+              {
+                "name": "startTime",
+                "value": "",
+                "type": "query",
+                "description": "Gets shift breaks with start after (datetime formatted ISO8601)"
+              },
+              {
+                "name": "endTime",
+                "value": "",
+                "type": "query",
+                "description": "Gets shift breaks with end before (datetime formatted ISO8601)"
+              },
+              {
+                "name": "timeId",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of time ids to filter results"
+              },
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of user ids to filter results"
+              },
+              {
+                "name": "taken",
+                "value": "",
+                "type": "query",
+                "description": "Only return paid rest records for breaks that are either taken or not taken (0=not taken, 1=taken)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit results"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Start on page"
+              }
+            ]
+          },
+          "docs": "List Shift Break - Paid Rest records (Deprecated - please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1break-attestations/get))"
+        },
+        {
+          "info": {
+            "name": "Create Shift Break Paid Record Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/v3/shift-break-audits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Shift Break Paid Rest Entry (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1%7Bid%7D~1break-attestations~1/post))"
+        },
+        {
+          "info": {
+            "name": "Get Shift Break - Paid Rest Record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/v3/shift-break-audits/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Shift Break Paid Rest Record ID"
+              }
+            ]
+          },
+          "docs": "Get single shift breaks (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1break-attestations/get))"
+        },
+        {
+          "info": {
+            "name": "Delete Shift Break Paid Rest",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/v3/shift-break-audits/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Shift Break Paid Rest ID"
+              }
+            ]
+          },
+          "docs": "Delete single shift break paid rest (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1break-attestations~1%7Bid%7D/delete))"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts OpenShift Requests API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OpenShift Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List OpenShift Approval Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/openshiftapprovalrequests",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "yyyy-mm-dd formatted end date for range of OpenShift Approval Requests you would like returned."
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "yyyy-mm-dd formatted start date for the range of OpenShift Approval Requests you would like returned."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number of results you are requesting."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to load per page."
+              }
+            ]
+          },
+          "docs": "List all the OpenShift Approval Requests that the user is allowed to see. Managers can see all, supervisors can see all tied to a shift at a schedule/location they supervise and employees can see all request that they've made.\n"
+        },
+        {
+          "info": {
+            "name": "Get specific OpenShift Approval Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/openshiftapprovalrequests/:request_id",
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path",
+                "description": "OpenShift Approval Request ID to return."
+              }
+            ]
+          },
+          "docs": "Get specific OpenShift Approval Request"
+        },
+        {
+          "info": {
+            "name": "Update an OpenShift Approval Request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/openshiftapprovalrequests/:request_id",
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path",
+                "description": "OpenShift Approval Request ID to return."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replaces properties in the request with the values given. If you are looking to approve users who requested to take an OpenShift please refer to [Assign multiple users to an OpenShift](https://apidocs.wheniwork.com/external/index.html#tag/Shifts/paths/~12~1shifts~1{id}~1assign/post)\n"
+        },
+        {
+          "info": {
+            "name": "Delete an OpenShift Approval Request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/openshiftapprovalrequests/:request_id",
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path",
+                "description": "OpenShift Approval Request ID to return."
+              }
+            ]
+          },
+          "docs": "Delete an OpenShift Approval Request."
+        },
+        {
+          "info": {
+            "name": "Cancel an individual's request for an OpenShift",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/openshiftapprovarequests/:request_id/user-requests",
+            "params": [
+              {
+                "name": "request_id",
+                "value": "",
+                "type": "path",
+                "description": "OpenShift Approval Request ID to return."
+              }
+            ]
+          },
+          "docs": "Cancel an individual's request for an OpenShift"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

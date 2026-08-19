@@ -1,0 +1,152 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "When I Work API Documentation Accounts Availabilities API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Availabilities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Availability Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/availabilityevents",
+            "params": [
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "The start of the filter range. Defaults to \"now\""
+              },
+              {
+                "name": "end",
+                "value": "",
+                "type": "query",
+                "description": "The end of the filter range. Defaults to \"two weeks from now\""
+              },
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "query",
+                "description": "The optional User ID who's events you wish to fetch. If omitted, uses the calling user's ID"
+              },
+              {
+                "name": "include_all",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include all availability data instead of just the requestor's. Only valid for managers"
+              }
+            ]
+          },
+          "docs": "Get a list of availability events based on a set of filters. Requests date ranges will include events with recurrence patterns within the date range. Requests will be submitted with the supplied date range and the response will be in the requesting users timezone."
+        },
+        {
+          "info": {
+            "name": "Create Availability Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/availabilityevents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an availability preference"
+        },
+        {
+          "info": {
+            "name": "Get Availability Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.wheniwork.com/2/availabilityevents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event"
+              }
+            ]
+          },
+          "docs": "Get a single availability event by ID"
+        },
+        {
+          "info": {
+            "name": "Update Availability Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.wheniwork.com/2/availabilityevents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the shift"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing availability preference"
+        },
+        {
+          "info": {
+            "name": "Delete Availability Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.wheniwork.com/2/availabilityevents/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the event"
+              }
+            ]
+          },
+          "docs": "Delete an existing event when no longer needed. This operation cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Create Availability Event Exception",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.wheniwork.com/2/availabilityevents/:id/exceptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a standalone availability preference in the middle of a recurring series"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
