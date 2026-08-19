@@ -18,7 +18,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/when-i-wor
 url: https://raw.githubusercontent.com/api-evangelist/when-i-work/refs/heads/main/apis.yml
 created: 2026-06-12
 modified: 2026-06-12
-specificationVersion: "0.19"
+specificationVersion: '0.23'
 description: >
   When I Work is an employee scheduling and workforce management platform serving
   over 200,000 workplaces in industries such as restaurants, retail, healthcare,
