@@ -55,6 +55,8 @@ apis:
   humanURL: https://apidocs.wheniwork.com/external/index.html
   baseURL: https://api.wheniwork.com/2
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -1157,6 +1159,8 @@ apis:
   humanURL: https://apidocs.wheniwork.com/external/index.html
   baseURL: https://api.wheniwork.com/2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
