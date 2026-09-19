@@ -53,6 +53,17 @@ tags:
   - Team Messaging
   - Hourly Workers
   - Labor Forecasting
+  - Human Resources
+tags_raw:
+  - Employee Scheduling
+  - Workforce Management
+  - Time Tracking
+  - Time Clock
+  - Shift Management
+  - Attendance
+  - Team Messaging
+  - Hourly Workers
+  - Labor Forecasting
   - HR
 
 apis:
@@ -129,6 +140,8 @@ apis:
   humanURL: https://apidocs.wheniwork.com/external/index.html
   baseURL: https://api.wheniwork.com/2
   tags:
+  - Annotation
+  tags_raw:
   - Annotations
   properties:
   - type: OpenAPI
@@ -991,6 +1004,8 @@ apis:
   humanURL: https://apidocs.wheniwork.com/external/index.html
   baseURL: https://api.wheniwork.com/2
   tags:
+  - Swap
+  tags_raw:
   - Swaps
   properties:
   - type: OpenAPI
@@ -1122,6 +1137,8 @@ apis:
   humanURL: https://apidocs.wheniwork.com/external/index.html
   baseURL: https://api.wheniwork.com/2
   tags:
+  - Timezone
+  tags_raw:
   - Timezones
   properties:
   - type: OpenAPI
