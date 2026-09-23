@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Time Off Requests API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Time Off Requests API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -23,16 +13,12 @@ tags:
   description: 'When you need to take time off from work, use When I Work to send the request to your manager for approval. Time off can be submitted as unpaid, paid (PTO), sick, or holiday.
 
 
-    For more information about using Time Off Requests, visit the [Help Center](https://help.wheniwork.com/articles/requesting-time-off-computer/).
-
-    '
+    For more information about using Time Off Requests, visit the Help Center.'
 paths:
   /2/requests:
     get:
       summary: List Time Off Requests
-      description: 'Get a collection of request objects. Requests allow users to request time off.
-
-        '
+      description: Get a collection of request objects. Requests allow users to request time off.
       parameters:
       - name: end
         description: yyyy-mm-dd formatted end date for the request time-frame.
@@ -164,6 +150,8 @@ paths:
             '
       tags:
       - Time Off Requests
+      operationId: get2Requests
+      x-operation-id-source: derived
     post:
       summary: Create Time Off Request
       requestBody:
@@ -188,6 +176,8 @@ paths:
           description: Forbidden.
       tags:
       - Time Off Requests
+      operationId: post2Requests
+      x-operation-id-source: derived
   /2/requests/{request_id}:
     parameters:
     - name: request_id
@@ -198,9 +188,7 @@ paths:
         type: integer
     get:
       summary: Get Time Off Request
-      description: 'Returns a single request object. Requests allow users to request time off.
-
-        '
+      description: Returns a single request object. Requests allow users to request time off.
       responses:
         '200':
           description: Individual Request resource.
@@ -239,6 +227,8 @@ paths:
                 $ref: '#/components/schemas/V2Error'
       tags:
       - Time Off Requests
+      operationId: get2RequestsByRequestId
+      x-operation-id-source: derived
     put:
       summary: Update Time Off Request
       description: Replaces properties in the request with the values given.
@@ -328,6 +318,8 @@ paths:
                 $ref: '#/components/schemas/V2Error'
       tags:
       - Time Off Requests
+      operationId: put2RequestsByRequestId
+      x-operation-id-source: derived
     delete:
       summary: Delete Time Off Request
       responses:
@@ -355,6 +347,8 @@ paths:
                 $ref: '#/components/schemas/V2Error'
       tags:
       - Time Off Requests
+      operationId: delete2RequestsByRequestId
+      x-operation-id-source: derived
 components:
   schemas:
     Request:
@@ -393,8 +387,9 @@ components:
           format: date-time
           type: string
         type:
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
           deprecated: true
           description: "DEPRECATED IN FAVOR OF `type_id`. SEE Request Type.\n\nThe type of timeoff request being made\n * `0` - Unpaid Time Off\n * `1` - Paid Time Off\n * `2` - Sick\n * `3` - Holiday\n"
         type_id:
@@ -465,6 +460,61 @@ components:
           - type: integer
           - type: string
           description: The API error code
+    Message:
+      properties:
+        account_id:
+          description: The account ID that the message is associated with.
+          type: integer
+        actor:
+          description: "Who or what generated the message.\n* `0` - user generated (message was generated directly by a user's\n  actions; their userid is recorded on the message object)\n* `1` - automatically (system took action automatically; usually\n  auto-approved or expired a request)\n* `2` - shift modification (a shift change triggered the message)\n* `3` - all recipients (all recipients declined the request)\n"
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          type: integer
+        content:
+          description: The content of the message.
+          type: string
+        conversation_id:
+          description: 'Deprecated. The ID of the conversation the message is a part of,
+
+            replaced by either request_id or swap_id.
+
+            '
+          type: integer
+        created_at:
+          description: Date at which the message was created.
+          format: date-time
+          type: string
+        id:
+          description: The unique ID of the message.
+          type: integer
+        request_id:
+          description: 'The ID of the request the message is for. Either request_id OR swap_id
+
+            are required.
+
+            '
+          type: integer
+        swap_id:
+          description: 'The ID of the swap the message is for. Either request_id OR swap_id are
+
+            required.
+
+            '
+          type: integer
+        title:
+          description: The title of the message.
+          type: string
+        updated_at:
+          description: Date the message was most recently updated.
+          format: date-time
+          type: string
+        user_id:
+          description: The ID of the user.
+          type: integer
+      type: object
     User:
       properties:
         account_id:
@@ -586,61 +636,6 @@ components:
             4 = Exempt from overtime
 
             '
-          type: integer
-      type: object
-    Message:
-      properties:
-        account_id:
-          description: The account ID that the message is associated with.
-          type: integer
-        actor:
-          description: "Who or what generated the message.\n* `0` - user generated (message was generated directly by a user's\n  actions; their userid is recorded on the message object)\n* `1` - automatically (system took action automatically; usually\n  auto-approved or expired a request)\n* `2` - shift modification (a shift change triggered the message)\n* `3` - all recipients (all recipients declined the request)\n"
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          type: integer
-        content:
-          description: The content of the message.
-          type: string
-        conversation_id:
-          description: 'Deprecated. The ID of the conversation the message is a part of,
-
-            replaced by either request_id or swap_id.
-
-            '
-          type: integer
-        created_at:
-          description: Date at which the message was created.
-          format: date-time
-          type: string
-        id:
-          description: The unique ID of the message.
-          type: integer
-        request_id:
-          description: 'The ID of the request the message is for. Either request_id OR swap_id
-
-            are required.
-
-            '
-          type: integer
-        swap_id:
-          description: 'The ID of the swap the message is for. Either request_id OR swap_id are
-
-            required.
-
-            '
-          type: integer
-        title:
-          description: The title of the message.
-          type: string
-        updated_at:
-          description: Date the message was most recently updated.
-          format: date-time
-          type: string
-        user_id:
-          description: The ID of the user.
           type: integer
       type: object
   securitySchemes:

@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Users API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Users API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -20,14 +10,12 @@ security:
 - W-Token: []
 tags:
 - name: Users
-  description: 'A person on the When I Work platform is associated with a two tier record.   The persons email/password is associated to a person_id.
+  description: 'A person on the When I Work platform is associated with a two tier record. The persons email/password is associated to a person_id.
 
     For each Workplace the person belongs to a user_id record exists. This record links back to the person_id so only a single instance of the email/password exists. If a user updates their email or password this applies to all related instances of the user.
 
 
-    For more information about Users, visit the [Help Center](https://help.wheniwork.com/articles/user-access-privileges-computer/).
-
-    '
+    For more information about Users, visit the Help Center.'
 paths:
   /2/users:
     get:
@@ -99,6 +87,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/components-schemas-User'
+      operationId: get2Users
+      x-operation-id-source: derived
     post:
       summary: Create User
       description: Used to create a user
@@ -116,6 +106,8 @@ paths:
                 properties:
                   user:
                     $ref: '#/components/schemas/components-schemas-User'
+      operationId: post2Users
+      x-operation-id-source: derived
   /2/users/{id}:
     get:
       summary: Get User
@@ -142,6 +134,8 @@ paths:
                 properties:
                   user:
                     $ref: '#/components/schemas/components-schemas-User'
+      operationId: get2UsersById
+      x-operation-id-source: derived
     put:
       summary: Update User
       description: Updates a single user
@@ -166,6 +160,8 @@ paths:
                 properties:
                   user:
                     $ref: '#/components/schemas/components-schemas-User'
+      operationId: put2UsersById
+      x-operation-id-source: derived
     delete:
       summary: Delete User
       description: Delete an existing user. This action can be reversed.
@@ -195,6 +191,8 @@ paths:
                   success:
                     type: boolean
                     example: true
+      operationId: delete2UsersById
+      x-operation-id-source: derived
   /2/users/avatar/{id}:
     post:
       summary: Create/Update user avatar
@@ -248,6 +246,8 @@ paths:
                         type: string
                         format: date-time
                         example: '2019-12-17T15:58:45.562887004Z'
+      operationId: post2UsersAvatarById
+      x-operation-id-source: derived
   /2/users/bulkupdate:
     post:
       summary: Create A Batch of Users
@@ -266,6 +266,8 @@ paths:
                 properties:
                   user:
                     $ref: '#/components/schemas/BulkUserResponse'
+      operationId: post2UsersBulkupdate
+      x-operation-id-source: derived
   /2/users/profile:
     get:
       summary: Get User Profile
@@ -285,13 +287,13 @@ paths:
                 properties:
                   user:
                     $ref: '#/components/schemas/components-schemas-User'
+      operationId: get2UsersProfile
+      x-operation-id-source: derived
     post:
       summary: Update User Profile
       description: 'Update the logged in user''s profile.
 
-        > Although managers and supervisors are able to change most profile information through the Update Existing User endpoint, this is the only way for an employee to change their own information using the API.
-
-        '
+        > Although managers and supervisors are able to change most profile information through the Update Existing User endpoint, this is the only way for an employee to change their own information using the API.'
       tags:
       - Users
       requestBody:
@@ -330,6 +332,8 @@ paths:
                 properties:
                   user:
                     $ref: '#/components/schemas/components-schemas-User'
+      operationId: post2UsersProfile
+      x-operation-id-source: derived
   /2/users/alerts:
     post:
       summary: Update User Alert Settings
@@ -349,6 +353,8 @@ paths:
                   success:
                     type: boolean
                     example: true
+      operationId: post2UsersAlerts
+      x-operation-id-source: derived
   /2/users/invite:
     post:
       summary: Invite users
@@ -381,6 +387,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/InviteUserResponse'
+      operationId: post2UsersInvite
+      x-operation-id-source: derived
   /2/users/invite/{id}:
     post:
       summary: Invite single user
@@ -407,6 +415,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/InviteUserResponse'
+      operationId: post2UsersInviteById
+      x-operation-id-source: derived
 components:
   schemas:
     BulkUserResponse:
@@ -470,6 +480,129 @@ components:
           type: boolean
           example: true
           description: Whether or not banner notifications (iOS only) should be sent for events of this alert type.
+    User:
+      properties:
+        account_id:
+          description: ID of the primary account for this user.
+          type: integer
+        activated:
+          description: Whether the manager has activated this user.
+          type: boolean
+        email:
+          description: The email address of this user.
+          format: email
+          type: string
+        employee_code:
+          description: 'The user''s employee code. This code can be used to clock in instead of
+
+            the user''s email address, or it can be used to help map users in When
+
+            I Work to other services.
+
+            '
+          type: string
+        first_name:
+          description: The first name of this user.
+          type: string
+        hourly_rate:
+          description: 'The base hourly rate for this user. The user can have additional wages
+
+            based on the position they are working at the time. There is no currency
+
+            attached, so customers are expected to input correct values for their
+
+            currency or do their own conversion from USD.
+
+            '
+          format: float
+          type: number
+        hours_max:
+          description: 'The max hours that this user prefers to work. A manager may still
+
+            schedule the user beyond this value.
+
+            '
+          format: float
+          type: number
+        hours_preferred:
+          description: The preferred number of hours for this user to work.
+          format: float
+          type: number
+        id:
+          description: Unique identifier for the user.
+          type: integer
+        is_deleted:
+          description: Whether the user has been deleted.
+          type: boolean
+        is_hidden:
+          description: Whether the user has been hidden from the scheduler.
+          type: boolean
+        is_payroll:
+          description: 'Whether the user has access to payroll. (Only available for managers
+
+            and supervisors.)
+
+            '
+          type: boolean
+        is_private:
+          description: 'Whether the user has privacy enabled, which will hide their contact
+
+            details from other employees. Supervisors+ can not hide their
+
+            email/phone from other employees.
+
+            '
+          type: boolean
+        is_trusted:
+          description: Whether the user can edit their own timesheet.
+          type: boolean
+        last_login:
+          description: The date and time when this user last logged in.
+          format: date-time
+          type: string
+        last_name:
+          description: The last name of this user.
+          type: string
+        locations:
+          description: An array of location IDs to be applied to this user.
+          items:
+            type: integer
+          type: array
+        login_id:
+          description: Unique identifier for the login belonging to the user.
+          type: integer
+        notes:
+          description: Notes about this user. Visible only to supervisors+.
+          type: string
+        phone_number:
+          description: The phone number of this user.
+          type: string
+        positions:
+          description: An array of position IDs to be assigned to this user.
+          items:
+            type: integer
+          type: array
+        role:
+          description: The user's role.
+          enum:
+          - 1 = Admin
+          - 2 = Manager
+          - 3 = Employee (Default)
+          - 4 = Lead (Unused)
+          - 5 = Supervisor
+          type: integer
+        type:
+          description: 'A bitwise flag representing additional wage options:
+
+            1 = hourly employee
+
+            2 = salaried employee
+
+            4 = Exempt from overtime
+
+            '
+          type: integer
+      type: object
     components-schemas-User:
       type: object
       properties:
@@ -621,129 +754,6 @@ components:
           format: date
           example: '2019-05-16'
           description: yyyy-mm-dd formatted date for when the user started their employment
-    User:
-      properties:
-        account_id:
-          description: ID of the primary account for this user.
-          type: integer
-        activated:
-          description: Whether the manager has activated this user.
-          type: boolean
-        email:
-          description: The email address of this user.
-          format: email
-          type: string
-        employee_code:
-          description: 'The user''s employee code. This code can be used to clock in instead of
-
-            the user''s email address, or it can be used to help map users in When
-
-            I Work to other services.
-
-            '
-          type: string
-        first_name:
-          description: The first name of this user.
-          type: string
-        hourly_rate:
-          description: 'The base hourly rate for this user. The user can have additional wages
-
-            based on the position they are working at the time. There is no currency
-
-            attached, so customers are expected to input correct values for their
-
-            currency or do their own conversion from USD.
-
-            '
-          format: float
-          type: number
-        hours_max:
-          description: 'The max hours that this user prefers to work. A manager may still
-
-            schedule the user beyond this value.
-
-            '
-          format: float
-          type: number
-        hours_preferred:
-          description: The preferred number of hours for this user to work.
-          format: float
-          type: number
-        id:
-          description: Unique identifier for the user.
-          type: integer
-        is_deleted:
-          description: Whether the user has been deleted.
-          type: boolean
-        is_hidden:
-          description: Whether the user has been hidden from the scheduler.
-          type: boolean
-        is_payroll:
-          description: 'Whether the user has access to payroll. (Only available for managers
-
-            and supervisors.)
-
-            '
-          type: boolean
-        is_private:
-          description: 'Whether the user has privacy enabled, which will hide their contact
-
-            details from other employees. Supervisors+ can not hide their
-
-            email/phone from other employees.
-
-            '
-          type: boolean
-        is_trusted:
-          description: Whether the user can edit their own timesheet.
-          type: boolean
-        last_login:
-          description: The date and time when this user last logged in.
-          format: date-time
-          type: string
-        last_name:
-          description: The last name of this user.
-          type: string
-        locations:
-          description: An array of location IDs to be applied to this user.
-          items:
-            type: integer
-          type: array
-        login_id:
-          description: Unique identifier for the login belonging to the user.
-          type: integer
-        notes:
-          description: Notes about this user. Visible only to supervisors+.
-          type: string
-        phone_number:
-          description: The phone number of this user.
-          type: string
-        positions:
-          description: An array of position IDs to be assigned to this user.
-          items:
-            type: integer
-          type: array
-        role:
-          description: The user's role.
-          enum:
-          - 1 = Admin
-          - 2 = Manager
-          - 3 = Employee (Default)
-          - 4 = Lead (Unused)
-          - 5 = Supervisor
-          type: integer
-        type:
-          description: 'A bitwise flag representing additional wage options:
-
-            1 = hourly employee
-
-            2 = salaried employee
-
-            4 = Exempt from overtime
-
-            '
-          type: integer
-      type: object
   requestBodies:
     BulkUserRequest:
       content:
@@ -777,6 +787,19 @@ components:
                   example: true
                   description: Whether to reactivate a previously deleted user.
       description: The user data to update
+    UserRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/components-schemas-User'
+            - type: object
+              properties:
+                invite:
+                  type: boolean
+                  example: false
+                  description: Whether an invite should be sent upon user creation. When missing or not false, an invite is sent by default
+      description: The user data
     UserAlertsRequest:
       content:
         application/json:
@@ -812,19 +835,6 @@ components:
                 format: float
                 description: Time before an event when a user should be sent notifications, in hours.
                 example: 2
-    UserRequest:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/components-schemas-User'
-            - type: object
-              properties:
-                invite:
-                  type: boolean
-                  example: false
-                  description: Whether an invite should be sent upon user creation. When missing or not false, an invite is sent by default
-      description: The user data
   responses:
     InviteUserResponse:
       description: Valid

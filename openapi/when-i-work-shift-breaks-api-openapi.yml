@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Shift Breaks API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Shift Breaks API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -20,7 +10,7 @@ security:
 - W-Token: []
 tags:
 - name: Shift Breaks
-  description: "Two types of breaks are provided. First; Scheduled Shift Breaks are break records associated with scheduled shifts. Second; Shift Breaks are break records associated with time worked.\nFor Shift Breaks (Attendance)\n   Three types of records are possible from a break action or automated action\n   A record can be created from a user break punch allocation\n   A record can be created from a Manager/Supervisor edit to a timesheet. (With this type of record, no break time is generated and only the length is available to be queried.)\n   A Break record can be created via the system configuration setting for Auto-Deduct of Breaks. (With this type of record, no break time is generated and only the length is available to be queried.)\n\n   Note: This endpoint requires the request header for w-userid.\n   For more information about managing Breaks, visit the [Help Center](https://help.wheniwork.com/articles/attendance-settings/)\n"
+  description: Two types of breaks are provided.
 paths:
   /v3/scheduled-breaks:
     openapi: 3.0.0
@@ -98,6 +88,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV3ScheduledBreaks
+      x-operation-id-source: derived
   /v3/shift-breaks:
     get:
       summary: List Shift Breaks
@@ -198,6 +190,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV3ShiftBreaks
+      x-operation-id-source: derived
     post:
       summary: Create Shift Break
       requestBody:
@@ -269,6 +263,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: postV3ShiftBreaks
+      x-operation-id-source: derived
   /v3/shift-breaks/{id}:
     openapi: 3.0.0
     get:
@@ -311,6 +307,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV3ShiftBreaksById
+      x-operation-id-source: derived
     patch:
       summary: Update Shift Break
       description: Update single shift breaks
@@ -351,6 +349,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: patchV3ShiftBreaksById
+      x-operation-id-source: derived
     delete:
       summary: Delete Shift Break
       description: Delete single shift breaks
@@ -384,8 +384,45 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: deleteV3ShiftBreaksById
+      x-operation-id-source: derived
 components:
   schemas:
+    ScheduledBreak:
+      type: object
+      required:
+      - shiftId
+      - type
+      - length
+      properties:
+        shiftId:
+          description: The id of the associated shift
+          type: integer
+        type:
+          description: The type of break (1=paid, 2=unpaid)
+          type: integer
+        length:
+          description: The break time rounded to the nearest minute
+          type: integer
+    Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - title
+          properties:
+            code:
+              description: The API error code
+              type: string
+            title:
+              description: The API error code description
+              type: string
+            errorData:
+              description: Context for the error
     ShiftBreak:
       type: object
       required:
@@ -452,41 +489,6 @@ components:
         start: 2018-01-01T00:00:00+00:00:00
         end: 2018-01-01T00:15:00+00:00:00
         scheduledBreakId: 0
-    ScheduledBreak:
-      type: object
-      required:
-      - shiftId
-      - type
-      - length
-      properties:
-        shiftId:
-          description: The id of the associated shift
-          type: integer
-        type:
-          description: The type of break (1=paid, 2=unpaid)
-          type: integer
-        length:
-          description: The break time rounded to the nearest minute
-          type: integer
-    Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - title
-          properties:
-            code:
-              description: The API error code
-              type: string
-            title:
-              description: The API error code description
-              type: string
-            errorData:
-              description: Context for the error
   securitySchemes:
     W-Token:
       type: http

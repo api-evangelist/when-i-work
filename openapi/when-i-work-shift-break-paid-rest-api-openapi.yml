@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Shift Break - Paid Rest API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Shift Break - Paid Rest API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -20,14 +10,22 @@ security:
 - W-Token: []
 tags:
 - name: Shift Break - Paid Rest
-  description: "When the Attendance setting is enabled to Ask Employees About Paid Rest Breaks the feedback on whether or not breaks were taken is provided here.\n\n  Note: This endpoint requires the request header for w-userid.\n  For more information about managing Breaks, visit the [Help Center](https://help.wheniwork.com/articles/paid-break-reporting/#reporting-paid-breaks)\n\n  (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times) for managing break attestations)\n"
+  description: 'When the Attendance setting is enabled to Ask Employees About Paid Rest Breaks the feedback on whether or not breaks were taken is provided here.
+
+
+    Note: This endpoint requires the request header for w-userid.
+
+    For more information about managing Breaks, visit the Help Center
+
+
+    (Deprecated - Please refer to the updated documentation for managing break attestations)'
 paths:
   /v3/shift-break-audits:
     openapi: 3.0.0
     get:
       deprecated: true
       summary: List Shift Break - Paid Rest records
-      description: List Shift Break - Paid Rest records (Deprecated - please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1break-attestations/get))
+      description: List Shift Break - Paid Rest records (Deprecated - please refer to the updated documentation)
       tags:
       - Shift Break - Paid Rest
       parameters:
@@ -99,6 +97,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV3ShiftBreakAudits
+      x-operation-id-source: derived
     post:
       deprecated: true
       summary: Create Shift Break Paid Record Entry
@@ -125,7 +125,7 @@ paths:
                 taken: false
                 note: I missed my lunch break
         description: The Shift Break Paid Rest Entry to create
-      description: Create a Shift Break Paid Rest Entry (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1%7Bid%7D~1break-attestations~1/post))
+      description: Create a Shift Break Paid Rest Entry (Deprecated - Please refer to the updated documentation)
       tags:
       - Shift Break - Paid Rest
       responses:
@@ -156,12 +156,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: postV3ShiftBreakAudits
+      x-operation-id-source: derived
   /v3/shift-break-audits/{id}:
     openapi: 3.0.0
     get:
       deprecated: true
       summary: Get Shift Break - Paid Rest Record
-      description: Get single shift breaks (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1break-attestations/get))
+      description: Get single shift breaks (Deprecated - Please refer to the updated documentation)
       tags:
       - Shift Break - Paid Rest
       parameters:
@@ -199,10 +201,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: getV3ShiftBreakAuditsById
+      x-operation-id-source: derived
     delete:
       deprecated: true
       summary: Delete Shift Break Paid Rest
-      description: Delete single shift break paid rest (Deprecated - Please refer to the [updated documentation](https://apidocs.wheniwork.com/external/index.html?repo=attendance#tag/Times/paths/~1times~1break-attestations~1%7Bid%7D/delete))
+      description: Delete single shift break paid rest (Deprecated - Please refer to the updated documentation)
       tags:
       - Shift Break - Paid Rest
       parameters:
@@ -233,8 +237,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+      operationId: deleteV3ShiftBreakAuditsById
+      x-operation-id-source: derived
 components:
   schemas:
+    Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - title
+          properties:
+            code:
+              description: The API error code
+              type: string
+            title:
+              description: The API error code description
+              type: string
+            errorData:
+              description: Context for the error
     ShiftBreakAudit:
       type: object
       required:
@@ -264,25 +289,6 @@ components:
         creatorId: 43
         taken: false
         note: I missed my lunch break
-    Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - title
-          properties:
-            code:
-              description: The API error code
-              type: string
-            title:
-              description: The API error code description
-              type: string
-            errorData:
-              description: Context for the error
   securitySchemes:
     W-Token:
       type: http

@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Swaps API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Swaps API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -26,9 +16,7 @@ paths:
       summary: List swap users
       description: 'Fetch a list of elgible users that can take this dropped shift. The ID of the shift can be
 
-        specified in the path or query string.
-
-        '
+        specified in the path or query string.'
       tags:
       - Swaps
       parameters:
@@ -101,6 +89,8 @@ paths:
                   value:
                     can_release: false
                     count: 0
+      operationId: get2ShiftsByIdSwapusers
+      x-operation-id-source: derived
 components:
   schemas:
     User:

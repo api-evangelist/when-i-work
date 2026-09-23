@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Times API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Times API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -23,9 +13,7 @@ tags:
   description: 'Time records are a listing of the worked hours and can be select by date range. Records are sourced from timeclock terminal, web clock In/Out, mobile clock In/Out, timesheet edits, and API record creation/edits of time values.
 
 
-    For more info about user Times, visit the [Help Center](https://help.wheniwork.com/articles/reviewing-employees-time-sheets-computer/).
-
-    '
+    For more info about user Times, visit the Help Center.'
 paths:
   /2/times:
     get:
@@ -94,6 +82,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Time'
+      operationId: get2Times
+      x-operation-id-source: derived
     post:
       summary: Create Time
       description: Create a time. For accounts with Check payroll onboarded, start time must not be past the end of the current pay period
@@ -111,6 +101,8 @@ paths:
                 properties:
                   time:
                     $ref: '#/components/schemas/Time'
+      operationId: post2Times
+      x-operation-id-source: derived
   /2/times/{id}:
     get:
       summary: Get Time
@@ -134,6 +126,8 @@ paths:
                 properties:
                   time:
                     $ref: '#/components/schemas/Time'
+      operationId: get2TimesById
+      x-operation-id-source: derived
     put:
       summary: Update Time
       description: Update an existing time
@@ -158,6 +152,8 @@ paths:
                 properties:
                   shift:
                     $ref: '#/components/schemas/Time'
+      operationId: put2TimesById
+      x-operation-id-source: derived
     delete:
       summary: Delete Time
       description: Delete an existing time when no longer needed. This operation cannot be undone.
@@ -181,68 +177,9 @@ paths:
                   success:
                     type: boolean
                     example: true
+      operationId: delete2TimesById
+      x-operation-id-source: derived
 components:
-  requestBodies:
-    TimeRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              user_id:
-                type: integer
-                example: 101
-                description: The user assigned to the times.
-              position_id:
-                type: integer
-                example: 19483
-                description: Position the time belongs to. 0 if unassigned.
-              location_id:
-                type: integer
-                example: 1045
-                description: Location the time belongs to. 0 if unassigned.
-              site_id:
-                type: integer
-                example: 4351
-                description: Site the time belongs to. 0 if unassigned.
-              shift_id:
-                type: integer
-                example: 5451
-                description: A shift tied to this time. 0 if unassigned.
-              start_time:
-                type: string
-                format: date-time
-                example: Fri, 07 Mar 2016 08:30:00 -0600
-                description: The start time. For accounts with Check payroll onboarded, time must not be past the end of the current pay period
-              end_time:
-                type: string
-                format: date-time
-                example: Fri, 07 Mar 2016 14:30:00 -0600
-                description: The end time
-              rounded_start_time:
-                type: string
-                format: date-time
-                example: Fri, 07 Mar 2016 08:30:00 -0600
-                description: The rounded start time. If rounding is not enabled this field will not be present.
-              rounded_end_time:
-                type: string
-                format: date-time
-                example: Fri, 07 Mar 2016 14:30:00 -0600
-                description: The rounded end time. If rounding is not enabled this field will not be present.
-              notes:
-                type: string
-                example: A time note
-                description: Notes for a time
-              is_approved:
-                type: boolean
-                example: false
-                description: If the time is approved
-              cash_tips:
-                description: The amount of cash tips reported for the time entry.
-                type: string
-                format: decimal
-                example: '54.32'
-      description: Time data
   schemas:
     Time:
       type: object
@@ -322,9 +259,10 @@ components:
           example: 15
           description: The base hourly rate for this time.
         cash_tips:
-          type: string
+          type:
+          - string
+          - 'null'
           format: decimal
-          nullable: true
           description: 'Any cash tips reported for the shift.
 
 
@@ -385,6 +323,67 @@ components:
           readOnly: true
           example: I am a note entered for the shift break paid record
           description: The note associated with the shift break paid record. The include_paid_break_note query param must be set to true for this to be returned.
+  requestBodies:
+    TimeRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+                example: 101
+                description: The user assigned to the times.
+              position_id:
+                type: integer
+                example: 19483
+                description: Position the time belongs to. 0 if unassigned.
+              location_id:
+                type: integer
+                example: 1045
+                description: Location the time belongs to. 0 if unassigned.
+              site_id:
+                type: integer
+                example: 4351
+                description: Site the time belongs to. 0 if unassigned.
+              shift_id:
+                type: integer
+                example: 5451
+                description: A shift tied to this time. 0 if unassigned.
+              start_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 08:30:00 -0600
+                description: The start time. For accounts with Check payroll onboarded, time must not be past the end of the current pay period
+              end_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 14:30:00 -0600
+                description: The end time
+              rounded_start_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 08:30:00 -0600
+                description: The rounded start time. If rounding is not enabled this field will not be present.
+              rounded_end_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 14:30:00 -0600
+                description: The rounded end time. If rounding is not enabled this field will not be present.
+              notes:
+                type: string
+                example: A time note
+                description: Notes for a time
+              is_approved:
+                type: boolean
+                example: false
+                description: If the time is approved
+              cash_tips:
+                description: The amount of cash tips reported for the time entry.
+                type: string
+                format: decimal
+                example: '54.32'
+      description: Time data
   securitySchemes:
     W-Token:
       type: http

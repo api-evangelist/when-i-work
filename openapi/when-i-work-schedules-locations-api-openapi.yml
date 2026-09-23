@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Schedules (Locations) API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Schedules (Locations) API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -23,9 +13,7 @@ tags:
   description: 'Schedules are logical groupings of users that are working together. Schedules can be physical offices with addresses or logical groups like departments. Users can be tagged (associated) to one or more schedules. Schedules can be departments, facilities, business divisions or any grouping of staff.
 
 
-    For more information about using Scheduled, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-schedules-computer/).
-
-    '
+    For more information about using Scheduled, visit the Help Center.'
 paths:
   /2/locations:
     get:
@@ -52,6 +40,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Schedule'
+      operationId: get2Locations
+      x-operation-id-source: derived
     post:
       summary: Create Schedule (Location)
       description: Used to create a schedule (location) within an account
@@ -69,6 +59,8 @@ paths:
                 properties:
                   location:
                     $ref: '#/components/schemas/Schedule'
+      operationId: post2Locations
+      x-operation-id-source: derived
   /2/locations/{id}:
     get:
       summary: Get Schedule (Location)
@@ -92,6 +84,8 @@ paths:
                 properties:
                   location:
                     $ref: '#/components/schemas/Schedule'
+      operationId: get2LocationsById
+      x-operation-id-source: derived
     put:
       summary: Update Schedule (Location)
       description: Updates a single schedule (location)
@@ -116,11 +110,11 @@ paths:
                 properties:
                   location:
                     $ref: '#/components/schemas/Schedule'
+      operationId: put2LocationsById
+      x-operation-id-source: derived
     delete:
       summary: Delete Schedule (Location)
-      description: 'Delete an existing schedule when no longer needed. This operation cannot be undone. Data will remain for historical purposes.
-
-        '
+      description: Delete an existing schedule when no longer needed. This operation cannot be undone. Data will remain for historical purposes.
       tags:
       - Schedules (Locations)
       parameters:
@@ -148,6 +142,8 @@ paths:
                   success:
                     type: boolean
                     example: true
+      operationId: delete2LocationsById
+      x-operation-id-source: derived
 components:
   schemas:
     Place:

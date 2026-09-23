@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Request Type API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Request Type API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -23,16 +13,12 @@ tags:
   description: 'Types of time off that can be selected when submitting a time off request.
 
 
-    For more information about using Time Off Requests, visit the [Help Center](https://help.wheniwork.com/articles/requesting-time-off-computer/).
-
-    '
+    For more information about using Time Off Requests, visit the Help Center.'
 paths:
   /2/requesttypes:
     get:
       summary: List Of Time Off Request Types
-      description: 'Get a collection of request type objects. Request types are types available for taking time off.
-
-        '
+      description: Get a collection of request type objects. Request types are types available for taking time off.
       parameters:
       - name: end
         schema:
@@ -53,6 +39,8 @@ paths:
           description: Forbidden.
       tags:
       - Request Type
+      operationId: get2Requesttypes
+      x-operation-id-source: derived
     post:
       summary: Create or update a Collection of request types
       requestBody:
@@ -83,6 +71,8 @@ paths:
           description: Forbidden.
       tags:
       - Request Type
+      operationId: post2Requesttypes
+      x-operation-id-source: derived
   /2/requesttypes/{id}:
     parameters:
     - name: id
@@ -93,9 +83,7 @@ paths:
         type: integer
     get:
       summary: Get Time Off Request Type
-      description: 'Returns a single request object. Requests allow users to request time off.
-
-        '
+      description: Returns a single request object. Requests allow users to request time off.
       responses:
         '200':
           description: Individual Request Type resource.
@@ -123,6 +111,8 @@ paths:
                 $ref: '#/components/schemas/V2Error'
       tags:
       - Request Type
+      operationId: get2RequesttypesById
+      x-operation-id-source: derived
     delete:
       summary: Delete Time Off Request Type
       responses:
@@ -144,8 +134,23 @@ paths:
                 $ref: '#/components/schemas/V2Error'
       tags:
       - Request Type
+      operationId: delete2RequesttypesById
+      x-operation-id-source: derived
 components:
   schemas:
+    V2Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
     RequestType:
       properties:
         id:
@@ -189,19 +194,6 @@ components:
         deleted_at:
           type: string
           description: Full datetime for when the type was deleted in ISO8601.
-    V2Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          description: A description of the specific error
-        code:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The API error code
   securitySchemes:
     W-Token:
       type: http

@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Schedule Templates API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Schedule Templates API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -23,9 +13,7 @@ tags:
   description: 'Schedule templates allow you to create a daily or weekly schedule that is reusable. If your schedules are very similar from day to day or week to week, use a template to save time and avoid creating schedules from scratch.
 
 
-    For more information about using Schedule Templates, visit the [Help Center](https://help.wheniwork.com/articles/using-schedule-templates-computer/).
-
-    '
+    For more information about using Schedule Templates, visit the Help Center.'
 paths:
   /2/templates:
     get:
@@ -49,6 +37,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ScheduleTemplateShift'
+      operationId: get2Templates
+      x-operation-id-source: derived
     post:
       summary: Create Schedule Template
       description: Create a schedule template as a collection of shifts in a daily or weekly pattern which can be loaded to future schedules. The API will collect shifts which fall within the parameters provided; outline below.
@@ -72,6 +62,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ScheduleTemplateShift'
+      operationId: post2Templates
+      x-operation-id-source: derived
   /2/templates/{id}:
     get:
       summary: Get Schedule Template
@@ -101,6 +93,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ScheduleTemplateShift'
+      operationId: get2TemplatesById
+      x-operation-id-source: derived
     put:
       summary: Update Schedule Template
       description: Update a single schedule template
@@ -131,6 +125,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ScheduleTemplateShift'
+      operationId: put2TemplatesById
+      x-operation-id-source: derived
     delete:
       summary: Delete Schedule Template
       description: Delete an existing schedule template when no longer needed. This operation cannot be undone.
@@ -154,76 +150,69 @@ paths:
                   success:
                     type: boolean
                     example: true
+      operationId: delete2TemplatesById
+      x-operation-id-source: derived
 components:
+  requestBodies:
+    ScheduleTemplateRequestCreate:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+                example: This is a description of a schedule template
+              start:
+                type: string
+                format: date-time
+                example: '2019-05-12T00:00:00+05:45'
+              end:
+                type: string
+                format: date-time
+                example: '2019-05-18T23:59:59+05:45'
+              include_repeating_shifts:
+                type: boolean
+                example: false
+              location_id:
+                type: integer
+                example: 7
+              name:
+                type: string
+                example: Schedule Template Example
+              position_id:
+                type: array
+                items:
+                  type: integer
+                example:
+                - 0
+                - 23
+                - 22
+                - 24
+                - 19
+                - 20
+                - 21
+              site_id:
+                type: array
+                items:
+                  type: integer
+                example:
+                - 0
+      description: The schedule template data
+    ScheduleTemplateRequestUpdate:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+                exapmle: This is a description of a schedule template
+              name:
+                type: string
+                example: Schedule Template Example
+      description: The schedule template data to update
   schemas:
-    ShiftScheduledBreak:
-      allOf:
-      - $ref: '#/components/schemas/BaseScheduledBreak'
-      - type: object
-        properties:
-          shift_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to.
-            readOnly: true
-          start_time:
-            example: Mon, 08 May 2023 9:30:00 -0600
-            description: The start time of the break. Null if the break does not have a start time.
-            type: string
-          end_time:
-            example: Mon, 08 May 2023 10:00:00 -0600
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
-            type: string
-            readOnly: true
-    BaseScheduledBreak:
-      type: object
-      required:
-      - length
-      - paid
-      properties:
-        id:
-          example: 1234
-          type: integer
-          description: ID of the break. Provide in the request when updating an existing break.
-        account_id:
-          example: 1234
-          type: integer
-          readOnly: true
-        length:
-          example: 1800
-          description: The length of the break (seconds).
-          type: integer
-        paid:
-          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
-          type: boolean
-        sort:
-          type: integer
-          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
-          readOnly: true
-        created_at:
-          description: Date and time the break was created at.
-          type: string
-          readOnly: true
-        created_by:
-          description: The id of the user who created the break.
-          type: integer
-          readOnly: true
-        updated_at:
-          description: Date and time the break was last updated.
-          type: string
-          readOnly: true
-        updated_by:
-          description: The id of the user who last edited the break.
-          type: integer
-          readOnly: true
-    ScheduleTemplateShift:
-      allOf:
-      - $ref: '#/components/schemas/Shift'
-      - type: object
-        properties:
-          template_id:
-            type: integer
-            example: 10000
     Shift:
       type: object
       required:
@@ -353,6 +342,14 @@ components:
           description: Is rounding active for shift
           type: boolean
           example: false
+    ScheduleTemplateShift:
+      allOf:
+      - $ref: '#/components/schemas/Shift'
+      - type: object
+        properties:
+          template_id:
+            type: integer
+            example: 10000
     ScheduleTemplate:
       type: object
       properties:
@@ -393,65 +390,66 @@ components:
           type: string
           format: date-time
           example: '2019-05-16T06:57:28+05:00'
-  requestBodies:
-    ScheduleTemplateRequestUpdate:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              description:
-                type: string
-                exapmle: This is a description of a schedule template
-              name:
-                type: string
-                example: Schedule Template Example
-      description: The schedule template data to update
-    ScheduleTemplateRequestCreate:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              description:
-                type: string
-                example: This is a description of a schedule template
-              start:
-                type: string
-                format: date-time
-                example: '2019-05-12T00:00:00+05:45'
-              end:
-                type: string
-                format: date-time
-                example: '2019-05-18T23:59:59+05:45'
-              include_repeating_shifts:
-                type: boolean
-                example: false
-              location_id:
-                type: integer
-                example: 7
-              name:
-                type: string
-                example: Schedule Template Example
-              position_id:
-                type: array
-                items:
-                  type: integer
-                example:
-                - 0
-                - 23
-                - 22
-                - 24
-                - 19
-                - 20
-                - 21
-              site_id:
-                type: array
-                items:
-                  type: integer
-                example:
-                - 0
-      description: The schedule template data
+    BaseScheduledBreak:
+      type: object
+      required:
+      - length
+      - paid
+      properties:
+        id:
+          example: 1234
+          type: integer
+          description: ID of the break. Provide in the request when updating an existing break.
+        account_id:
+          example: 1234
+          type: integer
+          readOnly: true
+        length:
+          example: 1800
+          description: The length of the break (seconds).
+          type: integer
+        paid:
+          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+          type: boolean
+        sort:
+          type: integer
+          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
+          readOnly: true
+        created_at:
+          description: Date and time the break was created at.
+          type: string
+          readOnly: true
+        created_by:
+          description: The id of the user who created the break.
+          type: integer
+          readOnly: true
+        updated_at:
+          description: Date and time the break was last updated.
+          type: string
+          readOnly: true
+        updated_by:
+          description: The id of the user who last edited the break.
+          type: integer
+          readOnly: true
+    ShiftScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to.
+            readOnly: true
+          start_time:
+            example: Mon, 08 May 2023 9:30:00 -0600
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: Mon, 08 May 2023 10:00:00 -0600
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
   securitySchemes:
     W-Token:
       type: http

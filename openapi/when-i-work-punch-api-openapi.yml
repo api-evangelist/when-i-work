@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Punch API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Punch API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -23,9 +13,7 @@ tags:
   description: 'A punch is an event where a user clocks in or clocks out. Punches can be managed to restrict where an employee can clock in/out and from what devices.
 
 
-    If a user forgets to clock out, they will be allowed to clock in after 9 hours from the end of their scheduled shift. If there is no scheduled shift, the user can clock in again after 18 hours from when they originally clocked in.
-
-    '
+    If a user forgets to clock out, they will be allowed to clock in after 9 hours from the end of their scheduled shift. If there is no scheduled shift, the user can clock in again after 18 hours from when they originally clocked in.'
 paths:
   /2/times/clockin:
     post:
@@ -54,6 +42,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/V2Error'
+      operationId: post2TimesClockin
+      x-operation-id-source: derived
   /2/times/clockout:
     post:
       summary: Clock Out
@@ -81,6 +71,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/V2Error'
+      operationId: post2TimesClockout
+      x-operation-id-source: derived
   /2/punch/state:
     get:
       summary: Punch State
@@ -311,49 +303,10 @@ paths:
                     type: array
                     items:
                       type: string
+      operationId: get2PunchState
+      x-operation-id-source: derived
 components:
   schemas:
-    PunchResponse:
-      type: object
-      properties:
-        time:
-          description: The Time object that the punch is associated with
-          $ref: '#/components/schemas/Time'
-        overtime_alert:
-          description: Was an over-time alert triggered
-          type: boolean
-          example: false
-        user:
-          description: The User that has punched in
-          $ref: '#/components/schemas/User'
-        punches:
-          description: 'Array of punches associated with the current Time
-
-            * Punch in/out
-
-            * Punch break start/stop
-
-            '
-          type: array
-    PunchStateRootShiftBreak:
-      allOf:
-      - $ref: '#/components/schemas/PunchStateShiftBreakBase'
-      - type: object
-        properties:
-          start:
-            description: The break start time
-            type: string
-            format: date-time
-            example: 2025-05-19T10:45:00-0400
-          end:
-            description: The break end time. Will always be an empty string; once the break has an end, it is no longer returned by this endpoint under the `break` key
-            type: string
-            format: date-time
-            example: ''
-          length:
-            description: The break length from the database model once the break is complete, in minutes. Until the break is complete, this value remains zero. However, once the break is complete, the `break` object is not longer returned by this endpoint. Hence, break length should be calculated based on the `start` instead
-            type: integer
-            example: 0
     Time:
       type: object
       properties:
@@ -432,9 +385,10 @@ components:
           example: 15
           description: The base hourly rate for this time.
         cash_tips:
-          type: string
+          type:
+          - string
+          - 'null'
           format: decimal
-          nullable: true
           description: 'Any cash tips reported for the shift.
 
 
@@ -544,6 +498,84 @@ components:
           description: The scheduled break associated with this shift break, if it is a scheduled break. Otherwise `0`
           type: integer
           example: 0
+    PunchStateScheduledBreak:
+      allOf:
+      - type: object
+        properties:
+          id:
+            type: integer
+            description: Scheduled Break Id
+            example: 1
+          account_id:
+            type: integer
+            description: Account Id associated with this break
+            example: 3
+          start_time:
+            description: The start time of the break. Null if the break does not have a start time
+            type: string
+            example: '2025-05-19T14:30:00+00:00'
+          end_time:
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length
+            type: string
+            example: '2025-05-19T14:45:00+00:00'
+          length:
+            description: The length of the break (seconds)
+            type: integer
+            example: 900
+          paid:
+            description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+            type: boolean
+            example: true
+          created_by:
+            description: The id of the user who created the break
+            type: integer
+            example: 201
+          created_at:
+            description: Date and time the break was created at
+            type: string
+            example: '2025-05-10T14:45:00+00:00'
+          updated_by:
+            description: The id of the user who last edited the break
+            type: string
+            example: '202'
+          updated_at:
+            description: Date and time the break was last updated
+            type: string
+            example: '2025-05-10T15:45:00+00:00'
+          sort:
+            type: integer
+            description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to
+            readOnly: true
+          shift_break:
+            type: object
+            description: When not null, at least a start time was created for an associated shift break. Otherwise, no breaks have been taken for this scheduled break
+            $ref: '#/components/schemas/PunchStateNestedShiftBreak'
+    PunchResponse:
+      type: object
+      properties:
+        time:
+          description: The Time object that the punch is associated with
+          $ref: '#/components/schemas/Time'
+        overtime_alert:
+          description: Was an over-time alert triggered
+          type: boolean
+          example: false
+        user:
+          description: The User that has punched in
+          $ref: '#/components/schemas/User'
+        punches:
+          description: 'Array of punches associated with the current Time
+
+            * Punch in/out
+
+            * Punch break start/stop
+
+            '
+          type: array
     PunchStateNestedShiftBreak:
       allOf:
       - $ref: '#/components/schemas/PunchStateShiftBreakBase'
@@ -551,20 +583,54 @@ components:
         properties:
           start:
             description: The break start time. Null if the break does not have an start time. Perhaps because it was added on Timesheets.
-            type: string
+            type:
+            - string
+            - 'null'
             format: date-time
-            nullable: true
             example: 2025-05-19T10:00:00-0400
           end:
             description: The break end time. Null if the break does not have an end time. Perhaps because it was added on Timesheets.
-            type: string
+            type:
+            - string
+            - 'null'
             format: date-time
-            nullable: true
             example: 2025-05-19T10:08:00-0400
           length:
             description: The length of the break if it's completed, in minutes. Length will be zero until the break has ended
             type: integer
             example: 6
+    V2Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
+    PunchStateRootShiftBreak:
+      allOf:
+      - $ref: '#/components/schemas/PunchStateShiftBreakBase'
+      - type: object
+        properties:
+          start:
+            description: The break start time
+            type: string
+            format: date-time
+            example: 2025-05-19T10:45:00-0400
+          end:
+            description: The break end time. Will always be an empty string; once the break has an end, it is no longer returned by this endpoint under the `break` key
+            type: string
+            format: date-time
+            example: ''
+          length:
+            description: The break length from the database model once the break is complete, in minutes. Until the break is complete, this value remains zero. However, once the break is complete, the `break` object is not longer returned by this endpoint. Hence, break length should be calculated based on the `start` instead
+            type: integer
+            example: 0
     User:
       properties:
         account_id:
@@ -688,120 +754,7 @@ components:
             '
           type: integer
       type: object
-    PunchStateScheduledBreak:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-            description: Scheduled Break Id
-            example: 1
-          account_id:
-            type: integer
-            description: Account Id associated with this break
-            example: 3
-          start_time:
-            description: The start time of the break. Null if the break does not have a start time
-            type: string
-            example: '2025-05-19T14:30:00+00:00'
-          end_time:
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length
-            type: string
-            example: '2025-05-19T14:45:00+00:00'
-          length:
-            description: The length of the break (seconds)
-            type: integer
-            example: 900
-          paid:
-            description: Whether the break is a paid rest break (true) or unpaid meal break (false)
-            type: boolean
-            example: true
-          created_by:
-            description: The id of the user who created the break
-            type: integer
-            example: 201
-          created_at:
-            description: Date and time the break was created at
-            type: string
-            example: '2025-05-10T14:45:00+00:00'
-          updated_by:
-            description: The id of the user who last edited the break
-            type: string
-            example: '202'
-          updated_at:
-            description: Date and time the break was last updated
-            type: string
-            example: '2025-05-10T15:45:00+00:00'
-          sort:
-            type: integer
-            description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves
-          shift_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to
-            readOnly: true
-          shift_break:
-            type: object
-            description: When not null, at least a start time was created for an associated shift break. Otherwise, no breaks have been taken for this scheduled break
-            $ref: '#/components/schemas/PunchStateNestedShiftBreak'
-    V2Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          description: A description of the specific error
-        code:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The API error code
   requestBodies:
-    ClockOutRequest:
-      description: Clock Out (Punch) request data
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: The ID of the user you are creating the clock-in for
-                example: 14
-              notes:
-                type: string
-                description: Optional notes that can be added to the punch that will show up on the timesheets
-                example: Punching out late there was a delay in the shift change
-                required: false
-              coordinates:
-                type: array
-                description: The GPS coordinates of the clock-out. This is an optional parameter.
-                example:
-                - 44.983791
-                - -93.2774416
-                required: false
-              altitude:
-                type: number
-                description: The altitude that the user is currently at in meters.
-                example: 20
-                required: false
-              accuracy:
-                type: number
-                description: The accuracy in meters of the coordinates being sent.
-                example: 20
-                required: false
-              terminal:
-                type: boolean
-                description: Is the user clocking out from a terminal (web or mobile/tablet terminal app)
-                example: true
-                required: false
-                default: false
-              cashTips:
-                description: The amount of cash tips reported for the shift.
-                type: string
-                format: decimal
-                example: '54.32'
     ClockInRequest:
       description: Clock In (Punch) request data
       content:
@@ -861,6 +814,50 @@ components:
                 example: true
                 required: false
                 default: false
+    ClockOutRequest:
+      description: Clock Out (Punch) request data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The ID of the user you are creating the clock-in for
+                example: 14
+              notes:
+                type: string
+                description: Optional notes that can be added to the punch that will show up on the timesheets
+                example: Punching out late there was a delay in the shift change
+                required: false
+              coordinates:
+                type: array
+                description: The GPS coordinates of the clock-out. This is an optional parameter.
+                example:
+                - 44.983791
+                - -93.2774416
+                required: false
+              altitude:
+                type: number
+                description: The altitude that the user is currently at in meters.
+                example: 20
+                required: false
+              accuracy:
+                type: number
+                description: The accuracy in meters of the coordinates being sent.
+                example: 20
+                required: false
+              terminal:
+                type: boolean
+                description: Is the user clocking out from a terminal (web or mobile/tablet terminal app)
+                example: true
+                required: false
+                default: false
+              cashTips:
+                description: The amount of cash tips reported for the shift.
+                type: string
+                format: decimal
+                example: '54.32'
   securitySchemes:
     W-Token:
       type: http

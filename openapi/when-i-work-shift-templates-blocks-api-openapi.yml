@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Shift Templates (Blocks) API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Shift Templates (Blocks) API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -23,9 +13,7 @@ tags:
   description: 'Shift templates save you time when you need to schedule shifts that have a consistent start and end time. Instead of manually entering in custom shift details one-by-one, shift templates allow you to schedule a shift quickly and easily.
 
 
-    For more information about using Shift Templates, visit the [Help Center](https://help.wheniwork.com/articles/creating-and-managing-shift-templates-computer/).
-
-    '
+    For more information about using Shift Templates, visit the Help Center.'
 paths:
   /2/blocks:
     get:
@@ -45,6 +33,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ShiftTemplate'
+      operationId: get2Blocks
+      x-operation-id-source: derived
     post:
       summary: Create Shift Template (Block)
       description: Used to create a shift template within an account
@@ -62,6 +52,8 @@ paths:
                 properties:
                   block:
                     $ref: '#/components/schemas/ShiftTemplate'
+      operationId: post2Blocks
+      x-operation-id-source: derived
   /2/blocks/{id}:
     get:
       summary: Get Shift Template (Block)
@@ -85,6 +77,8 @@ paths:
                 properties:
                   block:
                     $ref: '#/components/schemas/ShiftTemplate'
+      operationId: get2BlocksById
+      x-operation-id-source: derived
     put:
       summary: Update Shift Template (block)
       description: Updates a single shift template
@@ -109,6 +103,8 @@ paths:
                 properties:
                   block:
                     $ref: '#/components/schemas/ShiftTemplate'
+      operationId: put2BlocksById
+      x-operation-id-source: derived
     delete:
       summary: Delete Shift Template (Block)
       description: Delete an existing shift template when no longer needed. This operation cannot be undone.
@@ -139,6 +135,8 @@ paths:
                   success:
                     type: boolean
                     example: true
+      operationId: delete2BlocksById
+      x-operation-id-source: derived
 components:
   schemas:
     ShiftTemplate:

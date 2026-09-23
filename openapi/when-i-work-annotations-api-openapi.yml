@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Annotations API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Annotations API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -20,25 +10,7 @@ security:
 - W-Token: []
 tags:
 - name: Annotations
-  description: 'Annotations convey important information to all staff for the given schedules (locations) and date range.
-
-
-    Any or none of the following tags may apply to an Annotation:
-
-
-    * Time Off Not Allowed
-
-    * Business Closed
-
-    * Announcement
-
-
-    The "Time Off Not Allowed" tag is the only tag that affects the behavior of another API. Time Off requests will be considered invalid if the request''s date range overlaps an Annotation of the "Time Off Not Allowed" type for the user''s location(s).
-
-
-    For more on using Annotations, visit the [Help Center](https://help.wheniwork.com/hc/en-us/articles/204348065-Annotations).
-
-    '
+  description: Annotations convey important information to all staff for the given schedules (locations) and date range.
 paths:
   /2/annotations:
     get:
@@ -91,6 +63,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Annotation'
+      operationId: get2Annotations
+      x-operation-id-source: derived
     post:
       summary: Create Annotation
       description: Used to create an annotation
@@ -134,6 +108,8 @@ paths:
                   error:
                     type: string
                     example: Conflict(s) detected with the location(s) and date range provided.
+      operationId: post2Annotations
+      x-operation-id-source: derived
   /2/annotations/{id}:
     get:
       summary: Get Annotation
@@ -157,6 +133,8 @@ paths:
                 properties:
                   annotation:
                     $ref: '#/components/schemas/Annotation'
+      operationId: get2AnnotationsById
+      x-operation-id-source: derived
     put:
       summary: Update Annotation
       description: Updates a single annotation
@@ -181,6 +159,8 @@ paths:
                 properties:
                   annotation:
                     $ref: '#/components/schemas/Annotation'
+      operationId: put2AnnotationsById
+      x-operation-id-source: derived
     delete:
       summary: Delete Annotation
       description: Delete an existing annotation when no longer needed. This operation cannot be undone.
@@ -204,6 +184,8 @@ paths:
                   success:
                     type: boolean
                     example: true
+      operationId: delete2AnnotationsById
+      x-operation-id-source: derived
 components:
   requestBodies:
     AnnotationRequest:

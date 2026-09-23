@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts OpenShift Requests API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation OpenShift Requests API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -23,18 +13,14 @@ tags:
   description: 'Shift Bidding, also called “OpenShift Requests”, is an option within an OpenShift that allows employees to express interest in the shift. Management can then view who has requested to pick up the OpenShift and select and approve an employee to work the shift.
 
 
-    For more info about using OpenShift Requests, visit the [Help Center](https://help.wheniwork.com/articles/shift-bidding/).
-
-    '
+    For more info about using OpenShift Requests, visit the Help Center.'
 paths:
   /2/openshiftapprovalrequests:
     get:
       summary: List OpenShift Approval Requests
       tags:
       - OpenShift Requests
-      description: 'List all the OpenShift Approval Requests that the user is allowed to see. Managers can see all, supervisors can see all tied to a shift at a schedule/location they supervise and employees can see all request that they''ve made.
-
-        '
+      description: List all the OpenShift Approval Requests that the user is allowed to see. Managers can see all, supervisors can see all tied to a shift at a schedule/location they supervise and employees can see all request that they've made.
       parameters:
       - name: start
         description: yyyy-mm-dd formatted end date for range of OpenShift Approval Requests you would like returned.
@@ -93,6 +79,8 @@ paths:
               properties:
                 openshiftapprovalrequest:
                   $ref: '#/components/schemas/OpenShiftApprovalRequest'
+      operationId: get2Openshiftapprovalrequests
+      x-operation-id-source: derived
   /2/openshiftapprovalrequests/{request_id}:
     parameters:
     - name: request_id
@@ -104,10 +92,12 @@ paths:
     delete:
       tags:
       - OpenShift Requests
-      summary: Delete an OpenShift Approval Request.
+      summary: Delete an OpenShift Approval Request
       responses:
         '200':
           description: The request was deleted.
+      operationId: delete2OpenshiftapprovalrequestsByRequestId
+      x-operation-id-source: derived
     get:
       tags:
       - OpenShift Requests
@@ -122,13 +112,13 @@ paths:
                 properties:
                   openshiftapprovalrequest:
                     $ref: '#/components/schemas/OpenShiftApprovalRequest'
+      operationId: get2OpenshiftapprovalrequestsByRequestId
+      x-operation-id-source: derived
     put:
       tags:
       - OpenShift Requests
-      summary: Update an OpenShift Approval Request.
-      description: 'Replaces properties in the request with the values given. If you are looking to approve users who requested to take an OpenShift please refer to [Assign multiple users to an OpenShift](https://apidocs.wheniwork.com/external/index.html#tag/Shifts/paths/~12~1shifts~1{id}~1assign/post)
-
-        '
+      summary: Update an OpenShift Approval Request
+      description: Replaces properties in the request with the values given. If you are looking to approve users who requested to take an OpenShift please refer to Assign multiple users to an OpenShift
       requestBody:
         content:
           application/json:
@@ -144,6 +134,8 @@ paths:
                 properties:
                   openshiftapprovalrequest:
                     $ref: '#/components/schemas/OpenShiftApprovalRequest'
+      operationId: put2OpenshiftapprovalrequestsByRequestId
+      x-operation-id-source: derived
   /2/openshiftapprovarequests/{request_id}/user-requests:
     parameters:
     - name: request_id
@@ -159,67 +151,68 @@ paths:
       responses:
         '200':
           description: The OpenShift request was canceled for this user
+      operationId: delete2OpenshiftapprovarequestsByRequestIdUserRequests
+      x-operation-id-source: derived
 components:
   schemas:
-    ShiftScheduledBreak:
-      allOf:
-      - $ref: '#/components/schemas/BaseScheduledBreak'
-      - type: object
-        properties:
-          shift_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to.
-            readOnly: true
-          start_time:
-            example: Mon, 08 May 2023 9:30:00 -0600
-            description: The start time of the break. Null if the break does not have a start time.
-            type: string
-          end_time:
-            example: Mon, 08 May 2023 10:00:00 -0600
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
-            type: string
-            readOnly: true
-    BaseScheduledBreak:
+    OpenShiftApprovalRequest:
       type: object
-      required:
-      - length
-      - paid
       properties:
         id:
-          example: 1234
+          description: The ID of the OpenShift Approval Request
           type: integer
-          description: ID of the break. Provide in the request when updating an existing break.
+          example: 1
+          readOnly: true
         account_id:
-          example: 1234
+          description: The ID of the account that this OpenShift Approval Request belongs to
           type: integer
+          example: 1
+        shift_id:
+          description: The ID of the shift that this OpenShift Approval Request is for
+          type: integer
+          example: 1
+        shift:
+          $ref: '#/components/schemas/Shift'
+        creator_id:
+          description: The ID of the user that created this request
+          type: integer
+          example: 1
           readOnly: true
-        length:
-          example: 1800
-          description: The length of the break (seconds).
+        updater_id:
+          description: The ID of the user that last updated this request
           type: integer
-        paid:
-          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+          example: 1
+          readOnly: true
+        status:
+          description: The current status of the OpenShift Approval Request.
+          type: integer
+          enum:
+          - 0 = Pending
+          - 1 = Approved
+          - 4 = Canceled
+          - 5 = Expired
+          - 6 = Denied
+          example: 0
+        user_status:
+          description: Copy of the status field to mirror the data model of other request types
+          example: 0
+        is_shared:
+          description: Is this approval request shared across schedules
           type: boolean
-        sort:
-          type: integer
-          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
-          readOnly: true
+          example: false
         created_at:
-          description: Date and time the break was created at.
           type: string
-          readOnly: true
-        created_by:
-          description: The id of the user who created the break.
-          type: integer
-          readOnly: true
+          format: date-time
+          example: Thu, 06 Mar 2016 21:12:14 -0600
         updated_at:
-          description: Date and time the break was last updated.
           type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 22:17:14 -0600
           readOnly: true
-        updated_by:
-          description: The id of the user who last edited the break.
-          type: integer
+        user_requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenShiftApprovalRequestUser'
           readOnly: true
     OpenShiftApprovalRequestUser:
       type: object
@@ -371,65 +364,66 @@ components:
           description: Is rounding active for shift
           type: boolean
           example: false
-    OpenShiftApprovalRequest:
+    BaseScheduledBreak:
       type: object
+      required:
+      - length
+      - paid
       properties:
         id:
-          description: The ID of the OpenShift Approval Request
+          example: 1234
           type: integer
-          example: 1
-          readOnly: true
+          description: ID of the break. Provide in the request when updating an existing break.
         account_id:
-          description: The ID of the account that this OpenShift Approval Request belongs to
+          example: 1234
           type: integer
-          example: 1
-        shift_id:
-          description: The ID of the shift that this OpenShift Approval Request is for
-          type: integer
-          example: 1
-        shift:
-          $ref: '#/components/schemas/Shift'
-        creator_id:
-          description: The ID of the user that created this request
-          type: integer
-          example: 1
           readOnly: true
-        updater_id:
-          description: The ID of the user that last updated this request
+        length:
+          example: 1800
+          description: The length of the break (seconds).
           type: integer
-          example: 1
-          readOnly: true
-        status:
-          description: The current status of the OpenShift Approval Request.
-          type: integer
-          enum:
-          - 0 = Pending
-          - 1 = Approved
-          - 4 = Canceled
-          - 5 = Expired
-          - 6 = Denied
-          example: 0
-        user_status:
-          description: Copy of the status field to mirror the data model of other request types
-          example: 0
-        is_shared:
-          description: Is this approval request shared across schedules
+        paid:
+          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
           type: boolean
-          example: false
+        sort:
+          type: integer
+          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
+          readOnly: true
         created_at:
+          description: Date and time the break was created at.
           type: string
-          format: date-time
-          example: Thu, 06 Mar 2016 21:12:14 -0600
+          readOnly: true
+        created_by:
+          description: The id of the user who created the break.
+          type: integer
+          readOnly: true
         updated_at:
+          description: Date and time the break was last updated.
           type: string
-          format: date-time
-          example: Thu, 06 Mar 2016 22:17:14 -0600
           readOnly: true
-        user_requests:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenShiftApprovalRequestUser'
+        updated_by:
+          description: The id of the user who last edited the break.
+          type: integer
           readOnly: true
+    ShiftScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to.
+            readOnly: true
+          start_time:
+            example: Mon, 08 May 2023 9:30:00 -0600
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: Mon, 08 May 2023 10:00:00 -0600
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
   securitySchemes:
     W-Token:
       type: http

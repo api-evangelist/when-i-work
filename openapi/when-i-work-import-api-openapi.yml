@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Import API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Import API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -20,7 +10,7 @@ security:
 - W-Token: []
 tags:
 - name: Import
-  description: "The import API is used to import a variety of When I Work resources from user-provided CSV or Excel files.\n\n### Import Types\n\nAll available import types and their columns are listed here. Where possible, the column names will align with names used elsewhere in the API, but this is not always possible.\n\n<table>\n   <thead>\n     <tr>\n       <th>type</th>\n       <th>columns</th>\n       <th>required?</th>\n       <th>notes</th>\n     </tr>\n   </thead>\n   <tbody>\n     <tr>\n       <td rowspan=\"5\" class=\"nowrap\"><code>SHIFT_TEMPLATE</code></td>\n       <td>start_time</td>\n       <td>✅</td>\n       <td></td>\n     </tr>\n     <tr>\n       <td>end_time</td>\n       <td>✅</td>\n       <td></td>\n     </tr>\n     <tr>\n       <td>schedule</td>\n       <td></td>\n       <td>\n         <p>A schedule name to associate with the shift template. If no schedule with that name exists, a new schedule will be created.</p>\n         <p>If omitted, the shift template will be assigned to all schedules (or the value \"All Schedules\" can be provided to do the same).</p>\n       </td>\n     </tr>\n     <tr>\n       <td>position</td>\n       <td></td>\n       <td>\n         <p>A position name to associate with the shift template. If no position with that name exists, a new position will be created.</p>\n       </td>\n     </tr>\n     <tr>\n       <td>unpaid_break</td>\n       <td></td>\n       <td>The length of the unpaid break in minutes.</td>\n     </tr>\n     <tr>\n       <td rowspan=\"12\" class=\"nowrap\"><code>EMPLOYEE</code></td>\n       <td>first_name</td>\n       <td>✅</td>\n       <td>First name of the employee</td>\n     </tr>\n     <tr>\n       <td>last_name</td>\n       <td>✅</td>\n       <td>Last name of the employee</td>\n     </tr>\n     <tr>\n       <td>email</td>\n       <td></td>\n       <td>The email address of the employee</td>\n     </tr>\n     <tr>\n       <td>employee_code</td>\n       <td></td>\n       <td>The employee code to associate with the employee</td>\n     </tr>\n     <tr>\n       <td>file_number</td>\n       <td></td>\n       <td>The file number corresponding to the employee in ADP</td>\n     </tr>\n     <tr>\n       <td>id</td>\n       <td></td>\n       <td>The user id corresponding to the employee in When I Work</td>\n     </tr>\n     <tr>\n       <td>location</td>\n       <td></td>\n       <td>\n         <p>A schedule (location) name to associate with the employee. If no schedule with that name exists, a new schedule will be created.</p>\n       </td>\n     </tr>\n     <tr>\n       <td>max</td>\n       <td></td>\n       <td>The maximum hours per week of the employee</td>\n     </tr>\n     <tr>\n       <td>phone</td>\n       <td></td>\n       <td>The phone number of the employee</td>\n     </tr>\n     <tr>\n       <td>position</td>\n       <td></td>\n       <td>\n         <p>A position name to associate with the employee. If no position with that name exists, a new position will be created.</p>\n       </td>\n     </tr>\n     <tr>\n       <td>tags</td>\n       <td></td>\n       <td>\n         <p>A comma separated list of tags to associate to the employee. If the tag does not exist, it will be created.</p>\n       </td>\n     </tr>\n     <tr>\n       <td>wage</td>\n       <td></td>\n       <td>\n         <p>The hourly rate of the employee expressed as a floating point number (e.g. 14.50)</p>\n       </td>\n     </tr>\n   </tbody>\n </table>\n"
+  description: The import API is used to import a variety of When I Work resources from user-provided CSV or Excel files.
 paths:
   /2/import:
     post:
@@ -28,9 +18,7 @@ paths:
       description: 'Uploads a user file, parses it, and returns information to help guide the import process.
 
 
-        Note that unlike most API endpoints, this endpoint does not use JSON for the request body.
-
-        '
+        Note that unlike most API endpoints, this endpoint does not use JSON for the request body.'
       tags:
       - Import
       requestBody:
@@ -58,12 +46,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Import'
+      operationId: post2Import
+      x-operation-id-source: derived
   /2/import/{id}:
     get:
       summary: Get Import
-      description: 'Gets an import in progress. Returns exactly the same content as the result of Create Import.
-
-        '
+      description: Gets an import in progress. Returns exactly the same content as the result of Create Import.
       tags:
       - Import
       parameters:
@@ -79,12 +67,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Import'
+      operationId: get2ImportById
+      x-operation-id-source: derived
   /2/import/{id}/preview:
     post:
       summary: Preview Import
-      description: 'Given a set of column mappings, previews the result of the import.
-
-        '
+      description: Given a set of column mappings, previews the result of the import.
       tags:
       - Import
       requestBody:
@@ -157,12 +145,12 @@ paths:
                     example:
                     - message: 'Schedule: Downtown'
                     - message: 'Position: Cashier'
+      operationId: post2ImportByIdPreview
+      x-operation-id-source: derived
   /2/import/{id}/finalize:
     post:
       summary: Finalize Import
-      description: 'Given a set of column mappings, finalizes the import.
-
-        '
+      description: Given a set of column mappings, finalizes the import.
       tags:
       - Import
       requestBody:
@@ -224,6 +212,8 @@ paths:
                         - 1
                         - 2
                         - 3
+      operationId: post2ImportByIdFinalize
+      x-operation-id-source: derived
 components:
   schemas:
     EmployeeExtra:

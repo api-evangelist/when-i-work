@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
   title: When I Work API Documentation Accounts API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -23,14 +13,14 @@ tags:
   description: 'Accounts (aka Workplaces) are objects that define a business account with When I Work. Each user is associated with an account enabling them to access Shifts or other data.
 
 
-    For more information about Accounts, visit the [Help Center](https://help.wheniwork.com/article-categories/account-settings/).
-
-    '
+    For more information about Accounts, visit the Help Center.'
 paths:
   /2/account:
     get:
       summary: Get Account
-      description: "This endpoint returns the first account associated with the current login token. To get information about a different account, set the W-UserId header to the user id associated with the other account. (See the Authentication section for details.)\n > If the account being queried for is a parent account, the response provides an object with two members: an `account` object, which specifies the parent account for a given user, and an array, `accounts`, containing all child accounts of the parent account.\n"
+      description: 'This endpoint returns the first account associated with the current login token. To get information about a different account, set the W-UserId header to the user id associated with the other account. (See the Authentication section for details.)
+
+        > If the account being queried for is a parent account, the response provides an object with two members: an `account` object, which specifies the parent account for a given user, and an array, `accounts`, containing all child accounts of the parent account.'
       tags:
       - Accounts
       x-code-samples:
@@ -46,6 +36,8 @@ paths:
                 properties:
                   account:
                     $ref: '#/components/schemas/schemas-Account'
+      operationId: get2Account
+      x-operation-id-source: derived
     post:
       summary: Create Account
       description: Used to create an account
@@ -66,6 +58,8 @@ paths:
                     example: true
                   account:
                     $ref: '#/components/schemas/schemas-Account'
+      operationId: post2Account
+      x-operation-id-source: derived
   /2/account/{id}:
     put:
       summary: Update Account
@@ -91,6 +85,8 @@ paths:
                 properties:
                   account:
                     $ref: '#/components/schemas/schemas-Account'
+      operationId: put2AccountById
+      x-operation-id-source: derived
   /2/account/settings:
     post:
       summary: Update Account Settings
@@ -107,6 +103,8 @@ paths:
               schema:
                 type: object
                 $ref: '#/components/schemas/schemas-Account'
+      operationId: post2AccountSettings
+      x-operation-id-source: derived
   /2/account/{id}/admins:
     get:
       summary: List Admins
@@ -132,6 +130,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/components-schemas-User'
+      operationId: get2AccountByIdAdmins
+      x-operation-id-source: derived
 components:
   schemas:
     schemas-Place:
@@ -163,93 +163,6 @@ components:
           format: double
           example: -93.277486
           description: Longitude of place location
-    schemas-Account:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          example: 10000
-          description: Unique identifier for the account.
-        master_id:
-          type: integer
-          example: 0
-          readOnly: true
-          description: "This ID indicates the status of a parent/child relationship\n * `0` - Indicates that this account does NOT have a parent/child relationship.\n * `An ID that does NOT match the account's ID` - Indicates that this account is a child and `master_id` is the parent.\n * `An ID that DOES match the account's ID` - Indicates that this account is the parent and has children.\n"
-        type:
-          readOnly: true
-          type: integer
-          enum:
-          - 1
-          - 2
-          - 3
-          description: "The account's type, must be one of:\n * `1` - Scheduling\n * `2` - Attendance\n * `3` - Both\n"
-        logo:
-          type: string
-          example: https://s3.amazonaws.com/path/to/logo.jpg
-          description: Path to the image file for the company's logo.
-        company:
-          readOnly: true
-          type: string
-          example: When I Work
-          description: Name of the company for which this account is in use.
-        subdomain:
-          type: string
-          example: wheniwork
-          deprecated: true
-          description: Subdomain of wheniwork.com to access company-specific When I Work web application. No longer used.
-        enabled:
-          type: boolean
-          example: true
-          readOnly: true
-          description: Whether the account is enabled (i.e. not on an expired plan or failed credit card payment)
-        bad_credit_card:
-          type: boolean
-          example: false
-          readOnly: true
-          description: Whether this account has an invalid credit card in use
-        plan_expires:
-          type: string
-          format: date-time
-          example: '2021-01-06T10:55:58-06:00'
-          readOnly: true
-          description: Date and time when this account's plan expires
-        features:
-          readOnly: true
-          type: array
-          items:
-            type: string
-          example:
-          - attendance
-          - openshifts
-          - annotations
-          description: List of all the enabled features on the account
-        timezone_id:
-          readOnly: true
-          type: integer
-          example: 11
-          description: Identifier for the account's timezone
-        timezone_name:
-          readOnly: true
-          type: string
-          example: America/Chicago
-          description: Name for the timezone specified in the timezone_id
-        settings:
-          type: string
-          format: json
-          description: A list of settings for this account
-        place:
-          $ref: '#/components/schemas/schemas-Place'
-        created_at:
-          readOnly: true
-          type: string
-          format: date-time
-          example: '2019-05-16T06:57:28+05:00'
-        updated_at:
-          readOnly: true
-          type: string
-          format: date-time
-          example: '2019-05-16T06:57:28+05:00'
     components-schemas-User:
       type: object
       properties:
@@ -401,6 +314,93 @@ components:
           format: date
           example: '2019-05-16'
           description: yyyy-mm-dd formatted date for when the user started their employment
+    schemas-Account:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+          description: Unique identifier for the account.
+        master_id:
+          type: integer
+          example: 0
+          readOnly: true
+          description: "This ID indicates the status of a parent/child relationship\n * `0` - Indicates that this account does NOT have a parent/child relationship.\n * `An ID that does NOT match the account's ID` - Indicates that this account is a child and `master_id` is the parent.\n * `An ID that DOES match the account's ID` - Indicates that this account is the parent and has children.\n"
+        type:
+          readOnly: true
+          type: integer
+          enum:
+          - 1
+          - 2
+          - 3
+          description: "The account's type, must be one of:\n * `1` - Scheduling\n * `2` - Attendance\n * `3` - Both\n"
+        logo:
+          type: string
+          example: https://s3.amazonaws.com/path/to/logo.jpg
+          description: Path to the image file for the company's logo.
+        company:
+          readOnly: true
+          type: string
+          example: When I Work
+          description: Name of the company for which this account is in use.
+        subdomain:
+          type: string
+          example: wheniwork
+          deprecated: true
+          description: Subdomain of wheniwork.com to access company-specific When I Work web application. No longer used.
+        enabled:
+          type: boolean
+          example: true
+          readOnly: true
+          description: Whether the account is enabled (i.e. not on an expired plan or failed credit card payment)
+        bad_credit_card:
+          type: boolean
+          example: false
+          readOnly: true
+          description: Whether this account has an invalid credit card in use
+        plan_expires:
+          type: string
+          format: date-time
+          example: '2021-01-06T10:55:58-06:00'
+          readOnly: true
+          description: Date and time when this account's plan expires
+        features:
+          readOnly: true
+          type: array
+          items:
+            type: string
+          example:
+          - attendance
+          - openshifts
+          - annotations
+          description: List of all the enabled features on the account
+        timezone_id:
+          readOnly: true
+          type: integer
+          example: 11
+          description: Identifier for the account's timezone
+        timezone_name:
+          readOnly: true
+          type: string
+          example: America/Chicago
+          description: Name for the timezone specified in the timezone_id
+        settings:
+          type: string
+          format: json
+          description: A list of settings for this account
+        place:
+          $ref: '#/components/schemas/schemas-Place'
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        updated_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
   requestBodies:
     AccountSettingsRequest:
       content:

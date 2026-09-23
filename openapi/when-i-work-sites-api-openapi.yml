@@ -1,18 +1,8 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   version: 1.0.0
-  title: When I Work API Documentation Accounts Sites API
-  description: 'The When I Work API is thorough, flexible, and restful. Its methods are logically grouped and follow standard conventions. Make a selection from the left to jump to the method group you would like to know more about.
-
-
-    When designing your integration, When I Work recommends leveraging our Webhooks subscriptions if you plan to regularly pull data to sync records in your data store. This may be preferable to using our API for tasks like staying up to date about shifts or time entries in your account. Frequent large API requests may run into rate limitations.
-
-    Find out more about Webhooks at our [Help Center](https://help.wheniwork.com/articles/webhooks-reference/) or contact our [Customer Care team](mailto:support@wheniwork.com) for assistance.
-
-
-    For more information about obtaining an API key, or general API questions, please refer to the [Help Center](https://help.wheniwork.com/articles/api-services-reference-guide/).
-
-    '
+  title: When I Work API Documentation Sites API
+  description: The When I Work API is thorough, flexible, and restful.
 servers:
 - url: https://api.wheniwork.com
   description: Production
@@ -20,7 +10,7 @@ security:
 - W-Token: []
 tags:
 - name: Sites
-  description: "Sites communicate additional information about a given shift to the recipient. Typical usage is when you schedule employees for shifts that are at different physical sites (addresses) compared to the Schedule where the shift is assigned. A Job site can include additional detail (address or coordinates) that informs the user where this particular shift is to take place. An additional use case would be if you want to use an additional labor reporting tier and having the Job Site be a project or cost center value.\n\n For more information about using Sites, visit the [Help Center](https://help.wheniwork.com/articles/scheduling-shifts-at-job-sites-computer/).\n"
+  description: Sites communicate additional information about a given shift to the recipient.
 paths:
   /2/sites:
     get:
@@ -47,6 +37,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/Site'
+      operationId: get2Sites
+      x-operation-id-source: derived
     post:
       summary: Create Site
       description: Used to create a site within an account
@@ -118,6 +110,8 @@ paths:
                       type: string
                       format: date-time
                       example: '2020-05-26T06:57:28+05:00'
+      operationId: post2Sites
+      x-operation-id-source: derived
   /2/sites/{id}:
     get:
       summary: Get Site
@@ -141,6 +135,8 @@ paths:
                 properties:
                   site:
                     $ref: '#/components/schemas/Site'
+      operationId: get2SitesById
+      x-operation-id-source: derived
     put:
       summary: Update Site
       description: Updates a single site
@@ -165,9 +161,11 @@ paths:
                 properties:
                   site:
                     $ref: '#/components/schemas/Site'
+      operationId: put2SitesById
+      x-operation-id-source: derived
     delete:
       summary: Delete Site
-      description: "Delete an existing site when no longer needed. This operation cannot be undone. \n"
+      description: Delete an existing site when no longer needed. This operation cannot be undone.
       tags:
       - Sites
       parameters:
@@ -203,14 +201,9 @@ paths:
           description: 'Not Found.  The site to be deleted was not found.
 
             '
+      operationId: delete2SitesById
+      x-operation-id-source: derived
 components:
-  requestBodies:
-    SiteRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Site'
-      description: The site data
   schemas:
     Place:
       type: object
@@ -321,6 +314,13 @@ components:
           type: string
           format: date-time
           example: '2020-05-26T06:57:28+05:00'
+  requestBodies:
+    SiteRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Site'
+      description: The site data
   securitySchemes:
     W-Token:
       type: http
