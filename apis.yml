@@ -54,6 +54,7 @@ tags:
   - Hourly Workers
   - Labor Forecasting
   - Human Resources
+  - Scheduling
 tags_raw:
   - Employee Scheduling
   - Workforce Management
@@ -65,6 +66,7 @@ tags_raw:
   - Hourly Workers
   - Labor Forecasting
   - HR
+  - Scheduling
 
 apis:
 - aid: when-i-work:when-i-work-accounts-api

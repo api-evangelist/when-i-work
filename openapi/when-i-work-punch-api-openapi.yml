@@ -306,6 +306,110 @@ paths:
       operationId: get2PunchState
       x-operation-id-source: derived
 components:
+  requestBodies:
+    ClockOutRequest:
+      description: Clock Out (Punch) request data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The ID of the user you are creating the clock-in for
+                example: 14
+              notes:
+                type: string
+                description: Optional notes that can be added to the punch that will show up on the timesheets
+                example: Punching out late there was a delay in the shift change
+                required: false
+              coordinates:
+                type: array
+                description: The GPS coordinates of the clock-out. This is an optional parameter.
+                example:
+                - 44.983791
+                - -93.2774416
+                required: false
+              altitude:
+                type: number
+                description: The altitude that the user is currently at in meters.
+                example: 20
+                required: false
+              accuracy:
+                type: number
+                description: The accuracy in meters of the coordinates being sent.
+                example: 20
+                required: false
+              terminal:
+                type: boolean
+                description: Is the user clocking out from a terminal (web or mobile/tablet terminal app)
+                example: true
+                required: false
+                default: false
+              cashTips:
+                description: The amount of cash tips reported for the shift.
+                type: string
+                format: decimal
+                example: '54.32'
+    ClockInRequest:
+      description: Clock In (Punch) request data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The ID of the user you are creating the clock-in for
+                example: 14
+              site_id:
+                type: integer
+                description: The ID of the job site to punch in at. This is an optional parameter.
+                example: 1
+                required: false
+              position_id:
+                type: integer
+                description: The ID of the position the user is clocking in as. This is an optional parameter.
+                example: 102
+                required: false
+              shift_id:
+                type: integer
+                description: The Shift ID for the shift to punch in for, 0 if punching into an unscheduled shift.
+                example: 0
+                required: false
+              location_id:
+                type: integer
+                description: The Schedule ID for the schedule the user is punching in at. This is an optional parameter.
+                example: 1
+                required: false
+              notes:
+                type: string
+                description: Optional notes that can be added to the punch that will show up on the timesheets.
+                example: Punching in today, running a little late due to traffic problems
+                required: false
+              coordinates:
+                type: array
+                description: The GPS coordinates of the clock-in. This is an optional parameter.
+                example:
+                - 44.937422
+                - -93.084009
+                required: false
+              altitude:
+                type: number
+                description: The altitude that the user is currently at in meters.
+                example: 20
+                required: false
+              accuracy:
+                type: number
+                description: The accuracy in meters of the coordinates being sent.
+                example: 20
+                required: false
+              terminal:
+                type: boolean
+                description: Is the user clocking in from a terminal (web or mobile/tablet terminal app)
+                example: true
+                required: false
+                default: false
   schemas:
     Time:
       type: object
@@ -449,55 +553,42 @@ components:
           readOnly: true
           example: I am a note entered for the shift break paid record
           description: The note associated with the shift break paid record. The include_paid_break_note query param must be set to true for this to be returned.
-    PunchStateShiftBreakBase:
+    PunchStateNestedShiftBreak:
+      allOf:
+      - $ref: '#/components/schemas/PunchStateShiftBreakBase'
+      - type: object
+        properties:
+          start:
+            description: The break start time. Null if the break does not have an start time. Perhaps because it was added on Timesheets.
+            type:
+            - string
+            - 'null'
+            format: date-time
+            example: 2025-05-19T10:00:00-0400
+          end:
+            description: The break end time. Null if the break does not have an end time. Perhaps because it was added on Timesheets.
+            type:
+            - string
+            - 'null'
+            format: date-time
+            example: 2025-05-19T10:08:00-0400
+          length:
+            description: The length of the break if it's completed, in minutes. Length will be zero until the break has ended
+            type: integer
+            example: 6
+    V2Error:
       type: object
+      required:
+      - error
       properties:
-        id:
-          description: The shift break id
-          type: integer
-          example: 2
-        account_id:
-          description: The account id associated with the break
-          type: integer
-          example: 3
-        time_id:
-          description: The time id associated with the break
-          type: integer
-          example: 1
-        type:
-          description: The type of break (1=paid, 2=unpaid)
-          type: integer
-          example: 2
-        creator_id:
-          description: The id of the user who created the break
-          type: integer
-          example: 238
-        auto_deducted:
-          description: Whether the break was auto deducted (0 = false, 1 = true)
-          type: integer
-          example: 0
-        edited_by:
-          description: The id of the user who edited the break
-          type: integer
-          example: 238
-        skipped:
-          description: Whether the break was skipped (0 = false, 1 = true)
-          type: integer
-          example: 0
-        created_at:
-          description: Date and time the break was created at
+        error:
           type: string
-          format: date-time
-          example: 2025-05-19T11:25:04-0400
-        updated_at:
-          description: Date and time the break was last updated
-          type: string
-          format: date-time
-          example: 2025-05-19T11:25:04-0400
-        scheduledbreaks_id:
-          description: The scheduled break associated with this shift break, if it is a scheduled break. Otherwise `0`
-          type: integer
-          example: 0
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
     PunchStateScheduledBreak:
       allOf:
       - type: object
@@ -576,42 +667,55 @@ components:
 
             '
           type: array
-    PunchStateNestedShiftBreak:
-      allOf:
-      - $ref: '#/components/schemas/PunchStateShiftBreakBase'
-      - type: object
-        properties:
-          start:
-            description: The break start time. Null if the break does not have an start time. Perhaps because it was added on Timesheets.
-            type:
-            - string
-            - 'null'
-            format: date-time
-            example: 2025-05-19T10:00:00-0400
-          end:
-            description: The break end time. Null if the break does not have an end time. Perhaps because it was added on Timesheets.
-            type:
-            - string
-            - 'null'
-            format: date-time
-            example: 2025-05-19T10:08:00-0400
-          length:
-            description: The length of the break if it's completed, in minutes. Length will be zero until the break has ended
-            type: integer
-            example: 6
-    V2Error:
+    PunchStateShiftBreakBase:
       type: object
-      required:
-      - error
       properties:
-        error:
+        id:
+          description: The shift break id
+          type: integer
+          example: 2
+        account_id:
+          description: The account id associated with the break
+          type: integer
+          example: 3
+        time_id:
+          description: The time id associated with the break
+          type: integer
+          example: 1
+        type:
+          description: The type of break (1=paid, 2=unpaid)
+          type: integer
+          example: 2
+        creator_id:
+          description: The id of the user who created the break
+          type: integer
+          example: 238
+        auto_deducted:
+          description: Whether the break was auto deducted (0 = false, 1 = true)
+          type: integer
+          example: 0
+        edited_by:
+          description: The id of the user who edited the break
+          type: integer
+          example: 238
+        skipped:
+          description: Whether the break was skipped (0 = false, 1 = true)
+          type: integer
+          example: 0
+        created_at:
+          description: Date and time the break was created at
           type: string
-          description: A description of the specific error
-        code:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The API error code
+          format: date-time
+          example: 2025-05-19T11:25:04-0400
+        updated_at:
+          description: Date and time the break was last updated
+          type: string
+          format: date-time
+          example: 2025-05-19T11:25:04-0400
+        scheduledbreaks_id:
+          description: The scheduled break associated with this shift break, if it is a scheduled break. Otherwise `0`
+          type: integer
+          example: 0
     PunchStateRootShiftBreak:
       allOf:
       - $ref: '#/components/schemas/PunchStateShiftBreakBase'
@@ -754,110 +858,6 @@ components:
             '
           type: integer
       type: object
-  requestBodies:
-    ClockInRequest:
-      description: Clock In (Punch) request data
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: The ID of the user you are creating the clock-in for
-                example: 14
-              site_id:
-                type: integer
-                description: The ID of the job site to punch in at. This is an optional parameter.
-                example: 1
-                required: false
-              position_id:
-                type: integer
-                description: The ID of the position the user is clocking in as. This is an optional parameter.
-                example: 102
-                required: false
-              shift_id:
-                type: integer
-                description: The Shift ID for the shift to punch in for, 0 if punching into an unscheduled shift.
-                example: 0
-                required: false
-              location_id:
-                type: integer
-                description: The Schedule ID for the schedule the user is punching in at. This is an optional parameter.
-                example: 1
-                required: false
-              notes:
-                type: string
-                description: Optional notes that can be added to the punch that will show up on the timesheets.
-                example: Punching in today, running a little late due to traffic problems
-                required: false
-              coordinates:
-                type: array
-                description: The GPS coordinates of the clock-in. This is an optional parameter.
-                example:
-                - 44.937422
-                - -93.084009
-                required: false
-              altitude:
-                type: number
-                description: The altitude that the user is currently at in meters.
-                example: 20
-                required: false
-              accuracy:
-                type: number
-                description: The accuracy in meters of the coordinates being sent.
-                example: 20
-                required: false
-              terminal:
-                type: boolean
-                description: Is the user clocking in from a terminal (web or mobile/tablet terminal app)
-                example: true
-                required: false
-                default: false
-    ClockOutRequest:
-      description: Clock Out (Punch) request data
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: The ID of the user you are creating the clock-in for
-                example: 14
-              notes:
-                type: string
-                description: Optional notes that can be added to the punch that will show up on the timesheets
-                example: Punching out late there was a delay in the shift change
-                required: false
-              coordinates:
-                type: array
-                description: The GPS coordinates of the clock-out. This is an optional parameter.
-                example:
-                - 44.983791
-                - -93.2774416
-                required: false
-              altitude:
-                type: number
-                description: The altitude that the user is currently at in meters.
-                example: 20
-                required: false
-              accuracy:
-                type: number
-                description: The accuracy in meters of the coordinates being sent.
-                example: 20
-                required: false
-              terminal:
-                type: boolean
-                description: Is the user clocking out from a terminal (web or mobile/tablet terminal app)
-                example: true
-                required: false
-                default: false
-              cashTips:
-                description: The amount of cash tips reported for the shift.
-                type: string
-                format: decimal
-                example: '54.32'
   securitySchemes:
     W-Token:
       type: http

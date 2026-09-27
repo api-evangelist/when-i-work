@@ -138,19 +138,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    V2Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          description: A description of the specific error
-        code:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The API error code
     RequestType:
       properties:
         id:
@@ -194,6 +181,19 @@ components:
         deleted_at:
           type: string
           description: Full datetime for when the type was deleted in ISO8601.
+    V2Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
   securitySchemes:
     W-Token:
       type: http

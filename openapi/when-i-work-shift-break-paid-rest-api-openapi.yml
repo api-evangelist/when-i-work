@@ -241,25 +241,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - title
-          properties:
-            code:
-              description: The API error code
-              type: string
-            title:
-              description: The API error code description
-              type: string
-            errorData:
-              description: Context for the error
     ShiftBreakAudit:
       type: object
       required:
@@ -289,6 +270,25 @@ components:
         creatorId: 43
         taken: false
         note: I missed my lunch break
+    Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - title
+          properties:
+            code:
+              description: The API error code
+              type: string
+            title:
+              description: The API error code description
+              type: string
+            errorData:
+              description: Context for the error
   securitySchemes:
     W-Token:
       type: http

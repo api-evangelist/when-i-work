@@ -1087,29 +1087,181 @@ paths:
       operationId: getV3AutoAssign
       x-operation-id-source: derived
 components:
+  requestBodies:
+    ShiftNotifyRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - start
+            - end
+            properties:
+              all:
+                type: boolean
+                value: true
+                description: Should notifications be sent for all matching shifts, or only new and/or changed shifts since last notification.
+              start:
+                type: string
+                format: date-time
+                example: '2020-10-03T22:00:00.000Z'
+                description: The start of the date range of shifts for which to send notifications
+              end:
+                type: string
+                format: date-time
+                example: '2020-10-10T21:59:56.999Z'
+                description: The end of the date range of shifts for which to send notifications
+              location_id:
+                type: integer
+                example: 9
+                description: The location (schedule) with shifts to send notifications. If not set, all locations will be included.
+              message:
+                type: string
+                example: hello world
+                description: A custom message to send with the shift notifications
+              position_ids:
+                type: array
+                items:
+                  type: integer
+                  example: 12342
+                description: Limit schedule notifications to only shifts tagged to the given position IDs. Defaults to all positions.
+                example: []
+              site_ids:
+                type: array
+                items:
+                  type: integer
+                  example: 512352
+                description: Limit schedule notifications to only shifts tagged to the given site IDs. Defaults to all sites.
+                example: []
+              user_ids:
+                type: array
+                items:
+                  type: integer
+                  example: 231523
+                description: Limit schedule notifications to only shifts tagged to the given user IDs. Defaults to all users.
+                example: []
+    SingleShiftNotifyRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: hello world
+                description: A custom message to send with the shift notifications.
+    ShiftUnassignRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              shift_ids:
+                description: Array of shift IDs
+                type: array
+                items:
+                  type: string
+                  example: '555555'
+    ShiftAssignRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_ids:
+                description: Array of user IDs
+                type: array
+                items:
+                  type: string
+                  example: '555555'
+    ShiftRequest:
+      description: Shift data
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - allOf:
+              - $ref: '#/components/schemas/Shift'
+              - type: object
+                properties:
+                  chain:
+                    $ref: '#/components/schemas/Chain'
+            - type: array
+              items:
+                allOf:
+                - $ref: '#/components/schemas/Shift'
+                - type: object
+                  properties:
+                    chain:
+                      $ref: '#/components/schemas/Chain'
+    BulkEditShiftRequest:
+      content:
+        application/json:
+          schema:
+            description: Array of shift objects to update
+            type: array
+            items:
+              $ref: '#/components/schemas/ShiftBulk'
+    ShiftPublish:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              ids:
+                type: array
+                items:
+                  type: integer
+                example:
+                - 878787
+                - 656565
+                description: List of shift IDs
   schemas:
-    ShiftChain:
+    V2Error:
       type: object
+      required:
+      - error
       properties:
-        key:
+        error:
           type: string
-        rrule:
-          description: The RFC5545-compliant RRule representing the shift chain.
-          type: string
-          format: RFC5545
-          example: 'DTSTART;TZID=America/Chicago:20240603T090000
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
+    Chain:
+      type: object
+      required: timezone_id
+      properties:
+        until:
+          description: 'The date you want the recurrence to end on. It must be in UTC, such that when shifted to the provided
 
-            RRULE:FREQ=WEEKLY;UNTIL=20240629T045959Z;WKST=SU;BYDAY=MO,TU,WE,TH,FR
+            timezone (see `timezone_id` below) the time will be midnight in a local time.
+
+
+            Example: You''re creating a shift chain in the `America/Chicago` timezone that you want to end on 7/29/24
+
+            locally. You would send `2024-07-29T05:00:00Z`, which when converted to the provided timezone would be
+
+            `2024-07-29T00:00:00-05:00`.
+
+
+            **NOTE**: This is required when _creating_ a repeating shift. It may be omitted when editing one.
 
             '
-        until:
-          description: The date when the shift chain ends.
           type: string
-          format: date
+          format: iso8601
+          example: '2024-07-29T05:00:00Z'
         week:
-          description: Represents the week frequency interval. `1` means weekly, `2` means every two weeks, etc.
+          description: 'Represents the week frequency interval. `1` means weekly, `2` means every two weeks, etc.
+
+
+            **NOTE**: This is required when _creating_ a repeating shift. It may be omitted when editing one.
+
+            '
           type: int
-          example: 1
+          example: 2
         weekdays:
           description: 'A bitmask of the weekdays which shifts in this chain occur on. In a seven-bit binary number, the most
 
@@ -1132,14 +1284,58 @@ components:
           type: int
           example: 31
         timezone_id:
-          description: The timezone this chain is built in
-          type: string
+          description: 'The timezone this chain is built in.
+
+
+            This must be either the `timezone_id` or `olson_id` from one of the timezones available through
+
+            [this endpoint](#tag/Timezones).
+
+            '
+          type:
+          - string
+          - int
           example: America/Chicago
-        count:
-          deprecated: true
-          description: The number of shifts created by this chain.
-          type: int
-          example: 30
+    Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - title
+          properties:
+            code:
+              description: The API error code
+              type: string
+            title:
+              description: The API error code description
+              type: string
+            errorData:
+              description: Context for the error
+    OpenShiftApprovalRequestUser:
+      type: object
+      properties:
+        id:
+          description: The ID of the OpenShift Approval Request
+          type: integer
+          example: 1
+        user_id:
+          description: The ID of the user that raised their hand for this request
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 21:12:14 -0600
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 22:17:14 -0600
+          readOnly: true
     schemas-Shift:
       type: object
       required:
@@ -1208,188 +1404,58 @@ components:
         instances:
           type: integer
           example: 1
-    User:
-      properties:
-        account_id:
-          description: ID of the primary account for this user.
-          type: integer
-        activated:
-          description: Whether the manager has activated this user.
-          type: boolean
-        email:
-          description: The email address of this user.
-          format: email
-          type: string
-        employee_code:
-          description: 'The user''s employee code. This code can be used to clock in instead of
-
-            the user''s email address, or it can be used to help map users in When
-
-            I Work to other services.
-
-            '
-          type: string
-        first_name:
-          description: The first name of this user.
-          type: string
-        hourly_rate:
-          description: 'The base hourly rate for this user. The user can have additional wages
-
-            based on the position they are working at the time. There is no currency
-
-            attached, so customers are expected to input correct values for their
-
-            currency or do their own conversion from USD.
-
-            '
-          format: float
-          type: number
-        hours_max:
-          description: 'The max hours that this user prefers to work. A manager may still
-
-            schedule the user beyond this value.
-
-            '
-          format: float
-          type: number
-        hours_preferred:
-          description: The preferred number of hours for this user to work.
-          format: float
-          type: number
-        id:
-          description: Unique identifier for the user.
-          type: integer
-        is_deleted:
-          description: Whether the user has been deleted.
-          type: boolean
-        is_hidden:
-          description: Whether the user has been hidden from the scheduler.
-          type: boolean
-        is_payroll:
-          description: 'Whether the user has access to payroll. (Only available for managers
-
-            and supervisors.)
-
-            '
-          type: boolean
-        is_private:
-          description: 'Whether the user has privacy enabled, which will hide their contact
-
-            details from other employees. Supervisors+ can not hide their
-
-            email/phone from other employees.
-
-            '
-          type: boolean
-        is_trusted:
-          description: Whether the user can edit their own timesheet.
-          type: boolean
-        last_login:
-          description: The date and time when this user last logged in.
-          format: date-time
-          type: string
-        last_name:
-          description: The last name of this user.
-          type: string
-        locations:
-          description: An array of location IDs to be applied to this user.
-          items:
-            type: integer
-          type: array
-        login_id:
-          description: Unique identifier for the login belonging to the user.
-          type: integer
-        notes:
-          description: Notes about this user. Visible only to supervisors+.
-          type: string
-        phone_number:
-          description: The phone number of this user.
-          type: string
-        positions:
-          description: An array of position IDs to be assigned to this user.
-          items:
-            type: integer
-          type: array
-        role:
-          description: The user's role.
-          enum:
-          - 1 = Admin
-          - 2 = Manager
-          - 3 = Employee (Default)
-          - 4 = Lead (Unused)
-          - 5 = Supervisor
-          type: integer
-        type:
-          description: 'A bitwise flag representing additional wage options:
-
-            1 = hourly employee
-
-            2 = salaried employee
-
-            4 = Exempt from overtime
-
-            '
-          type: integer
-      type: object
-    OpenShiftApprovalRequest:
+    ShiftChain:
       type: object
       properties:
-        id:
-          description: The ID of the OpenShift Approval Request
-          type: integer
-          example: 1
-          readOnly: true
-        account_id:
-          description: The ID of the account that this OpenShift Approval Request belongs to
-          type: integer
-          example: 1
-        shift_id:
-          description: The ID of the shift that this OpenShift Approval Request is for
-          type: integer
-          example: 1
-        shift:
-          $ref: '#/components/schemas/Shift'
-        creator_id:
-          description: The ID of the user that created this request
-          type: integer
-          example: 1
-          readOnly: true
-        updater_id:
-          description: The ID of the user that last updated this request
-          type: integer
-          example: 1
-          readOnly: true
-        status:
-          description: The current status of the OpenShift Approval Request.
-          type: integer
-          enum:
-          - 0 = Pending
-          - 1 = Approved
-          - 4 = Canceled
-          - 5 = Expired
-          - 6 = Denied
-          example: 0
-        user_status:
-          description: Copy of the status field to mirror the data model of other request types
-          example: 0
-        is_shared:
-          description: Is this approval request shared across schedules
-          type: boolean
-          example: false
-        created_at:
+        key:
           type: string
-          format: date-time
-          example: Thu, 06 Mar 2016 21:12:14 -0600
-        updated_at:
+        rrule:
+          description: The RFC5545-compliant RRule representing the shift chain.
           type: string
-          format: date-time
-          example: Thu, 06 Mar 2016 22:17:14 -0600
-          readOnly: true
-        user_requests:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenShiftApprovalRequestUser'
-          readOnly: true
+          format: RFC5545
+          example: 'DTSTART;TZID=America/Chicago:20240603T090000
+
+            RRULE:FREQ=WEEKLY;UNTIL=20240629T045959Z;WKST=SU;BYDAY=MO,TU,WE,TH,FR
+
+            '
+        until:
+          description: The date when the shift chain ends.
+          type: string
+          format: date
+        week:
+          description: Represents the week frequency interval. `1` means weekly, `2` means every two weeks, etc.
+          type: int
+          example: 1
+        weekdays:
+          description: 'A bitmask of the weekdays which shifts in this chain occur on. In a seven-bit binary number, the most
+
+            significant bit represents Sunday and the least significant bit represents Monday (0b1000001).
+
+
+            Examples:
+
+            | Days                      | Binary      | Decimal |
+
+            |---------------------------|-------------|---------|
+
+            | Monday through Friday     | `0b0011111` | 31      |
+
+            | Monday, Wednesday, Friday | `0b0010101` | 21      |
+
+            | Saturday and Sunday       | `0b1100000` | 96      |
+
+            '
+          type: int
+          example: 31
+        timezone_id:
+          description: The timezone this chain is built in
+          type: string
+          example: America/Chicago
+        count:
+          deprecated: true
+          description: The number of shifts created by this chain.
+          type: int
+          example: 30
     ShiftBulk:
       type: object
       required:
@@ -1458,6 +1524,214 @@ components:
           description: Is the shift a shared OpenShift
           type: boolean
           example: false
+    BaseScheduledBreak:
+      type: object
+      required:
+      - length
+      - paid
+      properties:
+        id:
+          example: 1234
+          type: integer
+          description: ID of the break. Provide in the request when updating an existing break.
+        account_id:
+          example: 1234
+          type: integer
+          readOnly: true
+        length:
+          example: 1800
+          description: The length of the break (seconds).
+          type: integer
+        paid:
+          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+          type: boolean
+        sort:
+          type: integer
+          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
+          readOnly: true
+        created_at:
+          description: Date and time the break was created at.
+          type: string
+          readOnly: true
+        created_by:
+          description: The id of the user who created the break.
+          type: integer
+          readOnly: true
+        updated_at:
+          description: Date and time the break was last updated.
+          type: string
+          readOnly: true
+        updated_by:
+          description: The id of the user who last edited the break.
+          type: integer
+          readOnly: true
+    ShiftHistory:
+      type: object
+      required:
+      - start_time
+      - end_time
+      - location_id
+      properties:
+        type:
+          description: The type of history event
+          type: string
+          enum:
+          - current
+          - created
+          - confirmed
+          - published
+          - unpublished
+          - reassigned
+          - taken
+          - deleted
+          - location_changed
+          - position_changed
+          - position_removed
+          - site_removed
+          - site_changed
+          - break_changed
+          - break_removed
+          - time_changed
+          - accepted
+          - released
+          example: current
+        attributes:
+          type: object
+          required:
+          - actor
+          - at
+          properties:
+            actor:
+              type: string
+              description: The name of the user that triggered this shift history event
+            at:
+              type: string
+              format: date-time
+              example: Fri, 07 Mar 2016 08:30:00 -0600
+              description: The timestamp of when this shift history event was recorded
+            reason:
+              type: string
+              example: edit
+              description: A reason code to provide additional context for why a shift history event was recorded
+              enum:
+              - assign
+              - take
+              - delete
+              - split
+              - swap
+              - drop
+              - edit
+              - assign-approve
+              - repeating-delete
+              - overwrite-conflicts-delete
+              - deleted-assigned-user
+              - user-removed-from-schedule
+              - created-from-repeating-series
+              - updated-from-repeating-series
+              - publish
+              - unpublish
+              - delete-bulk
+              - delete-clear
+            user:
+              type: string
+              description: Present in `current`, `created`, `reassigned`, `taken`, `accepted` and `released` events. The new user assigned to the shift.
+              example: John Doe
+            start:
+              type: string
+              format: date-time
+              description: Present in `current`, `created`, and `time_changed` events. The new start time.
+            end:
+              type: string
+              format: date-time
+              description: Present in `current`, `created`, and `time_changed` events. The new end time.
+            position:
+              type: string
+              description: Present in `current`, `created`, `position_changed` and `position_removed` events. The new position.
+            site:
+              type: string
+              description: Present in `current`, `created`, `site_changed` and `site_removed` events. The new site.
+            break:
+              type: float
+              description: Present in `created`, `current`, `break_changed` and `break_removed` events . The new value of shift break.
+              example: 15
+    OpenShiftApprovalRequest:
+      type: object
+      properties:
+        id:
+          description: The ID of the OpenShift Approval Request
+          type: integer
+          example: 1
+          readOnly: true
+        account_id:
+          description: The ID of the account that this OpenShift Approval Request belongs to
+          type: integer
+          example: 1
+        shift_id:
+          description: The ID of the shift that this OpenShift Approval Request is for
+          type: integer
+          example: 1
+        shift:
+          $ref: '#/components/schemas/Shift'
+        creator_id:
+          description: The ID of the user that created this request
+          type: integer
+          example: 1
+          readOnly: true
+        updater_id:
+          description: The ID of the user that last updated this request
+          type: integer
+          example: 1
+          readOnly: true
+        status:
+          description: The current status of the OpenShift Approval Request.
+          type: integer
+          enum:
+          - 0 = Pending
+          - 1 = Approved
+          - 4 = Canceled
+          - 5 = Expired
+          - 6 = Denied
+          example: 0
+        user_status:
+          description: Copy of the status field to mirror the data model of other request types
+          example: 0
+        is_shared:
+          description: Is this approval request shared across schedules
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 21:12:14 -0600
+        updated_at:
+          type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 22:17:14 -0600
+          readOnly: true
+        user_requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenShiftApprovalRequestUser'
+          readOnly: true
+    ShiftScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to.
+            readOnly: true
+          start_time:
+            example: Mon, 08 May 2023 9:30:00 -0600
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: Mon, 08 May 2023 10:00:00 -0600
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
     Shift:
       type: object
       required:
@@ -1587,403 +1861,129 @@ components:
           description: Is rounding active for shift
           type: boolean
           example: false
-    BaseScheduledBreak:
-      type: object
-      required:
-      - length
-      - paid
+    User:
       properties:
-        id:
-          example: 1234
-          type: integer
-          description: ID of the break. Provide in the request when updating an existing break.
         account_id:
-          example: 1234
+          description: ID of the primary account for this user.
           type: integer
-          readOnly: true
-        length:
-          example: 1800
-          description: The length of the break (seconds).
-          type: integer
-        paid:
-          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+        activated:
+          description: Whether the manager has activated this user.
           type: boolean
-        sort:
-          type: integer
-          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
-          readOnly: true
-        created_at:
-          description: Date and time the break was created at.
+        email:
+          description: The email address of this user.
+          format: email
           type: string
-          readOnly: true
-        created_by:
-          description: The id of the user who created the break.
-          type: integer
-          readOnly: true
-        updated_at:
-          description: Date and time the break was last updated.
+        employee_code:
+          description: 'The user''s employee code. This code can be used to clock in instead of
+
+            the user''s email address, or it can be used to help map users in When
+
+            I Work to other services.
+
+            '
           type: string
-          readOnly: true
-        updated_by:
-          description: The id of the user who last edited the break.
-          type: integer
-          readOnly: true
-    ShiftScheduledBreak:
-      allOf:
-      - $ref: '#/components/schemas/BaseScheduledBreak'
-      - type: object
-        properties:
-          shift_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to.
-            readOnly: true
-          start_time:
-            example: Mon, 08 May 2023 9:30:00 -0600
-            description: The start time of the break. Null if the break does not have a start time.
-            type: string
-          end_time:
-            example: Mon, 08 May 2023 10:00:00 -0600
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
-            type: string
-            readOnly: true
-    V2Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
+        first_name:
+          description: The first name of this user.
           type: string
-          description: A description of the specific error
-        code:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The API error code
-    ShiftHistory:
-      type: object
-      required:
-      - start_time
-      - end_time
-      - location_id
-      properties:
-        type:
-          description: The type of history event
-          type: string
-          enum:
-          - current
-          - created
-          - confirmed
-          - published
-          - unpublished
-          - reassigned
-          - taken
-          - deleted
-          - location_changed
-          - position_changed
-          - position_removed
-          - site_removed
-          - site_changed
-          - break_changed
-          - break_removed
-          - time_changed
-          - accepted
-          - released
-          example: current
-        attributes:
-          type: object
-          required:
-          - actor
-          - at
-          properties:
-            actor:
-              type: string
-              description: The name of the user that triggered this shift history event
-            at:
-              type: string
-              format: date-time
-              example: Fri, 07 Mar 2016 08:30:00 -0600
-              description: The timestamp of when this shift history event was recorded
-            reason:
-              type: string
-              example: edit
-              description: A reason code to provide additional context for why a shift history event was recorded
-              enum:
-              - assign
-              - take
-              - delete
-              - split
-              - swap
-              - drop
-              - edit
-              - assign-approve
-              - repeating-delete
-              - overwrite-conflicts-delete
-              - deleted-assigned-user
-              - user-removed-from-schedule
-              - created-from-repeating-series
-              - updated-from-repeating-series
-              - publish
-              - unpublish
-              - delete-bulk
-              - delete-clear
-            user:
-              type: string
-              description: Present in `current`, `created`, `reassigned`, `taken`, `accepted` and `released` events. The new user assigned to the shift.
-              example: John Doe
-            start:
-              type: string
-              format: date-time
-              description: Present in `current`, `created`, and `time_changed` events. The new start time.
-            end:
-              type: string
-              format: date-time
-              description: Present in `current`, `created`, and `time_changed` events. The new end time.
-            position:
-              type: string
-              description: Present in `current`, `created`, `position_changed` and `position_removed` events. The new position.
-            site:
-              type: string
-              description: Present in `current`, `created`, `site_changed` and `site_removed` events. The new site.
-            break:
-              type: float
-              description: Present in `created`, `current`, `break_changed` and `break_removed` events . The new value of shift break.
-              example: 15
-    OpenShiftApprovalRequestUser:
-      type: object
-      properties:
+        hourly_rate:
+          description: 'The base hourly rate for this user. The user can have additional wages
+
+            based on the position they are working at the time. There is no currency
+
+            attached, so customers are expected to input correct values for their
+
+            currency or do their own conversion from USD.
+
+            '
+          format: float
+          type: number
+        hours_max:
+          description: 'The max hours that this user prefers to work. A manager may still
+
+            schedule the user beyond this value.
+
+            '
+          format: float
+          type: number
+        hours_preferred:
+          description: The preferred number of hours for this user to work.
+          format: float
+          type: number
         id:
-          description: The ID of the OpenShift Approval Request
+          description: Unique identifier for the user.
           type: integer
-          example: 1
-        user_id:
-          description: The ID of the user that raised their hand for this request
+        is_deleted:
+          description: Whether the user has been deleted.
+          type: boolean
+        is_hidden:
+          description: Whether the user has been hidden from the scheduler.
+          type: boolean
+        is_payroll:
+          description: 'Whether the user has access to payroll. (Only available for managers
+
+            and supervisors.)
+
+            '
+          type: boolean
+        is_private:
+          description: 'Whether the user has privacy enabled, which will hide their contact
+
+            details from other employees. Supervisors+ can not hide their
+
+            email/phone from other employees.
+
+            '
+          type: boolean
+        is_trusted:
+          description: Whether the user can edit their own timesheet.
+          type: boolean
+        last_login:
+          description: The date and time when this user last logged in.
+          format: date-time
+          type: string
+        last_name:
+          description: The last name of this user.
+          type: string
+        locations:
+          description: An array of location IDs to be applied to this user.
+          items:
+            type: integer
+          type: array
+        login_id:
+          description: Unique identifier for the login belonging to the user.
           type: integer
-          example: 1
-        created_at:
+        notes:
+          description: Notes about this user. Visible only to supervisors+.
           type: string
-          format: date-time
-          example: Thu, 06 Mar 2016 21:12:14 -0600
-          readOnly: true
-        deleted_at:
+        phone_number:
+          description: The phone number of this user.
           type: string
-          format: date-time
-          example: Thu, 06 Mar 2016 22:17:14 -0600
-          readOnly: true
-    Chain:
+        positions:
+          description: An array of position IDs to be assigned to this user.
+          items:
+            type: integer
+          type: array
+        role:
+          description: The user's role.
+          enum:
+          - 1 = Admin
+          - 2 = Manager
+          - 3 = Employee (Default)
+          - 4 = Lead (Unused)
+          - 5 = Supervisor
+          type: integer
+        type:
+          description: 'A bitwise flag representing additional wage options:
+
+            1 = hourly employee
+
+            2 = salaried employee
+
+            4 = Exempt from overtime
+
+            '
+          type: integer
       type: object
-      required: timezone_id
-      properties:
-        until:
-          description: 'The date you want the recurrence to end on. It must be in UTC, such that when shifted to the provided
-
-            timezone (see `timezone_id` below) the time will be midnight in a local time.
-
-
-            Example: You''re creating a shift chain in the `America/Chicago` timezone that you want to end on 7/29/24
-
-            locally. You would send `2024-07-29T05:00:00Z`, which when converted to the provided timezone would be
-
-            `2024-07-29T00:00:00-05:00`.
-
-
-            **NOTE**: This is required when _creating_ a repeating shift. It may be omitted when editing one.
-
-            '
-          type: string
-          format: iso8601
-          example: '2024-07-29T05:00:00Z'
-        week:
-          description: 'Represents the week frequency interval. `1` means weekly, `2` means every two weeks, etc.
-
-
-            **NOTE**: This is required when _creating_ a repeating shift. It may be omitted when editing one.
-
-            '
-          type: int
-          example: 2
-        weekdays:
-          description: 'A bitmask of the weekdays which shifts in this chain occur on. In a seven-bit binary number, the most
-
-            significant bit represents Sunday and the least significant bit represents Monday (0b1000001).
-
-
-            Examples:
-
-            | Days                      | Binary      | Decimal |
-
-            |---------------------------|-------------|---------|
-
-            | Monday through Friday     | `0b0011111` | 31      |
-
-            | Monday, Wednesday, Friday | `0b0010101` | 21      |
-
-            | Saturday and Sunday       | `0b1100000` | 96      |
-
-            '
-          type: int
-          example: 31
-        timezone_id:
-          description: 'The timezone this chain is built in.
-
-
-            This must be either the `timezone_id` or `olson_id` from one of the timezones available through
-
-            [this endpoint](#tag/Timezones).
-
-            '
-          type:
-          - string
-          - int
-          example: America/Chicago
-    Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - title
-          properties:
-            code:
-              description: The API error code
-              type: string
-            title:
-              description: The API error code description
-              type: string
-            errorData:
-              description: Context for the error
-  requestBodies:
-    ShiftPublish:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              ids:
-                type: array
-                items:
-                  type: integer
-                example:
-                - 878787
-                - 656565
-                description: List of shift IDs
-    ShiftUnassignRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              shift_ids:
-                description: Array of shift IDs
-                type: array
-                items:
-                  type: string
-                  example: '555555'
-    ShiftNotifyRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            required:
-            - start
-            - end
-            properties:
-              all:
-                type: boolean
-                value: true
-                description: Should notifications be sent for all matching shifts, or only new and/or changed shifts since last notification.
-              start:
-                type: string
-                format: date-time
-                example: '2020-10-03T22:00:00.000Z'
-                description: The start of the date range of shifts for which to send notifications
-              end:
-                type: string
-                format: date-time
-                example: '2020-10-10T21:59:56.999Z'
-                description: The end of the date range of shifts for which to send notifications
-              location_id:
-                type: integer
-                example: 9
-                description: The location (schedule) with shifts to send notifications. If not set, all locations will be included.
-              message:
-                type: string
-                example: hello world
-                description: A custom message to send with the shift notifications
-              position_ids:
-                type: array
-                items:
-                  type: integer
-                  example: 12342
-                description: Limit schedule notifications to only shifts tagged to the given position IDs. Defaults to all positions.
-                example: []
-              site_ids:
-                type: array
-                items:
-                  type: integer
-                  example: 512352
-                description: Limit schedule notifications to only shifts tagged to the given site IDs. Defaults to all sites.
-                example: []
-              user_ids:
-                type: array
-                items:
-                  type: integer
-                  example: 231523
-                description: Limit schedule notifications to only shifts tagged to the given user IDs. Defaults to all users.
-                example: []
-    ShiftRequest:
-      description: Shift data
-      content:
-        application/json:
-          schema:
-            oneOf:
-            - allOf:
-              - $ref: '#/components/schemas/Shift'
-              - type: object
-                properties:
-                  chain:
-                    $ref: '#/components/schemas/Chain'
-            - type: array
-              items:
-                allOf:
-                - $ref: '#/components/schemas/Shift'
-                - type: object
-                  properties:
-                    chain:
-                      $ref: '#/components/schemas/Chain'
-    BulkEditShiftRequest:
-      content:
-        application/json:
-          schema:
-            description: Array of shift objects to update
-            type: array
-            items:
-              $ref: '#/components/schemas/ShiftBulk'
-    SingleShiftNotifyRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              message:
-                type: string
-                example: hello world
-                description: A custom message to send with the shift notifications.
-    ShiftAssignRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              user_ids:
-                description: Array of user IDs
-                type: array
-                items:
-                  type: string
-                  example: '555555'
   securitySchemes:
     W-Token:
       type: http

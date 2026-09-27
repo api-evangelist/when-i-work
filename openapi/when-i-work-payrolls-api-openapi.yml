@@ -236,6 +236,13 @@ paths:
       operationId: get2PayrollsNotices
       x-operation-id-source: derived
 components:
+  requestBodies:
+    PayrollRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Payroll'
+      description: The payroll data
   schemas:
     Time:
       type: object
@@ -379,6 +386,38 @@ components:
           readOnly: true
           example: I am a note entered for the shift break paid record
           description: The note associated with the shift break paid record. The include_paid_break_note query param must be set to true for this to be returned.
+    V2Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
+    ShiftScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to.
+            readOnly: true
+          start_time:
+            example: Mon, 08 May 2023 9:30:00 -0600
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: Mon, 08 May 2023 10:00:00 -0600
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
     AbsenceActions:
       type: object
       required:
@@ -501,6 +540,190 @@ components:
           format: date-time
           example: Thu, 10 Jun 2021 10:19:47 -0500
           description: Time when the pay period was last updated (RFC 2822)
+    Punch:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the punch.
+        account_id:
+          type: integer
+          description: The ID of the account the punch is associated with.
+        location_id:
+          type: integer
+          description: The ID of the schedule that the punch is associated with.
+        alert_type:
+          type: integer
+          description: 'A bitmask representing any alerts that might apply to the punch.
+
+            '
+        method:
+          type: integer
+          description: A bitmask representing how the punch was created. See `method_name` for a human readable version.
+        method_name:
+          type:
+          - string
+          - 'null'
+          description: How the punch was created.
+          enum:
+          - Third Party App
+          - Mobile
+          - Computer
+          - Terminal
+        site_id:
+          type: integer
+          description: The ID of the site the punch is associated with.
+        type:
+          type: integer
+          description: A code representing whether the punch was an "In" (`1`) or "Out" (`2`) punch.
+        time_id:
+          type: integer
+          description: The ID of the time the punch is associated with.
+        user_id:
+          type: integer
+          description: The ID of the user who is punching in or out.
+        accuracy:
+          type: number
+          format: float
+          description: The radius of uncertainty for the punch coordinates in meters.
+        altitude:
+          type: number
+          format: float
+          description: The altitude of the punch in meters.
+        latitude:
+          type: number
+          format: float
+          description: The latitude coordinate of the punch.
+        longitude:
+          type: number
+          format: float
+          description: The longitude coordinate of the punch.
+        ip_address:
+          type: string
+          description: The IP address of the device used to create the punch.
+        notes:
+          type: string
+          description: Any notes associated with the punch.
+    Absence:
+      type: object
+      required:
+      - userId
+      - shiftId
+      - shiftStartTime
+      - shiftEndTime
+      - locationId
+      - creatorId
+      properties:
+        id:
+          type: string
+          example: '1'
+          description: ID of the absence
+          readOnly: true
+        accountId:
+          type: string
+          example: '7'
+          description: Account ID of the absence
+          readOnly: true
+        userId:
+          type: string
+          example: '226'
+          description: User ID of the absence
+        shiftId:
+          type: string
+          example: '9'
+          description: Shift ID of the absence
+        shiftStartTime:
+          type: string
+          format: date-time
+          example: '2016-12-19T16:39:57-08:00'
+          description: Start time of the shift
+        shiftEndTime:
+          type: string
+          format: date-time
+          example: '2016-12-19T16:39:57-08:00'
+          description: End time of the shift
+        locationId:
+          type: string
+          example: '13'
+          description: Location ID of the absence
+        siteId:
+          type: string
+          example: '10'
+          description: Site ID of the absence
+        positionId:
+          type: string
+          example: '38'
+          description: Position ID of the absence
+        creatorId:
+          type: string
+          example: '226'
+          description: User ID of the creator of the absence
+        notes:
+          type: string
+          example: Absence note
+          description: Note of the absence
+        actions:
+          type: array
+          description: List of actions taken on a shift.
+          items:
+            $ref: '#/components/schemas/AbsenceActions'
+          readOnly: true
+        createdAt:
+          type: string
+          format: date-time
+          example: '2016-12-19T16:39:57-08:00'
+          description: Time the absence was created
+          readOnly: true
+        updatedBy:
+          type: integer
+          example: 226
+          description: User ID of the last updater of the absence
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2016-12-19T16:39:57-08:00'
+          description: Time the absence was last updated
+          readOnly: true
+        isDeleted:
+          type: boolean
+          example: false
+          description: Whether the absence has been deleted
+          readOnly: true
+    PayrollHours:
+      type: object
+      description: The paid time for users within a given payroll (broken out by type, split as needed when crossing pay periods)
+      properties:
+        id:
+          description: The unique ID of the payroll hours object.
+          type: integer
+        payroll_id:
+          description: The ID of the Payroll this object belongs to.
+          type: integer
+        type:
+          type: integer
+          description: "The type of time associated with the payroll hours\n * `1` - Regular Time\n * `2` - Over Time\n * `3` - Paid Time Off\n * `4` - Holiday\n * `5` - Double Time\n * `6` - Sick\n * `7` - Time Off (custom type, unpaid time-off not included)\n"
+        type_label:
+          description: The label for the type of time off if a timeoff type (Personal, Sick, Holiday)
+          type: string
+          readOnly: true
+        user_id:
+          description: The ID of the user who these hours belong to.
+          type: integer
+        position_id:
+          description: The ID of the position that is associated with these hours. Default 0 for none.
+          type: integer
+        hours:
+          description: The number hours.
+          type: number
+          format: float
+        rate:
+          description: The hourly rate paid for these hours.
+          type: number
+          format: float
+        total:
+          description: The total wages for these hours.
+          type: number
+          format: float
     Shift:
       type: object
       required:
@@ -630,54 +853,6 @@ components:
           description: Is rounding active for shift
           type: boolean
           example: false
-    PayrollHours:
-      type: object
-      description: The paid time for users within a given payroll (broken out by type, split as needed when crossing pay periods)
-      properties:
-        id:
-          description: The unique ID of the payroll hours object.
-          type: integer
-        payroll_id:
-          description: The ID of the Payroll this object belongs to.
-          type: integer
-        type:
-          type: integer
-          description: "The type of time associated with the payroll hours\n * `1` - Regular Time\n * `2` - Over Time\n * `3` - Paid Time Off\n * `4` - Holiday\n * `5` - Double Time\n * `6` - Sick\n * `7` - Time Off (custom type, unpaid time-off not included)\n"
-        type_label:
-          description: The label for the type of time off if a timeoff type (Personal, Sick, Holiday)
-          type: string
-          readOnly: true
-        user_id:
-          description: The ID of the user who these hours belong to.
-          type: integer
-        position_id:
-          description: The ID of the position that is associated with these hours. Default 0 for none.
-          type: integer
-        hours:
-          description: The number hours.
-          type: number
-          format: float
-        rate:
-          description: The hourly rate paid for these hours.
-          type: number
-          format: float
-        total:
-          description: The total wages for these hours.
-          type: number
-          format: float
-    V2Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          description: A description of the specific error
-        code:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The API error code
     Notice:
       type: object
       properties:
@@ -749,70 +924,6 @@ components:
             `end_time` of the shift, or the `created_at` time of the absence.
 
             '
-    Punch:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The ID of the punch.
-        account_id:
-          type: integer
-          description: The ID of the account the punch is associated with.
-        location_id:
-          type: integer
-          description: The ID of the schedule that the punch is associated with.
-        alert_type:
-          type: integer
-          description: 'A bitmask representing any alerts that might apply to the punch.
-
-            '
-        method:
-          type: integer
-          description: A bitmask representing how the punch was created. See `method_name` for a human readable version.
-        method_name:
-          type:
-          - string
-          - 'null'
-          description: How the punch was created.
-          enum:
-          - Third Party App
-          - Mobile
-          - Computer
-          - Terminal
-        site_id:
-          type: integer
-          description: The ID of the site the punch is associated with.
-        type:
-          type: integer
-          description: A code representing whether the punch was an "In" (`1`) or "Out" (`2`) punch.
-        time_id:
-          type: integer
-          description: The ID of the time the punch is associated with.
-        user_id:
-          type: integer
-          description: The ID of the user who is punching in or out.
-        accuracy:
-          type: number
-          format: float
-          description: The radius of uncertainty for the punch coordinates in meters.
-        altitude:
-          type: number
-          format: float
-          description: The altitude of the punch in meters.
-        latitude:
-          type: number
-          format: float
-          description: The latitude coordinate of the punch.
-        longitude:
-          type: number
-          format: float
-          description: The longitude coordinate of the punch.
-        ip_address:
-          type: string
-          description: The IP address of the device used to create the punch.
-        notes:
-          type: string
-          description: Any notes associated with the punch.
     BaseScheduledBreak:
       type: object
       required:
@@ -854,117 +965,6 @@ components:
           description: The id of the user who last edited the break.
           type: integer
           readOnly: true
-    Absence:
-      type: object
-      required:
-      - userId
-      - shiftId
-      - shiftStartTime
-      - shiftEndTime
-      - locationId
-      - creatorId
-      properties:
-        id:
-          type: string
-          example: '1'
-          description: ID of the absence
-          readOnly: true
-        accountId:
-          type: string
-          example: '7'
-          description: Account ID of the absence
-          readOnly: true
-        userId:
-          type: string
-          example: '226'
-          description: User ID of the absence
-        shiftId:
-          type: string
-          example: '9'
-          description: Shift ID of the absence
-        shiftStartTime:
-          type: string
-          format: date-time
-          example: '2016-12-19T16:39:57-08:00'
-          description: Start time of the shift
-        shiftEndTime:
-          type: string
-          format: date-time
-          example: '2016-12-19T16:39:57-08:00'
-          description: End time of the shift
-        locationId:
-          type: string
-          example: '13'
-          description: Location ID of the absence
-        siteId:
-          type: string
-          example: '10'
-          description: Site ID of the absence
-        positionId:
-          type: string
-          example: '38'
-          description: Position ID of the absence
-        creatorId:
-          type: string
-          example: '226'
-          description: User ID of the creator of the absence
-        notes:
-          type: string
-          example: Absence note
-          description: Note of the absence
-        actions:
-          type: array
-          description: List of actions taken on a shift.
-          items:
-            $ref: '#/components/schemas/AbsenceActions'
-          readOnly: true
-        createdAt:
-          type: string
-          format: date-time
-          example: '2016-12-19T16:39:57-08:00'
-          description: Time the absence was created
-          readOnly: true
-        updatedBy:
-          type: integer
-          example: 226
-          description: User ID of the last updater of the absence
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2016-12-19T16:39:57-08:00'
-          description: Time the absence was last updated
-          readOnly: true
-        isDeleted:
-          type: boolean
-          example: false
-          description: Whether the absence has been deleted
-          readOnly: true
-    ShiftScheduledBreak:
-      allOf:
-      - $ref: '#/components/schemas/BaseScheduledBreak'
-      - type: object
-        properties:
-          shift_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to.
-            readOnly: true
-          start_time:
-            example: Mon, 08 May 2023 9:30:00 -0600
-            description: The start time of the break. Null if the break does not have a start time.
-            type: string
-          end_time:
-            example: Mon, 08 May 2023 10:00:00 -0600
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
-            type: string
-            readOnly: true
-  requestBodies:
-    PayrollRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Payroll'
-      description: The payroll data
   securitySchemes:
     W-Token:
       type: http

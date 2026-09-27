@@ -388,41 +388,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ScheduledBreak:
-      type: object
-      required:
-      - shiftId
-      - type
-      - length
-      properties:
-        shiftId:
-          description: The id of the associated shift
-          type: integer
-        type:
-          description: The type of break (1=paid, 2=unpaid)
-          type: integer
-        length:
-          description: The break time rounded to the nearest minute
-          type: integer
-    Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - title
-          properties:
-            code:
-              description: The API error code
-              type: string
-            title:
-              description: The API error code description
-              type: string
-            errorData:
-              description: Context for the error
     ShiftBreak:
       type: object
       required:
@@ -489,6 +454,41 @@ components:
         start: 2018-01-01T00:00:00+00:00:00
         end: 2018-01-01T00:15:00+00:00:00
         scheduledBreakId: 0
+    Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - title
+          properties:
+            code:
+              description: The API error code
+              type: string
+            title:
+              description: The API error code description
+              type: string
+            errorData:
+              description: Context for the error
+    ScheduledBreak:
+      type: object
+      required:
+      - shiftId
+      - type
+      - length
+      properties:
+        shiftId:
+          description: The id of the associated shift
+          type: integer
+        type:
+          description: The type of break (1=paid, 2=unpaid)
+          type: integer
+        length:
+          description: The break time rounded to the nearest minute
+          type: integer
   securitySchemes:
     W-Token:
       type: http

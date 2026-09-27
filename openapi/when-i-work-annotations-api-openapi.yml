@@ -187,13 +187,6 @@ paths:
       operationId: delete2AnnotationsById
       x-operation-id-source: derived
 components:
-  requestBodies:
-    AnnotationRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Annotation'
-      description: The annotation data
   schemas:
     Annotation:
       type: object
@@ -260,6 +253,13 @@ components:
           type: string
           format: date-time
           example: '2019-05-16T06:57:28+05:00'
+  requestBodies:
+    AnnotationRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Annotation'
+      description: The annotation data
   securitySchemes:
     W-Token:
       type: http

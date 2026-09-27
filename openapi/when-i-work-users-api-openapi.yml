@@ -418,7 +418,239 @@ paths:
       operationId: post2UsersInviteById
       x-operation-id-source: derived
 components:
+  requestBodies:
+    BulkUserRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/components-schemas-User'
+            - type: object
+              properties:
+                invite:
+                  type: boolean
+                  example: false
+                  description: Whether an invite should be sent upon user creation. When missing or not false, an invite is sent by default
+      description: The user data
+    AvatarRequest:
+      content:
+        image/*:
+          schema:
+            type: string
+            format: binary
+    UserRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/components-schemas-User'
+            - type: object
+              properties:
+                invite:
+                  type: boolean
+                  example: false
+                  description: Whether an invite should be sent upon user creation. When missing or not false, an invite is sent by default
+      description: The user data
+    UserAlertsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              timeoff:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts when the status of a time off request changes.
+              swaps:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts when the status of a swap or drop request changes.
+              schedule:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts when the schedule changes.
+              reminders:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts for reminders prior to shifts.
+              availability:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts for changes in availability.
+              new_employee:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts when a new employee is added.
+              attendance:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts for attendance-related events.
+              workchat:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts when new workchat messages are received and how they are notified.
+              reminder_time:
+                type: number
+                format: float
+                description: Time before an event when a user should be sent notifications, in hours.
+                example: 2
+    UpdateUserRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/components-schemas-User'
+            - type: object
+              properties:
+                reactivate:
+                  type: boolean
+                  example: true
+                  description: Whether to reactivate a previously deleted user.
+      description: The user data to update
   schemas:
+    components-schemas-User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+          description: Unique identifier for the user
+        login_id:
+          type: integer
+          example: 10000
+          readOnly: true
+          description: Unique identifier for the person/login belonging to the user.
+        account_id:
+          type: integer
+          example: 10000
+          readOnly: true
+          description: ID of the account for this user.
+        role:
+          type: integer
+          enum:
+          - 1
+          - 2
+          - 3
+          - 5
+          description: "The user's role:\n * `1` - Admin\n * `2` - Manager\n * `3` - Employee (Default)\n * `5` - Supervisor\n"
+        email:
+          type: string
+          example: jdoe@wheniwork.com
+          description: The email address of the user.
+        first_name:
+          type: string
+          example: John
+          description: The first name of the user.
+        middle_name:
+          type: string
+          example: Alan
+          description: The middle name of the user.
+        last_name:
+          type: string
+          example: Doe
+          description: The last name of the user.
+        phone_number:
+          type: string
+          example: 16511234567
+          description: The phone number of the user
+        employee_code:
+          type: string
+          example: 1234
+          description: 'The user''s employee code. This code can be used to clock in instead of the user''s email address, or it can be used to help map users in When I Work to other services.
+
+            '
+        activated:
+          type: boolean
+          example: true
+          readOnly: true
+          description: Indicates of a manager has activated (accepted a pending user) this user.
+        notes:
+          type: string
+          example: Excellent employee
+          description: Notes about this user. (Only viewable by supervisors and managers).
+        hours_max:
+          type: number
+          format: float
+          example: 40
+          description: The max hours that this user can work.
+        hourly_rate:
+          type: number
+          format: float
+          example: 15
+          description: The hourly rate for this user. (Only viewable by managers and supervisors that can do payroll).
+        position_rates:
+          type: object
+          example:
+            '1001': 2
+            '1002': 3.5
+          description: "A mapping of position IDs to the user's hourly rate for that position. The rates here are applied on\ntop of the user's base hourly rate (see hourly_rate). A user with an hourly rate of 15 and a position rate \nof 1 for position 1001 would result in an hourly rate of 16 for position 1001. (Only viewable by managers \nand supervisors that can do payroll).\n"
+        type:
+          type: integer
+          example: 5
+          description: "Use the `employment_type` property instead.\nA bitwise flag representing additional wage options:\n * `1` - Hourly employee\n * `2` - Salaried employee\n * `5` - Exempt from overtime.\n"
+          deprecated: true
+        employment_type:
+          type: string
+          enum:
+          - hourly
+          - hourly_exempt
+          - salaried *
+          - salaried_exempt *
+          - shareholder *
+          description: Employment type of the user. *These options are only available to payroll customers
+        last_login:
+          type: string
+          format: date-time
+          example: '2019-05-23T23:59:59+05:00'
+          readOnly: true
+          description: The date and time when this user last logged in.
+        positions:
+          type: array
+          items:
+            type: integer
+          example:
+          - 1
+          - 2
+          - 3
+          description: An array of positions assigned to this user.
+        locations:
+          type: array
+          items:
+            type: integer
+          example:
+          - 1
+          - 2
+          - 3
+          description: An array of locations (schedules) assigned to this user.
+        is_deleted:
+          type: boolean
+          example: false
+          readOnly: true
+          description: Whether the user has been deleted.
+        is_hidden:
+          type: boolean
+          example: false
+          description: Whether the user has been hidden from the scheduler.
+        is_payroll:
+          type: boolean
+          example: false
+          description: Whether the user has access to payroll. (Only available for managers and supervisors).
+        is_private:
+          type: boolean
+          example: false
+          description: Whether the user has privacy enabled, which will hide their contact details from other employees (excluding supervisors and managers).
+        is_trusted:
+          type: boolean
+          example: false
+          description: Whether the user can edit their own timesheet.
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        updated_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        start_date:
+          type: string
+          format: date
+          example: '2019-05-16'
+          description: yyyy-mm-dd formatted date for when the user started their employment
     BulkUserResponse:
       description: Response for both Valid/Invalid requests
       content:
@@ -603,238 +835,6 @@ components:
             '
           type: integer
       type: object
-    components-schemas-User:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          example: 10000
-          description: Unique identifier for the user
-        login_id:
-          type: integer
-          example: 10000
-          readOnly: true
-          description: Unique identifier for the person/login belonging to the user.
-        account_id:
-          type: integer
-          example: 10000
-          readOnly: true
-          description: ID of the account for this user.
-        role:
-          type: integer
-          enum:
-          - 1
-          - 2
-          - 3
-          - 5
-          description: "The user's role:\n * `1` - Admin\n * `2` - Manager\n * `3` - Employee (Default)\n * `5` - Supervisor\n"
-        email:
-          type: string
-          example: jdoe@wheniwork.com
-          description: The email address of the user.
-        first_name:
-          type: string
-          example: John
-          description: The first name of the user.
-        middle_name:
-          type: string
-          example: Alan
-          description: The middle name of the user.
-        last_name:
-          type: string
-          example: Doe
-          description: The last name of the user.
-        phone_number:
-          type: string
-          example: 16511234567
-          description: The phone number of the user
-        employee_code:
-          type: string
-          example: 1234
-          description: 'The user''s employee code. This code can be used to clock in instead of the user''s email address, or it can be used to help map users in When I Work to other services.
-
-            '
-        activated:
-          type: boolean
-          example: true
-          readOnly: true
-          description: Indicates of a manager has activated (accepted a pending user) this user.
-        notes:
-          type: string
-          example: Excellent employee
-          description: Notes about this user. (Only viewable by supervisors and managers).
-        hours_max:
-          type: number
-          format: float
-          example: 40
-          description: The max hours that this user can work.
-        hourly_rate:
-          type: number
-          format: float
-          example: 15
-          description: The hourly rate for this user. (Only viewable by managers and supervisors that can do payroll).
-        position_rates:
-          type: object
-          example:
-            '1001': 2
-            '1002': 3.5
-          description: "A mapping of position IDs to the user's hourly rate for that position. The rates here are applied on\ntop of the user's base hourly rate (see hourly_rate). A user with an hourly rate of 15 and a position rate \nof 1 for position 1001 would result in an hourly rate of 16 for position 1001. (Only viewable by managers \nand supervisors that can do payroll).\n"
-        type:
-          type: integer
-          example: 5
-          description: "Use the `employment_type` property instead.\nA bitwise flag representing additional wage options:\n * `1` - Hourly employee\n * `2` - Salaried employee\n * `5` - Exempt from overtime.\n"
-          deprecated: true
-        employment_type:
-          type: string
-          enum:
-          - hourly
-          - hourly_exempt
-          - salaried *
-          - salaried_exempt *
-          - shareholder *
-          description: Employment type of the user. *These options are only available to payroll customers
-        last_login:
-          type: string
-          format: date-time
-          example: '2019-05-23T23:59:59+05:00'
-          readOnly: true
-          description: The date and time when this user last logged in.
-        positions:
-          type: array
-          items:
-            type: integer
-          example:
-          - 1
-          - 2
-          - 3
-          description: An array of positions assigned to this user.
-        locations:
-          type: array
-          items:
-            type: integer
-          example:
-          - 1
-          - 2
-          - 3
-          description: An array of locations (schedules) assigned to this user.
-        is_deleted:
-          type: boolean
-          example: false
-          readOnly: true
-          description: Whether the user has been deleted.
-        is_hidden:
-          type: boolean
-          example: false
-          description: Whether the user has been hidden from the scheduler.
-        is_payroll:
-          type: boolean
-          example: false
-          description: Whether the user has access to payroll. (Only available for managers and supervisors).
-        is_private:
-          type: boolean
-          example: false
-          description: Whether the user has privacy enabled, which will hide their contact details from other employees (excluding supervisors and managers).
-        is_trusted:
-          type: boolean
-          example: false
-          description: Whether the user can edit their own timesheet.
-        created_at:
-          readOnly: true
-          type: string
-          format: date-time
-          example: '2019-05-16T06:57:28+05:00'
-        updated_at:
-          readOnly: true
-          type: string
-          format: date-time
-          example: '2019-05-16T06:57:28+05:00'
-        start_date:
-          type: string
-          format: date
-          example: '2019-05-16'
-          description: yyyy-mm-dd formatted date for when the user started their employment
-  requestBodies:
-    BulkUserRequest:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/components-schemas-User'
-            - type: object
-              properties:
-                invite:
-                  type: boolean
-                  example: false
-                  description: Whether an invite should be sent upon user creation. When missing or not false, an invite is sent by default
-      description: The user data
-    AvatarRequest:
-      content:
-        image/*:
-          schema:
-            type: string
-            format: binary
-    UpdateUserRequest:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/components-schemas-User'
-            - type: object
-              properties:
-                reactivate:
-                  type: boolean
-                  example: true
-                  description: Whether to reactivate a previously deleted user.
-      description: The user data to update
-    UserRequest:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/components-schemas-User'
-            - type: object
-              properties:
-                invite:
-                  type: boolean
-                  example: false
-                  description: Whether an invite should be sent upon user creation. When missing or not false, an invite is sent by default
-      description: The user data
-    UserAlertsRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              timeoff:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts when the status of a time off request changes.
-              swaps:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts when the status of a swap or drop request changes.
-              schedule:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts when the schedule changes.
-              reminders:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts for reminders prior to shifts.
-              availability:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts for changes in availability.
-              new_employee:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts when a new employee is added.
-              attendance:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts for attendance-related events.
-              workchat:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts when new workchat messages are received and how they are notified.
-              reminder_time:
-                type: number
-                format: float
-                description: Time before an event when a user should be sent notifications, in hours.
-                example: 2
   responses:
     InviteUserResponse:
       description: Valid
