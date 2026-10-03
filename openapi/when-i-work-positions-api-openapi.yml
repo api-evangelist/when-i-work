@@ -207,6 +207,13 @@ paths:
       operationId: put2PositionsBulk
       x-operation-id-source: derived
 components:
+  requestBodies:
+    PositionRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Position'
+      description: The position data
   schemas:
     Position:
       type: object
@@ -258,13 +265,6 @@ components:
           - type: integer
           - type: string
           description: The API error code
-  requestBodies:
-    PositionRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Position'
-      description: The position data
   securitySchemes:
     W-Token:
       type: http

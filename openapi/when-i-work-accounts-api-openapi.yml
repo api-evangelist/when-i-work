@@ -134,6 +134,93 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    schemas-Account:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+          description: Unique identifier for the account.
+        master_id:
+          type: integer
+          example: 0
+          readOnly: true
+          description: "This ID indicates the status of a parent/child relationship\n * `0` - Indicates that this account does NOT have a parent/child relationship.\n * `An ID that does NOT match the account's ID` - Indicates that this account is a child and `master_id` is the parent.\n * `An ID that DOES match the account's ID` - Indicates that this account is the parent and has children.\n"
+        type:
+          readOnly: true
+          type: integer
+          enum:
+          - 1
+          - 2
+          - 3
+          description: "The account's type, must be one of:\n * `1` - Scheduling\n * `2` - Attendance\n * `3` - Both\n"
+        logo:
+          type: string
+          example: https://s3.amazonaws.com/path/to/logo.jpg
+          description: Path to the image file for the company's logo.
+        company:
+          readOnly: true
+          type: string
+          example: When I Work
+          description: Name of the company for which this account is in use.
+        subdomain:
+          type: string
+          example: wheniwork
+          deprecated: true
+          description: Subdomain of wheniwork.com to access company-specific When I Work web application. No longer used.
+        enabled:
+          type: boolean
+          example: true
+          readOnly: true
+          description: Whether the account is enabled (i.e. not on an expired plan or failed credit card payment)
+        bad_credit_card:
+          type: boolean
+          example: false
+          readOnly: true
+          description: Whether this account has an invalid credit card in use
+        plan_expires:
+          type: string
+          format: date-time
+          example: '2021-01-06T10:55:58-06:00'
+          readOnly: true
+          description: Date and time when this account's plan expires
+        features:
+          readOnly: true
+          type: array
+          items:
+            type: string
+          example:
+          - attendance
+          - openshifts
+          - annotations
+          description: List of all the enabled features on the account
+        timezone_id:
+          readOnly: true
+          type: integer
+          example: 11
+          description: Identifier for the account's timezone
+        timezone_name:
+          readOnly: true
+          type: string
+          example: America/Chicago
+          description: Name for the timezone specified in the timezone_id
+        settings:
+          type: string
+          format: json
+          description: A list of settings for this account
+        place:
+          $ref: '#/components/schemas/schemas-Place'
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        updated_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
     schemas-Place:
       type: object
       properties:
@@ -314,93 +401,6 @@ components:
           format: date
           example: '2019-05-16'
           description: yyyy-mm-dd formatted date for when the user started their employment
-    schemas-Account:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          example: 10000
-          description: Unique identifier for the account.
-        master_id:
-          type: integer
-          example: 0
-          readOnly: true
-          description: "This ID indicates the status of a parent/child relationship\n * `0` - Indicates that this account does NOT have a parent/child relationship.\n * `An ID that does NOT match the account's ID` - Indicates that this account is a child and `master_id` is the parent.\n * `An ID that DOES match the account's ID` - Indicates that this account is the parent and has children.\n"
-        type:
-          readOnly: true
-          type: integer
-          enum:
-          - 1
-          - 2
-          - 3
-          description: "The account's type, must be one of:\n * `1` - Scheduling\n * `2` - Attendance\n * `3` - Both\n"
-        logo:
-          type: string
-          example: https://s3.amazonaws.com/path/to/logo.jpg
-          description: Path to the image file for the company's logo.
-        company:
-          readOnly: true
-          type: string
-          example: When I Work
-          description: Name of the company for which this account is in use.
-        subdomain:
-          type: string
-          example: wheniwork
-          deprecated: true
-          description: Subdomain of wheniwork.com to access company-specific When I Work web application. No longer used.
-        enabled:
-          type: boolean
-          example: true
-          readOnly: true
-          description: Whether the account is enabled (i.e. not on an expired plan or failed credit card payment)
-        bad_credit_card:
-          type: boolean
-          example: false
-          readOnly: true
-          description: Whether this account has an invalid credit card in use
-        plan_expires:
-          type: string
-          format: date-time
-          example: '2021-01-06T10:55:58-06:00'
-          readOnly: true
-          description: Date and time when this account's plan expires
-        features:
-          readOnly: true
-          type: array
-          items:
-            type: string
-          example:
-          - attendance
-          - openshifts
-          - annotations
-          description: List of all the enabled features on the account
-        timezone_id:
-          readOnly: true
-          type: integer
-          example: 11
-          description: Identifier for the account's timezone
-        timezone_name:
-          readOnly: true
-          type: string
-          example: America/Chicago
-          description: Name for the timezone specified in the timezone_id
-        settings:
-          type: string
-          format: json
-          description: A list of settings for this account
-        place:
-          $ref: '#/components/schemas/schemas-Place'
-        created_at:
-          readOnly: true
-          type: string
-          format: date-time
-          example: '2019-05-16T06:57:28+05:00'
-        updated_at:
-          readOnly: true
-          type: string
-          format: date-time
-          example: '2019-05-16T06:57:28+05:00'
   requestBodies:
     AccountSettingsRequest:
       content:

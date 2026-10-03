@@ -216,37 +216,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ColumnMappingsRequest:
-      type: object
-      description: A mapping from When I Work column names to user column names. The keys should be When I Work column names that are valid for the current import's `type`; see the Import section documentation for details. The values should be the names of user-provided columns. If you do not wish to provide a value for a field, you may omit the field from the mapping or provide a value of `null`.
-      additionalProperties:
-        type:
-        - string
-        - null
-      example:
-        start_time: Start
-        end_time: End
-        position: null
-    EmployeeExtra:
-      type: object
-      properties:
-        invite:
-          type: boolean
-          description: 'Whether to send invitations to new employees.
-
-            '
-    ImportType:
-      type: string
-      enum:
-      - EMPLOYEE
-      - SHIFT_TEMPLATE
-      description: 'The type of resource to be imported. Determines the column names that appear throughout the process.
-
-
-        A full list of accepted column names for each type can be found in the Import section documentation.
-
-        '
-      example: SHIFT_TEMPLATE
     Import:
       type: object
       properties:
@@ -287,6 +256,37 @@ components:
             schedule: Schedule
             position: null
             unpaid_break: Break
+    ImportType:
+      type: string
+      enum:
+      - EMPLOYEE
+      - SHIFT_TEMPLATE
+      description: 'The type of resource to be imported. Determines the column names that appear throughout the process.
+
+
+        A full list of accepted column names for each type can be found in the Import section documentation.
+
+        '
+      example: SHIFT_TEMPLATE
+    EmployeeExtra:
+      type: object
+      properties:
+        invite:
+          type: boolean
+          description: 'Whether to send invitations to new employees.
+
+            '
+    ColumnMappingsRequest:
+      type: object
+      description: A mapping from When I Work column names to user column names. The keys should be When I Work column names that are valid for the current import's `type`; see the Import section documentation for details. The values should be the names of user-provided columns. If you do not wish to provide a value for a field, you may omit the field from the mapping or provide a value of `null`.
+      additionalProperties:
+        type:
+        - string
+        - null
+      example:
+        start_time: Start
+        end_time: End
+        position: null
   securitySchemes:
     W-Token:
       type: http

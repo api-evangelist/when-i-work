@@ -155,105 +155,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    OpenShiftApprovalRequest:
-      type: object
-      properties:
-        id:
-          description: The ID of the OpenShift Approval Request
-          type: integer
-          example: 1
-          readOnly: true
-        account_id:
-          description: The ID of the account that this OpenShift Approval Request belongs to
-          type: integer
-          example: 1
-        shift_id:
-          description: The ID of the shift that this OpenShift Approval Request is for
-          type: integer
-          example: 1
-        shift:
-          $ref: '#/components/schemas/Shift'
-        creator_id:
-          description: The ID of the user that created this request
-          type: integer
-          example: 1
-          readOnly: true
-        updater_id:
-          description: The ID of the user that last updated this request
-          type: integer
-          example: 1
-          readOnly: true
-        status:
-          description: The current status of the OpenShift Approval Request.
-          type: integer
-          enum:
-          - 0 = Pending
-          - 1 = Approved
-          - 4 = Canceled
-          - 5 = Expired
-          - 6 = Denied
-          example: 0
-        user_status:
-          description: Copy of the status field to mirror the data model of other request types
-          example: 0
-        is_shared:
-          description: Is this approval request shared across schedules
-          type: boolean
-          example: false
-        created_at:
-          type: string
-          format: date-time
-          example: Thu, 06 Mar 2016 21:12:14 -0600
-        updated_at:
-          type: string
-          format: date-time
-          example: Thu, 06 Mar 2016 22:17:14 -0600
-          readOnly: true
-        user_requests:
-          type: array
-          items:
-            $ref: '#/components/schemas/OpenShiftApprovalRequestUser'
-          readOnly: true
-    ShiftScheduledBreak:
-      allOf:
-      - $ref: '#/components/schemas/BaseScheduledBreak'
-      - type: object
-        properties:
-          shift_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to.
-            readOnly: true
-          start_time:
-            example: Mon, 08 May 2023 9:30:00 -0600
-            description: The start time of the break. Null if the break does not have a start time.
-            type: string
-          end_time:
-            example: Mon, 08 May 2023 10:00:00 -0600
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
-            type: string
-            readOnly: true
-    OpenShiftApprovalRequestUser:
-      type: object
-      properties:
-        id:
-          description: The ID of the OpenShift Approval Request
-          type: integer
-          example: 1
-        user_id:
-          description: The ID of the user that raised their hand for this request
-          type: integer
-          example: 1
-        created_at:
-          type: string
-          format: date-time
-          example: Thu, 06 Mar 2016 21:12:14 -0600
-          readOnly: true
-        deleted_at:
-          type: string
-          format: date-time
-          example: Thu, 06 Mar 2016 22:17:14 -0600
-          readOnly: true
     Shift:
       type: object
       required:
@@ -383,6 +284,25 @@ components:
           description: Is rounding active for shift
           type: boolean
           example: false
+    ShiftScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to.
+            readOnly: true
+          start_time:
+            example: Mon, 08 May 2023 9:30:00 -0600
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: Mon, 08 May 2023 10:00:00 -0600
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
     BaseScheduledBreak:
       type: object
       required:
@@ -423,6 +343,86 @@ components:
         updated_by:
           description: The id of the user who last edited the break.
           type: integer
+          readOnly: true
+    OpenShiftApprovalRequest:
+      type: object
+      properties:
+        id:
+          description: The ID of the OpenShift Approval Request
+          type: integer
+          example: 1
+          readOnly: true
+        account_id:
+          description: The ID of the account that this OpenShift Approval Request belongs to
+          type: integer
+          example: 1
+        shift_id:
+          description: The ID of the shift that this OpenShift Approval Request is for
+          type: integer
+          example: 1
+        shift:
+          $ref: '#/components/schemas/Shift'
+        creator_id:
+          description: The ID of the user that created this request
+          type: integer
+          example: 1
+          readOnly: true
+        updater_id:
+          description: The ID of the user that last updated this request
+          type: integer
+          example: 1
+          readOnly: true
+        status:
+          description: The current status of the OpenShift Approval Request.
+          type: integer
+          enum:
+          - 0 = Pending
+          - 1 = Approved
+          - 4 = Canceled
+          - 5 = Expired
+          - 6 = Denied
+          example: 0
+        user_status:
+          description: Copy of the status field to mirror the data model of other request types
+          example: 0
+        is_shared:
+          description: Is this approval request shared across schedules
+          type: boolean
+          example: false
+        created_at:
+          type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 21:12:14 -0600
+        updated_at:
+          type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 22:17:14 -0600
+          readOnly: true
+        user_requests:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenShiftApprovalRequestUser'
+          readOnly: true
+    OpenShiftApprovalRequestUser:
+      type: object
+      properties:
+        id:
+          description: The ID of the OpenShift Approval Request
+          type: integer
+          example: 1
+        user_id:
+          description: The ID of the user that raised their hand for this request
+          type: integer
+          example: 1
+        created_at:
+          type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 21:12:14 -0600
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          example: Thu, 06 Mar 2016 22:17:14 -0600
           readOnly: true
   securitySchemes:
     W-Token:

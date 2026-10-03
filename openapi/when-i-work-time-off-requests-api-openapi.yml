@@ -351,61 +351,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Message:
-      properties:
-        account_id:
-          description: The account ID that the message is associated with.
-          type: integer
-        actor:
-          description: "Who or what generated the message.\n* `0` - user generated (message was generated directly by a user's\n  actions; their userid is recorded on the message object)\n* `1` - automatically (system took action automatically; usually\n  auto-approved or expired a request)\n* `2` - shift modification (a shift change triggered the message)\n* `3` - all recipients (all recipients declined the request)\n"
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          type: integer
-        content:
-          description: The content of the message.
-          type: string
-        conversation_id:
-          description: 'Deprecated. The ID of the conversation the message is a part of,
-
-            replaced by either request_id or swap_id.
-
-            '
-          type: integer
-        created_at:
-          description: Date at which the message was created.
-          format: date-time
-          type: string
-        id:
-          description: The unique ID of the message.
-          type: integer
-        request_id:
-          description: 'The ID of the request the message is for. Either request_id OR swap_id
-
-            are required.
-
-            '
-          type: integer
-        swap_id:
-          description: 'The ID of the swap the message is for. Either request_id OR swap_id are
-
-            required.
-
-            '
-          type: integer
-        title:
-          description: The title of the message.
-          type: string
-        updated_at:
-          description: Date the message was most recently updated.
-          format: date-time
-          type: string
-        user_id:
-          description: The ID of the user.
-          type: integer
-      type: object
     User:
       properties:
         account_id:
@@ -638,6 +583,61 @@ components:
           - type: integer
           - type: string
           description: The API error code
+    Message:
+      properties:
+        account_id:
+          description: The account ID that the message is associated with.
+          type: integer
+        actor:
+          description: "Who or what generated the message.\n* `0` - user generated (message was generated directly by a user's\n  actions; their userid is recorded on the message object)\n* `1` - automatically (system took action automatically; usually\n  auto-approved or expired a request)\n* `2` - shift modification (a shift change triggered the message)\n* `3` - all recipients (all recipients declined the request)\n"
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          type: integer
+        content:
+          description: The content of the message.
+          type: string
+        conversation_id:
+          description: 'Deprecated. The ID of the conversation the message is a part of,
+
+            replaced by either request_id or swap_id.
+
+            '
+          type: integer
+        created_at:
+          description: Date at which the message was created.
+          format: date-time
+          type: string
+        id:
+          description: The unique ID of the message.
+          type: integer
+        request_id:
+          description: 'The ID of the request the message is for. Either request_id OR swap_id
+
+            are required.
+
+            '
+          type: integer
+        swap_id:
+          description: 'The ID of the swap the message is for. Either request_id OR swap_id are
+
+            required.
+
+            '
+          type: integer
+        title:
+          description: The title of the message.
+          type: string
+        updated_at:
+          description: Date the message was most recently updated.
+          format: date-time
+          type: string
+        user_id:
+          description: The ID of the user.
+          type: integer
+      type: object
   securitySchemes:
     W-Token:
       type: http
