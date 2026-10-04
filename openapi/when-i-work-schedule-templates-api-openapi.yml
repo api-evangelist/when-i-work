@@ -154,6 +154,46 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ScheduleTemplate:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+        account_id:
+          readOnly: true
+          type: integer
+          example: 10000
+        name:
+          type: string
+          example: Typical Work Week
+        description:
+          type: string
+          example: Use this template for most work weeks
+        start_date:
+          type: string
+          example: '2019-05-12'
+        end_date:
+          type: string
+          example: '2019-05-18'
+        location_id:
+          type: integer
+          example: 10000
+          deprecated: true
+        user_id:
+          type: integer
+          example: 10000
+        created_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
+        updated_at:
+          readOnly: true
+          type: string
+          format: date-time
+          example: '2019-05-16T06:57:28+05:00'
     Shift:
       type: object
       required:
@@ -283,65 +323,6 @@ components:
           description: Is rounding active for shift
           type: boolean
           example: false
-    ShiftScheduledBreak:
-      allOf:
-      - $ref: '#/components/schemas/BaseScheduledBreak'
-      - type: object
-        properties:
-          shift_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to.
-            readOnly: true
-          start_time:
-            example: Mon, 08 May 2023 9:30:00 -0600
-            description: The start time of the break. Null if the break does not have a start time.
-            type: string
-          end_time:
-            example: Mon, 08 May 2023 10:00:00 -0600
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
-            type: string
-            readOnly: true
-    ScheduleTemplate:
-      type: object
-      properties:
-        id:
-          type: integer
-          readOnly: true
-          example: 10000
-        account_id:
-          readOnly: true
-          type: integer
-          example: 10000
-        name:
-          type: string
-          example: Typical Work Week
-        description:
-          type: string
-          example: Use this template for most work weeks
-        start_date:
-          type: string
-          example: '2019-05-12'
-        end_date:
-          type: string
-          example: '2019-05-18'
-        location_id:
-          type: integer
-          example: 10000
-          deprecated: true
-        user_id:
-          type: integer
-          example: 10000
-        created_at:
-          readOnly: true
-          type: string
-          format: date-time
-          example: '2019-05-16T06:57:28+05:00'
-        updated_at:
-          readOnly: true
-          type: string
-          format: date-time
-          example: '2019-05-16T06:57:28+05:00'
     BaseScheduledBreak:
       type: object
       required:
@@ -383,6 +364,25 @@ components:
           description: The id of the user who last edited the break.
           type: integer
           readOnly: true
+    ShiftScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to.
+            readOnly: true
+          start_time:
+            example: Mon, 08 May 2023 9:30:00 -0600
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: Mon, 08 May 2023 10:00:00 -0600
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
     ScheduleTemplateShift:
       allOf:
       - $ref: '#/components/schemas/Shift'
@@ -392,19 +392,6 @@ components:
             type: integer
             example: 10000
   requestBodies:
-    ScheduleTemplateRequestUpdate:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              description:
-                type: string
-                exapmle: This is a description of a schedule template
-              name:
-                type: string
-                example: Schedule Template Example
-      description: The schedule template data to update
     ScheduleTemplateRequestCreate:
       content:
         application/json:
@@ -450,6 +437,19 @@ components:
                 example:
                 - 0
       description: The schedule template data
+    ScheduleTemplateRequestUpdate:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              description:
+                type: string
+                exapmle: This is a description of a schedule template
+              name:
+                type: string
+                example: Schedule Template Example
+      description: The schedule template data to update
   securitySchemes:
     W-Token:
       type: http

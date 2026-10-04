@@ -204,7 +204,66 @@ paths:
       operationId: delete2SitesById
       x-operation-id-source: derived
 components:
+  requestBodies:
+    SiteRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Site'
+      description: The site data
   schemas:
+    Place:
+      type: object
+      properties:
+        address:
+          type: string
+          example: '420 N 5th St #500, Minneapolis, MN 55401, USA'
+        business_name:
+          type: string
+          example: When I Work
+        country:
+          type: string
+          example: US
+        id:
+          type: integer
+          example: 2
+        latitude:
+          type: number
+          format: float
+          example: 44.983791
+        locality:
+          type: string
+          example: Minneapolis
+        longitude:
+          type: number
+          format: float
+          example: -93.277442
+        place_id:
+          type: string
+          example: ChIJYfRBzjfVslIRQLB018IGX3o
+        place_type:
+          type: array
+          example:
+          - point_of_interest
+          - establishment
+        postal_code:
+          type: string
+          example: '55401'
+        region:
+          type: string
+          example: MN
+        street_name:
+          type: string
+          example: N 5th St
+        street_number:
+          type: string
+          example: '420'
+        sub_locality:
+          type: string
+        updated_at:
+          type: string
+          format: date-time
+          example: '2019-05-16T09:14:45+05:45'
     Site:
       type: object
       properties:
@@ -262,65 +321,6 @@ components:
           type: string
           format: date-time
           example: '2020-05-26T06:57:28+05:00'
-    Place:
-      type: object
-      properties:
-        address:
-          type: string
-          example: '420 N 5th St #500, Minneapolis, MN 55401, USA'
-        business_name:
-          type: string
-          example: When I Work
-        country:
-          type: string
-          example: US
-        id:
-          type: integer
-          example: 2
-        latitude:
-          type: number
-          format: float
-          example: 44.983791
-        locality:
-          type: string
-          example: Minneapolis
-        longitude:
-          type: number
-          format: float
-          example: -93.277442
-        place_id:
-          type: string
-          example: ChIJYfRBzjfVslIRQLB018IGX3o
-        place_type:
-          type: array
-          example:
-          - point_of_interest
-          - establishment
-        postal_code:
-          type: string
-          example: '55401'
-        region:
-          type: string
-          example: MN
-        street_name:
-          type: string
-          example: N 5th St
-        street_number:
-          type: string
-          example: '420'
-        sub_locality:
-          type: string
-        updated_at:
-          type: string
-          format: date-time
-          example: '2019-05-16T09:14:45+05:45'
-  requestBodies:
-    SiteRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Site'
-      description: The site data
   securitySchemes:
     W-Token:
       type: http

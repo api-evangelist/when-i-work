@@ -418,6 +418,87 @@ paths:
       operationId: post2UsersInviteById
       x-operation-id-source: derived
 components:
+  requestBodies:
+    UserRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/components-schemas-User'
+            - type: object
+              properties:
+                invite:
+                  type: boolean
+                  example: false
+                  description: Whether an invite should be sent upon user creation. When missing or not false, an invite is sent by default
+      description: The user data
+    UserAlertsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              timeoff:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts when the status of a time off request changes.
+              swaps:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts when the status of a swap or drop request changes.
+              schedule:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts when the schedule changes.
+              reminders:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts for reminders prior to shifts.
+              availability:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts for changes in availability.
+              new_employee:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts when a new employee is added.
+              attendance:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts for attendance-related events.
+              workchat:
+                $ref: '#/components/schemas/AlertSetting'
+                description: Whether the user wishes to receive alerts when new workchat messages are received and how they are notified.
+              reminder_time:
+                type: number
+                format: float
+                description: Time before an event when a user should be sent notifications, in hours.
+                example: 2
+    BulkUserRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/components-schemas-User'
+            - type: object
+              properties:
+                invite:
+                  type: boolean
+                  example: false
+                  description: Whether an invite should be sent upon user creation. When missing or not false, an invite is sent by default
+      description: The user data
+    AvatarRequest:
+      content:
+        image/*:
+          schema:
+            type: string
+            format: binary
+    UpdateUserRequest:
+      content:
+        application/json:
+          schema:
+            allOf:
+            - $ref: '#/components/schemas/components-schemas-User'
+            - type: object
+              properties:
+                reactivate:
+                  type: boolean
+                  example: true
+                  description: Whether to reactivate a previously deleted user.
+      description: The user data to update
   schemas:
     User:
       properties:
@@ -542,6 +623,67 @@ components:
             '
           type: integer
       type: object
+    AlertSetting:
+      type: object
+      properties:
+        sms:
+          type: boolean
+          example: true
+          description: Whether or not SMS messages should be sent for events of this alert type.
+        email:
+          type: boolean
+          example: true
+          description: Whether or not email messages should be sent for events of this alert type.
+        alerts:
+          type: boolean
+          example: true
+          description: Whether or not push notifications should be sent for events of this alert type.
+        in_app:
+          type: boolean
+          example: true
+          description: Whether or not in-app notifications should be sent for events of this alert type.
+        badge_icon:
+          type: boolean
+          example: true
+          description: Whether or not banner notifications (iOS only) should be sent for events of this alert type.
+    BulkUserResponse:
+      description: Response for both Valid/Invalid requests
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer
+                description: The total number of invites sent.
+                example: 3
+              validRows:
+                row:
+                  type: integer
+                  description: The total number of invites sent.
+                  example: 3
+                user:
+                  $ref: '#/components/schemas/User'
+              invalidRows:
+                row:
+                  type: integer
+                  description: The total number of invites sent.
+                  example: 3
+                user:
+                  $ref: '#/components/schemas/User'
+              locations:
+                type: array
+                items:
+                  type: integer
+                example:
+                - 1
+                - 2
+                - 3
+                description: An array of locations (schedules) assigned to this user.
+              success:
+                type: boolean
+                description: True if at least one invite was sent.
+                example: true
     components-schemas-User:
       type: object
       properties:
@@ -693,148 +835,6 @@ components:
           format: date
           example: '2019-05-16'
           description: yyyy-mm-dd formatted date for when the user started their employment
-    BulkUserResponse:
-      description: Response for both Valid/Invalid requests
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              count:
-                type: integer
-                description: The total number of invites sent.
-                example: 3
-              validRows:
-                row:
-                  type: integer
-                  description: The total number of invites sent.
-                  example: 3
-                user:
-                  $ref: '#/components/schemas/User'
-              invalidRows:
-                row:
-                  type: integer
-                  description: The total number of invites sent.
-                  example: 3
-                user:
-                  $ref: '#/components/schemas/User'
-              locations:
-                type: array
-                items:
-                  type: integer
-                example:
-                - 1
-                - 2
-                - 3
-                description: An array of locations (schedules) assigned to this user.
-              success:
-                type: boolean
-                description: True if at least one invite was sent.
-                example: true
-    AlertSetting:
-      type: object
-      properties:
-        sms:
-          type: boolean
-          example: true
-          description: Whether or not SMS messages should be sent for events of this alert type.
-        email:
-          type: boolean
-          example: true
-          description: Whether or not email messages should be sent for events of this alert type.
-        alerts:
-          type: boolean
-          example: true
-          description: Whether or not push notifications should be sent for events of this alert type.
-        in_app:
-          type: boolean
-          example: true
-          description: Whether or not in-app notifications should be sent for events of this alert type.
-        badge_icon:
-          type: boolean
-          example: true
-          description: Whether or not banner notifications (iOS only) should be sent for events of this alert type.
-  requestBodies:
-    BulkUserRequest:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/components-schemas-User'
-            - type: object
-              properties:
-                invite:
-                  type: boolean
-                  example: false
-                  description: Whether an invite should be sent upon user creation. When missing or not false, an invite is sent by default
-      description: The user data
-    UpdateUserRequest:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/components-schemas-User'
-            - type: object
-              properties:
-                reactivate:
-                  type: boolean
-                  example: true
-                  description: Whether to reactivate a previously deleted user.
-      description: The user data to update
-    UserRequest:
-      content:
-        application/json:
-          schema:
-            allOf:
-            - $ref: '#/components/schemas/components-schemas-User'
-            - type: object
-              properties:
-                invite:
-                  type: boolean
-                  example: false
-                  description: Whether an invite should be sent upon user creation. When missing or not false, an invite is sent by default
-      description: The user data
-    UserAlertsRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              timeoff:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts when the status of a time off request changes.
-              swaps:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts when the status of a swap or drop request changes.
-              schedule:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts when the schedule changes.
-              reminders:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts for reminders prior to shifts.
-              availability:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts for changes in availability.
-              new_employee:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts when a new employee is added.
-              attendance:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts for attendance-related events.
-              workchat:
-                $ref: '#/components/schemas/AlertSetting'
-                description: Whether the user wishes to receive alerts when new workchat messages are received and how they are notified.
-              reminder_time:
-                type: number
-                format: float
-                description: Time before an event when a user should be sent notifications, in hours.
-                example: 2
-    AvatarRequest:
-      content:
-        image/*:
-          schema:
-            type: string
-            format: binary
   responses:
     InviteUserResponse:
       description: Valid

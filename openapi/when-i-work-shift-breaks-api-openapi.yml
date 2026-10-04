@@ -388,25 +388,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: object
-          required:
-          - code
-          - title
-          properties:
-            code:
-              description: The API error code
-              type: string
-            title:
-              description: The API error code description
-              type: string
-            errorData:
-              description: Context for the error
     ShiftBreak:
       type: object
       required:
@@ -489,6 +470,25 @@ components:
         length:
           description: The break time rounded to the nearest minute
           type: integer
+    Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: object
+          required:
+          - code
+          - title
+          properties:
+            code:
+              description: The API error code
+              type: string
+            title:
+              description: The API error code description
+              type: string
+            errorData:
+              description: Context for the error
   securitySchemes:
     W-Token:
       type: http

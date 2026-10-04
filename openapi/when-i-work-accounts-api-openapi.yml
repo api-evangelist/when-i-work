@@ -134,6 +134,35 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    schemas-Place:
+      type: object
+      properties:
+        business_name:
+          type: string
+          example: When I Work
+          description: (Optional) Business Name
+        address:
+          type: string
+          example: 420 N 5th St, Minneapolis, MN 55401, USA
+          description: Place Address
+        place_id:
+          type: string
+          example: ChIJc9x2LYwys1IReiu9JB3DLGY
+          description: Place id returned by google
+        place_type:
+          type: string
+          example: premise
+          description: Types returned by google
+        latitude:
+          type: number
+          format: double
+          example: 44.98364
+          description: Latitude of place location
+        longitude:
+          type: number
+          format: double
+          example: -93.277486
+          description: Longitude of place location
     schemas-Account:
       type: object
       properties:
@@ -221,35 +250,6 @@ components:
           type: string
           format: date-time
           example: '2019-05-16T06:57:28+05:00'
-    schemas-Place:
-      type: object
-      properties:
-        business_name:
-          type: string
-          example: When I Work
-          description: (Optional) Business Name
-        address:
-          type: string
-          example: 420 N 5th St, Minneapolis, MN 55401, USA
-          description: Place Address
-        place_id:
-          type: string
-          example: ChIJc9x2LYwys1IReiu9JB3DLGY
-          description: Place id returned by google
-        place_type:
-          type: string
-          example: premise
-          description: Types returned by google
-        latitude:
-          type: number
-          format: double
-          example: 44.98364
-          description: Latitude of place location
-        longitude:
-          type: number
-          format: double
-          example: -93.277486
-          description: Longitude of place location
     components-schemas-User:
       type: object
       properties:

@@ -307,170 +307,62 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    User:
-      properties:
-        account_id:
-          description: ID of the primary account for this user.
-          type: integer
-        activated:
-          description: Whether the manager has activated this user.
-          type: boolean
-        email:
-          description: The email address of this user.
-          format: email
-          type: string
-        employee_code:
-          description: 'The user''s employee code. This code can be used to clock in instead of
-
-            the user''s email address, or it can be used to help map users in When
-
-            I Work to other services.
-
-            '
-          type: string
-        first_name:
-          description: The first name of this user.
-          type: string
-        hourly_rate:
-          description: 'The base hourly rate for this user. The user can have additional wages
-
-            based on the position they are working at the time. There is no currency
-
-            attached, so customers are expected to input correct values for their
-
-            currency or do their own conversion from USD.
-
-            '
-          format: float
-          type: number
-        hours_max:
-          description: 'The max hours that this user prefers to work. A manager may still
-
-            schedule the user beyond this value.
-
-            '
-          format: float
-          type: number
-        hours_preferred:
-          description: The preferred number of hours for this user to work.
-          format: float
-          type: number
-        id:
-          description: Unique identifier for the user.
-          type: integer
-        is_deleted:
-          description: Whether the user has been deleted.
-          type: boolean
-        is_hidden:
-          description: Whether the user has been hidden from the scheduler.
-          type: boolean
-        is_payroll:
-          description: 'Whether the user has access to payroll. (Only available for managers
-
-            and supervisors.)
-
-            '
-          type: boolean
-        is_private:
-          description: 'Whether the user has privacy enabled, which will hide their contact
-
-            details from other employees. Supervisors+ can not hide their
-
-            email/phone from other employees.
-
-            '
-          type: boolean
-        is_trusted:
-          description: Whether the user can edit their own timesheet.
-          type: boolean
-        last_login:
-          description: The date and time when this user last logged in.
-          format: date-time
-          type: string
-        last_name:
-          description: The last name of this user.
-          type: string
-        locations:
-          description: An array of location IDs to be applied to this user.
-          items:
-            type: integer
-          type: array
-        login_id:
-          description: Unique identifier for the login belonging to the user.
-          type: integer
-        notes:
-          description: Notes about this user. Visible only to supervisors+.
-          type: string
-        phone_number:
-          description: The phone number of this user.
-          type: string
-        positions:
-          description: An array of position IDs to be assigned to this user.
-          items:
-            type: integer
-          type: array
-        role:
-          description: The user's role.
-          enum:
-          - 1 = Admin
-          - 2 = Manager
-          - 3 = Employee (Default)
-          - 4 = Lead (Unused)
-          - 5 = Supervisor
-          type: integer
-        type:
-          description: 'A bitwise flag representing additional wage options:
-
-            1 = hourly employee
-
-            2 = salaried employee
-
-            4 = Exempt from overtime
-
-            '
-          type: integer
-      type: object
-    PunchStateRootShiftBreak:
+    PunchStateScheduledBreak:
       allOf:
-      - $ref: '#/components/schemas/PunchStateShiftBreakBase'
       - type: object
         properties:
-          start:
-            description: The break start time
-            type: string
-            format: date-time
-            example: 2025-05-19T10:45:00-0400
-          end:
-            description: The break end time. Will always be an empty string; once the break has an end, it is no longer returned by this endpoint under the `break` key
-            type: string
-            format: date-time
-            example: ''
-          length:
-            description: The break length from the database model once the break is complete, in minutes. Until the break is complete, this value remains zero. However, once the break is complete, the `break` object is not longer returned by this endpoint. Hence, break length should be calculated based on the `start` instead
+          id:
             type: integer
-            example: 0
-    PunchResponse:
-      type: object
-      properties:
-        time:
-          description: The Time object that the punch is associated with
-          $ref: '#/components/schemas/Time'
-        overtime_alert:
-          description: Was an over-time alert triggered
-          type: boolean
-          example: false
-        user:
-          description: The User that has punched in
-          $ref: '#/components/schemas/User'
-        punches:
-          description: 'Array of punches associated with the current Time
-
-            * Punch in/out
-
-            * Punch break start/stop
-
-            '
-          type: array
+            description: Scheduled Break Id
+            example: 1
+          account_id:
+            type: integer
+            description: Account Id associated with this break
+            example: 3
+          start_time:
+            description: The start time of the break. Null if the break does not have a start time
+            type: string
+            example: '2025-05-19T14:30:00+00:00'
+          end_time:
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length
+            type: string
+            example: '2025-05-19T14:45:00+00:00'
+          length:
+            description: The length of the break (seconds)
+            type: integer
+            example: 900
+          paid:
+            description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+            type: boolean
+            example: true
+          created_by:
+            description: The id of the user who created the break
+            type: integer
+            example: 201
+          created_at:
+            description: Date and time the break was created at
+            type: string
+            example: '2025-05-10T14:45:00+00:00'
+          updated_by:
+            description: The id of the user who last edited the break
+            type: string
+            example: '202'
+          updated_at:
+            description: Date and time the break was last updated
+            type: string
+            example: '2025-05-10T15:45:00+00:00'
+          sort:
+            type: integer
+            description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to
+            readOnly: true
+          shift_break:
+            type: object
+            description: When not null, at least a start time was created for an associated shift break. Otherwise, no breaks have been taken for this scheduled break
+            $ref: '#/components/schemas/PunchStateNestedShiftBreak'
     Time:
       type: object
       properties:
@@ -613,62 +505,184 @@ components:
           readOnly: true
           example: I am a note entered for the shift break paid record
           description: The note associated with the shift break paid record. The include_paid_break_note query param must be set to true for this to be returned.
-    PunchStateScheduledBreak:
+    PunchStateNestedShiftBreak:
       allOf:
+      - $ref: '#/components/schemas/PunchStateShiftBreakBase'
       - type: object
         properties:
-          id:
-            type: integer
-            description: Scheduled Break Id
-            example: 1
-          account_id:
-            type: integer
-            description: Account Id associated with this break
-            example: 3
-          start_time:
-            description: The start time of the break. Null if the break does not have a start time
-            type: string
-            example: '2025-05-19T14:30:00+00:00'
-          end_time:
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length
-            type: string
-            example: '2025-05-19T14:45:00+00:00'
+          start:
+            description: The break start time. Null if the break does not have an start time. Perhaps because it was added on Timesheets.
+            type:
+            - string
+            - 'null'
+            format: date-time
+            example: 2025-05-19T10:00:00-0400
+          end:
+            description: The break end time. Null if the break does not have an end time. Perhaps because it was added on Timesheets.
+            type:
+            - string
+            - 'null'
+            format: date-time
+            example: 2025-05-19T10:08:00-0400
           length:
-            description: The length of the break (seconds)
+            description: The length of the break if it's completed, in minutes. Length will be zero until the break has ended
             type: integer
-            example: 900
-          paid:
-            description: Whether the break is a paid rest break (true) or unpaid meal break (false)
-            type: boolean
-            example: true
-          created_by:
-            description: The id of the user who created the break
-            type: integer
-            example: 201
-          created_at:
-            description: Date and time the break was created at
+            example: 6
+    V2Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
+    PunchStateRootShiftBreak:
+      allOf:
+      - $ref: '#/components/schemas/PunchStateShiftBreakBase'
+      - type: object
+        properties:
+          start:
+            description: The break start time
             type: string
-            example: '2025-05-10T14:45:00+00:00'
-          updated_by:
-            description: The id of the user who last edited the break
+            format: date-time
+            example: 2025-05-19T10:45:00-0400
+          end:
+            description: The break end time. Will always be an empty string; once the break has an end, it is no longer returned by this endpoint under the `break` key
             type: string
-            example: '202'
-          updated_at:
-            description: Date and time the break was last updated
-            type: string
-            example: '2025-05-10T15:45:00+00:00'
-          sort:
+            format: date-time
+            example: ''
+          length:
+            description: The break length from the database model once the break is complete, in minutes. Until the break is complete, this value remains zero. However, once the break is complete, the `break` object is not longer returned by this endpoint. Hence, break length should be calculated based on the `start` instead
             type: integer
-            description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves
-          shift_id:
+            example: 0
+    User:
+      properties:
+        account_id:
+          description: ID of the primary account for this user.
+          type: integer
+        activated:
+          description: Whether the manager has activated this user.
+          type: boolean
+        email:
+          description: The email address of this user.
+          format: email
+          type: string
+        employee_code:
+          description: 'The user''s employee code. This code can be used to clock in instead of
+
+            the user''s email address, or it can be used to help map users in When
+
+            I Work to other services.
+
+            '
+          type: string
+        first_name:
+          description: The first name of this user.
+          type: string
+        hourly_rate:
+          description: 'The base hourly rate for this user. The user can have additional wages
+
+            based on the position they are working at the time. There is no currency
+
+            attached, so customers are expected to input correct values for their
+
+            currency or do their own conversion from USD.
+
+            '
+          format: float
+          type: number
+        hours_max:
+          description: 'The max hours that this user prefers to work. A manager may still
+
+            schedule the user beyond this value.
+
+            '
+          format: float
+          type: number
+        hours_preferred:
+          description: The preferred number of hours for this user to work.
+          format: float
+          type: number
+        id:
+          description: Unique identifier for the user.
+          type: integer
+        is_deleted:
+          description: Whether the user has been deleted.
+          type: boolean
+        is_hidden:
+          description: Whether the user has been hidden from the scheduler.
+          type: boolean
+        is_payroll:
+          description: 'Whether the user has access to payroll. (Only available for managers
+
+            and supervisors.)
+
+            '
+          type: boolean
+        is_private:
+          description: 'Whether the user has privacy enabled, which will hide their contact
+
+            details from other employees. Supervisors+ can not hide their
+
+            email/phone from other employees.
+
+            '
+          type: boolean
+        is_trusted:
+          description: Whether the user can edit their own timesheet.
+          type: boolean
+        last_login:
+          description: The date and time when this user last logged in.
+          format: date-time
+          type: string
+        last_name:
+          description: The last name of this user.
+          type: string
+        locations:
+          description: An array of location IDs to be applied to this user.
+          items:
             type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to
-            readOnly: true
-          shift_break:
-            type: object
-            description: When not null, at least a start time was created for an associated shift break. Otherwise, no breaks have been taken for this scheduled break
-            $ref: '#/components/schemas/PunchStateNestedShiftBreak'
+          type: array
+        login_id:
+          description: Unique identifier for the login belonging to the user.
+          type: integer
+        notes:
+          description: Notes about this user. Visible only to supervisors+.
+          type: string
+        phone_number:
+          description: The phone number of this user.
+          type: string
+        positions:
+          description: An array of position IDs to be assigned to this user.
+          items:
+            type: integer
+          type: array
+        role:
+          description: The user's role.
+          enum:
+          - 1 = Admin
+          - 2 = Manager
+          - 3 = Employee (Default)
+          - 4 = Lead (Unused)
+          - 5 = Supervisor
+          type: integer
+        type:
+          description: 'A bitwise flag representing additional wage options:
+
+            1 = hourly employee
+
+            2 = salaried employee
+
+            4 = Exempt from overtime
+
+            '
+          type: integer
+      type: object
     PunchStateShiftBreakBase:
       type: object
       properties:
@@ -718,43 +732,73 @@ components:
           description: The scheduled break associated with this shift break, if it is a scheduled break. Otherwise `0`
           type: integer
           example: 0
-    PunchStateNestedShiftBreak:
-      allOf:
-      - $ref: '#/components/schemas/PunchStateShiftBreakBase'
-      - type: object
-        properties:
-          start:
-            description: The break start time. Null if the break does not have an start time. Perhaps because it was added on Timesheets.
-            type:
-            - string
-            - 'null'
-            format: date-time
-            example: 2025-05-19T10:00:00-0400
-          end:
-            description: The break end time. Null if the break does not have an end time. Perhaps because it was added on Timesheets.
-            type:
-            - string
-            - 'null'
-            format: date-time
-            example: 2025-05-19T10:08:00-0400
-          length:
-            description: The length of the break if it's completed, in minutes. Length will be zero until the break has ended
-            type: integer
-            example: 6
-    V2Error:
+    PunchResponse:
       type: object
-      required:
-      - error
       properties:
-        error:
-          type: string
-          description: A description of the specific error
-        code:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The API error code
+        time:
+          description: The Time object that the punch is associated with
+          $ref: '#/components/schemas/Time'
+        overtime_alert:
+          description: Was an over-time alert triggered
+          type: boolean
+          example: false
+        user:
+          description: The User that has punched in
+          $ref: '#/components/schemas/User'
+        punches:
+          description: 'Array of punches associated with the current Time
+
+            * Punch in/out
+
+            * Punch break start/stop
+
+            '
+          type: array
   requestBodies:
+    ClockOutRequest:
+      description: Clock Out (Punch) request data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: The ID of the user you are creating the clock-in for
+                example: 14
+              notes:
+                type: string
+                description: Optional notes that can be added to the punch that will show up on the timesheets
+                example: Punching out late there was a delay in the shift change
+                required: false
+              coordinates:
+                type: array
+                description: The GPS coordinates of the clock-out. This is an optional parameter.
+                example:
+                - 44.983791
+                - -93.2774416
+                required: false
+              altitude:
+                type: number
+                description: The altitude that the user is currently at in meters.
+                example: 20
+                required: false
+              accuracy:
+                type: number
+                description: The accuracy in meters of the coordinates being sent.
+                example: 20
+                required: false
+              terminal:
+                type: boolean
+                description: Is the user clocking out from a terminal (web or mobile/tablet terminal app)
+                example: true
+                required: false
+                default: false
+              cashTips:
+                description: The amount of cash tips reported for the shift.
+                type: string
+                format: decimal
+                example: '54.32'
     ClockInRequest:
       description: Clock In (Punch) request data
       content:
@@ -814,50 +858,6 @@ components:
                 example: true
                 required: false
                 default: false
-    ClockOutRequest:
-      description: Clock Out (Punch) request data
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: The ID of the user you are creating the clock-in for
-                example: 14
-              notes:
-                type: string
-                description: Optional notes that can be added to the punch that will show up on the timesheets
-                example: Punching out late there was a delay in the shift change
-                required: false
-              coordinates:
-                type: array
-                description: The GPS coordinates of the clock-out. This is an optional parameter.
-                example:
-                - 44.983791
-                - -93.2774416
-                required: false
-              altitude:
-                type: number
-                description: The altitude that the user is currently at in meters.
-                example: 20
-                required: false
-              accuracy:
-                type: number
-                description: The accuracy in meters of the coordinates being sent.
-                example: 20
-                required: false
-              terminal:
-                type: boolean
-                description: Is the user clocking out from a terminal (web or mobile/tablet terminal app)
-                example: true
-                required: false
-                default: false
-              cashTips:
-                description: The amount of cash tips reported for the shift.
-                type: string
-                format: decimal
-                example: '54.32'
   securitySchemes:
     W-Token:
       type: http

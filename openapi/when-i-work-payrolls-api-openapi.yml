@@ -237,135 +237,91 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Shift:
+    Absence:
       type: object
       required:
-      - start_time
-      - end_time
-      - location_id
+      - userId
+      - shiftId
+      - shiftStartTime
+      - shiftEndTime
+      - locationId
+      - creatorId
       properties:
         id:
-          type: integer
+          type: string
+          example: '1'
+          description: ID of the absence
           readOnly: true
-          example: 10000
-        account_id:
-          type: integer
-          example: 10000
-        user_id:
-          type: integer
-          example: 101
-          description: The user assigned to the shift. Set to `0` for an Open Shift.
-        location_id:
-          type: integer
-          example: 1045
-          description: Location the shift belongs to
-        position_id:
-          type: integer
-          example: 19483
-        site_id:
-          type: integer
-          example: 4351
-        start_time:
+        accountId:
+          type: string
+          example: '7'
+          description: Account ID of the absence
+          readOnly: true
+        userId:
+          type: string
+          example: '226'
+          description: User ID of the absence
+        shiftId:
+          type: string
+          example: '9'
+          description: Shift ID of the absence
+        shiftStartTime:
           type: string
           format: date-time
-          example: Mon, 08 May 2023 08:30:00 -0600
-        end_time:
+          example: '2016-12-19T16:39:57-08:00'
+          description: Start time of the shift
+        shiftEndTime:
           type: string
           format: date-time
-          example: Mon, 08 May 2023 14:30:00 -0600
-        break_time:
-          type: double
-          example: 0.5
-          description: Length of the unpaid breaks for the shift in hours.
-        breaks:
-          description: An array of breaks for the shift. When updating a shift, any existing breaks for the shift that are not included in the request will be deleted.
-          type: array
-          items:
-            $ref: '#/components/schemas/ShiftScheduledBreak'
-        color:
+          example: '2016-12-19T16:39:57-08:00'
+          description: End time of the shift
+        locationId:
           type: string
-          example: cc000
-          description: Assign color to shift
+          example: '13'
+          description: Location ID of the absence
+        siteId:
+          type: string
+          example: '10'
+          description: Site ID of the absence
+        positionId:
+          type: string
+          example: '38'
+          description: Position ID of the absence
+        creatorId:
+          type: string
+          example: '226'
+          description: User ID of the creator of the absence
         notes:
           type: string
-          example: Shift test
-          description: Text notation for a Shift
-        alerted:
-          type: boolean
-          example: false
-          description: Is the shift Alert sent
-        linked_users:
+          example: Absence note
+          description: Note of the absence
+        actions:
           type: array
+          description: List of actions taken on a shift.
           items:
-            type: integer
-          default: null
-          description: Array of user IDs that can take this openshift. Null means all users are eligible.
-        shiftchain_key:
-          type: string
-          example: 1eizfwp
-          description: The ID to associate shifts in a repeating pattern
-        published:
-          type: boolean
-          example: false
-          description: Is the shift published
-        published_date:
-          type: string
-          format: date-time
-          example: Mon, 01 May 2023 08:30:00 -0600
-        notified_at:
-          type: string
-          format: date-time
-          example: Mon, 01 May 2023 08:32:00 -0600
-        instances:
-          type: integer
-          example: 3
-          default: null
-        created_at:
-          type: string
-          format: date-time
-          example: Mon, 24 Apr 2023 07:30:00 -0600
-        updated_at:
-          type: string
-          format: date-time
-          example: Wed, 26 Apr 2023 11:30:00 -0600
-        acknowledged:
-          type: boolean
-          example: 0
-          description: If enabled; When the user confirmed the shift
-        acknowledged_at:
-          type: string
-          format: date-time
-          example: Fri, 21 Apr 2023 13:30:00 -0600
-          description: If enabled; When the user confirmed the shift
-        creator_id:
-          type: integer
-          example: 101
-          description: The user that created the shift
-        is_open:
-          type: boolean
-          example: false
-        requires_openshift_approval:
-          description: Does this shift require OpenShift Approval
-          type: boolean
-          example: true
-        openshift_approval_request_id:
-          description: ID of the associated OpenShift Approval request
-          type: integer
-          example: 5232
+            $ref: '#/components/schemas/AbsenceActions'
           readOnly: true
-        is_approved_without_time:
-          description: Used to indicate that a manager or supervisor has approved a missing time entry for this shift
-          type: boolean
-          example: false
+        createdAt:
+          type: string
+          format: date-time
+          example: '2016-12-19T16:39:57-08:00'
+          description: Time the absence was created
           readOnly: true
-        is_shared:
-          description: Is the shift a shared OpenShift
+        updatedBy:
+          type: integer
+          example: 226
+          description: User ID of the last updater of the absence
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2016-12-19T16:39:57-08:00'
+          description: Time the absence was last updated
+          readOnly: true
+        isDeleted:
           type: boolean
           example: false
-        is_trimmed:
-          description: Is rounding active for shift
-          type: boolean
-          example: false
+          description: Whether the absence has been deleted
+          readOnly: true
     Time:
       type: object
       properties:
@@ -508,356 +464,6 @@ components:
           readOnly: true
           example: I am a note entered for the shift break paid record
           description: The note associated with the shift break paid record. The include_paid_break_note query param must be set to true for this to be returned.
-    ShiftScheduledBreak:
-      allOf:
-      - $ref: '#/components/schemas/BaseScheduledBreak'
-      - type: object
-        properties:
-          shift_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to.
-            readOnly: true
-          start_time:
-            example: Mon, 08 May 2023 9:30:00 -0600
-            description: The start time of the break. Null if the break does not have a start time.
-            type: string
-          end_time:
-            example: Mon, 08 May 2023 10:00:00 -0600
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
-            type: string
-            readOnly: true
-    PayrollHours:
-      type: object
-      description: The paid time for users within a given payroll (broken out by type, split as needed when crossing pay periods)
-      properties:
-        id:
-          description: The unique ID of the payroll hours object.
-          type: integer
-        payroll_id:
-          description: The ID of the Payroll this object belongs to.
-          type: integer
-        type:
-          type: integer
-          description: "The type of time associated with the payroll hours\n * `1` - Regular Time\n * `2` - Over Time\n * `3` - Paid Time Off\n * `4` - Holiday\n * `5` - Double Time\n * `6` - Sick\n * `7` - Time Off (custom type, unpaid time-off not included)\n"
-        type_label:
-          description: The label for the type of time off if a timeoff type (Personal, Sick, Holiday)
-          type: string
-          readOnly: true
-        user_id:
-          description: The ID of the user who these hours belong to.
-          type: integer
-        position_id:
-          description: The ID of the position that is associated with these hours. Default 0 for none.
-          type: integer
-        hours:
-          description: The number hours.
-          type: number
-          format: float
-        rate:
-          description: The hourly rate paid for these hours.
-          type: number
-          format: float
-        total:
-          description: The total wages for these hours.
-          type: number
-          format: float
-    Punch:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The ID of the punch.
-        account_id:
-          type: integer
-          description: The ID of the account the punch is associated with.
-        location_id:
-          type: integer
-          description: The ID of the schedule that the punch is associated with.
-        alert_type:
-          type: integer
-          description: 'A bitmask representing any alerts that might apply to the punch.
-
-            '
-        method:
-          type: integer
-          description: A bitmask representing how the punch was created. See `method_name` for a human readable version.
-        method_name:
-          type:
-          - string
-          - 'null'
-          description: How the punch was created.
-          enum:
-          - Third Party App
-          - Mobile
-          - Computer
-          - Terminal
-        site_id:
-          type: integer
-          description: The ID of the site the punch is associated with.
-        type:
-          type: integer
-          description: A code representing whether the punch was an "In" (`1`) or "Out" (`2`) punch.
-        time_id:
-          type: integer
-          description: The ID of the time the punch is associated with.
-        user_id:
-          type: integer
-          description: The ID of the user who is punching in or out.
-        accuracy:
-          type: number
-          format: float
-          description: The radius of uncertainty for the punch coordinates in meters.
-        altitude:
-          type: number
-          format: float
-          description: The altitude of the punch in meters.
-        latitude:
-          type: number
-          format: float
-          description: The latitude coordinate of the punch.
-        longitude:
-          type: number
-          format: float
-          description: The longitude coordinate of the punch.
-        ip_address:
-          type: string
-          description: The IP address of the device used to create the punch.
-        notes:
-          type: string
-          description: Any notes associated with the punch.
-    Absence:
-      type: object
-      required:
-      - userId
-      - shiftId
-      - shiftStartTime
-      - shiftEndTime
-      - locationId
-      - creatorId
-      properties:
-        id:
-          type: string
-          example: '1'
-          description: ID of the absence
-          readOnly: true
-        accountId:
-          type: string
-          example: '7'
-          description: Account ID of the absence
-          readOnly: true
-        userId:
-          type: string
-          example: '226'
-          description: User ID of the absence
-        shiftId:
-          type: string
-          example: '9'
-          description: Shift ID of the absence
-        shiftStartTime:
-          type: string
-          format: date-time
-          example: '2016-12-19T16:39:57-08:00'
-          description: Start time of the shift
-        shiftEndTime:
-          type: string
-          format: date-time
-          example: '2016-12-19T16:39:57-08:00'
-          description: End time of the shift
-        locationId:
-          type: string
-          example: '13'
-          description: Location ID of the absence
-        siteId:
-          type: string
-          example: '10'
-          description: Site ID of the absence
-        positionId:
-          type: string
-          example: '38'
-          description: Position ID of the absence
-        creatorId:
-          type: string
-          example: '226'
-          description: User ID of the creator of the absence
-        notes:
-          type: string
-          example: Absence note
-          description: Note of the absence
-        actions:
-          type: array
-          description: List of actions taken on a shift.
-          items:
-            $ref: '#/components/schemas/AbsenceActions'
-          readOnly: true
-        createdAt:
-          type: string
-          format: date-time
-          example: '2016-12-19T16:39:57-08:00'
-          description: Time the absence was created
-          readOnly: true
-        updatedBy:
-          type: integer
-          example: 226
-          description: User ID of the last updater of the absence
-        updatedAt:
-          type: string
-          format: date-time
-          example: '2016-12-19T16:39:57-08:00'
-          description: Time the absence was last updated
-          readOnly: true
-        isDeleted:
-          type: boolean
-          example: false
-          description: Whether the absence has been deleted
-          readOnly: true
-    BaseScheduledBreak:
-      type: object
-      required:
-      - length
-      - paid
-      properties:
-        id:
-          example: 1234
-          type: integer
-          description: ID of the break. Provide in the request when updating an existing break.
-        account_id:
-          example: 1234
-          type: integer
-          readOnly: true
-        length:
-          example: 1800
-          description: The length of the break (seconds).
-          type: integer
-        paid:
-          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
-          type: boolean
-        sort:
-          type: integer
-          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
-          readOnly: true
-        created_at:
-          description: Date and time the break was created at.
-          type: string
-          readOnly: true
-        created_by:
-          description: The id of the user who created the break.
-          type: integer
-          readOnly: true
-        updated_at:
-          description: Date and time the break was last updated.
-          type: string
-          readOnly: true
-        updated_by:
-          description: The id of the user who last edited the break.
-          type: integer
-          readOnly: true
-    Notice:
-      type: object
-      properties:
-        time_id:
-          type: integer
-          description: The ID of the time that generated the notice.
-        user_id:
-          type: integer
-          description: The ID of the user who the notice is for.
-        shift_id:
-          type: integer
-          description: 'The ID of the shift that generated the notice of is associated with the time or absence which generated the
-
-            notice.
-
-            '
-        title:
-          type: string
-          description: The title of the notice, matches the code.
-          enum:
-          - Wrong Location
-          - Forgot to Clock Out
-          - Not Scheduled
-          - Absent
-          - No Show
-          - Clocked In Early
-          - Clocked In Late
-          - Clocked Out Early
-          - Clocked Out Late
-          - Missed Clock In
-        code:
-          type: integer
-          description: 'The type of notice. Matches the title.
-
-            * `103` - Wrong Location
-
-            * `107` - Forgot to Clock Out
-
-            * `110` - Not Scheduled
-
-            * `121` - Absent
-
-            * `120` - No Show
-
-            * `131` - Clocked In Early
-
-            * `132` - Clocked In Late
-
-            * `133` - Clocked Out Early
-
-            * `134` - Clocked Out Late
-
-            * `135` - Missed Clock In
-
-            '
-        punch_id:
-          type: integer
-          description: The ID of the punch that generated the notice.
-        absence_id:
-          type: integer
-          description: The ID of the absence that generate the notice.
-        created_at:
-          type: string
-          format: date-time
-          description: 'The time the notice was created at. This depends on the kind of entity that generated the notice. For
-
-            example, this could be the `created_at` time of the punch, `start_time` of the time, `start_time` or
-
-            `end_time` of the shift, or the `created_at` time of the absence.
-
-            '
-    AbsenceActions:
-      type: object
-      required:
-      - actionType
-      - createdBy
-      - createdAt
-      properties:
-        actionType:
-          type: string
-          enum:
-          - timeoff
-          - drop
-          - swap
-          - moved-to-open
-          description: Type of action taken on the shift
-        createdBy:
-          type: string
-          description: The user ID of who created the action.
-          example: '221'
-        createdAt:
-          type: string
-          format: date-time
-          readOnly: true
-        shiftId:
-          type: string
-          description: Will be present if move to open action was taken.
-          example: '221'
-        requestId:
-          type: string
-          description: Will be present if a time-off action was taken.
-          example: '125'
-        swapId:
-          type: string
-          description: Will be present if a swap or drop action was taken.
-          example: '312'
     Payroll:
       type: object
       description: 'Payroll is a pay period (start and end) and a collection paid hours (worked or paid time off)
@@ -945,6 +551,234 @@ components:
           format: date-time
           example: Thu, 10 Jun 2021 10:19:47 -0500
           description: Time when the pay period was last updated (RFC 2822)
+    Shift:
+      type: object
+      required:
+      - start_time
+      - end_time
+      - location_id
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 10000
+        account_id:
+          type: integer
+          example: 10000
+        user_id:
+          type: integer
+          example: 101
+          description: The user assigned to the shift. Set to `0` for an Open Shift.
+        location_id:
+          type: integer
+          example: 1045
+          description: Location the shift belongs to
+        position_id:
+          type: integer
+          example: 19483
+        site_id:
+          type: integer
+          example: 4351
+        start_time:
+          type: string
+          format: date-time
+          example: Mon, 08 May 2023 08:30:00 -0600
+        end_time:
+          type: string
+          format: date-time
+          example: Mon, 08 May 2023 14:30:00 -0600
+        break_time:
+          type: double
+          example: 0.5
+          description: Length of the unpaid breaks for the shift in hours.
+        breaks:
+          description: An array of breaks for the shift. When updating a shift, any existing breaks for the shift that are not included in the request will be deleted.
+          type: array
+          items:
+            $ref: '#/components/schemas/ShiftScheduledBreak'
+        color:
+          type: string
+          example: cc000
+          description: Assign color to shift
+        notes:
+          type: string
+          example: Shift test
+          description: Text notation for a Shift
+        alerted:
+          type: boolean
+          example: false
+          description: Is the shift Alert sent
+        linked_users:
+          type: array
+          items:
+            type: integer
+          default: null
+          description: Array of user IDs that can take this openshift. Null means all users are eligible.
+        shiftchain_key:
+          type: string
+          example: 1eizfwp
+          description: The ID to associate shifts in a repeating pattern
+        published:
+          type: boolean
+          example: false
+          description: Is the shift published
+        published_date:
+          type: string
+          format: date-time
+          example: Mon, 01 May 2023 08:30:00 -0600
+        notified_at:
+          type: string
+          format: date-time
+          example: Mon, 01 May 2023 08:32:00 -0600
+        instances:
+          type: integer
+          example: 3
+          default: null
+        created_at:
+          type: string
+          format: date-time
+          example: Mon, 24 Apr 2023 07:30:00 -0600
+        updated_at:
+          type: string
+          format: date-time
+          example: Wed, 26 Apr 2023 11:30:00 -0600
+        acknowledged:
+          type: boolean
+          example: 0
+          description: If enabled; When the user confirmed the shift
+        acknowledged_at:
+          type: string
+          format: date-time
+          example: Fri, 21 Apr 2023 13:30:00 -0600
+          description: If enabled; When the user confirmed the shift
+        creator_id:
+          type: integer
+          example: 101
+          description: The user that created the shift
+        is_open:
+          type: boolean
+          example: false
+        requires_openshift_approval:
+          description: Does this shift require OpenShift Approval
+          type: boolean
+          example: true
+        openshift_approval_request_id:
+          description: ID of the associated OpenShift Approval request
+          type: integer
+          example: 5232
+          readOnly: true
+        is_approved_without_time:
+          description: Used to indicate that a manager or supervisor has approved a missing time entry for this shift
+          type: boolean
+          example: false
+          readOnly: true
+        is_shared:
+          description: Is the shift a shared OpenShift
+          type: boolean
+          example: false
+        is_trimmed:
+          description: Is rounding active for shift
+          type: boolean
+          example: false
+    Punch:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The ID of the punch.
+        account_id:
+          type: integer
+          description: The ID of the account the punch is associated with.
+        location_id:
+          type: integer
+          description: The ID of the schedule that the punch is associated with.
+        alert_type:
+          type: integer
+          description: 'A bitmask representing any alerts that might apply to the punch.
+
+            '
+        method:
+          type: integer
+          description: A bitmask representing how the punch was created. See `method_name` for a human readable version.
+        method_name:
+          type:
+          - string
+          - 'null'
+          description: How the punch was created.
+          enum:
+          - Third Party App
+          - Mobile
+          - Computer
+          - Terminal
+        site_id:
+          type: integer
+          description: The ID of the site the punch is associated with.
+        type:
+          type: integer
+          description: A code representing whether the punch was an "In" (`1`) or "Out" (`2`) punch.
+        time_id:
+          type: integer
+          description: The ID of the time the punch is associated with.
+        user_id:
+          type: integer
+          description: The ID of the user who is punching in or out.
+        accuracy:
+          type: number
+          format: float
+          description: The radius of uncertainty for the punch coordinates in meters.
+        altitude:
+          type: number
+          format: float
+          description: The altitude of the punch in meters.
+        latitude:
+          type: number
+          format: float
+          description: The latitude coordinate of the punch.
+        longitude:
+          type: number
+          format: float
+          description: The longitude coordinate of the punch.
+        ip_address:
+          type: string
+          description: The IP address of the device used to create the punch.
+        notes:
+          type: string
+          description: Any notes associated with the punch.
+    PayrollHours:
+      type: object
+      description: The paid time for users within a given payroll (broken out by type, split as needed when crossing pay periods)
+      properties:
+        id:
+          description: The unique ID of the payroll hours object.
+          type: integer
+        payroll_id:
+          description: The ID of the Payroll this object belongs to.
+          type: integer
+        type:
+          type: integer
+          description: "The type of time associated with the payroll hours\n * `1` - Regular Time\n * `2` - Over Time\n * `3` - Paid Time Off\n * `4` - Holiday\n * `5` - Double Time\n * `6` - Sick\n * `7` - Time Off (custom type, unpaid time-off not included)\n"
+        type_label:
+          description: The label for the type of time off if a timeoff type (Personal, Sick, Holiday)
+          type: string
+          readOnly: true
+        user_id:
+          description: The ID of the user who these hours belong to.
+          type: integer
+        position_id:
+          description: The ID of the position that is associated with these hours. Default 0 for none.
+          type: integer
+        hours:
+          description: The number hours.
+          type: number
+          format: float
+        rate:
+          description: The hourly rate paid for these hours.
+          type: number
+          format: float
+        total:
+          description: The total wages for these hours.
+          type: number
+          format: float
     V2Error:
       type: object
       required:
@@ -958,6 +792,172 @@ components:
           - type: integer
           - type: string
           description: The API error code
+    BaseScheduledBreak:
+      type: object
+      required:
+      - length
+      - paid
+      properties:
+        id:
+          example: 1234
+          type: integer
+          description: ID of the break. Provide in the request when updating an existing break.
+        account_id:
+          example: 1234
+          type: integer
+          readOnly: true
+        length:
+          example: 1800
+          description: The length of the break (seconds).
+          type: integer
+        paid:
+          description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+          type: boolean
+        sort:
+          type: integer
+          description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves.
+          readOnly: true
+        created_at:
+          description: Date and time the break was created at.
+          type: string
+          readOnly: true
+        created_by:
+          description: The id of the user who created the break.
+          type: integer
+          readOnly: true
+        updated_at:
+          description: Date and time the break was last updated.
+          type: string
+          readOnly: true
+        updated_by:
+          description: The id of the user who last edited the break.
+          type: integer
+          readOnly: true
+    AbsenceActions:
+      type: object
+      required:
+      - actionType
+      - createdBy
+      - createdAt
+      properties:
+        actionType:
+          type: string
+          enum:
+          - timeoff
+          - drop
+          - swap
+          - moved-to-open
+          description: Type of action taken on the shift
+        createdBy:
+          type: string
+          description: The user ID of who created the action.
+          example: '221'
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        shiftId:
+          type: string
+          description: Will be present if move to open action was taken.
+          example: '221'
+        requestId:
+          type: string
+          description: Will be present if a time-off action was taken.
+          example: '125'
+        swapId:
+          type: string
+          description: Will be present if a swap or drop action was taken.
+          example: '312'
+    ShiftScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to.
+            readOnly: true
+          start_time:
+            example: Mon, 08 May 2023 9:30:00 -0600
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: Mon, 08 May 2023 10:00:00 -0600
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
+    Notice:
+      type: object
+      properties:
+        time_id:
+          type: integer
+          description: The ID of the time that generated the notice.
+        user_id:
+          type: integer
+          description: The ID of the user who the notice is for.
+        shift_id:
+          type: integer
+          description: 'The ID of the shift that generated the notice of is associated with the time or absence which generated the
+
+            notice.
+
+            '
+        title:
+          type: string
+          description: The title of the notice, matches the code.
+          enum:
+          - Wrong Location
+          - Forgot to Clock Out
+          - Not Scheduled
+          - Absent
+          - No Show
+          - Clocked In Early
+          - Clocked In Late
+          - Clocked Out Early
+          - Clocked Out Late
+          - Missed Clock In
+        code:
+          type: integer
+          description: 'The type of notice. Matches the title.
+
+            * `103` - Wrong Location
+
+            * `107` - Forgot to Clock Out
+
+            * `110` - Not Scheduled
+
+            * `121` - Absent
+
+            * `120` - No Show
+
+            * `131` - Clocked In Early
+
+            * `132` - Clocked In Late
+
+            * `133` - Clocked Out Early
+
+            * `134` - Clocked Out Late
+
+            * `135` - Missed Clock In
+
+            '
+        punch_id:
+          type: integer
+          description: The ID of the punch that generated the notice.
+        absence_id:
+          type: integer
+          description: The ID of the absence that generate the notice.
+        created_at:
+          type: string
+          format: date-time
+          description: 'The time the notice was created at. This depends on the kind of entity that generated the notice. For
+
+            example, this could be the `created_at` time of the punch, `start_time` of the time, `start_time` or
+
+            `end_time` of the shift, or the `created_at` time of the absence.
+
+            '
   requestBodies:
     PayrollRequest:
       content:

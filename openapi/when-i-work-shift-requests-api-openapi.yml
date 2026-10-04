@@ -280,127 +280,59 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    User:
+    Message:
       properties:
         account_id:
-          description: ID of the primary account for this user.
+          description: The account ID that the message is associated with.
           type: integer
-        activated:
-          description: Whether the manager has activated this user.
-          type: boolean
-        email:
-          description: The email address of this user.
-          format: email
-          type: string
-        employee_code:
-          description: 'The user''s employee code. This code can be used to clock in instead of
-
-            the user''s email address, or it can be used to help map users in When
-
-            I Work to other services.
-
-            '
-          type: string
-        first_name:
-          description: The first name of this user.
-          type: string
-        hourly_rate:
-          description: 'The base hourly rate for this user. The user can have additional wages
-
-            based on the position they are working at the time. There is no currency
-
-            attached, so customers are expected to input correct values for their
-
-            currency or do their own conversion from USD.
-
-            '
-          format: float
-          type: number
-        hours_max:
-          description: 'The max hours that this user prefers to work. A manager may still
-
-            schedule the user beyond this value.
-
-            '
-          format: float
-          type: number
-        hours_preferred:
-          description: The preferred number of hours for this user to work.
-          format: float
-          type: number
-        id:
-          description: Unique identifier for the user.
+        actor:
+          description: "Who or what generated the message.\n* `0` - user generated (message was generated directly by a user's\n  actions; their userid is recorded on the message object)\n* `1` - automatically (system took action automatically; usually\n  auto-approved or expired a request)\n* `2` - shift modification (a shift change triggered the message)\n* `3` - all recipients (all recipients declined the request)\n"
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
           type: integer
-        is_deleted:
-          description: Whether the user has been deleted.
-          type: boolean
-        is_hidden:
-          description: Whether the user has been hidden from the scheduler.
-          type: boolean
-        is_payroll:
-          description: 'Whether the user has access to payroll. (Only available for managers
+        content:
+          description: The content of the message.
+          type: string
+        conversation_id:
+          description: 'Deprecated. The ID of the conversation the message is a part of,
 
-            and supervisors.)
+            replaced by either request_id or swap_id.
 
             '
-          type: boolean
-        is_private:
-          description: 'Whether the user has privacy enabled, which will hide their contact
-
-            details from other employees. Supervisors+ can not hide their
-
-            email/phone from other employees.
-
-            '
-          type: boolean
-        is_trusted:
-          description: Whether the user can edit their own timesheet.
-          type: boolean
-        last_login:
-          description: The date and time when this user last logged in.
+          type: integer
+        created_at:
+          description: Date at which the message was created.
           format: date-time
           type: string
-        last_name:
-          description: The last name of this user.
-          type: string
-        locations:
-          description: An array of location IDs to be applied to this user.
-          items:
-            type: integer
-          type: array
-        login_id:
-          description: Unique identifier for the login belonging to the user.
+        id:
+          description: The unique ID of the message.
           type: integer
-        notes:
-          description: Notes about this user. Visible only to supervisors+.
-          type: string
-        phone_number:
-          description: The phone number of this user.
-          type: string
-        positions:
-          description: An array of position IDs to be assigned to this user.
-          items:
-            type: integer
-          type: array
-        role:
-          description: The user's role.
-          enum:
-          - 1 = Admin
-          - 2 = Manager
-          - 3 = Employee (Default)
-          - 4 = Lead (Unused)
-          - 5 = Supervisor
-          type: integer
-        type:
-          description: 'A bitwise flag representing additional wage options:
+        request_id:
+          description: 'The ID of the request the message is for. Either request_id OR swap_id
 
-            1 = hourly employee
-
-            2 = salaried employee
-
-            4 = Exempt from overtime
+            are required.
 
             '
+          type: integer
+        swap_id:
+          description: 'The ID of the swap the message is for. Either request_id OR swap_id are
+
+            required.
+
+            '
+          type: integer
+        title:
+          description: The title of the message.
+          type: string
+        updated_at:
+          description: Date the message was most recently updated.
+          format: date-time
+          type: string
+        user_id:
+          description: The ID of the user.
           type: integer
       type: object
     Shift:
@@ -532,25 +464,6 @@ components:
           description: Is rounding active for shift
           type: boolean
           example: false
-    ShiftScheduledBreak:
-      allOf:
-      - $ref: '#/components/schemas/BaseScheduledBreak'
-      - type: object
-        properties:
-          shift_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to.
-            readOnly: true
-          start_time:
-            example: Mon, 08 May 2023 9:30:00 -0600
-            description: The start time of the break. Null if the break does not have a start time.
-            type: string
-          end_time:
-            example: Mon, 08 May 2023 10:00:00 -0600
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
-            type: string
-            readOnly: true
     BaseScheduledBreak:
       type: object
       required:
@@ -592,61 +505,6 @@ components:
           description: The id of the user who last edited the break.
           type: integer
           readOnly: true
-    Message:
-      properties:
-        account_id:
-          description: The account ID that the message is associated with.
-          type: integer
-        actor:
-          description: "Who or what generated the message.\n* `0` - user generated (message was generated directly by a user's\n  actions; their userid is recorded on the message object)\n* `1` - automatically (system took action automatically; usually\n  auto-approved or expired a request)\n* `2` - shift modification (a shift change triggered the message)\n* `3` - all recipients (all recipients declined the request)\n"
-          enum:
-          - 0
-          - 1
-          - 2
-          - 3
-          type: integer
-        content:
-          description: The content of the message.
-          type: string
-        conversation_id:
-          description: 'Deprecated. The ID of the conversation the message is a part of,
-
-            replaced by either request_id or swap_id.
-
-            '
-          type: integer
-        created_at:
-          description: Date at which the message was created.
-          format: date-time
-          type: string
-        id:
-          description: The unique ID of the message.
-          type: integer
-        request_id:
-          description: 'The ID of the request the message is for. Either request_id OR swap_id
-
-            are required.
-
-            '
-          type: integer
-        swap_id:
-          description: 'The ID of the swap the message is for. Either request_id OR swap_id are
-
-            required.
-
-            '
-          type: integer
-        title:
-          description: The title of the message.
-          type: string
-        updated_at:
-          description: Date the message was most recently updated.
-          format: date-time
-          type: string
-        user_id:
-          description: The ID of the user.
-          type: integer
-      type: object
     Swap:
       description: 'Shift requests let users swap shifts with each other or drop shifts for other users
 
@@ -766,6 +624,148 @@ components:
             * `5` - Expired
 
             * `6` - Denied
+
+            '
+          type: integer
+      type: object
+    ShiftScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to.
+            readOnly: true
+          start_time:
+            example: Mon, 08 May 2023 9:30:00 -0600
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: Mon, 08 May 2023 10:00:00 -0600
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
+    User:
+      properties:
+        account_id:
+          description: ID of the primary account for this user.
+          type: integer
+        activated:
+          description: Whether the manager has activated this user.
+          type: boolean
+        email:
+          description: The email address of this user.
+          format: email
+          type: string
+        employee_code:
+          description: 'The user''s employee code. This code can be used to clock in instead of
+
+            the user''s email address, or it can be used to help map users in When
+
+            I Work to other services.
+
+            '
+          type: string
+        first_name:
+          description: The first name of this user.
+          type: string
+        hourly_rate:
+          description: 'The base hourly rate for this user. The user can have additional wages
+
+            based on the position they are working at the time. There is no currency
+
+            attached, so customers are expected to input correct values for their
+
+            currency or do their own conversion from USD.
+
+            '
+          format: float
+          type: number
+        hours_max:
+          description: 'The max hours that this user prefers to work. A manager may still
+
+            schedule the user beyond this value.
+
+            '
+          format: float
+          type: number
+        hours_preferred:
+          description: The preferred number of hours for this user to work.
+          format: float
+          type: number
+        id:
+          description: Unique identifier for the user.
+          type: integer
+        is_deleted:
+          description: Whether the user has been deleted.
+          type: boolean
+        is_hidden:
+          description: Whether the user has been hidden from the scheduler.
+          type: boolean
+        is_payroll:
+          description: 'Whether the user has access to payroll. (Only available for managers
+
+            and supervisors.)
+
+            '
+          type: boolean
+        is_private:
+          description: 'Whether the user has privacy enabled, which will hide their contact
+
+            details from other employees. Supervisors+ can not hide their
+
+            email/phone from other employees.
+
+            '
+          type: boolean
+        is_trusted:
+          description: Whether the user can edit their own timesheet.
+          type: boolean
+        last_login:
+          description: The date and time when this user last logged in.
+          format: date-time
+          type: string
+        last_name:
+          description: The last name of this user.
+          type: string
+        locations:
+          description: An array of location IDs to be applied to this user.
+          items:
+            type: integer
+          type: array
+        login_id:
+          description: Unique identifier for the login belonging to the user.
+          type: integer
+        notes:
+          description: Notes about this user. Visible only to supervisors+.
+          type: string
+        phone_number:
+          description: The phone number of this user.
+          type: string
+        positions:
+          description: An array of position IDs to be assigned to this user.
+          items:
+            type: integer
+          type: array
+        role:
+          description: The user's role.
+          enum:
+          - 1 = Admin
+          - 2 = Manager
+          - 3 = Employee (Default)
+          - 4 = Lead (Unused)
+          - 5 = Supervisor
+          type: integer
+        type:
+          description: 'A bitwise flag representing additional wage options:
+
+            1 = hourly employee
+
+            2 = salaried employee
+
+            4 = Exempt from overtime
 
             '
           type: integer
