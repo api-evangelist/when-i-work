@@ -1227,6 +1227,9 @@ apis:
   - type: FinOps
     url: finops/when-i-work-finops.yml
 common:
+  - type: CapabilityMap
+    url: capabilities/when-i-work-capability-edges.yml
+    name: When I Work Business Capability Map
 
   - type: AgenticAccess
     url: agentic-access/when-i-work-agentic-access.yml
