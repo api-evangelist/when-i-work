@@ -235,18 +235,6 @@ components:
         start_time: Start
         end_time: End
         position: null
-    ImportType:
-      type: string
-      enum:
-      - EMPLOYEE
-      - SHIFT_TEMPLATE
-      description: 'The type of resource to be imported. Determines the column names that appear throughout the process.
-
-
-        A full list of accepted column names for each type can be found in the Import section documentation.
-
-        '
-      example: SHIFT_TEMPLATE
     Import:
       type: object
       properties:
@@ -287,6 +275,18 @@ components:
             schedule: Schedule
             position: null
             unpaid_break: Break
+    ImportType:
+      type: string
+      enum:
+      - EMPLOYEE
+      - SHIFT_TEMPLATE
+      description: 'The type of resource to be imported. Determines the column names that appear throughout the process.
+
+
+        A full list of accepted column names for each type can be found in the Import section documentation.
+
+        '
+      example: SHIFT_TEMPLATE
   securitySchemes:
     W-Token:
       type: http

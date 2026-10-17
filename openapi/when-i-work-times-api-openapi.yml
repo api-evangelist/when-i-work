@@ -180,6 +180,67 @@ paths:
       operationId: delete2TimesById
       x-operation-id-source: derived
 components:
+  requestBodies:
+    TimeRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              user_id:
+                type: integer
+                example: 101
+                description: The user assigned to the times.
+              position_id:
+                type: integer
+                example: 19483
+                description: Position the time belongs to. 0 if unassigned.
+              location_id:
+                type: integer
+                example: 1045
+                description: Location the time belongs to. 0 if unassigned.
+              site_id:
+                type: integer
+                example: 4351
+                description: Site the time belongs to. 0 if unassigned.
+              shift_id:
+                type: integer
+                example: 5451
+                description: A shift tied to this time. 0 if unassigned.
+              start_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 08:30:00 -0600
+                description: The start time. For accounts with Check payroll onboarded, time must not be past the end of the current pay period
+              end_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 14:30:00 -0600
+                description: The end time
+              rounded_start_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 08:30:00 -0600
+                description: The rounded start time. If rounding is not enabled this field will not be present.
+              rounded_end_time:
+                type: string
+                format: date-time
+                example: Fri, 07 Mar 2016 14:30:00 -0600
+                description: The rounded end time. If rounding is not enabled this field will not be present.
+              notes:
+                type: string
+                example: A time note
+                description: Notes for a time
+              is_approved:
+                type: boolean
+                example: false
+                description: If the time is approved
+              cash_tips:
+                description: The amount of cash tips reported for the time entry.
+                type: string
+                format: decimal
+                example: '54.32'
+      description: Time data
   schemas:
     Time:
       type: object
@@ -323,67 +384,6 @@ components:
           readOnly: true
           example: I am a note entered for the shift break paid record
           description: The note associated with the shift break paid record. The include_paid_break_note query param must be set to true for this to be returned.
-  requestBodies:
-    TimeRequest:
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              user_id:
-                type: integer
-                example: 101
-                description: The user assigned to the times.
-              position_id:
-                type: integer
-                example: 19483
-                description: Position the time belongs to. 0 if unassigned.
-              location_id:
-                type: integer
-                example: 1045
-                description: Location the time belongs to. 0 if unassigned.
-              site_id:
-                type: integer
-                example: 4351
-                description: Site the time belongs to. 0 if unassigned.
-              shift_id:
-                type: integer
-                example: 5451
-                description: A shift tied to this time. 0 if unassigned.
-              start_time:
-                type: string
-                format: date-time
-                example: Fri, 07 Mar 2016 08:30:00 -0600
-                description: The start time. For accounts with Check payroll onboarded, time must not be past the end of the current pay period
-              end_time:
-                type: string
-                format: date-time
-                example: Fri, 07 Mar 2016 14:30:00 -0600
-                description: The end time
-              rounded_start_time:
-                type: string
-                format: date-time
-                example: Fri, 07 Mar 2016 08:30:00 -0600
-                description: The rounded start time. If rounding is not enabled this field will not be present.
-              rounded_end_time:
-                type: string
-                format: date-time
-                example: Fri, 07 Mar 2016 14:30:00 -0600
-                description: The rounded end time. If rounding is not enabled this field will not be present.
-              notes:
-                type: string
-                example: A time note
-                description: Notes for a time
-              is_approved:
-                type: boolean
-                example: false
-                description: If the time is approved
-              cash_tips:
-                description: The amount of cash tips reported for the time entry.
-                type: string
-                format: decimal
-                example: '54.32'
-      description: Time data
   securitySchemes:
     W-Token:
       type: http

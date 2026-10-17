@@ -138,7 +138,33 @@ paths:
       operationId: delete2BlocksById
       x-operation-id-source: derived
 components:
+  requestBodies:
+    ShiftTemplateRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ShiftTemplate'
+      description: The shift template (block) data
   schemas:
+    BlockScheduledBreak:
+      allOf:
+      - $ref: '#/components/schemas/BaseScheduledBreak'
+      - type: object
+        properties:
+          block_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift template that the break applies to.
+            readOnly: true
+          start_time:
+            example: '9:30:00'
+            description: The start time of the break. Null if the break does not have a start time.
+            type: string
+          end_time:
+            example: '10:00:00'
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
+            type: string
+            readOnly: true
     ShiftTemplate:
       type: object
       properties:
@@ -184,25 +210,6 @@ components:
           type: string
           format: date-time
           example: '2019-05-16T06:57:28+05:00'
-    BlockScheduledBreak:
-      allOf:
-      - $ref: '#/components/schemas/BaseScheduledBreak'
-      - type: object
-        properties:
-          block_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift template that the break applies to.
-            readOnly: true
-          start_time:
-            example: '9:30:00'
-            description: The start time of the break. Null if the break does not have a start time.
-            type: string
-          end_time:
-            example: '10:00:00'
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length.
-            type: string
-            readOnly: true
     BaseScheduledBreak:
       type: object
       required:
@@ -244,13 +251,6 @@ components:
           description: The id of the user who last edited the break.
           type: integer
           readOnly: true
-  requestBodies:
-    ShiftTemplateRequest:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ShiftTemplate'
-      description: The shift template (block) data
   securitySchemes:
     W-Token:
       type: http

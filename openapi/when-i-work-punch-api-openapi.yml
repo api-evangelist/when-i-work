@@ -307,62 +307,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    PunchStateScheduledBreak:
-      allOf:
-      - type: object
-        properties:
-          id:
-            type: integer
-            description: Scheduled Break Id
-            example: 1
-          account_id:
-            type: integer
-            description: Account Id associated with this break
-            example: 3
-          start_time:
-            description: The start time of the break. Null if the break does not have a start time
-            type: string
-            example: '2025-05-19T14:30:00+00:00'
-          end_time:
-            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length
-            type: string
-            example: '2025-05-19T14:45:00+00:00'
-          length:
-            description: The length of the break (seconds)
-            type: integer
-            example: 900
-          paid:
-            description: Whether the break is a paid rest break (true) or unpaid meal break (false)
-            type: boolean
-            example: true
-          created_by:
-            description: The id of the user who created the break
-            type: integer
-            example: 201
-          created_at:
-            description: Date and time the break was created at
-            type: string
-            example: '2025-05-10T14:45:00+00:00'
-          updated_by:
-            description: The id of the user who last edited the break
-            type: string
-            example: '202'
-          updated_at:
-            description: Date and time the break was last updated
-            type: string
-            example: '2025-05-10T15:45:00+00:00'
-          sort:
-            type: integer
-            description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves
-          shift_id:
-            type: integer
-            example: 1234
-            description: The ID of the shift that the break applies to
-            readOnly: true
-          shift_break:
-            type: object
-            description: When not null, at least a start time was created for an associated shift break. Otherwise, no breaks have been taken for this scheduled break
-            $ref: '#/components/schemas/PunchStateNestedShiftBreak'
     Time:
       type: object
       properties:
@@ -528,38 +472,62 @@ components:
             description: The length of the break if it's completed, in minutes. Length will be zero until the break has ended
             type: integer
             example: 6
-    V2Error:
-      type: object
-      required:
-      - error
-      properties:
-        error:
-          type: string
-          description: A description of the specific error
-        code:
-          oneOf:
-          - type: integer
-          - type: string
-          description: The API error code
-    PunchStateRootShiftBreak:
+    PunchStateScheduledBreak:
       allOf:
-      - $ref: '#/components/schemas/PunchStateShiftBreakBase'
       - type: object
         properties:
-          start:
-            description: The break start time
-            type: string
-            format: date-time
-            example: 2025-05-19T10:45:00-0400
-          end:
-            description: The break end time. Will always be an empty string; once the break has an end, it is no longer returned by this endpoint under the `break` key
-            type: string
-            format: date-time
-            example: ''
-          length:
-            description: The break length from the database model once the break is complete, in minutes. Until the break is complete, this value remains zero. However, once the break is complete, the `break` object is not longer returned by this endpoint. Hence, break length should be calculated based on the `start` instead
+          id:
             type: integer
-            example: 0
+            description: Scheduled Break Id
+            example: 1
+          account_id:
+            type: integer
+            description: Account Id associated with this break
+            example: 3
+          start_time:
+            description: The start time of the break. Null if the break does not have a start time
+            type: string
+            example: '2025-05-19T14:30:00+00:00'
+          end_time:
+            description: The end time of the break. Null if the break does not have an end time. Calculated from the start time of the break and the length
+            type: string
+            example: '2025-05-19T14:45:00+00:00'
+          length:
+            description: The length of the break (seconds)
+            type: integer
+            example: 900
+          paid:
+            description: Whether the break is a paid rest break (true) or unpaid meal break (false)
+            type: boolean
+            example: true
+          created_by:
+            description: The id of the user who created the break
+            type: integer
+            example: 201
+          created_at:
+            description: Date and time the break was created at
+            type: string
+            example: '2025-05-10T14:45:00+00:00'
+          updated_by:
+            description: The id of the user who last edited the break
+            type: string
+            example: '202'
+          updated_at:
+            description: Date and time the break was last updated
+            type: string
+            example: '2025-05-10T15:45:00+00:00'
+          sort:
+            type: integer
+            description: Breaks are sorted by start time if it is available. If no start time is provided, breaks are sorted by their position in the request. In a mixed list, breaks without a start time keep their original position, while breaks with a start time are sorted amongst themselves
+          shift_id:
+            type: integer
+            example: 1234
+            description: The ID of the shift that the break applies to
+            readOnly: true
+          shift_break:
+            type: object
+            description: When not null, at least a start time was created for an associated shift break. Otherwise, no breaks have been taken for this scheduled break
+            $ref: '#/components/schemas/PunchStateNestedShiftBreak'
     User:
       properties:
         account_id:
@@ -754,6 +722,38 @@ components:
 
             '
           type: array
+    V2Error:
+      type: object
+      required:
+      - error
+      properties:
+        error:
+          type: string
+          description: A description of the specific error
+        code:
+          oneOf:
+          - type: integer
+          - type: string
+          description: The API error code
+    PunchStateRootShiftBreak:
+      allOf:
+      - $ref: '#/components/schemas/PunchStateShiftBreakBase'
+      - type: object
+        properties:
+          start:
+            description: The break start time
+            type: string
+            format: date-time
+            example: 2025-05-19T10:45:00-0400
+          end:
+            description: The break end time. Will always be an empty string; once the break has an end, it is no longer returned by this endpoint under the `break` key
+            type: string
+            format: date-time
+            example: ''
+          length:
+            description: The break length from the database model once the break is complete, in minutes. Until the break is complete, this value remains zero. However, once the break is complete, the `break` object is not longer returned by this endpoint. Hence, break length should be calculated based on the `start` instead
+            type: integer
+            example: 0
   requestBodies:
     ClockOutRequest:
       description: Clock Out (Punch) request data
